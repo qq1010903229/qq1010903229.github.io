@@ -1,27 +1,46 @@
 
+
 <!doctype html>
 <html>
 <head>
 <script>
-var k=5,kk=50,kkk=2,p=0;function gx(){
+var k=5,kk=50,kkk=2,kkkk=0,p=0;
+var thit=0,phit=0,shit=0;function gx(){
   setm();
 if(document.getElementById("s")===null){
 document.getElementById("main").innerHTML='<div id="s"></div>'+document.getElementById("main").innerHTML;
+shit++;
 }
+if(document.getElementById("p")===null){
+document.getElementById("main").innerHTML='<div id="p"></div>'+document.getElementById("main").innerHTML;
+phit++;
+}
+if(document.getElementById("t")===null){
+document.getElementById("main").innerHTML='<div id="t"></div>'+document.getElementById("main").innerHTML;
+thit++;
+}
+if(document.getElementById("t1")===null){
+document.getElementById("main").innerHTML='<div id="t1"></div>'+document.getElementById("main").innerHTML;
+thit++;
+}
+document.getElementById("p").innerHTML='Level '+(kk/50)+'/10';
+document.getElementById("t").style='width:'+(kk*(kk+50)/50-(document.getElementById("main").childNodes.length)+kkkk)/72.6+'%';
+document.getElementById("t1").style='width:'+((document.getElementById("main").childNodes.length)/kk*50)+'%';
 if(k%10==0){document.getElementById("main").innerHTML+='<div style="width:800px;height:80px;color:#ffffff;background-color:#0000ff;font-size:22pt;">Use Kick Ass to shoot this text!</div><div style="width:800px;height:80px;color:#ffffff;background-color:#00ff00;font-size:22pt;">Use Kick Ass to shoot this text!</div>';
-document.getElementById("main").innerHTML+='<div style="width:800px;height:80px;color:#ffffff;background-color:#0000ff;font-size:22pt;">Use Kick Ass to shoot this text!</div><div style="width:800px;height:80px;color:#ffffff;background-color:#00ff00;font-size:22pt;">Use Kick Ass to shoot this text!</div>';
-if(document.getElementById("main").childNodes.length<500)document.getElementById("main").innerHTML+='<div style="width:800px;height:80px;color:#ffffff;background-color:#0000ff;font-size:22pt;">Use Kick Ass to shoot this text!</div><div style="width:800px;height:80px;color:#ffffff;background-color:#00ff00;font-size:22pt;">Use Kick Ass to shoot this text!</div>';
-if(document.getElementById("main").childNodes.length<400)document.getElementById("main").innerHTML+='<div style="width:800px;height:80px;color:#ffffff;background-color:#0000ff;font-size:22pt;">Use Kick Ass to shoot this text!</div><div style="width:800px;height:80px;color:#ffffff;background-color:#00ff00;font-size:22pt;">Use Kick Ass to shoot this text!</div>';
-if(document.getElementById("main").childNodes.length<300)document.getElementById("main").innerHTML+='<div style="width:800px;height:80px;color:#ffffff;background-color:#0000ff;font-size:22pt;">Use Kick Ass to shoot this text!</div><div style="width:800px;height:80px;color:#ffffff;background-color:#00ff00;font-size:22pt;">Use Kick Ass to shoot this text!</div>';
-if(document.getElementById("main").childNodes.length<200)document.getElementById("main").innerHTML+='<div style="width:800px;height:80px;color:#ffffff;background-color:#0000ff;font-size:22pt;">Use Kick Ass to shoot this text!</div><div style="width:800px;height:80px;color:#ffffff;background-color:#00ff00;font-size:22pt;">Use Kick Ass to shoot this text!</div>';
-if(document.getElementById("main").childNodes.length<100)document.getElementById("main").innerHTML+='<div style="width:800px;height:80px;color:#ffffff;background-color:#0000ff;font-size:22pt;">Use Kick Ass to shoot this text!</div><div style="width:800px;height:80px;color:#ffffff;background-color:#00ff00;font-size:22pt;">Use Kick Ass to shoot this text!</div>';
-if(document.getElementById("main").childNodes.length<90)document.getElementById("main").innerHTML+='<div style="width:800px;height:80px;color:#ffffff;background-color:#0000ff;font-size:22pt;">Use Kick Ass to shoot this text!</div><div style="width:800px;height:80px;color:#ffffff;background-color:#00ff00;font-size:22pt;">Use Kick Ass to shoot this text!</div>';
-if(document.getElementById("main").childNodes.length<80)document.getElementById("main").innerHTML+='<div style="width:800px;height:80px;color:#ffffff;background-color:#0000ff;font-size:22pt;">Use Kick Ass to shoot this text!</div><div style="width:800px;height:80px;color:#ffffff;background-color:#00ff00;font-size:22pt;">Use Kick Ass to shoot this text!</div>';
-if(document.getElementById("main").childNodes.length<70)document.getElementById("main").innerHTML+='<div style="width:800px;height:80px;color:#ffffff;background-color:#0000ff;font-size:22pt;">Use Kick Ass to shoot this text!</div><div style="width:800px;height:80px;color:#ffffff;background-color:#00ff00;font-size:22pt;">Use Kick Ass to shoot this text!</div>';
+if(kk>250)document.getElementById("main").innerHTML+='<div style="width:800px;height:80px;color:#ffffff;background-color:#0000ff;font-size:22pt;">Use Kick Ass to shoot this text!</div><div style="width:800px;height:80px;color:#ffffff;background-color:#00ff00;font-size:22pt;">Use Kick Ass to shoot this text!</div>';
+if(document.getElementById("main").childNodes.length<500 && kk>200)document.getElementById("main").innerHTML+='<div style="width:800px;height:80px;color:#ffffff;background-color:#0000ff;font-size:22pt;">Use Kick Ass to shoot this text!</div><div style="width:800px;height:80px;color:#ffffff;background-color:#00ff00;font-size:22pt;">Use Kick Ass to shoot this text!</div>';
+if(document.getElementById("main").childNodes.length<400 && kk>200)document.getElementById("main").innerHTML+='<div style="width:800px;height:80px;color:#ffffff;background-color:#0000ff;font-size:22pt;">Use Kick Ass to shoot this text!</div><div style="width:800px;height:80px;color:#ffffff;background-color:#00ff00;font-size:22pt;">Use Kick Ass to shoot this text!</div>';
+if(document.getElementById("main").childNodes.length<300 && kk>150)document.getElementById("main").innerHTML+='<div style="width:800px;height:80px;color:#ffffff;background-color:#0000ff;font-size:22pt;">Use Kick Ass to shoot this text!</div><div style="width:800px;height:80px;color:#ffffff;background-color:#00ff00;font-size:22pt;">Use Kick Ass to shoot this text!</div>';
+if(document.getElementById("main").childNodes.length<200 && kk>150)document.getElementById("main").innerHTML+='<div style="width:800px;height:80px;color:#ffffff;background-color:#0000ff;font-size:22pt;">Use Kick Ass to shoot this text!</div><div style="width:800px;height:80px;color:#ffffff;background-color:#00ff00;font-size:22pt;">Use Kick Ass to shoot this text!</div>';
+if(document.getElementById("main").childNodes.length<100 && kk>100)document.getElementById("main").innerHTML+='<div style="width:800px;height:80px;color:#ffffff;background-color:#0000ff;font-size:22pt;">Use Kick Ass to shoot this text!</div><div style="width:800px;height:80px;color:#ffffff;background-color:#00ff00;font-size:22pt;">Use Kick Ass to shoot this text!</div>';
+if(document.getElementById("main").childNodes.length<90 && kk>100)document.getElementById("main").innerHTML+='<div style="width:800px;height:80px;color:#ffffff;background-color:#0000ff;font-size:22pt;">Use Kick Ass to shoot this text!</div><div style="width:800px;height:80px;color:#ffffff;background-color:#00ff00;font-size:22pt;">Use Kick Ass to shoot this text!</div>';
+if(document.getElementById("main").childNodes.length<80 && kk>50)document.getElementById("main").innerHTML+='<div style="width:800px;height:80px;color:#ffffff;background-color:#0000ff;font-size:22pt;">Use Kick Ass to shoot this text!</div><div style="width:800px;height:80px;color:#ffffff;background-color:#00ff00;font-size:22pt;">Use Kick Ass to shoot this text!</div>';
+if(document.getElementById("main").childNodes.length<70 && kk>50)document.getElementById("main").innerHTML+='<div style="width:800px;height:80px;color:#ffffff;background-color:#0000ff;font-size:22pt;">Use Kick Ass to shoot this text!</div><div style="width:800px;height:80px;color:#ffffff;background-color:#00ff00;font-size:22pt;">Use Kick Ass to shoot this text!</div>';
 if(document.getElementById("main").childNodes.length<60)document.getElementById("main").innerHTML+='<div style="width:800px;height:80px;color:#ffffff;background-color:#0000ff;font-size:22pt;">Use Kick Ass to shoot this text!</div><div style="width:800px;height:80px;color:#ffffff;background-color:#00ff00;font-size:22pt;">Use Kick Ass to shoot this text!</div>';
 if(document.getElementById("main").childNodes.length<50)document.getElementById("main").innerHTML+='<div style="width:800px;height:80px;color:#ffffff;background-color:#0000ff;font-size:22pt;">Use Kick Ass to shoot this text!</div><div style="width:800px;height:80px;color:#ffffff;background-color:#00ff00;font-size:22pt;">Use Kick Ass to shoot this text!</div>';
 k=1;
 if(document.getElementById("main").childNodes.length<200 && kkk>0){
+kkkk+=160;
 var i=80;
 while(i>0){
 document.getElementById("main").innerHTML+='<div style="width:800px;height:80px;color:#ffffff;background-color:#0000ff;font-size:22pt;">Use Kick Ass to shoot this text!</div><div style="width:800px;height:80px;color:#ffffff;background-color:#00ff00;font-size:22pt;">Use Kick Ass to shoot this text!</div>';
@@ -32,7 +51,7 @@ kkk--;
 }
 }
 document.getElementById("s").innerHTML='Site HP='+document.getElementById("main").childNodes.length;
-if(document.getElementById("main").childNodes.length>10)k++,setTimeout(gx,100);
+if(document.getElementById("main").childNodes.length>15)k++,setTimeout(gx,100);
 else{
 p=Math.pow(kk,1.7);
 p*=(3.6+kkk);
@@ -45,11 +64,17 @@ showmore();
 }
 }
 function showp(){
-if(kk<500)alert('Level Up! Bonus: '+p+" points!");else alert('You destroyed all the site! Bonus: '+p+" points!");
+if(kk<500)alert('Level Up! Bonus: '+p+" points!");
+else alert('You destroyed all the site! Bonus: '+p+" points!"),alert("Result:\n\nProgress Bar Hits: "+thit+"\nHP Window Hits: "+shit+"\nLevel Window Hits: "+phit);
 }
 function showmore(){
 kk+=50;
-  if(kk>500)return;
+if(document.getElementById("p")===null){
+document.getElementById("main").innerHTML='<div id="p"></div>'+document.getElementById("main").innerHTML;
+}
+
+  if(kk>500)return document.getElementById("t1").style="width:100%",void 0;
+document.getElementById("p").innerHTML='Level '+(kk/50)+'/10';
 csh(kk);gx();
 //document.getElementById("main").innerHTML='<a href="javascript:csh('+kk+');gx();">More Points!</a>';
 }
@@ -75,6 +100,9 @@ if(kk<=50)if(window.KICKASSGAME)window.KICKASSGAME.menuManager.game.multiplier=1
 </script>
 <style>
 #s{position:fixed;left:20px;bottom:0px;height:80px;width:480px;background-color:#ff0000;color:#ffffff;font-size:33pt;z-index:1000;}
+#p{position:fixed;right:20px;top:0px;height:80px;width:480px;background-color:#ff0000;color:#ffffff;font-size:33pt;z-index:1000;}
+#t{position:fixed;left:0px;top:0px;height:7px;background-color:#ff6600;color:#ffffff;font-size:33pt;z-index:2000;}
+#t1{position:fixed;left:0px;top:10px;height:7px;background-color:#ff6600;color:#ffffff;font-size:33pt;z-index:2000;}
 </style>
 </head>
 <body onload="csh(50);gx();">
@@ -82,6 +110,5 @@ if(kk<=50)if(window.KICKASSGAME)window.KICKASSGAME.menuManager.game.multiplier=1
 
 
 <div id="main">
-<div id="s">Site HP=103</div>
 </div>
 </body></html>
