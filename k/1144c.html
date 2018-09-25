@@ -4,7 +4,7 @@
 <html>
 <head>
 <script>
-var k=5,kk=50,kkk=2,kkkk=0,p=0;
+var k=5,kk=50,kkk=2,kkkk=0,p=0,commonmult=1;
 var thit=0,phit=0,shit=0;function gx(){
   setm();
 if(document.getElementById("s")===null){
@@ -92,9 +92,12 @@ i--;
 }
 }
 function setm(){
-if(window.KICKASSGAME)window.KICKASSGAME.menuManager.game.multiplier=Math.ceil(Math.pow(kk,0.5));
-if(kk<=100)if(window.KICKASSGAME)window.KICKASSGAME.menuManager.game.multiplier=9;
-if(kk<=50)if(window.KICKASSGAME)window.KICKASSGAME.menuManager.game.multiplier=1;
+  if(window.KICKASSGAME){
+    if(kk<=50)if(window.KICKASSGAME.menuManager.game.multiplier!=Math.ceil(commonmult))commonmult=window.KICKASSGAME.menuManager.game.multiplier/10;
+  }
+if(window.KICKASSGAME)window.KICKASSGAME.menuManager.game.multiplier=Math.ceil(commonmult*Math.pow(kk,0.5));
+if(kk<=100)if(window.KICKASSGAME)window.KICKASSGAME.menuManager.game.multiplier=Math.ceil(commonmult*9);
+if(kk<=50)if(window.KICKASSGAME)window.KICKASSGAME.menuManager.game.multiplier=Math.ceil(commonmult);
 
 }
 </script>
