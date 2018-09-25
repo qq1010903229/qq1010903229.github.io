@@ -93,7 +93,7 @@ i--;
 }
 function setm(){
   if(window.KICKASSGAME){
-    if(kk<=50)if(window.KICKASSGAME.menuManager.game.multiplier!=Math.ceil(commonmult))commonmult=window.KICKASSGAME.menuManager.game.multiplier/10;
+    if(kk<=50)if(window.KICKASSGAME.menuManager.game.multiplier!=Math.ceil(commonmult))commonmult=window.KICKASSGAME.menuManager.game.multiplier/10,alert("Multiplier:x"+commonmult*10);
   }
 if(window.KICKASSGAME)window.KICKASSGAME.menuManager.game.multiplier=Math.ceil(commonmult*Math.pow(kk,0.5));
 if(kk<=100)if(window.KICKASSGAME)window.KICKASSGAME.menuManager.game.multiplier=Math.ceil(commonmult*9);
