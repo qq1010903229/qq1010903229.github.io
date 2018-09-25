@@ -56,7 +56,7 @@ else{
 p=Math.pow(kk,1.7);
 p*=(3.6+kkk);
 p/=6;
-p=Math.ceil(p);
+p=Math.ceil(p*commonmult);
 if(window.KICKASSGAME)window.KICKASSGAME.menuManager.numPoints+=p,window.KICKASSGAME.menuManager.game.statisticsManager&&window.KICKASSGAME.menuManager.game.statisticsManager.increasePointsGainedWithPoints(p);
 showp();
 
