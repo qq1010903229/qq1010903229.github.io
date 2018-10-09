@@ -5,45 +5,72 @@
 酷我API
 </title>
 <script>
-var id,id2,id3,f,f1,bofang,huoqu,xmlhttp,audio,load=function(){
+var id,id2,id3,hq,dd,aa,err,f,f1,g,h,huoqu,down,audio,p=0,load=function(){
 id=document.getElementById("id");
 id2=document.getElementById("id2");
-id3=document.getElementById("id3");
+//id3=document.getElementById("id3");
+hq=document.getElementById("hq");
+aa=document.getElementById("aa");
+dd=document.getElementById("dd");
+err=document.getElementById("err");
+down=document.getElementById("down");
 audio=document.createElement("audio");
+audio.controls="controls";
 f=function(){
 id.value=id.value.replace(/\D/g,"");
 id2.innerHTML=id.value;
-id3.innerHTML=id.value;
+//id3.innerHTML=id.value;
 };
 f1=function(){
 setTimeout(f,10);
 };
-bofang=function(){
-if (xmlhttp.readyState==4)
-  {// 4 = "loaded"
-  if (xmlhttp.status==200)
-    {// 200 = OK
-    alert(xmlhttp.responseText);
-    }
-  }
+h=function(){
+if(p>=100)return;
+p++;
+hq.innerHTML=p;
+setTimeout(h,20);
+};
+g=function(){
+if(audio.error!==null){
+dd.style.display="none";
+aa.style.display="initial";
+err.style.display="block";
+return;
+}
+dd.style.display="none";
+aa.style.display="initial";
+down.style.display="block";
+down.href=audio.src;
+document.body.append(audio);
 };
 huoqu=function(){
 f();
-xmlhttp=new XMLHttpRequest();
-xmlhttp.onreadystatechange=bofang;
-xmlhttp.open("GET","https://antiserver.kuwo.cn/anti.s?format=mp3&rid=MUSIC_"+id.value+"&type=convert_url",true);
-xmlhttp.send(null);
+try{document.body.removeChild(audio);}catch(e){console.info(e)}
+down.style.display="none";
+err.style.display="none";
+aa.style.display="none";
+dd.style.display="block";
+audio.src="http://antiserver.kuwo.cn/anti.s?format=mp3&rid=MUSIC_"+id.value+"&type=convert_url&response=res";
+audio.play();
+setTimeout(g,2000);
+p=0;
+h();
 };
 };
 </script>
 </head>
 <body onload="load()">
-歌曲ID：<input type="number" min="0" max="10000000000" id="id" style="width:600px;" placeholder="例如《中国话》为42397183" onkeydown="f1()" onmousedown="f1()" onchange="f1()">
+酷我歌曲ID：<input type="number" min="0" max="10000000000" id="id" style="width:600px;" placeholder="例如《中国话》为42397183" onkeydown="f1()" onmousedown="f1()" onchange="f1()">
 <br>
-播放地址：https://www.kuwo.cn/yinyue/<span id="id2"></span>/
+播放地址：http://www.kuwo.cn/yinyue/<span id="id2"></span>/
+<!--<br>
+获取MP3地址：http://antiserver.kuwo.cn/anti.s?format=mp3&rid=MUSIC_<span id="id3"></span>&type=convert_url
+--><br>
+<a id="aa" href="javascript:huoqu();">获取MP3</a>
 <br>
-获取MP3地址：https://antiserver.kuwo.cn/anti.s?format=mp3&rid=MUSIC_<span id="id3"></span>&type=convert_url
+<a href="" id="down" style="display:none;">下载MP3</a>
 <br>
-<a href="javascript:huoqu();">获取MP3</a>
+<div id="dd" style="display:none;">正在获取中（<span id="hq">0</span>%）...</div>
+<div id="err" style="display:none;">获取失败</div>
 </body>
 </html>
