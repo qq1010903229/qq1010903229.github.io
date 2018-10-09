@@ -28,6 +28,7 @@ h=function(){
 if(p>=100)return;
 p++;
 hq.innerHTML=p;
+document.querySelector("progress").value=p;
 setTimeout(h,20);
 };
 g=function(){
@@ -70,7 +71,7 @@ h();
 <br>
 <a href="" id="down" style="display:none;">下载MP3</a>
 <br>
-<div id="dd" style="display:none;">正在获取中（<span id="hq">0</span>%）...</div>
+<div id="dd" style="display:none;">正在获取中（<span id="hq">0</span>%）...<progress min="0" max="100" ></progress></div>
 <div id="err" style="display:none;">获取失败</div>
 </body>
 </html>
