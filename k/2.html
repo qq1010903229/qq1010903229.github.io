@@ -14,12 +14,12 @@ setTimeout(tt,300);
 function setm(){
 setTimeout(setm,10);
 if(window.KICKASSGAME){
-document.getElementById("p").innerHTML='Points: '+window.KICKASSGAME.statisticsManager.data.totalPointsThisSession+'/'+window.KICKASSGAME.menuManager.game.multiplier*2+' ('+Math.floor(window.KICKASSGAME.statisticsManager.data.totalPointsThisSession/window.KICKASSGAME.menuManager.game.multiplier*50000)/100+'%)';
+document.getElementById("p").innerHTML='Points: '+window.KICKASSGAME.statisticsManager.data.totalPointsThisSession+'/'+window.KICKASSGAME.menuManager.game.multiplier*2+' ('+Math.floor(window.KICKASSGAME.statisticsManager.data.totalPointsThisSession/window.KICKASSGAME.menuManager.game.multiplier*5000)/100+'%)';
 }
 }
 setTimeout(setm,300);
 </script>
   </head><body>
 <span class='KICKASSELEMENT' id="p">Points:</span><br>
-<span>This page can be destroyed using less</span><span>than 50 shots.</span>
+<span>This page can be destroyed using less</span><span> than 50 shots.</span>
 </body></html>
