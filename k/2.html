@@ -1,0 +1,25 @@
+<!doctype html>
+<html><head>
+<script type="text/javascript">
+var KICKASSVERSION='2.0';
+function tt(){
+var s = document.createElement('script');
+s.type='text/javascript';
+s.src='https://hi.kickassapp.com/kickass.js';
+document.body.appendChild(s);
+}
+setTimeout(tt,300);
+</script>
+<script type="text/javascript">
+function setm(){
+setTimeout(setm,10);
+if(window.KICKASSGAME){
+document.getElementById("p").innerHTML='Points: '+window.KICKASSGAME.statisticsManager.data.totalPointsThisSession+'/'+window.KICKASSGAME.menuManager.game.multiplier*2+' ('+Math.floor(window.KICKASSGAME.statisticsManager.data.totalPointsThisSession/window.KICKASSGAME.menuManager.game.multiplier*50000)/100+'%)';
+}
+}
+setTimeout(setm,300);
+</script>
+  </head><body>
+<span class='KICKASSELEMENT' id="p">Points:</span><br>
+<span>This page can destroyed using less</span><span>than 50 shots.</span>
+</body></html>
