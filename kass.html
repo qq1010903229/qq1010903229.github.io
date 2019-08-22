@@ -47,7 +47,7 @@ bpts=Math.pow(kk,1.7);
 bpts*=(3.6+kkk);
 bpts/=4.5;
 bpts=Math.ceil(bpts*commonmult);
-document.getElementById("p").innerHTML='Level '+(kk/50)+'/10<br>Current Score: '+cpts+' Points'+'<br>Level Bonus: '+bpts+' Points';
+document.getElementById("p").innerHTML='Level '+(kk/50)+'/10<br>Current Score: '+Math.floor(cpts/10)/100+'k Points'+'<br>Level Bonus: '+Math.floor(bpts/10)/100+'k Points';
 document.getElementById("t").style='width:'+(kk*(kk+50)/50-(document.getElementById("main").childNodes.length)+kkkk)/72.6+'%';
 document.getElementById("t1").style='width:'+((document.getElementById("main").childNodes.length)/kk*50)+'%';
 if(k%10==0){document.getElementById("main").innerHTML+=new_div();
@@ -99,7 +99,6 @@ bpts=Math.pow(kk,1.7);
 bpts*=(3.6+kkk);
 bpts/=4.5;
 bpts=Math.ceil(bpts*commonmult);
-document.getElementById("p").innerHTML='Level '+(kk/50)+'/10<br>Current Score: '+cpts+' Points'+'<br>Level Bonus: '+bpts+' Points';
 csh(kk);gx();
 //document.getElementById("main").innerHTML='<a href="javascript:csh('+kk+');gx();">More Points!</a>';
 }
