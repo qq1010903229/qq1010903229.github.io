@@ -2,26 +2,30 @@
 <html>
 <head>
 <script>
-var k=5,kk=50,kkk=2,kkkk=0,p=0,commonmult=1;
+var k=5,kk=50,kkk=2,kkkk=0,p=0,commonmult=1,bpts,cpts=0;
 function new_divs(){
+if(Math.random()<0.001){
+return '<div style="width:800px;height:80px;color:#000000;background:linear-gradient(#ff0000,#ffff00,#00ff00,#00ffff,#0000ff,#ff00ff);font-size:22pt;"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>(*100) Super Epic Site Block</div>';
+}
 if(Math.random()<0.01){
-return '<div style="width:800px;height:80px;color:#000000;background-color:#ffff00;font-size:22pt;"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>(*20) Rare Site Block!</div>';
+return '<div style="width:800px;height:80px;color:#000000;background-color:#ffff00;font-size:22pt;"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>(*20) Epic Site Block</div>';
 }
 if(Math.random()<0.1){
-return '<div style="width:800px;height:80px;color:#ffffff;background-color:#ff9900;font-size:22pt;"><span></span><span></span><span></span><span></span><span></span>(*6) Use Kick Ass to shoot this text!</div>';
+return '<div style="width:800px;height:80px;color:#ffffff;background-color:#ff9900;font-size:22pt;"><span></span><span></span><span></span><span></span><span></span>(*6) Rare Site Block</div>';
 }
 if(Math.random()<0.111111111111111111111111){
-return '<div style="width:800px;height:80px;color:#ffffff;background-color:#ff00ff;font-size:22pt;"><span></span><span></span><span></span>(*4) Use Kick Ass to shoot this text!</div>';
+return '<div style="width:800px;height:80px;color:#ffffff;background-color:#ff00ff;font-size:22pt;"><span></span><span></span><span></span>(*4) Uncommon Site Block</div>';
 }
 if(Math.random()<0.25){
-return '<div style="width:800px;height:80px;color:#ffffff;background-color:#0000ff;font-size:22pt;"><span></span>(*2) Use Kick Ass to shoot this text!</div>';
+return '<div style="width:800px;height:80px;color:#ffffff;background-color:#0000ff;font-size:22pt;"><span></span>(*2) Uncommon Site Block</div>';
 }
-return '<div style="width:800px;height:80px;color:#ffffff;background-color:#00ff00;font-size:22pt;">(*1) Use Kick Ass to shoot this text!</div>';
+return '<div style="width:800px;height:80px;color:#ffffff;background-color:#00ff00;font-size:22pt;">(*1) Common Site Block</div>';
 }
 function new_div(){
 return new_divs()+new_divs();
 }
 var thit=0,phit=0,shit=0;function gx(){
+if(window.KICKASSGAME)if(window.KICKASSGAME.menuManager)cpts=window.KICKASSGAME.menuManager.numPoints;
   setm();
 if(document.getElementById("s")===null){
 document.getElementById("main").innerHTML='<div id="s"></div>'+document.getElementById("main").innerHTML;
@@ -39,7 +43,11 @@ if(document.getElementById("t1")===null){
 document.getElementById("main").innerHTML='<div id="t1"></div>'+document.getElementById("main").innerHTML;
 thit++;
 }
-document.getElementById("p").innerHTML='Level '+(kk/50)+'/10';
+bpts=Math.pow(kk,1.7);
+bpts*=(3.6+kkk);
+bpts/=4.5;
+bpts=Math.ceil(bpts*commonmult);
+document.getElementById("p").innerHTML='Level '+(kk/50)+'/10<br>Current Score: '+cpts+' Points'+'<br>Level Bonus: '+bpts+' Points';
 document.getElementById("t").style='width:'+(kk*(kk+50)/50-(document.getElementById("main").childNodes.length)+kkkk)/72.6+'%';
 document.getElementById("t1").style='width:'+((document.getElementById("main").childNodes.length)/kk*50)+'%';
 if(k%10==0){document.getElementById("main").innerHTML+=new_div();
@@ -70,7 +78,7 @@ if(document.getElementById("main").childNodes.length>15)k++,setTimeout(gx,100);
 else{
 p=Math.pow(kk,1.7);
 p*=(3.6+kkk);
-p/=6;
+p/=4.5;
 p=Math.ceil(p*commonmult);
 if(window.KICKASSGAME)window.KICKASSGAME.menuManager.numPoints+=p,window.KICKASSGAME.menuManager.game.statisticsManager&&window.KICKASSGAME.menuManager.game.statisticsManager.increasePointsGainedWithPoints(p);
 showp();
@@ -87,7 +95,11 @@ if(document.getElementById("p")===null){
 document.getElementById("main").innerHTML='<div id="p"></div>'+document.getElementById("main").innerHTML;
 }
   if(kk>500)return document.getElementById("t1").style="width:100%",void 0;
-document.getElementById("p").innerHTML='Level '+(kk/50)+'/10';
+bpts=Math.pow(kk,1.7);
+bpts*=(3.6+kkk);
+bpts/=4.5;
+bpts=Math.ceil(bpts*commonmult);
+document.getElementById("p").innerHTML='Level '+(kk/50)+'/10<br>Current Score: '+cpts+' Points'+'<br>Level Bonus: '+bpts+' Points';
 csh(kk);gx();
 //document.getElementById("main").innerHTML='<a href="javascript:csh('+kk+');gx();">More Points!</a>';
 }
@@ -115,7 +127,7 @@ if(kk<=50)if(window.KICKASSGAME)window.KICKASSGAME.menuManager.game.multiplier=M
 </script>
 <style>
 #s{position:fixed;left:20px;bottom:0px;height:80px;width:480px;background-color:#ff0000;color:#ffffff;font-size:33pt;z-index:1000;}
-#p{position:fixed;right:20px;top:0px;height:80px;width:480px;background-color:#ff0000;color:#ffffff;font-size:33pt;z-index:1000;}
+#p{position:fixed;right:20px;top:0px;height:80px;width:480px;background-color:#ff0000;color:#ffffff;font-size:12pt;z-index:1000;}
 #t{position:fixed;left:0px;top:0px;height:7px;background-color:#ff6600;color:#ffffff;font-size:33pt;z-index:2000;}
 #t1{position:fixed;left:0px;top:10px;height:7px;background-color:#ff6600;color:#ffffff;font-size:33pt;z-index:2000;}
 </style>
