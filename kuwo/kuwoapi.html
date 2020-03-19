@@ -61,6 +61,8 @@ h();
 };
 if(document.location.href.indexOf("musicrid0=")!=-1){
 id.value=atob(document.location.href.slice(document.location.href.indexOf("musicrid0=")+10).split("&")[0]).slice(6);
+  f();
+  id2.innerHTML=id.value;
 //setTimeout(huoqu,100);
 }
 };
@@ -70,7 +72,7 @@ id.value=atob(document.location.href.slice(document.location.href.indexOf("music
   <form onsubmit="return huoqu();">
 酷我歌曲ID：<input type="number" min="0" max="10000000000" id="id" style="width:600px;" placeholder="例如《中国话》为42397183" onkeydown="f1()" onmousedown="f1()" onchange="f1()"  required>
 <br>
-播放地址：http://www.kuwo.cn/yinyue/<span id="id2"></span>/
+播放地址：http://www.kuwo.cn/play_detail/<span id="id2"></span>
 <!--<br>
 获取MP3地址：http://antiserver.kuwo.cn/anti.s?format=mp3&rid=MUSIC_<span id="id3"></span>&type=convert_url
 --><br>
