@@ -59,6 +59,10 @@ p=0;
 h();
   return false;
 };
+if(document.location.href.indexOf("musicrid0=")!=-1){
+id.value=atob(document.location.href.slice(document.location.href.indexOf("musicrid0=")+10).split("&")[0]).slice(6);
+//setTimeout(huoqu,100);
+}
 };
 </script>
 </head>
