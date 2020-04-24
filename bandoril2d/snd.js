@@ -46,7 +46,7 @@ result.push(0);
 lipSyncValues[a]=result;
 }
 }).bind(null,xhr,a);
-xhr.open("GET","get/"+a+".txt",true);
+xhr.open("GET","bandori-l2d-api/get/"+a+".txt",true);
 xhr.send();
 }
 getLSV("1-0",13);
