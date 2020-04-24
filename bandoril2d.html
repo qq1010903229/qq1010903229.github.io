@@ -1,0 +1,33 @@
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>waifu-tips
+	</title>
+    <link rel="stylesheet" type="text/css" href="live2d_demo-master/assets/waifu.css"/>
+    <!-- waifu-tips.js 依赖 JQuery 库 -->
+    <script src="bandoril2d/jquery.min.js"></script>
+    
+    <!-- 实现拖动效果，需引入 JQuery UI -->
+    <script src="bandoril2d/jquery-ui.min.js"></script>
+	<script src="bandoril2d/live2d.js"></script>
+	<script src="bandoril2d/waifu-tips.js"></script>
+	<script src="bandoril2d/snd.js"></script>
+	
+    </head>
+	<body>
+    <div class="waifu">
+        <div class="waifu-tips"></div>
+        <canvas id="live2d" class="live2d"></canvas>
+        <div class="waifu-tool">
+            <span class="fui-home"></span>
+            <span class="fui-chat"></span>
+            <span class="fui-eye"></span>
+            <span class="fui-user"></span>
+            <span class="fui-photo"></span>
+            <span class="fui-info-circle"></span>
+            <span class="fui-cross"></span>
+        </div>
+    </div>
+	<script>initModel("bandoril2d/waifu-tips.json")</script>
+	</body>
+</html>
