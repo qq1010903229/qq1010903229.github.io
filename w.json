@@ -1,0 +1,10 @@
+{"version":"1.0.0",
+"model":"bandori-l2d-api/get/16-71.moc",
+"textures":["bandori-l2d-api/get/16-71.png"],
+"physics":"bandori-l2d-api/get/16-71p.json",
+"layout":{"center_x":0,"center_y":-0.05,"width":2},
+"motions":{"idle":[{"file":"bandori-l2d-api/get/16/idle01.mtn"}],
+"c":[{"file":"bandori-l2d-api/get/16/strange01.mtn"}]
+},
+"hit_areas_custom":{}
+}
