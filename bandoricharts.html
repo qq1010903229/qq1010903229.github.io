@@ -230,6 +230,7 @@ function initl2d(){
 $("#live2d").attr("width",300);
 $("#live2d").attr("height",375);
 $(".waifu").css("right",'0px');
+$("#live2d")[0].addEventListener("click",l2dclick);
 loadlive2d('live2d', 'https://qq1010903229.github.io/w.json', null);
 }
 function l2dclick(){
