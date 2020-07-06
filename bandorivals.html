@@ -1,0 +1,113 @@
+﻿<html>
+<head>
+<title></title>
+<style>
+.difficulty1{background-color:#8EB4FD;}
+.difficulty2{background-color:#A6F692;}
+.difficulty3{background-color:#FBDF8C;}
+.difficulty4{background-color:#FF898B;}
+.difficulty5{background-color:#F383CB;}
+
+</style>
+</head>
+<body>
+<table style="width:1000px;">
+<tr>
+<td style="width:5%;">ID</td>
+<td style="width:29%;">名称</td>
+<td class="difficulty3" style="width:7%;">Hard</td>
+<td class="difficulty4" style="width:7%;">Expert</td>
+<td class="difficulty5" style="width:7%;">Special</td>
+<td style="width:45%;"></td>
+</tr>
+<tr>
+<td><a href="https://bestdori.com/info/songs/1">1</a></td>
+<td><a href="https://bestdori.com/info/songs/1">Yes! BanG_Dream!</a></td>
+<td class="difficulty3">15.1</td>
+<td class="difficulty4">20.0</td>
+</tr>
+<tr>
+<td><a href="https://bestdori.com/info/songs/4">4</a></td>
+<td><a href="https://bestdori.com/info/songs/4">ティアドロップス</a></td>
+<td class="difficulty3">17.5</td>
+<td class="difficulty4">25.8</td>
+</tr>
+<tr>
+<td><a href="https://bestdori.com/info/songs/15">15</a></td>
+<td><a href="https://bestdori.com/info/songs/15">Don't Say "lazy"</a></td>
+<td class="difficulty3">18.0</td>
+<td class="difficulty4">26.3</td>
+<td class="difficulty5">25.6</td>
+</tr>
+<tr>
+<td><a href="https://bestdori.com/info/songs/24">24</a></td>
+<td><a href="https://bestdori.com/info/songs/24">ときめきエクスペリエンス！</a></td>
+<td class="difficulty3">16.0</td>
+<td class="difficulty4">25.0</td>
+</tr>
+<tr>
+<td><a href="https://bestdori.com/info/songs/32">32</a></td>
+<td><a href="https://bestdori.com/info/songs/32">しゅわりん☆どり〜みん</a></td>
+<td class="difficulty3">17.5</td>
+<td class="difficulty4">24.3</td>
+<td class="difficulty5">25.4</td>
+</tr>
+<tr>
+<td><a href="https://bestdori.com/info/songs/85">85</a></td>
+<td><a href="https://bestdori.com/info/songs/85">ハッピーシンセサイザ</a></td>
+<td class="difficulty3">18.0</td>
+<td class="difficulty4">26.1</td>
+</tr>
+<tr>
+<td><a href="https://bestdori.com/info/songs/125">125</a></td>
+<td><a href="https://bestdori.com/info/songs/125">天下トーイツA to Z☆</a></td>
+<td class="difficulty3">20.6</td>
+<td class="difficulty4">26.9</td>
+</tr>
+<tr>
+<td><a href="https://bestdori.com/info/songs/128">128</a></td>
+<td><a href="https://bestdori.com/info/songs/128">六兆年と一夜物語</a></td>
+<td class="difficulty3">21.0</td>
+<td class="difficulty4">29.0</td>
+</tr>
+<tr>
+<td><a href="https://bestdori.com/info/songs/158">158</a></td>
+<td><a href="https://bestdori.com/info/songs/158">キズナミュージック♪</a></td>
+<td class="difficulty3">18.7</td>
+<td class="difficulty4">24.6</td>
+</tr>
+<tr>
+<td><a href="https://bestdori.com/info/songs/170">170</a></td>
+<td><a href="https://bestdori.com/info/songs/170">Jumpin'</a></td>
+<td class="difficulty3">20.4</td>
+<td class="difficulty4">26.5</td>
+</tr>
+<tr>
+<td><a href="https://bestdori.com/info/songs/186">186</a></td>
+<td><a href="https://bestdori.com/info/songs/186">きゅ〜まい＊flower</a></td>
+<td class="difficulty3">19.5</td>
+<td class="difficulty4">26.6</td>
+</tr>
+</table>
+<script src="bandoril2d/jquery.min.js"></script>
+<script src="bandoril2d/live2d.js"></script>
+    <link rel="stylesheet" type="text/css" href="bandoril2d/waifu.css"/>
+<div class="waifu">
+        
+        <canvas id="live2d" class="live2d"></canvas>
+    </div>
+<script>
+function initl2d(){
+$("#live2d").attr("width",300);
+$("#live2d").attr("height",375);
+$(".waifu").css("right",'0px');
+$("#live2d")[0].addEventListener("click",l2dclick);
+loadlive2d('live2d', 'https://qq1010903229.github.io/w.json', null);
+}
+function l2dclick(){
+window.l2de.startMotion('c',0);
+}
+setTimeout(initl2d,500);
+</script>
+</body>
+</html>
