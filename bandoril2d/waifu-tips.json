@@ -33,7 +33,9 @@
         },
         "model_message": {
             "1": ["我是Poppin'Party的吉他手兼主唱，户山香澄！"],
-            "16": ["为丸山而添彩，我是来自Pastel*Palettes的丸山彩！"]  
+            "16": ["为丸山而添彩，我是来自Pastel*Palettes的丸山彩！"],
+			"17": ["噜噜噜~"],
+			"20": ["武士道！"]
         },
         "hitokoto_api_message": {
             "lwl12.com": ["这句一言来自 <span style=\"color:#0099cc;\">『{source}』</span>", "，是 <span style=\"color:#0099cc;\">{creator}</span> 投稿的", "。"],
@@ -42,8 +44,22 @@
             "hitokoto.cn": ["这句一言来自 <span style=\"color:#0099cc;\">『{source}』</span>，是 <span style=\"color:#0099cc;\">{creator}</span> 在 hitokoto.cn 投稿的。"]
         },
 		"about": {
-			"1": "https://zh.moegirl.org/zh-cn/户山香澄",
-			"16": "https://zh.moegirl.org/zh-cn/丸山彩"
+			"1": "https://zh.moegirl.org.cn/zh-cn/%E6%88%B7%E5%B1%B1%E9%A6%99%E6%BE%84",
+			"2": "https://zh.moegirl.org.cn/zh-cn/%E8%8A%B1%E5%9B%AD%E5%A4%9A%E6%83%A0",
+			"3": "https://zh.moegirl.org.cn/zh-cn/%E7%89%9B%E8%BE%BC%E9%87%8C%E7%BE%8E",
+			"4": "https://zh.moegirl.org.cn/zh-cn/%E5%B1%B1%E5%90%B9%E6%B2%99%E7%BB%AB(BanG_Dream!)",
+			"5": "https://zh.moegirl.org.cn/zh-cn/%E5%B8%82%E8%B0%B7%E6%9C%89%E5%92%B2",
+			"6": "https://zh.moegirl.org.cn/zh-cn/%E7%BE%8E%E7%AB%B9%E5%85%B0",
+			"11": "https://zh.moegirl.org.cn/zh-cn/%E5%BC%A6%E5%8D%B7%E5%BF%83",
+			"16": "https://zh.moegirl.org.cn/zh-cn/%E4%B8%B8%E5%B1%B1%E5%BD%A9",
+			"17": "https://zh.moegirl.org.cn/zh-cn/%E5%86%B0%E5%B7%9D%E6%97%A5%E8%8F%9C",
+			"18": "https://zh.moegirl.org.cn/zh-cn/%E7%99%BD%E9%B9%AD%E5%8D%83%E5%9C%A3",
+			"19": "https://zh.moegirl.org.cn/zh-cn/%E5%A4%A7%E5%92%8C%E9%BA%BB%E5%BC%A5",
+			"20": "https://zh.moegirl.org.cn/zh-cn/%E8%8B%A5%E5%AE%AB%E4%BC%8A%E8%8A%99",
+			"21": "https://zh.moegirl.org.cn/zh-cn/%E5%87%91%E5%8F%8B%E5%B8%8C%E9%82%A3",
+			"26": "https://zh.moegirl.org.cn/zh-cn/%E4%BB%93%E7%94%B0%E7%9C%9F%E7%99%BD",
+			"31": "https://zh.moegirl.org.cn/zh-cn/%E5%92%8C%E5%A5%8F%E7%91%9E%E4%BE%9D",
+			"201": "https://zh.moegirl.org.cn/zh-cn/%E6%9C%88%E5%B2%9B%E9%BA%BB%E9%87%8C%E5%A5%88"
 		}
     },
     "mouseover": [
