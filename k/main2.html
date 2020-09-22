@@ -1,0 +1,128 @@
+<!doctype html>
+<html>
+<head>
+<script>
+var s=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1600];
+var counter=0;
+function getexthre(ex){
+	return Math.floor((ex+ex*ex*0.03)*40000/parseInt(localStorage.kassm)**1.7);
+}
+function main(){
+	if(!window.KICKASSGAME)return;
+	if(parseInt(localStorage.kassm)>window.KICKASSGAME.menuManager.game.multiplier&&window.KICKASSGAME.menuManager.numPoints>0)document.location.reload();
+	if(parseInt(localStorage.kassm)<=window.KICKASSGAME.menuManager.game.multiplier){
+		if(counter>=getexthre(window.KICKASSGAME.menuManager.game.multiplier-parseInt(localStorage.kassm)+1))window.KICKASSGAME.menuManager.game.multiplier++;
+		document.getElementById("status").innerHTML="Score: "+window.KICKASSGAME.menuManager.numPoints+", Multiplier: "+parseInt(localStorage.kassm)+"+"+(window.KICKASSGAME.menuManager.game.multiplier-parseInt(localStorage.kassm))+", Counter: "+counter+"/32000<br> Next Extra Multiplier in: "+(getexthre(window.KICKASSGAME.menuManager.game.multiplier-parseInt(localStorage.kassm)+1)-counter);
+	}else{
+		document.getElementById("status").innerHTML="Please Do Not Shoot Until You Logged In!";
+	}
+	var s1=[0];
+	for(var i=1;i<=20;i++){
+		s1[i]=document.getElementsByClassName("cl"+i).length;
+	}
+	for(var i=20;i>=1;i--){
+		var t=s[i]-s1[i];
+		if(t>0){
+			s[i-1]+=t,s1[i-1]+=t,s[i]-=t,counter+=t;
+			if(i>1)for(var j=0;j<t;j++){
+				var div=document.createElement('div');
+				div.className="cl"+(i-1);
+				document.getElementById("maindiv").append(div);
+			}
+		}
+	}
+}
+function start1(){
+var KICKASSVERSION='2.0';var s = document.createElement('script');s.type='text/javascript';document.body.appendChild(s);s.src='https://hi.kickassapp.com/kickass.js';
+}
+function startfunction(){
+	for(var j=0;j<1600;j++){
+		var div=document.createElement('div');
+		div.className="cl20";document.getElementById("maindiv").append(div);
+	}
+	var sc=0,ex=0;
+	while(true){
+		var t=getexthre(ex+1);
+		if(t>32000)t=32000;
+		sc=sc+(parseInt(localStorage.kassm)+ex)*(t-getexthre(ex));
+		ex++;
+		if(t==32000)break;
+	}
+	console.log(sc);
+	start1();
+	start1();
+	start1();
+	start1();
+	window.mainInterval=setInterval(main,10);}
+</script>
+<style>
+#maindiv{
+	height:800px;width:800px;line-height:0px;
+}
+.cl1{
+	height:20px;width:20px;background-color:#000000;display:inline-block;
+}
+.cl2{
+	height:20px;width:20px;background-color:#330000;display:inline-block;
+}
+.cl3{
+	height:20px;width:20px;background-color:#660000;display:inline-block;
+}
+.cl4{
+	height:20px;width:20px;background-color:#990000;display:inline-block;
+}
+.cl5{
+	height:20px;width:20px;background-color:#cc0000;display:inline-block;
+}
+.cl6{
+	height:20px;width:20px;background-color:#ff0000;display:inline-block;
+}
+.cl7{
+	height:20px;width:20px;background-color:#ff3300;display:inline-block;
+}
+.cl8{
+	height:20px;width:20px;background-color:#ff6600;display:inline-block;
+}
+.cl9{
+	height:20px;width:20px;background-color:#ff9900;display:inline-block;
+}
+.cl10{
+	height:20px;width:20px;background-color:#ffcc00;display:inline-block;
+}
+.cl11{
+	height:20px;width:20px;background-color:#99ff00;display:inline-block;
+}
+.cl12{
+	height:20px;width:20px;background-color:#00ff00;display:inline-block;
+}
+.cl13{
+	height:20px;width:20px;background-color:#00ff99;display:inline-block;
+}
+.cl14{
+	height:20px;width:20px;background-color:#00ccff;display:inline-block;
+}
+.cl15{
+	height:20px;width:20px;background-color:#0099ff;display:inline-block;
+}
+.cl16{
+	height:20px;width:20px;background-color:#0066ff;display:inline-block;
+}
+.cl17{
+	height:20px;width:20px;background-color:#0033ff;display:inline-block;
+}
+.cl18{
+	height:20px;width:20px;background-color:#0000ff;display:inline-block;
+}
+.cl19{
+	height:20px;width:20px;background-color:#6600ff;display:inline-block;
+}
+.cl20{
+	height:20px;width:20px;background-color:#cc00ff;display:inline-block;
+}
+</style>
+</head>
+<body onload="startfunction();">
+<div class="KICKASSELEMENT" id="status">Kick Ass is not launched.</div>
+<div id="maindiv"></div>
+</body>
+</html>
