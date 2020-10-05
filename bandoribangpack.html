@@ -1,0 +1,71 @@
+﻿<!doctype html>
+<html lang="zh-cn">
+<head>
+<meta charset="utf-8">
+<title>loader3229的bangpack列表</title>
+<style>
+.difficulty1,.difficulty1 a{color:#57C0C9;}
+.difficulty2,.difficulty2 a{color:#8AC957;}
+.difficulty3,.difficulty3 a{color:#EFA119;}
+.difficulty4,.difficulty4 a{color:#C76060;}
+.difficulty5,.difficulty5 a{color:#C360C7;}
+</style>
+</head>
+<body>
+<a href="bandoricharts.html">loader3229的BanG Dream! 自制谱列表</a>
+<hr>
+<h1>loader3229的bangpack列表</h1><br>
+所有bangpack为bangpack v1格式。<br>
+bangpack v1格式请使用<a href="https://reikohaku.gitee.io/bang-player/#/" target="_blank">BanG Player v1</a>打开（谱面来源选择“本地”）<br>
+点击谱面难度等级或物量可以查看bestdori谱面<br><br>
+<table style="width:1000px;">
+<tr>
+<td style="width:15%;">Bestdori ID(EX)</td>
+<td style="width:30%;">名称</td>
+<td style="width:8%;" class="difficulty1">Easy</td>
+<td style="width:8%;" class="difficulty2">Normal</td>
+<td style="width:8%;" class="difficulty3">Hard</td>
+<td style="width:8%;" class="difficulty4">Expert</td>
+<td style="width:23%;">下载链接</td>
+</tr>
+<tr>
+<td><a href="https://bestdori.com/community/charts/28179">28179</a></td>
+<td>Angelic Layer</td>
+<td class="difficulty1"><a href="https://bestdori.com/community/charts/28176">18/500</a></td>
+<td class="difficulty2"><a href="https://bestdori.com/community/charts/28177">22/700</a></td>
+<td class="difficulty3"><a href="https://bestdori.com/community/charts/28178">26/1000</a></td>
+<td class="difficulty4"><a href="https://bestdori.com/community/charts/28179">27/1100</a></td>
+<td><a href="https://pan.baidu.com/s/1uRGysBwu8C-QOLp_X1NAlw">百度网盘（提取码bang）</a></td>
+</tr>
+<tr>
+<td><a href="https://bestdori.com/community/charts/28652">28652</a></td>
+<td>[FULL] クインティプル☆すまいる</td>
+<td class="difficulty1"><a href="https://bestdori.com/community/charts/28935">10/370</a></td>
+<td class="difficulty2"><a href="https://bestdori.com/community/charts/28934">16/648</a></td>
+<td class="difficulty3"><a href="https://bestdori.com/community/charts/28933">22/1111</a></td>
+<td class="difficulty4"><a href="https://bestdori.com/community/charts/28652">26/1551</a></td>
+<td><a href="https://pan.baidu.com/s/1uRGysBwu8C-QOLp_X1NAlw">百度网盘（提取码bang）</a></td>
+</tr>
+</table>
+<script src="bandoril2d/jquery.min.js"></script>
+<script src="bandoril2d/live2d.js"></script>
+    <link rel="stylesheet" type="text/css" href="bandoril2d/waifu.css"/>
+<div class="waifu">
+        
+        <canvas id="live2d" class="live2d"></canvas>
+    </div>
+<script>
+function initl2d(){
+$("#live2d").attr("width",300);
+$("#live2d").attr("height",375);
+$(".waifu").css("right",'0px');
+$("#live2d")[0].addEventListener("click",l2dclick);
+loadlive2d('live2d', 'https://cdn.jsdelivr.net/gh/qq1010903229/qq1010903229.github.io@2323af57fb00e7f6723a42a6c25af4e94d1c4cce/w_jsdelivr.json', null);
+}
+function l2dclick(){
+window.l2de.startMotion('c',0);
+}
+setTimeout(initl2d,500);
+</script>
+</body>
+</html>
