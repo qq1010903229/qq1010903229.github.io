@@ -1,0 +1,97 @@
+﻿<!doctype html>
+<html lang="zh-cn">
+<head>
+<meta charset="utf-8">
+<title>loader3229的Bestdori最难谱面列表</title>
+<style>
+.difficulty1,.difficulty1 a{color:#57C0C9;}
+.difficulty2,.difficulty2 a{color:#8AC957;}
+.difficulty3,.difficulty3 a{color:#EFA119;}
+.difficulty4,.difficulty4 a{color:#C76060;}
+.difficulty5,.difficulty5 a{color:#C360C7;}
+</style>
+</head>
+<body>
+<a href="/bandoricharts">loader3229的BanG Dream! 自制谱列表</a>
+<a href="/bandoribangpack">loader3229的bangpack列表</a>
+<a href="/sonolus-bdc/">loader3229的Sonolus服务器</a>
+<hr>
+<h1>loader3229的Bestdori最难谱面列表</h1><br>
+上榜条件（必须满足以下3个条件）：<br>
+<ol>
+<li>时长为30-1200秒之间</li>
+<li>NPS≥24.2</li>
+<li>物量≥500</li>
+</ol>
+<table style="width:1000px;">
+<tr>
+<td style="width:10%;">排名</td>
+<td style="width:10%;">Bestdori ID</td>
+<td style="width:25%;">名称</td>
+<td style="width:55%;">难度</td>
+</tr>
+<tr>
+<td>1</td>
+<td>15976</td>
+<td>villain virus</td>
+<td>LV75</td>
+</tr>
+<tr>
+<td>2</td>
+<td>22357</td>
+<td>GOMIKASU</td>
+<td>LV68</td>
+</tr>
+<tr>
+<td>3</td>
+<td>25444</td>
+<td>人能打的六兆年</td>
+<td>LV58</td>
+</tr>
+<tr>
+<td>4</td>
+<td>27790</td>
+<td>G e n g a o z o _ F U C</td>
+<td>LV47</td>
+</tr>
+<tr>
+<td>5</td>
+<td>27792</td>
+<td>G e n g a o z o - f o o n</td>
+<td>LV45</td>
+</tr>
+<tr>
+<td>6</td>
+<td>5579</td>
+<td>FREEDOM DiVE [FOUR DIMENSIONS]</td>
+<td>LV44</td>
+</tr>
+<tr>
+<td>7</td>
+<td>11517</td>
+<td>Mario Paint (Time Regression Mix for BMS)</td>
+<td>LV40</td>
+</tr>
+</table>
+<script src="bandoril2d/jquery.min.js"></script>
+<script src="bandoril2d/live2d.js"></script>
+    <link rel="stylesheet" type="text/css" href="bandoril2d/waifu.css"/>
+<div class="waifu">
+        
+        <canvas id="live2d" class="live2d"></canvas>
+    </div>
+<script>
+function initl2d(){
+$("#live2d").attr("width",300);
+$("#live2d").attr("height",375);
+$(".waifu").css("right",'0px');
+$("#live2d")[0].addEventListener("click",l2dclick);
+loadlive2d('live2d', 'https://cdn.jsdelivr.net/gh/qq1010903229/qq1010903229.github.io@2323af57fb00e7f6723a42a6c25af4e94d1c4cce/w_jsdelivr.json', null);
+}
+function l2dclick(){
+window.l2de.startMotion('c',0);
+}
+setTimeout(initl2d,500);
+</script>
+</body>
+</html>
