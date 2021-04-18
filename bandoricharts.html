@@ -13,8 +13,9 @@
 </head>
 <body>
 <a href="/bandoricharts">loader3229的BanG Dream! 自制谱列表</a>
+<a href="/bandorivals">loader3229的BanG Dream! 定数表</a>
 <a href="/bandoribangpack">loader3229的bangpack列表</a>
-<!--<a href="/sonolus-bdc/">loader3229的Sonolus服务器</a>-->
+<a href="/bandoril2dsettings">Live2D设置</a>
 <hr>
 <h1>loader3229的BanG Dream! 自制谱列表</h1><br>
 <!--我和其他谱师使用的难度评定标准不同，详细请点击<a href="bandoricharts_1.html">难度对照表</a><br>-->
@@ -167,7 +168,7 @@
 <td><a href="https://bestdori.com/community/charts/30924">30924</a></td>
 <td><a href="https://bestdori.com/community/charts/30924">Angelic Layer</a></td>
 <td class="difficulty5">Special</td>
-<td class="difficultylevel">34</td>
+<td class="difficultylevel">35</td>
 <td>1.0谱面</td>
 <td>1856</td>
 <td>没有绿条，但是最高HPS为19。由于bestdori标级限制，这个谱面在bestdori上显示为30级</td>
@@ -923,23 +924,13 @@
 </table>-->
 <script src="bandoril2d/jquery.min.js"></script>
 <script src="bandoril2d/live2d.js"></script>
+<script src="bandoril2d/live2d-mp.js"></script>
     <link rel="stylesheet" type="text/css" href="bandoril2d/waifu.css"/>
 <div class="waifu">
         
         <canvas id="live2d" class="live2d"></canvas>
     </div>
 <script>
-function initl2d(){
-$("#live2d").attr("width",300);
-$("#live2d").attr("height",375);
-$(".waifu").css("right",'0px');
-$("#live2d")[0].addEventListener("click",l2dclick);
-loadlive2d('live2d', '/w.json', null);
-}
-function l2dclick(){
-window.l2de.startMotion('c',0);
-}
-setTimeout(initl2d,500);
 function b2(){
 var temp=document.getElementsByClassName("difficultylevel");
 for(var i=0;i<temp.length;i++){
