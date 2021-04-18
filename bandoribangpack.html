@@ -89,23 +89,11 @@ bangpack v1格式请使用<a href="https://reikohaku.gitee.io/bang-player/#/" ta
 </table>
 <script src="bandoril2d/jquery.min.js"></script>
 <script src="bandoril2d/live2d.js"></script>
+<script src="bandoril2d/live2d-mp.js"></script>
     <link rel="stylesheet" type="text/css" href="bandoril2d/waifu.css"/>
 <div class="waifu">
         
         <canvas id="live2d" class="live2d"></canvas>
     </div>
-<script>
-function initl2d(){
-$("#live2d").attr("width",300);
-$("#live2d").attr("height",375);
-$(".waifu").css("right",'0px');
-$("#live2d")[0].addEventListener("click",l2dclick);
-loadlive2d('live2d', '/w.json', null);
-}
-function l2dclick(){
-window.l2de.startMotion('c',0);
-}
-setTimeout(initl2d,500);
-</script>
 </body>
 </html>
