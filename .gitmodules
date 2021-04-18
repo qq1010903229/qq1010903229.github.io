@@ -1,4 +1,4 @@
 [submodule "lit"]
 	path = lit
-	url = git@github.com:qq1010903229/Prestige-Tree.git
+	url = https://github.com/qq1010903229/Prestige-Tree.git
 	branch = lit
