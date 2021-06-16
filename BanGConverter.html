@@ -689,7 +689,7 @@ function BanGSimToBMS(chart){
 				}
 				var bpm=parseFloat(t[i].split('/')[2]);
 				var wav="";
-				if(bpm==Math.floor(bpm)){
+				if(bpm==Math.floor(bpm) && bpm<=255){
 					wav=getBmsBpmIndex(bpm);
 				}else{
 					lane="09";
