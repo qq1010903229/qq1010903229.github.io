@@ -13,14 +13,14 @@
 <a href="/bandoril2dsettings">Live2D设置</a>
 <a href="javascript:void(setl2dm(localStorage.l2dm));">Live2D模型显示不正常修复</a>
 <hr>
-<h1>BanG Converter - BanG Dream! 谱面转换器  v1.1</h1><br>
+<h1>BanG Converter - BanG Dream! 谱面转换器  v1.1.2</h1><br>
 输入谱面：<br><textarea id="chartinput" style="width:600px;height:200px;"></textarea><br>
 获取BanG Dream!官谱：<input id="officialid" type="number" min="1" max="2000" placeholder="谱面ID"><select id="officialdiff"><option value="easy">Easy</option><option value="normal">Normal</option><option value="hard">Hard</option><option value="expert" selected>Expert</option><option value="special">Special</option></select><a href="javascript:void(bestdoriofficial());">获取</a><br>
 获取Bestdori自制谱：<input id="communityid" type="number" min="1" max="1000000" placeholder="谱面ID"><a href="javascript:void(bestdoricommunity());">获取</a><br>
 输入谱面格式：<select id="inputformat"><option value="0">Bestdori!</option><option value="3">Bestdori!旧格式</option><option value="1" selected>BanG! Simulator</option></select>
-输出谱面格式：<select id="outputformat"><option value="0" selected>Bestdori!</option><option value="1">BanG! Simulator 2.0</option><!--option value="1b">BanG! Simulator 1.30</option--><option value="1c">BanG! Simulator 1.00,1.01,1.11</option><option value="2">官谱BMS</option></select>
+输出谱面格式：<select id="outputformat"><option value="0" selected>Bestdori!</option><option value="1">BanG! Simulator 2</option><option value="1c">BanG! Simulator 1</option><option value="2">官谱BMS</option></select>
 <a href="javascript:void(convert());">开始转换</a><br>
-如果要转换为其他音游的谱面，请先转换为官谱BMS并下载，然后使用<a href="https://lrfasd.github.io/rmstZ/rmstZ_20210530.html" target="_blank">rmstZ</a>转换为其他音游的谱面<br>
+如果要转换为其他音游的谱面，请先转换为官谱BMS并下载，然后使用<a href="https://lrfasd.github.io/rmstZ/rmstZ_20210717.html" target="_blank">rmstZ</a>转换为其他音游的谱面<br>
 <span id="nolnspan"><input id="noln" type="checkbox"><label for="noln">在转换Bestdori!谱面时将长条转换为滑条</label><br></span>
 <!--官谱BMS转BanG! Simulator谱面请使用以下Python2转换器：<a href="converter.py">下载</a>-->
 输出谱面：<a id="downloadchart" style="display:none;" download="mychart.txt">下载</a><br><textarea id="chartoutput" style="width:600px;height:200px;" readonly="readonly"></textarea>
@@ -67,10 +67,6 @@ function b(){
 	}
 	if(document.getElementById("outputformat").value=="0"){
 		document.getElementById("chartoutput").value=BanGSimToBestdori(temp);
-		return;
-	}
-	if(document.getElementById("outputformat").value=="1b"){
-		document.getElementById("chartoutput").value=BanGSimToOldBanGSim13(temp);
 		return;
 	}
 	if(document.getElementById("outputformat").value=="1c"){
@@ -263,95 +259,33 @@ function BanGSimToBestdori(chart){
 		return JSON.stringify(bestdori);
 	}catch(e){alert('错误：'+e);return "谱面转换出现错误";}
 }
-function BanGSimToOldBanGSim13(chart){
-	try{
-		var t=chart.split('\n');
-		var result=[t[0],t[1]];
-		for(var i=2;t[i];i++){
-			if(t[i].split('/')[1]=="41"){
-				continue;
-			}
-			if(t[i].split('/')[1]=="42"){
-				continue;
-			}
-			if(t[i].split('/')[1]=="51"){
-				throw "BanG! Simulator 1.30谱面格式不支持方向滑键";
-			}
-			if(t[i].split('/')[1]=="52"){
-				throw "BanG! Simulator 1.30谱面格式不支持方向滑键";
-			}
-			if(t[i].split('/')[1]=="53"){
-				throw "BanG! Simulator 1.30谱面格式不支持方向滑键";
-			}
-			if(t[i].split('/')[1]=="54"){
-				throw "BanG! Simulator 1.30谱面格式不支持方向滑键";
-			}
-			if(t[i].split('/')[1]=="55"){
-				throw "BanG! Simulator 1.30谱面格式不支持方向滑键";
-			}
-			if(t[i].split('/')[1]=="56"){
-				throw "BanG! Simulator 1.30谱面格式不支持方向滑键";
-			}
-			if(t[i].split('/')[1]=="57"){
-				throw "BanG! Simulator 1.30谱面格式不支持方向滑键";
-			}
-			if(t[i].split('/')[1]=="61"){
-				throw "BanG! Simulator 1.30谱面格式不支持方向滑键";
-			}
-			if(t[i].split('/')[1]=="62"){
-				throw "BanG! Simulator 1.30谱面格式不支持方向滑键";
-			}
-			if(t[i].split('/')[1]=="63"){
-				throw "BanG! Simulator 1.30谱面格式不支持方向滑键";
-			}
-			if(t[i].split('/')[1]=="64"){
-				throw "BanG! Simulator 1.30谱面格式不支持方向滑键";
-			}
-			if(t[i].split('/')[1]=="65"){
-				throw "BanG! Simulator 1.30谱面格式不支持方向滑键";
-			}
-			if(t[i].split('/')[1]=="66"){
-				throw "BanG! Simulator 1.30谱面格式不支持方向滑键";
-			}
-			if(t[i].split('/')[1]=="67"){
-				throw "BanG! Simulator 1.30谱面格式不支持方向滑键";
-			}
-			result.push(t[i]);
-		}
-		var finalresult="";
-		for(var i=0;i<result.length;i++){
-			finalresult=finalresult+result[i]+"\n";
-		}
-		return finalresult;
-	}catch(e){alert('错误：'+e);return "谱面转换出现错误";}
-}
 function BanGSimToOldBanGSim10(chart){
 	try{
 		var t=chart.split('\n');
 		var result=[t[0],t[1]];
 		for(var i=2;t[i];i++){
 			if(t[i].split('/')[1]=="31"){
-				alert("警告：出现BanG! Simulator 1.00不支持的技能键，将被转换为普通键");
+				alert("警告：出现BanG! Simulator 1不支持的技能键，将被转换为普通键");
 				t[i]=t[i].split('/')[0]+'/21/'+t[i].split('/')[2];
 			}
 			if(t[i].split('/')[1]=="32"){
-				alert("警告：出现BanG! Simulator 1.00不支持的技能键，将被转换为普通键");
+				alert("警告：出现BanG! Simulator 1不支持的技能键，将被转换为普通键");
 				t[i]=t[i].split('/')[0]+'/25/'+t[i].split('/')[2];
 			}
 			if(t[i].split('/')[1]=="33"){
-				alert("警告：出现BanG! Simulator 1.00不支持的技能键，将被转换为普通键");
+				alert("警告：出现BanG! Simulator 1不支持的技能键，将被转换为普通键");
 				t[i]=t[i].split('/')[0]+'/3/'+t[i].split('/')[2];
 			}
 			if(t[i].split('/')[1]=="34"){
-				alert("警告：出现BanG! Simulator 1.00不支持的技能键，将被转换为普通键");
+				alert("警告：出现BanG! Simulator 1不支持的技能键，将被转换为普通键");
 				t[i]=t[i].split('/')[0]+'/5/'+t[i].split('/')[2];
 			}
 			if(t[i].split('/')[1]=="35"){
-				alert("警告：出现BanG! Simulator 1.00不支持的技能键，将被转换为普通键");
+				alert("警告：出现BanG! Simulator 1不支持的技能键，将被转换为普通键");
 				t[i]=t[i].split('/')[0]+'/6/'+t[i].split('/')[2];
 			}
 			if(t[i].split('/')[1]=="36"){
-				alert("警告：出现BanG! Simulator 1.00不支持的技能键，将被转换为普通键");
+				alert("警告：出现BanG! Simulator 1不支持的技能键，将被转换为普通键");
 				t[i]=t[i].split('/')[0]+'/8/'+t[i].split('/')[2];
 			}
 			if(t[i].split('/')[1]=="41"){
@@ -361,46 +295,46 @@ function BanGSimToOldBanGSim10(chart){
 				continue;
 			}
 			if(t[i].split('/')[1]=="51"){
-				throw "BanG! Simulator 1.00谱面格式不支持方向滑键";
+				throw "BanG! Simulator 1谱面格式不支持方向滑键";
 			}
 			if(t[i].split('/')[1]=="52"){
-				throw "BanG! Simulator 1.00谱面格式不支持方向滑键";
+				throw "BanG! Simulator 1谱面格式不支持方向滑键";
 			}
 			if(t[i].split('/')[1]=="53"){
-				throw "BanG! Simulator 1.00谱面格式不支持方向滑键";
+				throw "BanG! Simulator 1谱面格式不支持方向滑键";
 			}
 			if(t[i].split('/')[1]=="54"){
-				throw "BanG! Simulator 1.00谱面格式不支持方向滑键";
+				throw "BanG! Simulator 1谱面格式不支持方向滑键";
 			}
 			if(t[i].split('/')[1]=="55"){
-				throw "BanG! Simulator 1.00谱面格式不支持方向滑键";
+				throw "BanG! Simulator 1谱面格式不支持方向滑键";
 			}
 			if(t[i].split('/')[1]=="56"){
-				throw "BanG! Simulator 1.00谱面格式不支持方向滑键";
+				throw "BanG! Simulator 1谱面格式不支持方向滑键";
 			}
 			if(t[i].split('/')[1]=="57"){
-				throw "BanG! Simulator 1.00谱面格式不支持方向滑键";
+				throw "BanG! Simulator 1谱面格式不支持方向滑键";
 			}
 			if(t[i].split('/')[1]=="61"){
-				throw "BanG! Simulator 1.00谱面格式不支持方向滑键";
+				throw "BanG! Simulator 1谱面格式不支持方向滑键";
 			}
 			if(t[i].split('/')[1]=="62"){
-				throw "BanG! Simulator 1.00谱面格式不支持方向滑键";
+				throw "BanG! Simulator 1谱面格式不支持方向滑键";
 			}
 			if(t[i].split('/')[1]=="63"){
-				throw "BanG! Simulator 1.00谱面格式不支持方向滑键";
+				throw "BanG! Simulator 1谱面格式不支持方向滑键";
 			}
 			if(t[i].split('/')[1]=="64"){
-				throw "BanG! Simulator 1.00谱面格式不支持方向滑键";
+				throw "BanG! Simulator 1谱面格式不支持方向滑键";
 			}
 			if(t[i].split('/')[1]=="65"){
-				throw "BanG! Simulator 1.00谱面格式不支持方向滑键";
+				throw "BanG! Simulator 1谱面格式不支持方向滑键";
 			}
 			if(t[i].split('/')[1]=="66"){
-				throw "BanG! Simulator 1.00谱面格式不支持方向滑键";
+				throw "BanG! Simulator 1谱面格式不支持方向滑键";
 			}
 			if(t[i].split('/')[1]=="67"){
-				throw "BanG! Simulator 1.00谱面格式不支持方向滑键";
+				throw "BanG! Simulator 1谱面格式不支持方向滑键";
 			}
 			result.push(t[i]);
 		}
