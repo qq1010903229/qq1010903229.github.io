@@ -1,0 +1,10 @@
+{"version":"1.0.0",
+"model":"4-125.moc",
+"textures":["4-125.png"],
+"physics":"4-125p.json",
+"layout":{"center_x":0,"center_y":-0.05,"width":2},
+"motions":{"idle":[{"file":"4-idle01.mtn"}],
+"c":[{"file":"4-nf03.mtn"}]
+},
+"hit_areas_custom":{}
+}
