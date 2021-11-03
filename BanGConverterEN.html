@@ -1,30 +1,25 @@
 ﻿<!doctype html>
-<html lang="zh-cn">
+<html lang="en">
 <head>
 <meta charset="utf-8">
-<title>BanG Converter - BanG Dream! 谱面转换器</title>
+<title>BanG Converter - BanG Dream! Chart Converter</title>
 </head>
 <body>
-<a href="/bandoricharts">loader3229的BanG Dream! 自制谱列表</a>
-<a href="/bandorivals">loader3229的BanG Dream! 定数表</a>
-<a href="/bandoribangpack">loader3229的bangpack列表</a>
-<a href="/BanGConverter">BanG Converter - BanG Dream! 谱面转换器</a>
+<a href="/BanGConverter">BanG Converter - BanG Dream! Chart Converter</a>
 <a href="https://github.com/qq1010903229/BanG-simulator/releases/download/v2.1/release.zip">BanG! Simulator 2.1</a>
-<a href="/bandoril2dsettings">Live2D设置</a>
-<a href="javascript:void(setl2dm(localStorage.l2dm));">Live2D模型显示不正常修复</a>
+<a href="/bandoril2dsettings">Live2D Settings</a>
+<a href="javascript:void(setl2dm(localStorage.l2dm));">Fix Live2D Display Problem</a>
 <hr>
-<a href="/BanGConverterEN">English</a><br>
-<h1>BanG Converter - BanG Dream! 谱面转换器  v1.1.4</h1><br>
-输入谱面：<br><textarea id="chartinput" style="width:600px;height:200px;"></textarea><br>
-获取BanG Dream!官谱：<input id="officialid" type="number" min="1" max="2000" placeholder="谱面ID"><select id="officialdiff"><option value="easy">Easy</option><option value="normal">Normal</option><option value="hard">Hard</option><option value="expert" selected>Expert</option><option value="special">Special</option></select><a href="javascript:void(bestdoriofficial());">获取</a><br>
-获取Bestdori自制谱：<input id="communityid" type="number" min="1" max="1000000" placeholder="谱面ID"><a href="javascript:void(bestdoricommunity());">获取</a><br>
-输入谱面格式：<select id="inputformat"><option value="0">Bestdori!</option><option value="3">Bestdori!旧格式</option><option value="1" selected>BanG! Simulator</option></select>
-输出谱面格式：<select id="outputformat"><option value="0" selected>Bestdori!</option><option value="1">BanG! Simulator 2</option><option value="1c">BanG! Simulator 1</option><option value="2">官谱BMS</option></select>
-<a href="javascript:void(convert());">开始转换</a><br>
-如果要转换为其他音游的谱面，请先转换为官谱BMS并下载，然后使用<a href="https://lrfasd.github.io/rmstZ/rmstZ_20210717.html" target="_blank">rmstZ</a>转换为其他音游的谱面<br>
-<span id="nolnspan"><input id="noln" type="checkbox"><label for="noln">在转换Bestdori!谱面时将长条转换为滑条</label><br></span>
-<!--官谱BMS转BanG! Simulator谱面请使用以下Python2转换器：<a href="converter.py">下载</a>-->
-输出谱面：<a id="downloadchart" style="display:none;" download="mychart.txt">下载</a><br><textarea id="chartoutput" style="width:600px;height:200px;" readonly="readonly"></textarea>
+<a href="/BanGConverter">中文</a><br>
+<h1>BanG Converter - BanG Dream! Chart Converter v1.1.4</h1><br>
+Input Chart:<br><textarea id="chartinput" style="width:600px;height:200px;"></textarea><br>
+Get BanG Dream! Official Chart:<input id="officialid" type="number" min="1" max="2000" placeholder="Chart ID"><select id="officialdiff"><option value="easy">Easy</option><option value="normal">Normal</option><option value="hard">Hard</option><option value="expert" selected>Expert</option><option value="special">Special</option></select><a href="javascript:void(bestdoriofficial());">Get Chart</a><br>
+Get Bestdori! Community Chart:<input id="communityid" type="number" min="1" max="1000000" placeholder="Chart ID"><a href="javascript:void(bestdoricommunity());">Get Chart</a><br>
+Input Chart Format:<select id="inputformat"><option value="0">Bestdori!</option><option value="3">Bestdori! Old Format</option><option value="1" selected>BanG! Simulator</option></select>
+Output Chart Format:<select id="outputformat"><option value="0" selected>Bestdori!</option><option value="1">BanG! Simulator 2</option><option value="1c">BanG! Simulator 1</option><option value="2">Official Chart BMS</option></select>
+<a href="javascript:void(convert());">Convert!</a><br>
+<span id="nolnspan"><input id="noln" type="checkbox"><label for="noln">When converting Bestdori! chart, don't convert slide to long note</label><br></span>
+Output Chart:<a id="downloadchart" style="display:none;" download="mychart.txt">Download!</a><br><textarea id="chartoutput" style="width:600px;height:200px;" readonly="readonly"></textarea>
 <script>
 function update(){
 	if(document.getElementById("inputformat").value=="0"){
@@ -44,21 +39,21 @@ function convert(){
 }
 function b(){
 	if(document.getElementById("inputformat").value==document.getElementById("outputformat").value){
-		alert("为什么要转换为相同的格式？");
+		alert("Why are you want convert from a format to itself?");
 		document.getElementById("chartoutput").value=document.getElementById("chartinput").value;
 		return;
 	}
 	var temp=document.getElementById("chartinput").value;
 	if(document.getElementById("inputformat").value=="0"){
 		temp=BestdoriToBanGSim(temp);
-		if(temp=="谱面转换出现错误"){
+		if(temp=="An error occurred when converting chart"){
 			document.getElementById("chartoutput").value=temp;
 			return;
 		}
 	}
 	if(document.getElementById("inputformat").value=="3"){
 		temp=BestdoriOldToBanGSim(temp);
-		if(temp=="谱面转换出现错误"){
+		if(temp=="An error occurred when converting chart"){
 			document.getElementById("chartoutput").value=temp;
 			return;
 		}
@@ -100,34 +95,34 @@ function BanGSimToBestdori(chart){
 				bestdori.push({type:"Single",beat:parseFloat(t[i].split('/')[0]),lane:parseFloat(t[i].split('/')[2])-1,flick:true});
 			}
 			if(t[i].split('/')[1]=="3"){
-				if(a==1)alert('警告：意外出现的滑条A开始Note：'+t[i]);
+				if(a==1)alert('Warning: Unexpected slide A start: '+t[i]);
 				a=1;
 				bestdori_slidea.push({beat:parseFloat(t[i].split('/')[0]),lane:parseFloat(t[i].split('/')[2])-1});
 			}
 			if(t[i].split('/')[1]=="4"){
-				if(a==0)alert('警告：意外出现的滑条A节点Note：'+t[i]);
+				if(a==0)alert('Warning: Unexpected slide A among: '+t[i]);
 				a=1;
 				bestdori_slidea.push({beat:parseFloat(t[i].split('/')[0]),lane:parseFloat(t[i].split('/')[2])-1});
 			}
 			if(t[i].split('/')[1]=="5"){
-				if(a==0)alert('警告：意外出现的滑条A结束Note：'+t[i]);
+				if(a==0)alert('Warning: Unexpected slide A end: '+t[i]);
 				a=0;
 				bestdori_slidea.push({beat:parseFloat(t[i].split('/')[0]),lane:parseFloat(t[i].split('/')[2])-1});
 				bestdori.push({type:"Slide",connections:bestdori_slidea});
 				bestdori_slidea=[];
 			}
 			if(t[i].split('/')[1]=="6"){
-				if(b==1)alert('警告：意外出现的滑条B开始Note：'+t[i]);
+				if(b==1)alert('Warning: Unexpected slide B start: '+t[i]);
 				b=1;
 				bestdori_slideb.push({beat:parseFloat(t[i].split('/')[0]),lane:parseFloat(t[i].split('/')[2])-1});
 			}
 			if(t[i].split('/')[1]=="7"){
-				if(b==0)alert('警告：意外出现的滑条B节点Note：'+t[i]);
+				if(b==0)alert('Warning: Unexpected slide B among: '+t[i]);
 				b=1;
 				bestdori_slideb.push({beat:parseFloat(t[i].split('/')[0]),lane:parseFloat(t[i].split('/')[2])-1});
 			}
 			if(t[i].split('/')[1]=="8"){
-				if(b==0)alert('警告：意外出现的滑条B结束Note：'+t[i]);
+				if(b==0)alert('Warning: Unexpected slide B end: '+t[i]);
 				b=0;
 				bestdori_slideb.push({beat:parseFloat(t[i].split('/')[0]),lane:parseFloat(t[i].split('/')[2])-1});
 				bestdori.push({type:"Slide",connections:bestdori_slideb});
@@ -140,14 +135,14 @@ function BanGSimToBestdori(chart){
 				bestdori.push({type:"Single",beat:parseFloat(t[i].split('/')[0]),lane:parseFloat(t[i].split('/')[2])-1,skill:true});
 			}
 			if(t[i].split('/')[1]=="12"){
-				if(a==0)alert('警告：意外出现的滑条A结束Note：'+t[i]);
+				if(a==0)alert('Warning: Unexpected slide A end: '+t[i]);
 				a=0;
 				bestdori_slidea.push({beat:parseFloat(t[i].split('/')[0]),lane:parseFloat(t[i].split('/')[2])-1,flick:true});
 				bestdori.push({type:"Slide",connections:bestdori_slidea});
 				bestdori_slidea=[];
 			}
 			if(t[i].split('/')[1]=="13"){
-				if(b==0)alert('警告：意外出现的滑条B结束Note：'+t[i]);
+				if(b==0)alert('Warning: Unexpected slide B end: '+t[i]);
 				b=0;
 				bestdori_slideb.push({beat:parseFloat(t[i].split('/')[0]),lane:parseFloat(t[i].split('/')[2])-1,flick:true});
 				bestdori.push({type:"Slide",connections:bestdori_slideb});
@@ -178,36 +173,36 @@ function BanGSimToBestdori(chart){
 				bestdori_longnotes[parseFloat(t[i].split('/')[2])-1]=[];
 			}
 			if(t[i].split('/')[1]=="33"){
-				if(a==1)alert('警告：意外出现的滑条A开始Note：'+t[i]);
+				if(a==1)alert('Warning: Unexpected slide A start: '+t[i]);
 				a=1;
 				bestdori_slidea.push({beat:parseFloat(t[i].split('/')[0]),lane:parseFloat(t[i].split('/')[2])-1,skill:true});
 			}
 			if(t[i].split('/')[1]=="34"){
-				if(a==0)alert('警告：意外出现的滑条A结束Note：'+t[i]);
+				if(a==0)alert('Warning: Unexpected slide A end: '+t[i]);
 				a=0;
 				bestdori_slidea.push({beat:parseFloat(t[i].split('/')[0]),lane:parseFloat(t[i].split('/')[2])-1,skill:true});
 				bestdori.push({type:"Slide",connections:bestdori_slidea});
 				bestdori_slidea=[];
 			}
 			if(t[i].split('/')[1]=="35"){
-				if(b==1)alert('警告：意外出现的滑条B开始Note：'+t[i]);
+				if(b==1)alert('Warning: Unexpected slide B start: '+t[i]);
 				b=1;
 				bestdori_slideb.push({beat:parseFloat(t[i].split('/')[0]),lane:parseFloat(t[i].split('/')[2])-1,skill:true});
 			}
 			if(t[i].split('/')[1]=="36"){
-				if(b==0)alert('警告：意外出现的滑条B结束Note：'+t[i]);
+				if(b==0)alert('Warning: Unexpected slide B end: '+t[i]);
 				b=0;
 				bestdori_slideb.push({beat:parseFloat(t[i].split('/')[0]),lane:parseFloat(t[i].split('/')[2])-1,skill:true});
 				bestdori.push({type:"Slide",connections:bestdori_slideb});
 				bestdori_slideb=[];
 			}
 			if(t[i].split('/')[1]=="41"){
-				if(a==0)alert('警告：意外出现的滑条A隐藏节点Note：'+t[i]);
+				if(a==0)alert('Warning: Unexpected slide A hidden: '+t[i]);
 				a=1;
 				bestdori_slidea.push({beat:parseFloat(t[i].split('/')[0]),lane:parseFloat(t[i].split('/')[2])-1,hidden:true});
 			}
 			if(t[i].split('/')[1]=="42"){
-				if(b==0)alert('警告：意外出现的滑条B隐藏节点Note：'+t[i]);
+				if(b==0)alert('Warning: Unexpected slide B hidden: '+t[i]);
 				b=1;
 				bestdori_slideb.push({beat:parseFloat(t[i].split('/')[0]),lane:parseFloat(t[i].split('/')[2])-1,hidden:true});
 			}
@@ -254,12 +249,12 @@ function BanGSimToBestdori(chart){
 				bestdori.push({type:"Directional",beat:parseFloat(t[i].split('/')[0]),lane:parseFloat(t[i].split('/')[2])-1,"direction":"Right","width":7});
 			}
 		}
-		if(a||b)alert('警告：滑条没有结束：'+(a?'A':"")+(b?'B':""));
+		if(a||b)alert("Warning: Slide doesn't end: "+(a?'A':"")+(b?'B':""));
 		bestdori_slidea=[];
 		bestdori_slideb=[];
 		bestdori_longnotes=[[],[],[],[],[],[],[],[]];
 		return JSON.stringify(bestdori);
-	}catch(e){alert('错误：'+e);return "谱面转换出现错误";}
+	}catch(e){alert('Error: '+e);return "An error occurred when converting chart";}
 }
 function BanGSimToOldBanGSim10(chart){
 	try{
@@ -267,27 +262,27 @@ function BanGSimToOldBanGSim10(chart){
 		var result=[t[0],t[1]];
 		for(var i=2;t[i];i++){
 			if(t[i].split('/')[1]=="31"){
-				alert("警告：出现BanG! Simulator 1不支持的技能键，将被转换为普通键");
+				alert("Warning: BanG! Simulator 1 format doesn't support skill notes in long notes. It will convert to normal note.");
 				t[i]=t[i].split('/')[0]+'/21/'+t[i].split('/')[2];
 			}
 			if(t[i].split('/')[1]=="32"){
-				alert("警告：出现BanG! Simulator 1不支持的技能键，将被转换为普通键");
+				alert("Warning: BanG! Simulator 1 format doesn't support skill notes in long notes. It will convert to normal note.");
 				t[i]=t[i].split('/')[0]+'/25/'+t[i].split('/')[2];
 			}
 			if(t[i].split('/')[1]=="33"){
-				alert("警告：出现BanG! Simulator 1不支持的技能键，将被转换为普通键");
+				alert("Warning: BanG! Simulator 1 format doesn't support skill notes in slides. It will convert to normal note.");
 				t[i]=t[i].split('/')[0]+'/3/'+t[i].split('/')[2];
 			}
 			if(t[i].split('/')[1]=="34"){
-				alert("警告：出现BanG! Simulator 1不支持的技能键，将被转换为普通键");
+				alert("Warning: BanG! Simulator 1 format doesn't support skill notes in slides. It will convert to normal note.");
 				t[i]=t[i].split('/')[0]+'/5/'+t[i].split('/')[2];
 			}
 			if(t[i].split('/')[1]=="35"){
-				alert("警告：出现BanG! Simulator 1不支持的技能键，将被转换为普通键");
+				alert("Warning: BanG! Simulator 1 format doesn't support skill notes in slides. It will convert to normal note.");
 				t[i]=t[i].split('/')[0]+'/6/'+t[i].split('/')[2];
 			}
 			if(t[i].split('/')[1]=="36"){
-				alert("警告：出现BanG! Simulator 1不支持的技能键，将被转换为普通键");
+				alert("Warning: BanG! Simulator 1 format doesn't support skill notes in slides. It will convert to normal note.");
 				t[i]=t[i].split('/')[0]+'/8/'+t[i].split('/')[2];
 			}
 			if(t[i].split('/')[1]=="41"){
@@ -297,46 +292,46 @@ function BanGSimToOldBanGSim10(chart){
 				continue;
 			}
 			if(t[i].split('/')[1]=="51"){
-				throw "BanG! Simulator 1谱面格式不支持方向滑键";
+				throw "BanG! Simulator 1 format doesn't support Directional notes";
 			}
 			if(t[i].split('/')[1]=="52"){
-				throw "BanG! Simulator 1谱面格式不支持方向滑键";
+				throw "BanG! Simulator 1 format doesn't support Directional notes";
 			}
 			if(t[i].split('/')[1]=="53"){
-				throw "BanG! Simulator 1谱面格式不支持方向滑键";
+				throw "BanG! Simulator 1 format doesn't support Directional notes";
 			}
 			if(t[i].split('/')[1]=="54"){
-				throw "BanG! Simulator 1谱面格式不支持方向滑键";
+				throw "BanG! Simulator 1 format doesn't support Directional notes";
 			}
 			if(t[i].split('/')[1]=="55"){
-				throw "BanG! Simulator 1谱面格式不支持方向滑键";
+				throw "BanG! Simulator 1 format doesn't support Directional notes";
 			}
 			if(t[i].split('/')[1]=="56"){
-				throw "BanG! Simulator 1谱面格式不支持方向滑键";
+				throw "BanG! Simulator 1 format doesn't support Directional notes";
 			}
 			if(t[i].split('/')[1]=="57"){
-				throw "BanG! Simulator 1谱面格式不支持方向滑键";
+				throw "BanG! Simulator 1 format doesn't support Directional notes";
 			}
 			if(t[i].split('/')[1]=="61"){
-				throw "BanG! Simulator 1谱面格式不支持方向滑键";
+				throw "BanG! Simulator 1 format doesn't support Directional notes";
 			}
 			if(t[i].split('/')[1]=="62"){
-				throw "BanG! Simulator 1谱面格式不支持方向滑键";
+				throw "BanG! Simulator 1 format doesn't support Directional notes";
 			}
 			if(t[i].split('/')[1]=="63"){
-				throw "BanG! Simulator 1谱面格式不支持方向滑键";
+				throw "BanG! Simulator 1 format doesn't support Directional notes";
 			}
 			if(t[i].split('/')[1]=="64"){
-				throw "BanG! Simulator 1谱面格式不支持方向滑键";
+				throw "BanG! Simulator 1 format doesn't support Directional notes";
 			}
 			if(t[i].split('/')[1]=="65"){
-				throw "BanG! Simulator 1谱面格式不支持方向滑键";
+				throw "BanG! Simulator 1 format doesn't support Directional notes";
 			}
 			if(t[i].split('/')[1]=="66"){
-				throw "BanG! Simulator 1谱面格式不支持方向滑键";
+				throw "BanG! Simulator 1 format doesn't support Directional notes";
 			}
 			if(t[i].split('/')[1]=="67"){
-				throw "BanG! Simulator 1谱面格式不支持方向滑键";
+				throw "BanG! Simulator 1 format doesn't support Directional notes";
 			}
 			result.push(t[i]);
 		}
@@ -345,7 +340,7 @@ function BanGSimToOldBanGSim10(chart){
 			finalresult=finalresult+result[i]+"\n";
 		}
 		return finalresult;
-	}catch(e){alert('错误：'+e);return "谱面转换出现错误";}
+	}catch(e){alert('Error: '+e);return "An error occurred when converting chart";}
 }
 function BestdoriToBanGSim(chart){
 	try{
@@ -353,7 +348,7 @@ function BestdoriToBanGSim(chart){
 		var result=["46","120","0/0/0"];
 		for(var i=0;t[i];i++){
 			if(t[i].type=="System"&&t[i].cmd=="BPM"){
-				if(confirm("检测到Bestdori!旧格式谱面。是否要以旧格式模式转换它？")){
+				if(confirm("Bestdori! old format detected. Would you like to use the old format mode?")){
 					return BestdoriOldToBanGSim(chart);
 				}
 			}
@@ -420,7 +415,7 @@ function BestdoriToBanGSim(chart){
 				if(slides[i].connections[0].beat<=a){
 					pos=1;
 					if(slides[i].connections[0].beat<=b){
-						throw "不允许同时出现三个以上的滑条";
+						throw "Triple or more slides at the same time are not allowed in this converter.";
 					}
 				}
 				if(pos==1){
@@ -459,7 +454,7 @@ function BestdoriToBanGSim(chart){
 			finalresult=finalresult+result[i]+"\n";
 		}
 		return finalresult;
-	}catch(e){alert('错误：'+e);return "谱面转换出现错误";}
+	}catch(e){alert('Error: '+e);return "An error occurred when converting chart";}
 }
 function BestdoriOldToBanGSim(chart){
 	try{
@@ -534,7 +529,7 @@ function BestdoriOldToBanGSim(chart){
 			finalresult=finalresult+result[i]+"\n";
 		}
 		return finalresult;
-	}catch(e){alert('错误：'+e);return "谱面转换出现错误";}
+	}catch(e){alert('Error: '+e);return "An error occurred when converting chart";}
 }
 function BanGSimToBMS(chart){
 	try{
@@ -616,10 +611,10 @@ function BanGSimToBMS(chart){
 				var lane="1"+lanenumbers[Math.round(parseFloat(t[i].split('/')[2])-1)];
 				var beat=Math.round(parseFloat(t[i].split('/')[0])*192);
 				if(beat>=768000){
-					throw "谱面时长过长";
+					throw "Chart is too long to convert to official BMS.";
 				}
 				if(bms[lane][beat]){
-					throw "在第"+t[i].split('/')[0]+"拍出现重复位置的Note";
+					throw "There are two notes at lane "+Math.round(parseFloat(t[i].split('/')[2]))+", beat"+t[i].split('/')[0]+".";
 				}
 				bms[lane][beat]="03";
 			}
@@ -627,10 +622,10 @@ function BanGSimToBMS(chart){
 				var lane="1"+lanenumbers[Math.round(parseFloat(t[i].split('/')[2])-1)];
 				var beat=Math.round(parseFloat(t[i].split('/')[0])*192);
 				if(beat>=768000){
-					throw "谱面时长过长";
+					throw "Chart is too long to convert to official BMS.";
 				}
 				if(bms[lane][beat]){
-					throw "在第"+t[i].split('/')[0]+"拍出现重复位置的Note";
+					throw "There are two notes at lane "+Math.round(parseFloat(t[i].split('/')[2]))+", beat"+t[i].split('/')[0]+".";
 				}
 				bms[lane][beat]="04";
 			}
@@ -638,10 +633,10 @@ function BanGSimToBMS(chart){
 				var lane="1"+lanenumbers[Math.round(parseFloat(t[i].split('/')[2])-1)];
 				var beat=Math.round(parseFloat(t[i].split('/')[0])*192);
 				if(beat>=768000){
-					throw "谱面时长过长";
+					throw "Chart is too long to convert to official BMS.";
 				}
 				if(bms[lane][beat]){
-					throw "在第"+t[i].split('/')[0]+"拍出现重复位置的Note";
+					throw "There are two notes at lane "+Math.round(parseFloat(t[i].split('/')[2]))+", beat"+t[i].split('/')[0]+".";
 				}
 				bms[lane][beat]="06";
 			}
@@ -649,10 +644,10 @@ function BanGSimToBMS(chart){
 				var lane="1"+lanenumbers[Math.round(parseFloat(t[i].split('/')[2])-1)];
 				var beat=Math.round(parseFloat(t[i].split('/')[0])*192);
 				if(beat>=768000){
-					throw "谱面时长过长";
+					throw "Chart is too long to convert to official BMS.";
 				}
 				if(bms[lane][beat]){
-					throw "在第"+t[i].split('/')[0]+"拍出现重复位置的Note";
+					throw "There are two notes at lane "+Math.round(parseFloat(t[i].split('/')[2]))+", beat"+t[i].split('/')[0]+".";
 				}
 				bms[lane][beat]="06";
 			}
@@ -660,10 +655,10 @@ function BanGSimToBMS(chart){
 				var lane="1"+lanenumbers[Math.round(parseFloat(t[i].split('/')[2])-1)];
 				var beat=Math.round(parseFloat(t[i].split('/')[0])*192);
 				if(beat>=768000){
-					throw "谱面时长过长";
+					throw "Chart is too long to convert to official BMS.";
 				}
 				if(bms[lane][beat]){
-					throw "在第"+t[i].split('/')[0]+"拍出现重复位置的Note";
+					throw "There are two notes at lane "+Math.round(parseFloat(t[i].split('/')[2]))+", beat"+t[i].split('/')[0]+".";
 				}
 				bms[lane][beat]="07";
 			}
@@ -671,10 +666,10 @@ function BanGSimToBMS(chart){
 				var lane="1"+lanenumbers[Math.round(parseFloat(t[i].split('/')[2])-1)];
 				var beat=Math.round(parseFloat(t[i].split('/')[0])*192);
 				if(beat>=768000){
-					throw "谱面时长过长";
+					throw "Chart is too long to convert to official BMS.";
 				}
 				if(bms[lane][beat]){
-					throw "在第"+t[i].split('/')[0]+"拍出现重复位置的Note";
+					throw "There are two notes at lane "+Math.round(parseFloat(t[i].split('/')[2]))+", beat"+t[i].split('/')[0]+".";
 				}
 				bms[lane][beat]="09";
 			}
@@ -682,10 +677,10 @@ function BanGSimToBMS(chart){
 				var lane="1"+lanenumbers[Math.round(parseFloat(t[i].split('/')[2])-1)];
 				var beat=Math.round(parseFloat(t[i].split('/')[0])*192);
 				if(beat>=768000){
-					throw "谱面时长过长";
+					throw "Chart is too long to convert to official BMS.";
 				}
 				if(bms[lane][beat]){
-					throw "在第"+t[i].split('/')[0]+"拍出现重复位置的Note";
+					throw "There are two notes at lane "+Math.round(parseFloat(t[i].split('/')[2]))+", beat"+t[i].split('/')[0]+".";
 				}
 				bms[lane][beat]="09";
 			}
@@ -693,10 +688,10 @@ function BanGSimToBMS(chart){
 				var lane="1"+lanenumbers[Math.round(parseFloat(t[i].split('/')[2])-1)];
 				var beat=Math.round(parseFloat(t[i].split('/')[0])*192);
 				if(beat>=768000){
-					throw "谱面时长过长";
+					throw "Chart is too long to convert to official BMS.";
 				}
 				if(bms[lane][beat]){
-					throw "在第"+t[i].split('/')[0]+"拍出现重复位置的Note";
+					throw "There are two notes at lane "+Math.round(parseFloat(t[i].split('/')[2]))+", beat"+t[i].split('/')[0]+".";
 				}
 				bms[lane][beat]="0A";
 			}
@@ -704,10 +699,10 @@ function BanGSimToBMS(chart){
 				var lane="1"+lanenumbers[Math.round(parseFloat(t[i].split('/')[2])-1)];
 				var beat=Math.round(parseFloat(t[i].split('/')[0])*192);
 				if(beat>=768000){
-					throw "谱面时长过长";
+					throw "Chart is too long to convert to official BMS.";
 				}
 				if(bms[lane][beat]){
-					throw "在第"+t[i].split('/')[0]+"拍出现重复位置的Note";
+					throw "There are two notes at lane "+Math.round(parseFloat(t[i].split('/')[2]))+", beat"+t[i].split('/')[0]+".";
 				}
 				bms[lane][beat]="0F";
 			}
@@ -715,10 +710,10 @@ function BanGSimToBMS(chart){
 				var lane="1"+lanenumbers[Math.round(parseFloat(t[i].split('/')[2])-1)];
 				var beat=Math.round(parseFloat(t[i].split('/')[0])*192);
 				if(beat>=768000){
-					throw "谱面时长过长";
+					throw "Chart is too long to convert to official BMS.";
 				}
 				if(bms[lane][beat]){
-					throw "在第"+t[i].split('/')[0]+"拍出现重复位置的Note";
+					throw "There are two notes at lane "+Math.round(parseFloat(t[i].split('/')[2]))+", beat"+t[i].split('/')[0]+".";
 				}
 				bms[lane][beat]="05";
 			}
@@ -726,10 +721,10 @@ function BanGSimToBMS(chart){
 				var lane="1"+lanenumbers[Math.round(parseFloat(t[i].split('/')[2])-1)];
 				var beat=Math.round(parseFloat(t[i].split('/')[0])*192);
 				if(beat>=768000){
-					throw "谱面时长过长";
+					throw "Chart is too long to convert to official BMS.";
 				}
 				if(bms[lane][beat]){
-					throw "在第"+t[i].split('/')[0]+"拍出现重复位置的Note";
+					throw "There are two notes at lane "+Math.round(parseFloat(t[i].split('/')[2]))+", beat"+t[i].split('/')[0]+".";
 				}
 				bms[lane][beat]="08";
 			}
@@ -737,10 +732,10 @@ function BanGSimToBMS(chart){
 				var lane="1"+lanenumbers[Math.round(parseFloat(t[i].split('/')[2])-1)];
 				var beat=Math.round(parseFloat(t[i].split('/')[0])*192);
 				if(beat>=768000){
-					throw "谱面时长过长";
+					throw "Chart is too long to convert to official BMS.";
 				}
 				if(bms[lane][beat]){
-					throw "在第"+t[i].split('/')[0]+"拍出现重复位置的Note";
+					throw "There are two notes at lane "+Math.round(parseFloat(t[i].split('/')[2]))+", beat"+t[i].split('/')[0]+".";
 				}
 				bms[lane][beat]="0B";
 			}
@@ -748,7 +743,7 @@ function BanGSimToBMS(chart){
 				var lane="03";
 				var beat=Math.round(parseFloat(t[i].split('/')[0])*192);
 				if(beat>=768000){
-					throw "谱面时长过长";
+					throw "Chart is too long to convert to official BMS.";
 				}
 				var bpm=parseFloat(t[i].split('/')[2]);
 				var wav="";
@@ -761,13 +756,13 @@ function BanGSimToBMS(chart){
 						if(bpms[k]==bpm)break;
 					}
 					if(k>99){
-						throw "过多的小数BPM";
+						throw "Too many decimal BPMs or BPMs greater than 255.";
 					}
 					bpms[k]=bpm;
 					wav=getBmsBpmIndex(k+1);
 				}
 				if(bms[lane][beat]){
-					throw "出现重复位置的BPM";
+					throw "There are two BPM markers at beat"+t[i].split('/')[0]+".";
 				}
 				bms[lane][beat]=wav;
 			}
@@ -775,10 +770,10 @@ function BanGSimToBMS(chart){
 				var lane="5"+lanenumbers[Math.round(parseFloat(t[i].split('/')[2])-1)];
 				var beat=Math.round(parseFloat(t[i].split('/')[0])*192);
 				if(beat>=768000){
-					throw "谱面时长过长";
+					throw "Chart is too long to convert to official BMS.";
 				}
 				if(bms[lane][beat]){
-					throw "在第"+t[i].split('/')[0]+"拍出现重复位置的Note";
+					throw "There are two notes at lane "+Math.round(parseFloat(t[i].split('/')[2]))+", beat"+t[i].split('/')[0]+".";
 				}
 				bms[lane][beat]="03";
 			}
@@ -786,10 +781,10 @@ function BanGSimToBMS(chart){
 				var lane="5"+lanenumbers[Math.round(parseFloat(t[i].split('/')[2])-1)];
 				var beat=Math.round(parseFloat(t[i].split('/')[0])*192);
 				if(beat>=768000){
-					throw "谱面时长过长";
+					throw "Chart is too long to convert to official BMS.";
 				}
 				if(bms[lane][beat]){
-					throw "在第"+t[i].split('/')[0]+"拍出现重复位置的Note";
+					throw "There are two notes at lane "+Math.round(parseFloat(t[i].split('/')[2]))+", beat"+t[i].split('/')[0]+".";
 				}
 				bms[lane][beat]="03";
 			}
@@ -797,10 +792,10 @@ function BanGSimToBMS(chart){
 				var lane="5"+lanenumbers[Math.round(parseFloat(t[i].split('/')[2])-1)];
 				var beat=Math.round(parseFloat(t[i].split('/')[0])*192);
 				if(beat>=768000){
-					throw "谱面时长过长";
+					throw "Chart is too long to convert to official BMS.";
 				}
 				if(bms[lane][beat]){
-					throw "在第"+t[i].split('/')[0]+"拍出现重复位置的Note";
+					throw "There are two notes at lane "+Math.round(parseFloat(t[i].split('/')[2]))+", beat"+t[i].split('/')[0]+".";
 				}
 				bms[lane][beat]="04";
 			}
@@ -808,10 +803,10 @@ function BanGSimToBMS(chart){
 				var lane="5"+lanenumbers[Math.round(parseFloat(t[i].split('/')[2])-1)];
 				var beat=Math.round(parseFloat(t[i].split('/')[0])*192);
 				if(beat>=768000){
-					throw "谱面时长过长";
+					throw "Chart is too long to convert to official BMS.";
 				}
 				if(bms[lane][beat]){
-					throw "在第"+t[i].split('/')[0]+"拍出现重复位置的Note";
+					throw "There are two notes at lane "+Math.round(parseFloat(t[i].split('/')[2]))+", beat"+t[i].split('/')[0]+".";
 				}
 				bms[lane][beat]="05";
 			}
@@ -819,58 +814,58 @@ function BanGSimToBMS(chart){
 				var lane="5"+lanenumbers[Math.round(parseFloat(t[i].split('/')[2])-1)];
 				var beat=Math.round(parseFloat(t[i].split('/')[0])*192);
 				if(beat>=768000){
-					throw "谱面时长过长";
+					throw "Chart is too long to convert to official BMS.";
 				}
 				if(bms[lane][beat]){
-					throw "在第"+t[i].split('/')[0]+"拍出现重复位置的Note";
+					throw "There are two notes at lane "+Math.round(parseFloat(t[i].split('/')[2]))+", beat"+t[i].split('/')[0]+".";
 				}
 				bms[lane][beat]="05";
 			}
 			if(t[i].split('/')[1]=="33"){
-				alert("警告：出现官谱BMS不支持的技能键，将被转换为普通键");
+				alert("Warning: Official BMS format doesn't support skill notes in slides. It will convert to normal note.");
 				var lane="1"+lanenumbers[Math.round(parseFloat(t[i].split('/')[2])-1)];
 				var beat=Math.round(parseFloat(t[i].split('/')[0])*192);
 				if(beat>=768000){
-					throw "谱面时长过长";
+					throw "Chart is too long to convert to official BMS.";
 				}
 				if(bms[lane][beat]){
-					throw "在第"+t[i].split('/')[0]+"拍出现重复位置的Note";
+					throw "There are two notes at lane "+Math.round(parseFloat(t[i].split('/')[2]))+", beat"+t[i].split('/')[0]+".";
 				}
 				bms[lane][beat]="06";
 			}
 			if(t[i].split('/')[1]=="34"){
-				alert("警告：出现官谱BMS不支持的技能键，将被转换为普通键");
+				alert("Warning: Official BMS format doesn't support skill notes in slides. It will convert to normal note.");
 				var lane="1"+lanenumbers[Math.round(parseFloat(t[i].split('/')[2])-1)];
 				var beat=Math.round(parseFloat(t[i].split('/')[0])*192);
 				if(beat>=768000){
-					throw "谱面时长过长";
+					throw "Chart is too long to convert to official BMS.";
 				}
 				if(bms[lane][beat]){
-					throw "在第"+t[i].split('/')[0]+"拍出现重复位置的Note";
+					throw "There are two notes at lane "+Math.round(parseFloat(t[i].split('/')[2]))+", beat"+t[i].split('/')[0]+".";
 				}
 				bms[lane][beat]="07";
 			}
 			if(t[i].split('/')[1]=="35"){
-				alert("警告：出现官谱BMS不支持的技能键，将被转换为普通键");
+				alert("Warning: Official BMS format doesn't support skill notes in slides. It will convert to normal note.");
 				var lane="1"+lanenumbers[Math.round(parseFloat(t[i].split('/')[2])-1)];
 				var beat=Math.round(parseFloat(t[i].split('/')[0])*192);
 				if(beat>=768000){
-					throw "谱面时长过长";
+					throw "Chart is too long to convert to official BMS.";
 				}
 				if(bms[lane][beat]){
-					throw "在第"+t[i].split('/')[0]+"拍出现重复位置的Note";
+					throw "There are two notes at lane "+Math.round(parseFloat(t[i].split('/')[2]))+", beat"+t[i].split('/')[0]+".";
 				}
 				bms[lane][beat]="09";
 			}
 			if(t[i].split('/')[1]=="36"){
-				alert("警告：出现官谱BMS不支持的技能键，将被转换为普通键");
+				alert("Warning: Official BMS format doesn't support skill notes in slides. It will convert to normal note.");
 				var lane="1"+lanenumbers[Math.round(parseFloat(t[i].split('/')[2])-1)];
 				var beat=Math.round(parseFloat(t[i].split('/')[0])*192);
 				if(beat>=768000){
-					throw "谱面时长过长";
+					throw "Chart is too long to convert to official BMS.";
 				}
 				if(bms[lane][beat]){
-					throw "在第"+t[i].split('/')[0]+"拍出现重复位置的Note";
+					throw "There are two notes at lane "+Math.round(parseFloat(t[i].split('/')[2]))+", beat"+t[i].split('/')[0]+".";
 				}
 				bms[lane][beat]="0A";
 			}
@@ -886,10 +881,10 @@ function BanGSimToBMS(chart){
 				if(lane<-50)lane=-50;
 				var beat=Math.round(parseFloat(t[i].split('/')[0])*192);
 				if(beat>=768000){
-					throw "谱面时长过长";
+					throw "Chart is too long to convert to official BMS.";
 				}
 				if(bms[reallane][beat]){
-					throw "在第"+t[i].split('/')[0]+"拍出现重复位置的Note";
+					throw "There are two hidden notes at lane "+(reallane+1)+", beat"+t[i].split('/')[0]+".";
 				}
 				bms[reallane][beat]=wavnewspa[lane+50];
 			}
@@ -905,10 +900,10 @@ function BanGSimToBMS(chart){
 				if(lane<-50)lane=-50;
 				var beat=Math.round(parseFloat(t[i].split('/')[0])*192);
 				if(beat>=768000){
-					throw "谱面时长过长";
+					throw "Chart is too long to convert to official BMS.";
 				}
 				if(bms[reallane][beat]){
-					throw "在第"+t[i].split('/')[0]+"拍出现重复位置的Note";
+					throw "There are two hidden notes at lane "+(reallane+1)+", beat"+t[i].split('/')[0]+".";
 				}
 				bms[reallane][beat]=wavnewspb[lane+50];
 			}
@@ -919,14 +914,14 @@ function BanGSimToBMS(chart){
 				for(var k=0;k<width;k++){
 					var lane="1"+lanenumbers[lanei-k];
 					if(lane=="1undefined"){
-						throw "新SP滑键出界";
+						throw "Directional notes outside the playfield was detected.";
 					}
 					var beat=Math.round(parseFloat(t[i].split('/')[0])*192);
 					if(beat>=768000){
-						throw "谱面时长过长";
+						throw "Chart is too long to convert to official BMS.";
 					}
 					if(bms[lane][beat]){
-						throw "在第"+t[i].split('/')[0]+"拍出现重复位置的Note";
+						throw "There are two notes at lane "+(lanei-k)+", beat"+t[i].split('/')[0]+".";
 					}
 					bms[lane][beat]="0G";
 				}
@@ -938,14 +933,14 @@ function BanGSimToBMS(chart){
 				for(var k=0;k<width;k++){
 					var lane="1"+lanenumbers[lanei+k];
 					if(lane=="1undefined"){
-						throw "新SP滑键出界";
+						throw "Directional notes outside the playfield was detected.";
 					}
 					var beat=Math.round(parseFloat(t[i].split('/')[0])*192);
 					if(beat>=768000){
-						throw "谱面时长过长";
+						throw "Chart is too long to convert to official BMS.";
 					}
 					if(bms[lane][beat]){
-						throw "在第"+t[i].split('/')[0]+"拍出现重复位置的Note";
+						throw "There are two notes at lane "+(lanei+k)+", beat"+t[i].split('/')[0]+".";
 					}
 					bms[lane][beat]="0H";
 				}
@@ -1013,7 +1008,7 @@ function BanGSimToBMS(chart){
 		}
 		bmsoutput+="\n";
 		return bmsoutput;
-	}catch(e){alert('错误：'+e);return "谱面转换出现错误";}
+	}catch(e){alert('Error: '+e);return "An error occurred when converting chart";}
 }
 function bestdoricommunity(){
 	var xhr=new XMLHttpRequest();
@@ -1022,16 +1017,16 @@ function bestdoricommunity(){
 			try{
 				var resp=JSON.parse(xhr.responseText).post.chart;
 				if(!resp || !(resp instanceof Array)){
-					alert("获取自制谱时出现错误");
+					alert("An error occurred when getting community chart");
 				}else{
 					document.getElementById("chartinput").value=JSON.stringify(resp);
 					document.getElementById("inputformat").value="0";
 				}
 			}catch(e){
-				alert("获取自制谱时出现错误");
+				alert("An error occurred when getting community chart");
 			}
 		}else if(xhr.readyState==4){
-			alert("获取自制谱时出现错误");
+			alert("An error occurred when getting community chart");
 		} 
 	}).bind(null,xhr);
 	xhr.open("GET","https://bird.ioliu.cn/v1?url=https://bestdori.com/api/post/details?id="+document.getElementById("communityid").value,true);
@@ -1044,16 +1039,16 @@ function bestdoriofficial(){
 			try{
 				var resp=JSON.parse(xhr.responseText);
 				if(!resp || !(resp instanceof Array)){
-					alert("获取官谱时出现错误");
+					alert("An error occurred when getting official chart");
 				}else{
 					document.getElementById("chartinput").value=JSON.stringify(resp);
 					document.getElementById("inputformat").value="0";
 				}
 			}catch(e){
-				alert("获取官谱时出现错误");
+				alert("An error occurred when getting official chart");
 			}
 		}else if(xhr.readyState==4){
-			alert("获取官谱时出现错误");
+			alert("An error occurred when getting official chart");
 		} 
 	}).bind(null,xhr);
 	xhr.open("GET","https://bird.ioliu.cn/v1?url=https://bestdori.com/api/charts/"+document.getElementById("officialid").value+"/"+document.getElementById("officialdiff").value+".json",true);
