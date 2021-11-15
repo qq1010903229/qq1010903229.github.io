@@ -1,0 +1,10 @@
+{"version":"1.0.0",
+"model":"19-280.moc",
+"textures":["19-280.png"],
+"physics":"19-280p.json",
+"layout":{"center_x":0,"center_y":-0.05,"width":2},
+"motions":{"idle":[{"file":"19-idle01.mtn"}],
+"c":[{"file":"19-smile04.mtn"}]
+},
+"hit_areas_custom":{}
+}
