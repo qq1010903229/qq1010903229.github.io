@@ -5,13 +5,13 @@
 <title>BanG Converter - BanG Dream! Chart Converter</title>
 </head>
 <body>
-<a href="/BanGConverter">BanG Converter - BanG Dream! Chart Converter</a>
+<a href="/BanGConverterEN">BanG Converter - BanG Dream! Chart Converter</a>
 <a href="https://github.com/qq1010903229/BanG-simulator/releases/download/v2.1/release.zip">BanG! Simulator 2.1</a>
 <a href="/bandoril2dsettingsEN">Live2D Settings</a>
 <a href="javascript:void(setl2dm(localStorage.l2dm));">Fix Live2D Display Problem</a>
 <hr>
 <a href="/BanGConverter">中文</a><br>
-<h1>BanG Converter - BanG Dream! Chart Converter v1.1.4</h1><br>
+<h1>BanG Converter - BanG Dream! Chart Converter v1.1.4.1</h1><br>
 Input Chart:<br><textarea id="chartinput" style="width:600px;height:200px;"></textarea><br>
 Get BanG Dream! Official Chart:<input id="officialid" type="number" min="1" max="2000" placeholder="Chart ID"><select id="officialdiff"><option value="easy">Easy</option><option value="normal">Normal</option><option value="hard">Hard</option><option value="expert" selected>Expert</option><option value="special">Special</option></select><a href="javascript:void(bestdoriofficial());">Get Chart</a><br>
 Get Bestdori! Community Chart:<input id="communityid" type="number" min="1" max="1000000" placeholder="Chart ID"><a href="javascript:void(bestdoricommunity());">Get Chart</a><br>
@@ -1029,7 +1029,7 @@ function bestdoricommunity(){
 			alert("An error occurred when getting community chart");
 		} 
 	}).bind(null,xhr);
-	xhr.open("GET","https://bird.ioliu.cn/v1?url=https://bestdori.com/api/post/details?id="+document.getElementById("communityid").value,true);
+	xhr.open("GET","https://bestdori.reikohaku.fun/api/post/details?id="+document.getElementById("communityid").value,true);
 	xhr.send();
 }
 function bestdoriofficial(){
@@ -1051,7 +1051,7 @@ function bestdoriofficial(){
 			alert("An error occurred when getting official chart");
 		} 
 	}).bind(null,xhr);
-	xhr.open("GET","https://bird.ioliu.cn/v1?url=https://bestdori.com/api/charts/"+document.getElementById("officialid").value+"/"+document.getElementById("officialdiff").value+".json",true);
+	xhr.open("GET","https://bestdori.reikohaku.fun/api/charts/"+document.getElementById("officialid").value+"/"+document.getElementById("officialdiff").value+".json",true);
 	xhr.send();
 }
 </script>
