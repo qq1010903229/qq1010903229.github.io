@@ -1,0 +1,10 @@
+{"version":"1.0.0",
+"model":"4-57.moc",
+"textures":["4-57.png"],
+"physics":"4-57p.json",
+"layout":{"center_x":0,"center_y":-0.05,"width":2},
+"motions":{"idle":[{"file":"4-idle01.mtn"}],
+"c":[{"file":"4-nf03.mtn"}]
+},
+"hit_areas_custom":{}
+}
