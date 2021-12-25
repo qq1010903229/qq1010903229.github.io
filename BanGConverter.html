@@ -14,7 +14,7 @@
 <a href="javascript:void(setl2dm(localStorage.l2dm));">Live2D模型显示不正常修复</a>
 <hr>
 <a href="/BanGConverterEN">English</a><br>
-<h1>BanG Converter - BanG Dream! 谱面转换器  v1.1.4.2</h1><br>
+<h1>BanG Converter - BanG Dream! 谱面转换器  v1.1.4.3</h1><br>
 输入谱面：<br><textarea id="chartinput" style="width:600px;height:200px;"></textarea><br>
 获取BanG Dream!官谱：<input id="officialid" type="number" min="1" max="2000" placeholder="谱面ID"><select id="officialdiff"><option value="easy">Easy</option><option value="normal">Normal</option><option value="hard">Hard</option><option value="expert" selected>Expert</option><option value="special">Special</option></select><a href="javascript:void(bestdoriofficial());">获取</a><br>
 获取Bestdori自制谱：<input id="communityid" type="number" min="1" max="1000000" placeholder="谱面ID"><a href="javascript:void(bestdoricommunity());">获取</a><br>
@@ -36,7 +36,9 @@ function update(){
 setInterval(update,30);
 function convert(){
 	b();
-	var ch=document.getElementById("chartoutput").value.trim().replaceAll(/\n/g,"\r\n");
+	var ch=document.getElementById("chartoutput").value;
+	if(document.getElementById("outputformat").value!="2")ch=ch.trim();
+	ch=ch.replaceAll(/\n/g,"\r\n");
 	var blob=new Blob([ch], {type: 'text/plain'});
 	var url=URL.createObjectURL(blob);
 	document.getElementById("downloadchart").href=url;
