@@ -43,6 +43,16 @@
 <td style="width:30%;">备注</td>
 </tr>
 <tr>
+<td>#080</td>
+<td><a href="https://bestdori.com/community/charts/53112">53112</a></td>
+<td><a href="https://bestdori.com/community/charts/53112">キズナミュージック♪ [CHUNITHM MASTER Short ver.]</a></td>
+<td></td>
+<td class="difficultylevel">??</td>
+<td>5.0新SP/还原</td>
+<td>1183</td>
+<td></td>
+</tr>
+<tr>
 <td>#079</td>
 <td><a href="https://bestdori.com/community/charts/52802">52802</a></td>
 <td><a href="https://bestdori.com/community/charts/52802">Hello (BPM) 2021</a></td>
@@ -566,7 +576,7 @@
 <td><a href="https://bestdori.com/community/charts/26624">26624</a></td>
 <td><a href="https://bestdori.com/community/charts/26624">六兆年と一夜物語 (SDVX EXH还原谱)</a></td>
 <td></td>
-<td class="difficultylevel">30</td>
+<td class="difficultylevel">??</td>
 <td>1.0谱面/还原</td>
 <td>669</td>
 <td>SDVX EXH还原谱</td>
@@ -1100,6 +1110,7 @@
 function b2(){
 var temp=document.getElementsByClassName("difficultylevel");
 for(var i=0;i<temp.length;i++){
+if(temp[i].innerHTML.trim()=="??")temp[i].style.fontWeight="bold";
 var difficultylevel=parseInt(temp[i].innerHTML);
 console.log(difficultylevel);
 if(difficultylevel!=difficultylevel)continue;
