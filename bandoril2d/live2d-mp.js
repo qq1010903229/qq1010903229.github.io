@@ -1,4 +1,4 @@
-localStorage.l2dm=localStorage.l2dm || '/kasumi.json';
+localStorage.l2dm=localStorage.l2dm || '/saayae145.json';
 function initl2d(){
 $("#live2d").attr("width",300);
 $("#live2d").attr("height",375);
