@@ -37,6 +37,16 @@ Cross-Finger: To Full Combo this chart, you need to cross your fingers or hands,
 <td style="width:25%;"></td>
 </tr>
 <tr>
+<td>#093</td>
+<td><a href="https://bestdori.com/community/charts/58208">58208</a></td>
+<td><a href="https://bestdori.com/community/charts/58208">Advanced Tutorial (Arcaea ver.)</a></td>
+<td class="difficulty2">Normal</td>
+<td class="difficultylevel">7</td>
+<td>5.0 New SP/Normal</td>
+<td>56</td>
+<td></td>
+</tr>
+<tr>
 <td>#092</td>
 <td><a href="https://bestdori.com/community/charts/58199">58199</a></td>
 <td><a href="https://bestdori.com/community/charts/58199">Tutorial (Arcaea ver.)</a></td>
@@ -141,7 +151,7 @@ Cross-Finger: To Full Combo this chart, you need to cross your fingers or hands,
 <td><a href="https://bestdori.com/community/charts/53962">53962</a></td>
 <td><a href="https://bestdori.com/community/charts/53962">KIZUNA MUSIC♪ [CHUNITHM MASTER]</a></td>
 <td></td>
-<td class="difficultylevel">??</td>
+<td class="difficultylevel">U2</td>
 <td>5.0 New SP/Implementation</td>
 <td>2234</td>
 <td></td>
@@ -151,7 +161,7 @@ Cross-Finger: To Full Combo this chart, you need to cross your fingers or hands,
 <td><a href="https://bestdori.com/community/charts/53112">53112</a></td>
 <td><a href="https://bestdori.com/community/charts/53112">KIZUNA MUSIC♪ [CHUNITHM MASTER Short ver.]</a></td>
 <td></td>
-<td class="difficultylevel">??</td>
+<td class="difficultylevel">U2</td>
 <td>5.0 New SP/Implementation</td>
 <td>1183</td>
 <td></td>
@@ -479,10 +489,15 @@ Cross-Finger: To Full Combo this chart, you need to cross your fingers or hands,
 function b2(){
 var temp=document.getElementsByClassName("difficultylevel");
 for(var i=0;i<temp.length;i++){
-if(temp[i].innerHTML.trim()=="??")temp[i].style.fontWeight="bold";
 var difficultylevel=parseInt(temp[i].innerHTML);
 console.log(difficultylevel);
-if(difficultylevel!=difficultylevel)continue;
+if(difficultylevel!=difficultylevel){
+	if(temp[i].innerHTML.trim().startsWith("U")){
+		temp[i].style.fontWeight="bold";
+		temp[i].style.color="rgb(255,0,255)";
+	}
+	continue;
+}
 if(difficultylevel>=50){
 temp[i].style.fontWeight="bold";
 temp[i].style.color="rgb(255,0,255)";
