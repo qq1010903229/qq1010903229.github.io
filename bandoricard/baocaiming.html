@@ -37,6 +37,30 @@ function t(a){
 	if(a.className.indexOf("s")!=-1)return true;
 	return a.className+=" s",false;
 }
+function d(id){
+	id=Math.floor((id+1)/50);
+	str=id.toString();
+	while(str.length<5)str="0"+str;
+	return str;
+}
+function card(id,sd,attr,band,l,p,sl){
+	return `
+<a class="card ${l>=50?"t":""}" href="https://bestdori.com/info/cards/${id}" ontouchend="return t(this);">
+<div class="img1" style="background:url(https://bestdori.com/assets/jp/thumb/chara/card${d(id)}_rip/res${sd}_normal.png)"></div>
+<div class="img2" style="background:url(https://bestdori.com/assets/jp/thumb/chara/card${d(id)}_rip/res${sd}_after_training.png)"></div>
+<div class="frame frame4star"></div>
+<div class="attr ${attr}"></div>
+<div class="band ${band}"></div>
+<div class="star star-1"></div>
+<div class="star star-2"></div>
+<div class="star star-3"></div>
+<div class="star star-4"></div>
+<div class="sl">${sl}</div>
+<div class="l">L${l}/${p}</div>
+<div class="id">#${id}</div>
+</a>
+`;
+}
 </script>
 </head>
 <body>
@@ -46,180 +70,48 @@ function t(a){
 电脑端：鼠标移到卡牌上以查看特训后卡面（无论我的卡实际上是否已经特训），点击卡牌查看详细信息<br>
 手机端：点击卡牌以查看特训后卡面（无论我的卡实际上是否已经特训），再次点击卡牌查看详细信息<hr>
 1.户山香澄<br>
-<a class="card t" href="https://bestdori.com/info/cards/425" ontouchend="return t(this);">
-<div class="img1" style="background:url(https://bestdori.com/assets/jp/thumb/chara/card00008_rip/res001023_normal.png)"></div>
-<div class="img2" style="background:url(https://bestdori.com/assets/jp/thumb/chara/card00008_rip/res001023_after_training.png)"></div>
-<div class="frame frame4star"></div>
-<div class="attr happy"></div>
-<div class="band popipa"></div>
-<div class="star star-1"></div>
-<div class="star star-2"></div>
-<div class="star star-3"></div>
-<div class="star star-4"></div>
-<div class="sl">110L,SL2</div>
-<div class="l">L60/34086</div>
-<div class="id">#425</div>
-</a>
-<a class="card t" href="https://bestdori.com/info/cards/577" ontouchend="return t(this);">
-<div class="img1" style="background:url(https://bestdori.com/assets/jp/thumb/chara/card00011_rip/res001029_normal.png)"></div>
-<div class="img2" style="background:url(https://bestdori.com/assets/jp/thumb/chara/card00011_rip/res001029_after_training.png)"></div>
-<div class="frame frame4star"></div>
-<div class="attr power"></div>
-<div class="band popipa"></div>
-<div class="star star-1"></div>
-<div class="star star-2"></div>
-<div class="star star-3"></div>
-<div class="star star-4"></div>
-<div class="sl">110G,SL1</div>
-<div class="l">L60/34090</div>
-<div class="id">#577</div>
-</a>
+<script>document.write(card(425,"001023","happy","popipa",60,34086,"110L,SL2"));</script>
+<script>document.write(card(577,"001029","power","popipa",60,34090,"110G,SL1"));</script>
 <hr>
 2.花园多惠<br>
-<a class="card t" href="https://bestdori.com/info/cards/430" ontouchend="return t(this);">
-<div class="img1" style="background:url(https://bestdori.com/assets/jp/thumb/chara/card00008_rip/res002017_normal.png)"></div>
-<div class="img2" style="background:url(https://bestdori.com/assets/jp/thumb/chara/card00008_rip/res002017_after_training.png)"></div>
-<div class="frame frame4star"></div>
-<div class="attr pure"></div>
-<div class="band popipa"></div>
-<div class="star star-1"></div>
-<div class="star star-2"></div>
-<div class="star star-3"></div>
-<div class="star star-4"></div>
-<div class="sl">120P,SL2</div>
-<div class="l">L60/32350</div>
-<div class="id">#430</div>
-</a>
+<script>document.write(card(430,"002017","pure","popipa",60,32350,"120P,SL2"));</script>
 <hr>
 3.牛込里美<br>
-<a class="card t" href="https://bestdori.com/info/cards/426" ontouchend="return t(this);">
-<div class="img1" style="background:url(https://bestdori.com/assets/jp/thumb/chara/card00008_rip/res003017_normal.png)"></div>
-<div class="img2" style="background:url(https://bestdori.com/assets/jp/thumb/chara/card00008_rip/res003017_after_training.png)"></div>
-<div class="frame frame4star"></div>
-<div class="attr happy"></div>
-<div class="band popipa"></div>
-<div class="star star-1"></div>
-<div class="star star-2"></div>
-<div class="star star-3"></div>
-<div class="star star-4"></div>
-<div class="sl">100,SL4</div>
-<div class="l">L60/32291</div>
-<div class="id">#426</div>
-</a>
+<script>document.write(card(426,"003017","happy","popipa",60,32291,"100,SL4"));</script>
 <hr>
 4.山吹沙绫<br>
-<a class="card t" href="https://bestdori.com/info/cards/171" ontouchend="return t(this);">
-<div class="img1" style="background:url(https://bestdori.com/assets/jp/thumb/chara/card00003_rip/res004008_normal.png)"></div>
-<div class="img2" style="background:url(https://bestdori.com/assets/jp/thumb/chara/card00003_rip/res004008_after_training.png)"></div>
-<div class="frame frame4star"></div>
-<div class="attr happy"></div>
-<div class="band popipa"></div>
-<div class="star star-1"></div>
-<div class="star star-2"></div>
-<div class="star star-3"></div>
-<div class="star star-4"></div>
-<div class="sl">100,SL3</div>
-<div class="l">L60/32643</div>
-<div class="id">#171</div>
-</a>
-<a class="card t" href="https://bestdori.com/info/cards/491" ontouchend="return t(this);">
-<div class="img1" style="background:url(https://bestdori.com/assets/jp/thumb/chara/card00009_rip/res004019_normal.png)"></div>
-<div class="img2" style="background:url(https://bestdori.com/assets/jp/thumb/chara/card00009_rip/res004019_after_training.png)"></div>
-<div class="frame frame4star"></div>
-<div class="attr power"></div>
-<div class="band popipa"></div>
-<div class="star star-1"></div>
-<div class="star star-2"></div>
-<div class="star star-3"></div>
-<div class="star star-4"></div>
-<div class="sl">60R,SL1</div>
-<div class="l">L50/21664</div>
-<div class="id">#491</div>
-</a>
-<a class="card t" href="https://bestdori.com/info/cards/771" ontouchend="return t(this);">
-<div class="img1" style="background:url(https://bestdori.com/assets/jp/thumb/chara/card00015_rip/res004031_normal.png)"></div>
-<div class="img2" style="background:url(https://bestdori.com/assets/jp/thumb/chara/card00015_rip/res004031_after_training.png)"></div>
-<div class="frame frame4star"></div>
-<div class="attr power"></div>
-<div class="band popipa"></div>
-<div class="star star-1"></div>
-<div class="star star-2"></div>
-<div class="star star-3"></div>
-<div class="star star-4"></div>
-<div class="sl">80/R,SL1</div>
-<div class="l">L54/25272</div>
-<div class="id">#771</div>
-</a>
-<a class="card" href="https://bestdori.com/info/cards/1141" ontouchend="return t(this);">
-<div class="img1" style="background:url(https://bestdori.com/assets/jp/thumb/chara/card00022_rip/res004039_normal.png)"></div>
-<div class="img2" style="background:url(https://bestdori.com/assets/jp/thumb/chara/card00022_rip/res004039_after_training.png)"></div>
-<div class="frame frame4star"></div>
-<div class="attr pure"></div>
-<div class="band popipa"></div>
-<div class="star star-1"></div>
-<div class="star star-2"></div>
-<div class="star star-3"></div>
-<div class="star star-4"></div>
-<div class="sl">115/95G,SL1</div>
-<div class="l">L1/10181</div>
-<div class="id">#1141</div>
-</a>
+<script>document.write(card(171,"004008","happy","popipa",60,32643,"100,SL3"));</script>
+<script>document.write(card(491,"004019","power","popipa",50,21664,"60R,SL1"));</script>
+<script>document.write(card(771,"004031","power","popipa",54,25272,"80/R,SL1"));</script>
+<script>document.write(card(1141,"004039","pure","popipa",1,10181,"115/95G,SL1"));</script>
 <hr>
 5.市谷有咲<br>
-<a class="card t" href="https://bestdori.com/info/cards/20" ontouchend="return t(this);">
-<div class="img1" style="background:url(https://bestdori.com/assets/jp/thumb/chara/card00000_rip/res005004_normal.png)"></div>
-<div class="img2" style="background:url(https://bestdori.com/assets/jp/thumb/chara/card00000_rip/res005004_after_training.png)"></div>
-<div class="frame frame4star"></div>
-<div class="attr cool"></div>
-<div class="band popipa"></div>
-<div class="star star-1"></div>
-<div class="star star-2"></div>
-<div class="star star-3"></div>
-<div class="star star-4"></div>
-<div class="sl">40R,SL2</div>
-<div class="l">L58/28441</div>
-<div class="id">#20</div>
-</a>
-<a class="card t" href="https://bestdori.com/info/cards/373" ontouchend="return t(this);">
-<div class="img1" style="background:url(https://bestdori.com/assets/jp/thumb/chara/card00007_rip/res005017_normal.png)"></div>
-<div class="img2" style="background:url(https://bestdori.com/assets/jp/thumb/chara/card00007_rip/res005017_after_training.png)"></div>
-<div class="frame frame4star"></div>
-<div class="attr power"></div>
-<div class="band popipa"></div>
-<div class="star star-1"></div>
-<div class="star star-2"></div>
-<div class="star star-3"></div>
-<div class="star star-4"></div>
-<div class="sl">110L,SL1</div>
-<div class="l">L56/27059</div>
-<div class="id">#373</div>
-</a>
-<a class="card t" href="https://bestdori.com/info/cards/472" ontouchend="return t(this);">
-<div class="img1" style="background:url(https://bestdori.com/assets/jp/thumb/chara/card00009_rip/res005024_normal.png)"></div>
-<div class="img2" style="background:url(https://bestdori.com/assets/jp/thumb/chara/card00009_rip/res005024_after_training.png)"></div>
-<div class="frame frame4star"></div>
-<div class="attr happy"></div>
-<div class="band popipa"></div>
-<div class="star star-1"></div>
-<div class="star star-2"></div>
-<div class="star star-3"></div>
-<div class="star star-4"></div>
-<div class="sl">100,SL3</div>
-<div class="l">L60/34087</div>
-<div class="id">#472</div>
-</a>
-<a class="card" href="https://bestdori.com/info/cards/1092" ontouchend="return t(this);">
-<div class="img1" style="background:url(https://bestdori.com/assets/jp/thumb/chara/card00021_rip/res005045_normal.png)"></div>
-<div class="img2" style="background:url(https://bestdori.com/assets/jp/thumb/chara/card00021_rip/res005045_after_training.png)"></div>
-<div class="frame frame4star"></div>
-<div class="attr cool"></div>
-<div class="band popipa"></div>
-<div class="star star-1"></div>
-<div class="star star-2"></div>
-<div class="star star-3"></div>
-<div class="star star-4"></div>
-<div class="sl">60J,SL1</div>
-<div class="l">L1/10282</div>
-<div class="id">#1092</div>
-</a>
+<script>document.write(card(20,"005004","cool","popipa",58,28441,"40R,SL2"));</script>
+<script>document.write(card(373,"005017","power","popipa",56,27059,"110L,SL1"));</script>
+<script>document.write(card(472,"005024","happy","popipa",60,34087,"100,SL3"));</script>
+<script>document.write(card(1092,"005045","cool","popipa",1,10282,"60J,SL1"));</script>
+<hr>
+16.丸山彩<br>
+<script>document.write(card(306,"016016","pure","paspale",60,34147,"120P,SL3"));</script>
+<script>document.write(card(733,"016039","happy","paspale",1,10282,"60J,SL1"));</script>
+<script>document.write(card(1082,"016050","power","paspale",1,10181,"110L,SL1"));</script>
+<hr>
+17.冰川日菜<br>
+<script>document.write(card(151,"017007","happy","paspale",1,9899,"40J,SL1"));</script>
+<script>document.write(card(383,"017016","cool","paspale",60,32291,"110L,SL3"));</script>
+<script>document.write(card(447,"017021","power","paspale",1,10181,"100,SL1"));</script>
+<script>document.write(card(506,"017023","cool","paspale",1,10282,"60J,SL1"));</script>
+<script>document.write(card(572,"017024","pure","paspale",60,32285,"100,SL3"));</script>
+<hr>
+18.白鹭千圣<br>
+<script>document.write(card(161,"018007","pure","paspale",60,32732,"100,SL2"));</script>
+<script>document.write(card(453,"018017","happy","paspale",1,10181,"100,SL1"));</script>
+<hr>
+19.大和麻弥<br>
+<script>document.write(card(236,"019010","happy","paspale",1,9868,"60J,SL1"));</script>
+<script>document.write(card(378,"019014","pure","paspale",60,34092,"100,SL3"));</script>
+<hr>
+20.若宫伊芙<br>
+<script>document.write(card(415,"020023","cool","paspale",12,12431,"60R,SL1"));</script>
+<script>document.write(card(583,"020028","pure","paspale",60,34089,"110G,SL3"));</script>
 </body>
