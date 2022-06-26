@@ -33,6 +33,13 @@
 .card .sl{height:18px;position:absolute;background:rgba(228,0,70,0.75);color:white;right:5px;bottom:23px;font-size:14px;user-select:none;}
 </style>
 <script>
+var mirror="https://bestdori.com";
+if(document.location.href.indexOf("mirror=")!=-1){
+	mirror=document.location.href.slice(document.location.href.indexOf("mirror=")+7);
+	if(mirror.indexOf("&")!=-1){
+		mirror=mirror.slice(0,mirror.indexOf("&"));
+	}
+}
 function t(a){
 	if(a.className.indexOf("s")!=-1)return true;
 	return a.className+=" s",false;
@@ -44,10 +51,12 @@ function d(id){
 	return str;
 }
 function card(id,sd,attr,band,l,p,sl){
+	ext=(mirror.startsWith("https://bandori.top")?"webp":"png");
+	href=`${mirror}/${mirror.startsWith("https://bandori.top")?"card/cn":"info/cards"}/${id}`;
 	return `
-<a class="card ${l>=50?"t":""}" href="https://bestdori.com/info/cards/${id}" ontouchend="return t(this);">
-<div class="img1" style="background:url(https://bestdori.com/assets/jp/thumb/chara/card${d(id)}_rip/res${sd}_normal.png)"></div>
-<div class="img2" style="background:url(https://bestdori.com/assets/jp/thumb/chara/card${d(id)}_rip/res${sd}_after_training.png)"></div>
+<a class="card ${l>=50?"t":""}" href="${href}" ontouchend="return t(this);">
+<div class="img1" style="background:url(${mirror}/assets/jp/thumb/chara/card${d(id)}_rip/res${sd}_normal.${ext})"></div>
+<div class="img2" style="background:url(${mirror}/assets/jp/thumb/chara/card${d(id)}_rip/res${sd}_after_training.${ext})"></div>
 <div class="frame frame4star"></div>
 <div class="attr ${attr}"></div>
 <div class="band ${band}"></div>
@@ -69,7 +78,8 @@ function card(id,sd,attr,band,l,p,sl){
 这里列出了我的邦邦国服所有四星卡。<br>
 电脑端：鼠标移到卡牌上以查看特训后卡面（无论我的卡实际上是否已经特训），点击卡牌查看详细信息<br>
 手机端：点击卡牌以查看特训后卡面（无论我的卡实际上是否已经特训），再次点击卡牌查看详细信息<br>
-所有卡牌均为Bandori Database样式<hr>
+所有卡牌均为Bandori Database样式<br>
+当前卡牌图像源：<script>document.write(mirror);</script> <a href="?mirror=https://bestdori.com">切换到bestdori.com</a> <a href="?mirror=https://bestdori.reikohaku.fun">切换到bestdori.reikohaku.fun</a> <a href="?mirror=https://bandori.top">切换到bandori.top</a><hr>
 1.户山香澄<br>
 <script>document.write(card(425,"001023","happy","popipa",60,34086,"110L,SL2"));</script>
 <script>document.write(card(577,"001029","power","popipa",60,34090,"110G,SL1"));</script>
