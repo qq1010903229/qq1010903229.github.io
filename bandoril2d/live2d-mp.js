@@ -44,7 +44,7 @@ $('.waifu-tool .fui-gear').hover(function (){
 	showMessage('想切换我的Live2D服装吗？',3000);
 });
 $('.waifu-tool .fui-gear').click(function (){
-	loadlive2d('live2d', localStorage.l2dm=['/kasumi.json','/kasumievent130.json','/kasumi2star1.json','/kasumi2star4.json','/kasumicasual.json','/kasumi19af.json'][Math.floor(Math.random()*5.05)], null);
+	loadlive2d('live2d', localStorage.l2dm=['/kasumi.json','/kasumievent130.json','/kasumi2star1.json','/kasumi2star2.json','/kasumicasual.json','/kasumi19af.json'][Math.floor(Math.random()*5.05)], null);
 });
 $('.waifu-tool .fui-info-circle').hover(function (){
 	showMessage('想看关于我的信息吗？',3000);
