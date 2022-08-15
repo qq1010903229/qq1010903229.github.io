@@ -1,0 +1,10 @@
+{"version":"1.0.0",
+"model":"bandori-l2d-api/get/1-26.moc",
+"textures":["bandori-l2d-api/get/1-26.png"],
+"physics":"bandori-l2d-api/get/1-26p.json",
+"layout":{"center_x":0,"center_y":-0.05,"width":2},
+"motions":{"idle":[{"file":"bandori-l2d-api/get/1/idle01.mtn"}],
+"c":[{"file":"bandori-l2d-api/get/1/jaan01.mtn"}]
+},
+"hit_areas_custom":{}
+}

@@ -17,7 +17,7 @@
 <a href="/bandorivals">loader3229的BanG Dream! 定数表</a>
 <a href="/BanGConverter">BanG Converter - BanG Dream! 谱面转换器</a>
 <a href="https://github.com/qq1010903229/BanG-simulator/releases/download/v2.3/release.zip">BanG! Simulator 2.3</a>
-<a href="/bandoril2dsettings">Live2D设置</a>
+<a href="/bandoril2dsettings">Live2D看板娘设置</a>
 <a href="javascript:void(setl2dm(localStorage.l2dm));">Live2D模型显示不正常修复</a>
 <hr>
 <a href="/bandoricharts">按谱面编号排序</a>
@@ -973,12 +973,20 @@
 <script src="bandoril2d/jquery.min.js"></script>
 <script src="bandoril2d/live2d.js"></script>
 <script src="bandoril2d/live2d-mp.js"></script>
-    <link rel="stylesheet" type="text/css" href="bandoril2d/waifu.css"/>
+<script src="bandoril2d/jquery-ui.min.js"></script>
+<link rel="stylesheet" type="text/css" href="bandoril2d/waifu.css"/>
 <div class="waifu">
-        
-        <canvas id="live2d" class="live2d"></canvas>
-    </div>
-<script>
+        <div class="waifu-tips"></div>
+<canvas id="live2d" class="live2d"></canvas>
+        <div class="waifu-tool">
+            <span class="fui-chat"></span>
+            <span class="fui-star"></span>
+            <span class="fui-image"></span>
+            <!--span class="fui-video"></span-->
+            <span class="fui-gear"></span>
+            <span class="fui-info-circle"></span>
+            <span class="fui-cmd"></span>
+        </div>
 function b2(){
 var temp=document.getElementsByClassName("difficultylevel");
 for(var i=0;i<temp.length;i++){
