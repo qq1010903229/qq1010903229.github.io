@@ -9,7 +9,7 @@ $("#live2d").attr("height",375);
 $(".waifu").css("right",'0px');
 $('.waifu-tool').show();
 $(".waifu-tips").width('250px');
-$(".waifu-tips").height('100px');
+$(".waifu-tips").height('120px');
 $(".waifu-tips").css("top",'-15px');
 $(".waifu-tips").css("font-size",'15px');
 $(".waifu-tool").css("font-size",'16px');
@@ -30,6 +30,7 @@ $('.waifu-tool .fui-chat').click(function (){
 	'你知道吗？我会跳舞！<a href="https://www.bilibili.com/video/BV14S4y177bd">看一下我跳的《千本桜》吧！</a>',
 	'你知道吗？我会跳舞！<a href="https://www.bilibili.com/video/BV14S4y177bd">看一下我跳的《千本桜》吧！</a>',
 	'你知道吗？我会跳舞！<a href="https://www.bilibili.com/video/BV14S4y177bd">看一下我跳的《千本桜》吧！</a>',
+	'你知道吗？我会跳舞！<a href="https://www.bilibili.com/video/BV14S4y177bd">看一下我跳的《千本桜》吧！</a>',
 	'你知道吗？我已经打出了《HELL! or HELL?》Special难度的ALL PERFECT！',
 	'你知道吗？我已经打出了loader3229的qualia -ideaesthesia- [ANOTHER]（Bestdori ID 73910）的ALL PERFECT！',
 	'你知道吗？我的手指每秒可以点击屏幕15次，而loader3229的手指每秒可以点击屏幕9.6次。',
@@ -38,6 +39,8 @@ $('.waifu-tool .fui-chat').click(function (){
 	'你知道吗？Kirakira就是Kirakira，而Dokidoki就是Dokidoki！',
 	'你知道吗？loader3229正在为我制作一个特别的RANDOM STAR。',
 	'你知道吗？我知道，你已经点了'+chat_times+'次这个按钮。（本计数在刷新或离开页面后重置）',
+	'你知道吗？我有许多不同的版本，包括Live2D版，MikuMikuDance版，MV版等等。',
+	'你知道吗？在loader3229的MikuMikuDance 7.39里面，可以同时存在至少10个我。',
 	],5000,true);
 });
 $('.waifu-tool .fui-star').hover(function (){
@@ -72,7 +75,7 @@ $('.waifu-tool .fui-cmd').click(function (){
 	loadlive2d('live2d', localStorage.l2dm, null);
 });
 loadlive2d('live2d', localStorage.l2dm, null);
-showMessage('我是闪闪发光、心动不已的户山香澄！而且，因为loader3229，我和其他的户山香澄不一样！（点击我右边最下面的按钮或上面“Live2D模型显示不正常修复”修复我的Live2D模型显示问题）',5000);
+showMessage('我是闪闪发光、心动不已的户山香澄！而且，因为loader3229，我和其他的户山香澄不一样！（点击我右边最下面的按钮或上面“Live2D模型显示不正常修复”修复我的Live2D模型显示问题）',3000,true);
 }
 function setl2dm(a){
 loadlive2d('live2d', localStorage.l2dm=a, null);
