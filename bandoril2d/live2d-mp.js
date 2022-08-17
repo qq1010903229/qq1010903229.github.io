@@ -18,18 +18,26 @@ $("#live2d")[0].addEventListener("click",l2dclick);
 $('.waifu-tool .fui-chat').hover(function (){
 	showMessage('想要了解不一样的我吗？',3000);
 });
+var chat_times=0;
 $('.waifu-tool .fui-chat').click(function (){
+	chat_times++;
 	if(localStorage.l2dm.indexOf('kasumi19af')!=-1){
 	showMessage([
 	'你知道吗？我，名侦探香澄，很快就找出了丸之山上的许多线索！'
 	],5000,true);
 	}else showMessage([
 	'你知道吗？我会跳舞！<a href="https://www.bilibili.com/video/BV14S4y177bd">看一下我跳的《千本桜》吧！</a>',
+	'你知道吗？我会跳舞！<a href="https://www.bilibili.com/video/BV14S4y177bd">看一下我跳的《千本桜》吧！</a>',
+	'你知道吗？我会跳舞！<a href="https://www.bilibili.com/video/BV14S4y177bd">看一下我跳的《千本桜》吧！</a>',
+	'你知道吗？我会跳舞！<a href="https://www.bilibili.com/video/BV14S4y177bd">看一下我跳的《千本桜》吧！</a>',
 	'你知道吗？我已经打出了《HELL! or HELL?》Special难度的ALL PERFECT！',
+	'你知道吗？我已经打出了loader3229的qualia -ideaesthesia- [ANOTHER]（Bestdori ID 73910）的ALL PERFECT！',
 	'你知道吗？我的手指每秒可以点击屏幕15次，而loader3229的手指每秒可以点击屏幕9.6次。',
 	'你知道吗？我会弹任何型号的吉他，包括RANDOM STAR。',
 	'你知道吗？把我的Live2D服装切换到国服2021愚人节，再点一次这个按钮，就会发生不同的事情哦！',
 	'你知道吗？Kirakira就是Kirakira，而Dokidoki就是Dokidoki！',
+	'你知道吗？loader3229正在为我制作一个特别的RANDOM STAR。',
+	'你知道吗？我知道，你已经点了'+chat_times+'次这个按钮。（本计数在刷新或离开页面后重置）',
 	],5000,true);
 });
 $('.waifu-tool .fui-star').hover(function (){
@@ -64,7 +72,7 @@ $('.waifu-tool .fui-cmd').click(function (){
 	loadlive2d('live2d', localStorage.l2dm, null);
 });
 loadlive2d('live2d', localStorage.l2dm, null);
-showMessage('我是闪闪发光、心动不已的户山香澄！而且，我和其他的户山香澄并不一样！（点击我右边最下面的按钮或上面“Live2D模型显示不正常修复”修复我的Live2D模型显示问题）',5000);
+showMessage('我是闪闪发光、心动不已的户山香澄！而且，因为loader3229，我和其他的户山香澄不一样！（点击我右边最下面的按钮或上面“Live2D模型显示不正常修复”修复我的Live2D模型显示问题）',5000);
 }
 function setl2dm(a){
 loadlive2d('live2d', localStorage.l2dm=a, null);
