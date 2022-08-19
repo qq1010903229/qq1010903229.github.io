@@ -48,6 +48,8 @@ $('.waifu-tool .fui-star').hover(function (){
 });
 $('.waifu-tool .fui-star').click(function (){
 	window.l2de.startMotion('c',0);
+	window.l2da.currentTime=0;
+	window.l2da.play();
 });
 $('.waifu-tool .fui-image').hover(function (){
 	showMessage('想看一下loader3229给我拍的照片吗？',3000);
@@ -60,6 +62,8 @@ $('.waifu-tool .fui-gear').hover(function (){
 });
 $('.waifu-tool .fui-gear').click(function (){
 	loadlive2d('live2d', localStorage.l2dm=['/kasumi.json','/kasumievent130.json','/kasumi2star1.json','/kasumi2star2.json','/kasumicasual.json','/kasumi19af.json'][Math.floor(Math.random()*5.05)], null);
+	window.l2da.currentTime=0;
+	window.l2da.pause();
 });
 $('.waifu-tool .fui-info-circle').hover(function (){
 	showMessage('想看关于我的信息吗？',3000);
@@ -73,12 +77,16 @@ $('.waifu-tool .fui-cmd').hover(function (){
 });
 $('.waifu-tool .fui-cmd').click(function (){
 	loadlive2d('live2d', localStorage.l2dm, null);
+	window.l2da.currentTime=0;
+	window.l2da.pause();
 });
 loadlive2d('live2d', localStorage.l2dm, null);
 showMessage('我是闪闪发光、心动不已的户山香澄！而且，因为loader3229，我和其他的户山香澄不一样！（点击我右边最下面的按钮或上面“Live2D模型显示不正常修复”修复我的Live2D模型显示问题）',3000,true);
 }
 function setl2dm(a){
-loadlive2d('live2d', localStorage.l2dm=a, null);
+	loadlive2d('live2d', localStorage.l2dm=a, null);
+	window.l2da.currentTime=0;
+	window.l2da.pause();
 }
 function l2dclick(){
 	
@@ -107,3 +115,41 @@ function hideMessage(timeout) {
     window.setTimeout(function() {sessionStorage.removeItem('waifu-text')}, timeout);
     $('.waifu-tips').delay(timeout).fadeTo(200, 0);
 }
+
+window.l2da=new Audio();
+window.l2da.src="/bandoril2d/mp3.mp3";
+window.timeout0=0;
+currentevent="txt";
+function syncupdate(){
+	window.l2de.setLipSync(null);
+	var arr=lipSyncValues[currentevent];
+	if(arr){
+		var index=Math.floor(window.l2da.currentTime*20);
+		if(arr[index])window.l2de&&window.l2de.setLipSyncValue(arr[index]);
+		else window.l2de&&window.l2de.setLipSyncValue(0);
+	}else window.l2de&&window.l2de.setLipSyncValue(0);
+}
+setInterval(syncupdate,50);
+
+lipSyncValues={};
+
+function getLSV(a,b){
+var xhr=new XMLHttpRequest();
+xhr.onreadystatechange=(function(xhr,a){
+if(xhr.readyState==4 && xhr.status == 200){
+var resp=xhr.responseText.split("\n");
+var result=[];
+for(var i=1;i<resp.length;i++){
+if(result[Math.floor(i/50)]===undefined)result[Math.floor(i/50)]=0;
+var temp=parseFloat(resp[i]);
+if(temp!=temp)temp=0;
+result[Math.floor(i/50)]+=(temp/b);
+}
+result.push(0);
+lipSyncValues[a]=result;
+}
+}).bind(null,xhr,a);
+xhr.open("GET","/bandoril2d/"+a+".txt",true);
+xhr.send();
+}
+getLSV("txt",10);
