@@ -41,6 +41,7 @@ $('.waifu-tool .fui-chat').click(function (){
 	'你知道吗？我知道，你已经点了'+chat_times+'次这个按钮。（本计数在刷新或离开页面后重置）',
 	'你知道吗？我有许多不同的版本，包括Live2D版，MikuMikuDance版，MV版等等。',
 	'你知道吗？在loader3229的MikuMikuDance 7.39里面，可以同时存在至少10个我。',
+	'你知道吗？<a href="/gt.pdf">这个吉他谱</a>我可以完美弹出来，而其他的香澄应该不行。',
 	],5000,true);
 });
 $('.waifu-tool .fui-star').hover(function (){
