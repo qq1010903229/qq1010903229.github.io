@@ -1,8 +1,8 @@
 if(localStorage.l2dv!='2'){
-	localStorage.l2dm='/kasumievent168.json';
+	localStorage.l2dm='/kasumievent130.json';
 	localStorage.l2dv='2';
 }
-localStorage.l2dm=localStorage.l2dm || '/kasumievent168.json';
+localStorage.l2dm=localStorage.l2dm || '/kasumievent130.json';
 function initl2d(){
 $("#live2d").attr("width",300);
 $("#live2d").attr("height",375);
@@ -48,9 +48,16 @@ $('.waifu-tool .fui-star').hover(function (){
 	showMessage('想让我做Live2D动作吗？',3000);
 });
 $('.waifu-tool .fui-star').click(function (){
-	window.l2de.startMotion('c',0);
+	let id=Math.floor(Math.random()*5+1);
+	if(id==1)window.l2de.startMotion('c7',0);
+	if(id==2)window.l2de.startMotion('c',0);
+	if(id==3)window.l2de.startMotion('c4',0);
+	if(id==4)window.l2de.startMotion('c2',0);
+	if(id==5)window.l2de.startMotion('c3',0);
+	window.l2da.src="/bandoril2d/systemProfile_001_"+id+".mp3";
 	window.l2da.currentTime=0;
 	window.l2da.play();
+	currentevent="systemProfile_001_"+id;
 });
 $('.waifu-tool .fui-image').hover(function (){
 	showMessage('想看一下loader3229给我拍的照片吗？',3000);
@@ -118,14 +125,14 @@ function hideMessage(timeout) {
 }
 
 window.l2da=new Audio();
-window.l2da.src="/bandoril2d/mp3.mp3";
+window.l2da.src="/bandoril2d/systemProfile_001_1.mp3";
 window.timeout0=0;
-currentevent="txt";
+currentevent="systemProfile_001_1";
 function syncupdate(){
 	window.l2de.setLipSync(null);
 	var arr=lipSyncValues[currentevent];
 	if(arr){
-		var index=Math.floor(window.l2da.currentTime*20);
+		var index=Math.floor(window.l2da.currentTime*20+2.5);
 		if(arr[index])window.l2de&&window.l2de.setLipSyncValue(arr[index]);
 		else window.l2de&&window.l2de.setLipSyncValue(0);
 	}else window.l2de&&window.l2de.setLipSyncValue(0);
@@ -153,4 +160,8 @@ lipSyncValues[a]=result;
 xhr.open("GET","/bandoril2d/"+a+".txt",true);
 xhr.send();
 }
-getLSV("txt",10);
+getLSV("systemProfile_001_1",10);
+getLSV("systemProfile_001_2",10);
+getLSV("systemProfile_001_3",10);
+getLSV("systemProfile_001_4",10);
+getLSV("systemProfile_001_5",10);

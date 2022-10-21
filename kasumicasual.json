@@ -4,7 +4,13 @@
 "physics":"bandori-l2d-api/get/1-0p.json",
 "layout":{"center_x":0,"center_y":-0.05,"width":2},
 "motions":{"idle":[{"file":"bandori-l2d-api/get/1/idle01.mtn"}],
-"c":[{"file":"bandori-l2d-api/get/1/jaan01.mtn"}]
+"c":[{"file":"bandori-l2d-api/get/1/jaan01.mtn"}],
+"c2":[{"file":"bandori-l2d-api/get/1/smile02.mtn"}],
+"c3":[{"file":"bandori-l2d-api/get/1/smile01.mtn"}],
+"c4":[{"file":"bandori-l2d-api/get/1/kime01.mtn"}],
+"c5":[{"file":"bandori-l2d-api/get/1/oowarai01.mtn"}],
+"c6":[{"file":"bandori-l2d-api/get/1/surprised01.mtn"}],
+"c7":[{"file":"bandori-l2d-api/get/1/gattsu01.mtn"}]
 },
 "hit_areas_custom":{}
 }
