@@ -14,7 +14,6 @@ $(".waifu-tips").css("top",'-15px');
 $(".waifu-tips").css("font-size",'15px');
 $(".waifu-tool").css("font-size",'16px');
 $(".waifu-tool span").css("line-height",'20px');
-$("#live2d")[0].addEventListener("click",l2dclick);
 $('.waifu-tool .fui-chat').hover(function (){
 	showMessage('想要了解不一样的我吗？',3000);
 });
@@ -26,8 +25,14 @@ $('.waifu-tool .fui-chat').click(function (){
 	'你知道吗？我，名侦探香澄，很快就找出了丸之山上的许多线索！'
 	],5000,true);
 	}else showMessage([
-	'你知道吗？我会跳舞！<a href="https://www.bilibili.com/video/BV14S4y177bd">看一下我跳的《千本桜》吧！</a>',
-	'你知道吗？我会跳舞！<a href="https://www.bilibili.com/video/BV14S4y177bd">看一下我跳的《千本桜》吧！</a>',
+	'马上就要到小有咲的生日了，我要给她送什么礼物呢？是盆栽、新键盘、星形铃鼓还是星星贴纸？',
+	'马上就要到小有咲的生日了，我要给她送什么礼物呢？是盆栽、新键盘、星形铃鼓还是星星贴纸？',
+	'马上就要到小有咲的生日了，我要给她送什么礼物呢？是盆栽、新键盘、星形铃鼓还是星星贴纸？',
+	'马上就要到小有咲的生日了，我要给她送什么礼物呢？是盆栽、新键盘、星形铃鼓还是星星贴纸？',
+	'马上就要到小有咲的生日了，我要给她送什么礼物呢？是盆栽、新键盘、星形铃鼓还是星星贴纸？',
+	'马上就要到小有咲的生日了，我要给她送什么礼物呢？是盆栽、新键盘、星形铃鼓还是星星贴纸？',
+	'马上就要到小有咲的生日了，我要给她送什么礼物呢？是盆栽、新键盘、星形铃鼓还是星星贴纸？',
+	'马上就要到小有咲的生日了，我要给她送什么礼物呢？是盆栽、新键盘、星形铃鼓还是星星贴纸？',
 	'你知道吗？我会跳舞！<a href="https://www.bilibili.com/video/BV14S4y177bd">看一下我跳的《千本桜》吧！</a>',
 	'你知道吗？我会跳舞！<a href="https://www.bilibili.com/video/BV14S4y177bd">看一下我跳的《千本桜》吧！</a>',
 	'你知道吗？我会跳舞！<a href="https://www.bilibili.com/video/BV14S4y177bd">看一下我跳的《千本桜》吧！</a>',
@@ -96,9 +101,6 @@ function setl2dm(a){
 	window.l2da.currentTime=0;
 	window.l2da.pause();
 }
-function l2dclick(){
-	
-}
 setTimeout(initl2d,500);
 //window.l2de.startMotion('c',0);
 
@@ -160,8 +162,8 @@ lipSyncValues[a]=result;
 xhr.open("GET","/bandoril2d/"+a+".txt",true);
 xhr.send();
 }
-getLSV("systemProfile_001_1",10);
-getLSV("systemProfile_001_2",10);
-getLSV("systemProfile_001_3",10);
-getLSV("systemProfile_001_4",10);
-getLSV("systemProfile_001_5",10);
+getLSV("systemProfile_001_1",11);
+getLSV("systemProfile_001_2",11);
+getLSV("systemProfile_001_3",11);
+getLSV("systemProfile_001_4",11);
+getLSV("systemProfile_001_5",11);
