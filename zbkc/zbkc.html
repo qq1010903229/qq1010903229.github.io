@@ -10,26 +10,39 @@ var equipment_data=[
 [0,0,1],[1,0,1],[0,0,4],[1,0,4],[2,0,0.5],
 [0,1,0.2],[1,1,0.2],[0,1,0.6],[1,1,0.6],[3,0,0.1],
 [0,2,0.1],[1,2,0.1],[0,2,0.3],[1,2,0.3],[0,3,0.02],
-[0,4,0.05],[1,3,0.05],[0,4,0.2],[1,3,0.2],[3,1,0.01],
+[2,1,0.1],[1,3,0.05],[0,4,0.2],[1,3,0.2],[3,1,0.02],
+[2,2,0.05],[1,4,0.02],[0,5,0.05],[1,4,0.05],[1,5,0.01],
+[0,6,0.02],[1,5,0.02],[0,6,0.05],[1,5,0.05],[3,0,0.5],
 ];
-var equipment_names=[["匕首","短剑","木剑","草原短刀","铁剑","钢剑"],["布衣","皮甲","轻甲","铁甲","钢甲"],["布鞋"],["转生宝石","生命宝石"]];
+var equipment_names=[
+["匕首","短剑","木剑","草原短刀","铁剑","钢剑","森林剑"],
+["布衣","皮甲","轻甲","铁甲","钢甲","森林铠甲"],
+["布鞋","皮鞋","森林鞋"],
+["转生宝石","生命宝石"]
+];
 var hpdata=[
 50,200,600,1000,2333,
 1500,2000,3000,4000,10000,
 5000,6000,7000,10000,23333,
 13000,17000,25000,33000,66666,
+50000,60000,80000,1e5,233333,
+1.5e5,2e5,3e5,4e5,1e6,
 ];
 var atkdata=[
 12,25,40,60,75,
 100,125,150,250,240,
 300,400,500,650,600,
 800,1000,1200,1400,1500,
+1500,1800,2000,2200,2200,
+2500,3000,3500,3750,4000,
 ];
 var exp_data=[
 10,11,12,13,15,
 15,16,17,15,21,
 22,23,24,25,30,
-31,32,33,34,35
+31,32,33,34,35,
+38,39,40,41,44,
+45,46,47,48,50
 ];
 function softreset(s){
 	if(battling){
@@ -61,7 +74,7 @@ function getlv(){
 	return {"lv":Math.floor(Math.pow(exp,0.335)),"progress":Math.pow(exp,0.335)-Math.floor(Math.pow(exp,0.335))};
 }
 function gethp(){
-	return hp*geteqeffs(3,1);
+	return Math.floor(hp*geteqeffs(3,1));
 }
 function getatk(){
 	return atk*geteqeff(0);
@@ -231,6 +244,7 @@ function battle(x){
 					progress+=5;
 				}
 			}
+			battle_status.log+="<br><a href=\"javascript:battle("+x+");\">再次战斗</a>"
 			energy--;
 			battling=0;
 		}else{
@@ -239,7 +253,7 @@ function battle(x){
 			curhp-=damage2;
 			if(curhp<=0){
 				clearInterval(battle_status.interval);
-				battle_status.log+=ename+"对你造成了"+damage2+"点伤害，你倒下了<br>";
+				battle_status.log+=ename+"对你造成了"+damage2+"点伤害，你倒下了<br><a href=\"javascript:battle("+x+");\">再次战斗</a>";
 				battling=0;
 			}else battle_status.log+=ename+"对你造成了"+damage2+"点伤害，你还剩"+curhp+"点生命值<br>";
 		}
@@ -257,7 +271,7 @@ function getpp(){
 		if((equipments[j][i]||0)>0)pp=pp+Math.log(1+(equipments[j][i]||0));
 	}
 	pp=pp*Math.log10(getlv().lv);
-	return Math.floor((pp**2) / 50 * geteqeffs(3,0));
+	return Math.floor(((pp**2)/65+(30+progress-energy)/13) * geteqeffs(3,0) * Math.pow(1.01,progress));
 }
 function prestige(){
 	pp+=getpp();
@@ -307,6 +321,20 @@ setInterval(update,20);
 <a href="javascript:battle(19);">草原BOSS2（推荐战力2500）</a>
 </span><br>
 <span id="b19" style="display:none;">
+<a href="javascript:battle(20);">森林1（推荐战力2500）</a>
+<a href="javascript:battle(21);">森林2（推荐战力3000）</a>
+<a href="javascript:battle(22);">森林3（推荐战力3500）</a>
+<a href="javascript:battle(23);">森林4（推荐战力4000）</a>
+<a href="javascript:battle(24);">森林BOSS1（推荐战力5000）</a>
+</span><br>
+<span id="b24" style="display:none;">
+<a href="javascript:battle(25);">森林6（推荐战力5000）</a>
+<a href="javascript:battle(26);">森林7（推荐战力6000）</a>
+<a href="javascript:battle(27);">森林8（推荐战力8000）</a>
+<a href="javascript:battle(28);">森林9（推荐战力10000）</a>
+<a href="javascript:battle(29);">森林BOSS2（打败以<!--解锁新的转生升级-->通关！）</a>
+</span><br>
+<span id="b29" style="display:none;">
 </span><br>
 </div>
 <div id="tab1" style="display:none;">
@@ -328,7 +356,7 @@ setInterval(update,20);
 <div id="battlelog">
 欢迎进入《装备狂潮》，作者为loader3229！这是一个类似于属性膨胀的游戏，特点是怪物可以直接掉落大量装备！感受爆装备的乐趣吧！<br>
 与大多数通胀类游戏不同，这个游戏内在你被打败时不消耗能量，并且可以多次挑战BOSS。<br>
-版本：Beta 0.1
+版本：Beta 0.2
 </div>
 </body>
 </html>
