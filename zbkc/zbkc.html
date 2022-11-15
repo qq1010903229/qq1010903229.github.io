@@ -107,6 +107,7 @@ function exportsave(){
 	return btoa(exp+","+hp+","+atk+","+def+","+luk+","+points+","+btoa(JSON.stringify(equipments))+","+energy+","+progress+","+pp);
 }
 function importsave(a){
+	if(!a)return;
 	a=atob(a).split(",");
 	if(!a[8])return;
 	exp=parseFloat(a[0]);
