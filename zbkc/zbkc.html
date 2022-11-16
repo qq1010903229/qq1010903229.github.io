@@ -2,7 +2,7 @@
 <head>
 <title>装备狂潮</title>
 <script>
-var exp=1000,hp=100,atk=10,def=10,luk=0,points=40,energy=30,progress=0,pp=0;
+var exp=1000,hp=100,atk=10,def=10,luk=0,points=40,energy=30,progress=0,pp=0,highest_progress=0;
 var battling=0;
 var eqtab=0;
 var equipments=[[],[],[],[],[],[],[],[],[],[]];
@@ -13,20 +13,24 @@ var equipment_data=[
 [2,1,0.1],[1,3,0.05],[0,4,0.2],[1,3,0.2],[3,1,0.02],
 [2,2,0.05],[1,4,0.02],[0,5,0.05],[1,4,0.05],[1,5,0.01],
 [0,6,0.02],[1,5,0.02],[0,6,0.05],[1,5,0.05],[3,0,0.5],
+[2,3,0.01],[1,4,0.1],[0,5,0.2],[1,6,0.03],[3,1,0.05],
+[1,4,0.2],[1,6,0.05],[0,4,0.8],[2,3,0.03],[3,0,2],
 ];
 var equipment_names=[
 ["匕首","短剑","木剑","草原短刀","铁剑","钢剑","森林剑"],
-["布衣","皮甲","轻甲","铁甲","钢甲","森林铠甲"],
-["布鞋","皮鞋","森林鞋"],
+["布衣","皮甲","轻甲","铁甲","钢甲","森林铠甲","沙漠衣"],
+["布鞋","皮鞋","森林鞋","沙漠行者"],
 ["转生宝石","生命宝石"]
 ];
 var hpdata=[
 50,200,600,1000,2333,
 1500,2000,3000,4000,10000,
-5000,6000,7000,10000,23333,
-13000,17000,25000,33000,66666,
-50000,60000,80000,1e5,233333,
-1.5e5,2e5,3e5,4e5,1e6,
+5.5e3,6.5e3,7.5e3,1.0e4,7.0e4/3,
+1.3e4,1.7e4,2.5e4,3.5e4,1.0e5,
+5.5e4,7.0e4,9.0e4,1.1e5,7.0e5/3,
+1.6e5,2.0e5,3.5e5,6.0e5,1.0e6,
+1.4e6,2.2e6,3.0e6,5.0e6,1.0e7,
+8.0e6,1.2e7,2.0e7,3.0e7,1.0e8,
 ];
 var atkdata=[
 12,25,40,60,75,
@@ -35,25 +39,39 @@ var atkdata=[
 800,1000,1200,1400,1500,
 1500,1800,2000,2200,2200,
 2500,3000,3500,3750,4000,
+5000,5500,6000,7000,7000,
+8.0e3,9.0e3,1.0e4,1.2e4,1.0e4
 ];
 var exp_data=[
 10,11,12,13,15,
-15,16,17,15,21,
-22,23,24,25,30,
-31,32,33,34,35,
-38,39,40,41,44,
-45,46,47,48,50
+15,16,18,13,21,
+22,21,21,20,30,
+26,25,25,26,30,
+38,36,37,38,45,
+44,40,39,43,48,
+42,44,46,44,53,
+52,52,53,49,77,
 ];
+var pu=[];
 function softreset(s){
 	if(battling){
 		alert("正在战斗中");
 		return;
 	}
 	if(!s && !confirm("是否软重置？你将重新开始游戏但保留转生点和转生相关升级。"))return;
-	exp=1000,hp=100,atk=10,def=10,luk=0,points=40,energy=30,progress=0;
+	exp=1000,hp=100,atk=10,def=10,luk=0,points=40,energy=30+(pu[1]||0),progress=0;
 	battling=0;
 	eqtab=0;
 	equipments=[[],[],[],[],[],[],[],[],[],[]];
+	if(pu[0]){
+		var level1=getlv().lv;
+		exp+=1000*((Math.pow(4,pu[0])-1)*(3+pu[0]*2));
+		var level2=getlv().lv;
+		hp+=(level2-level1)*10;
+		atk+=(level2-level1);
+		def+=(level2-level1);
+		points+=(level2-level1)*4;
+	}
 }
 function reset(){
 	if(battling){
@@ -63,6 +81,7 @@ function reset(){
 	if(!confirm("是否硬重置？你将重新开始游戏并且失去转生点和转生相关升级！"))return;
 	if(!confirm("是否硬重置？你将失去所有东西！这是最后一次警告！"))return;
 	exp=1000,hp=100,atk=10,def=10,luk=0,points=40,energy=30,progress=0,pp=0;
+	highest_progress=0;pu=[];
 	battling=0;
 	eqtab=0;
 	equipments=[[],[],[],[],[],[],[],[],[],[]];
@@ -86,7 +105,7 @@ function getpower(){
 	return Math.floor((gethp()*getatk()*getdef())**(1/3)/2);
 }
 function getehp(x){
-	if(x%5==4)return hpdata[x];
+	if(x%5==4)return Math.floor(hpdata[x]);
 	return hpdata[x]*rand_2();
 }
 function geteatk(x){
@@ -117,7 +136,7 @@ function add(x,y){
 	if(x==4)luk+=y;
 }
 function exportsave(){
-	return btoa(exp+","+hp+","+atk+","+def+","+luk+","+points+","+btoa(JSON.stringify(equipments))+","+energy+","+progress+","+pp);
+	return btoa(exp+","+hp+","+atk+","+def+","+luk+","+points+","+btoa(JSON.stringify(equipments))+","+energy+","+progress+","+pp+","+highest_progress+","+btoa(JSON.stringify(pu)));
 }
 function importsave(a){
 	if(!a)return;
@@ -134,6 +153,9 @@ function importsave(a){
 	progress=parseFloat(a[8]);
 	if(!a[9])return;
 	pp=parseFloat(a[9]);
+	if(!a[11])return;
+	highest_progress=parseFloat(a[10]);
+	pu=JSON.parse(atob(a[11]));
 }
 function load(){
 	if(battling){
@@ -177,6 +199,15 @@ function update(){
 		}
 	}
 	document.getElementById("eq").innerHTML=eq_log;
+	if(highest_progress<progress)highest_progress=progress;
+	if(highest_progress>=20){
+		document.getElementById("pu1").style.display="inline";
+		document.getElementById("pu1").innerHTML="初始能量提升（"+(pu[1]||0)+"级，升级需"+prestige_cost(1)+"转生点）";
+	}
+	if(highest_progress>=30){
+		document.getElementById("pu0").style.display="inline";
+		document.getElementById("pu0").innerHTML="初始等级提升（"+(pu[0]||0)+"级，升级需"+prestige_cost(0)+"转生点）";
+	}
 }
 function settab(x){
 	if(battling){
@@ -271,7 +302,7 @@ function getpp(){
 		if((equipments[j][i]||0)>0)pp=pp+Math.log(1+(equipments[j][i]||0));
 	}
 	pp=pp*Math.log10(getlv().lv);
-	return Math.floor(((pp**2)/65+(30+progress-energy)/13) * geteqeffs(3,0) * Math.pow(1.01,progress));
+	return Math.floor(((pp**1.9)/75+(30+progress+(pu[1]||0)-energy)/15) * geteqeffs(3,0) * Math.pow(1.01,progress));
 }
 function prestige(){
 	pp+=getpp();
@@ -279,6 +310,34 @@ function prestige(){
 }
 function prestige_eff(){
 	return 1+pp**0.5/5;
+}
+function prestige_cost(x){
+	if(x==0){
+		if(pu[x])return Math.pow(10,3+pu[x])/(Math.min(pu[x],3)**2+1);else return 1000;
+	}
+	if(x==1){
+		if(pu[x])return Math.pow(3,pu[x])*100;else return 100;
+	}
+}
+function prestige_up(x){
+	if(pp<prestige_cost(x))return;
+	pp-=prestige_cost(x);
+	if(x==0){
+		var level1=getlv().lv;
+		if(pu[0])exp-=1000*((Math.pow(4,pu[0])-1)*(3+pu[0]*2));
+		else pu[0]=0;
+		pu[0]++;
+		exp+=1000*((Math.pow(4,pu[0])-1)*(3+pu[0]*2));
+		var level2=getlv().lv;
+		hp+=(level2-level1)*10;
+		atk+=(level2-level1);
+		def+=(level2-level1);
+		points+=(level2-level1)*4;
+	}
+	if(x==1){
+		energy++;
+		if(pu[1])pu[1]++;else pu[1]=1;
+	}
 }
 importsave(localStorage.zbkc);
 setInterval(update,20);
@@ -318,7 +377,7 @@ setInterval(update,20);
 <a href="javascript:battle(16);">草原7（推荐战力1250）</a>
 <a href="javascript:battle(17);">草原8（推荐战力1600）</a>
 <a href="javascript:battle(18);">草原9（推荐战力2000）</a>
-<a href="javascript:battle(19);">草原BOSS2（推荐战力2500）</a>
+<a href="javascript:battle(19);">草原BOSS2（打败以解锁新的转生升级！）</a>
 </span><br>
 <span id="b19" style="display:none;">
 <a href="javascript:battle(20);">森林1（推荐战力2500）</a>
@@ -332,10 +391,24 @@ setInterval(update,20);
 <a href="javascript:battle(26);">森林7（推荐战力6000）</a>
 <a href="javascript:battle(27);">森林8（推荐战力8000）</a>
 <a href="javascript:battle(28);">森林9（推荐战力10000）</a>
-<a href="javascript:battle(29);">森林BOSS2（打败以<!--解锁新的转生升级-->通关！）</a>
+<a href="javascript:battle(29);">森林BOSS2（打败以解锁新的转生升级！）</a>
 </span><br>
 <span id="b29" style="display:none;">
+<a href="javascript:battle(30);">沙漠1（推荐战力16000）</a>
+<a href="javascript:battle(31);">沙漠2（推荐战力20000）</a>
+<a href="javascript:battle(32);">沙漠3（推荐战力24000）</a>
+<a href="javascript:battle(33);">沙漠4（推荐战力30000）</a>
+<a href="javascript:battle(34);">沙漠BOSS1（推荐战力40000）</a>
 </span><br>
+<span id="b34" style="display:none;">
+<a href="javascript:battle(35);">沙漠6（推荐战力40000）</a>
+<a href="javascript:battle(36);">沙漠7（推荐战力50000）</a>
+<a href="javascript:battle(37);">沙漠8（推荐战力60000）</a>
+<a href="javascript:battle(38);">沙漠9（推荐战力80000）</a>
+<a href="javascript:battle(39);">沙漠BOSS2（打败以通关！）</a>
+</span><br>
+<span id="b39" style="display:none;">
+</span>
 </div>
 <div id="tab1" style="display:none;">
 <a href="javascript:eqtab=0;">武器</a> <a href="javascript:eqtab=1;">防具</a> <a href="javascript:eqtab=2;">鞋子</a> <a href="javascript:eqtab=3;">宝石</a><br>
@@ -351,12 +424,14 @@ setInterval(update,20);
 转生将重置你的等级、属性、装备和能量并获得<span id="prestige2"></span>转生点。
 <a href="javascript:prestige();">开始转生</a><br>
 <br>
-你有<span id="prestige3"></span>转生点，经验和装备的获得变为原来的<span id="prestige_eff"></span>倍
+你有<span id="prestige3"></span>转生点，经验和装备的获得变为原来的<span id="prestige_eff"></span>倍<br>
+<a id="pu1" href="javascript:prestige_up(1);">初始能量提升</a><br>
+<a id="pu0" href="javascript:prestige_up(0);">初始等级提升</a><br>
 </div>
 <div id="battlelog">
 欢迎进入《装备狂潮》，作者为loader3229！这是一个类似于属性膨胀的游戏，特点是怪物可以直接掉落大量装备！感受爆装备的乐趣吧！<br>
 与大多数通胀类游戏不同，这个游戏内在你被打败时不消耗能量，并且可以多次挑战BOSS。<br>
-版本：Beta 0.2
+版本：Beta 0.3
 </div>
 </body>
 </html>
