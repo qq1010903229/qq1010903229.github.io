@@ -15,10 +15,11 @@ var equipment_data=[
 [0,6,0.02],[1,5,0.02],[0,6,0.05],[1,5,0.05],[3,0,0.5],
 [2,3,0.01],[1,4,0.1],[0,5,0.2],[1,6,0.03],[3,1,0.05],
 [1,4,0.2],[1,6,0.05],[0,4,0.8],[2,3,0.03],[3,0,2],
+[0,7,0.003],[1,7,0.003],[0,7,0.01],[1,7,0.01],
 ];
 var equipment_names=[
-["匕首","短剑","木剑","草原短刀","铁剑","钢剑","森林剑"],
-["布衣","皮甲","轻甲","铁甲","钢甲","森林铠甲","沙漠衣"],
+["匕首","短剑","木剑","草原短刀","铁剑","钢剑","森林剑","铜剑"],
+["布衣","皮甲","轻甲","铁甲","钢甲","森林铠甲","沙漠衣","铜甲"],
 ["布鞋","皮鞋","森林鞋","沙漠行者"],
 ["转生宝石","生命宝石"]
 ];
@@ -30,7 +31,8 @@ var hpdata=[
 5.5e4,7.0e4,9.0e4,1.1e5,7.0e5/3,
 1.6e5,2.0e5,3.5e5,6.0e5,1.0e6,
 1.4e6,2.2e6,3.0e6,5.0e6,1.0e7,
-8.0e6,1.2e7,2.0e7,3.0e7,1.0e8,
+8.0e6,1.2e7,2.0e7,3.0e7,3.0e4,
+4.0e7,5.0e7,8.0e7,1.0e8,
 ];
 var atkdata=[
 12,25,40,60,75,
@@ -40,7 +42,8 @@ var atkdata=[
 1500,1800,2000,2200,2200,
 2500,3000,3500,3750,4000,
 5000,5500,6000,7000,7000,
-8.0e3,9.0e3,1.0e4,1.2e4,1.0e4
+8.0e3,9.0e3,1.0e4,1.2e4,1.0e4,
+1.5e4,2.0e4,2.2e4,2.5e4,
 ];
 var exp_data=[
 10,11,12,13,15,
@@ -50,7 +53,8 @@ var exp_data=[
 38,36,37,38,45,
 44,40,39,43,48,
 42,44,46,44,53,
-52,52,53,49,77,
+52,52,54,50,81,
+55,45,50,54,
 ];
 var pu=[];
 function softreset(s){
@@ -65,7 +69,7 @@ function softreset(s){
 	equipments=[[],[],[],[],[],[],[],[],[],[]];
 	if(pu[0]){
 		var level1=getlv().lv;
-		exp+=1000*((Math.pow(4,pu[0])-1)*(3+pu[0]*2));
+		exp+=1000*((Math.pow(4,pu[0])-1)*(3+(pu[0]**pu[0])*2));
 		var level2=getlv().lv;
 		hp+=(level2-level1)*10;
 		atk+=(level2-level1);
@@ -93,7 +97,7 @@ function getlv(){
 	return {"lv":Math.floor(Math.pow(exp,0.335)),"progress":Math.pow(exp,0.335)-Math.floor(Math.pow(exp,0.335))};
 }
 function gethp(){
-	return Math.floor(hp*geteqeffs(3,1));
+	return Math.floor(hp*geteqeffs(3,1)*Math.pow(1.25,(pu[3]||0)));
 }
 function getatk(){
 	return atk*geteqeff(0);
@@ -130,7 +134,7 @@ function geteqeff(x){
 function add(x,y){
 	y=Math.floor(y*points);
 	points-=y;
-	if(x==1)hp+=y*4;
+	if(x==1)hp+=y*(4+(pu[2]||0));
 	if(x==2)atk+=y;
 	if(x==3)def+=y;
 	if(x==4)luk+=y;
@@ -200,6 +204,10 @@ function update(){
 	}
 	document.getElementById("eq").innerHTML=eq_log;
 	if(highest_progress<progress)highest_progress=progress;
+	if(highest_progress>=10){
+		document.getElementById("pu2").style.display="inline";
+		document.getElementById("pu2").innerHTML="生命加点提升（"+(pu[2]||0)+"级，升级需"+prestige_cost(2)+"转生点）";
+	}
 	if(highest_progress>=20){
 		document.getElementById("pu1").style.display="inline";
 		document.getElementById("pu1").innerHTML="初始能量提升（"+(pu[1]||0)+"级，升级需"+prestige_cost(1)+"转生点）";
@@ -207,6 +215,10 @@ function update(){
 	if(highest_progress>=30){
 		document.getElementById("pu0").style.display="inline";
 		document.getElementById("pu0").innerHTML="初始等级提升（"+(pu[0]||0)+"级，升级需"+prestige_cost(0)+"转生点）";
+	}
+	if(highest_progress>=40){
+		document.getElementById("pu3").style.display="inline";
+		document.getElementById("pu3").innerHTML="生命值提升（"+(pu[3]||0)+"级，升级需"+prestige_cost(3)+"转生点）";
 	}
 }
 function settab(x){
@@ -222,6 +234,10 @@ function settab(x){
 	document.getElementById("tab"+x).style.display="block";
 }
 function battle(x){
+	if(battling){
+		alert("正在战斗中");
+		return;
+	}
 	if(energy<=0){
 		alert("能量不足，请转生！");
 		return;
@@ -240,6 +256,7 @@ function battle(x){
 	var mult=1;
 	var battle_status={"log":"你遇到了怪物<br>","interval":-1};
 	if(x%5==4)battle_status.log="你遇到了BOSS，BOSS有"+enemyhp+"点生命值<br>";
+	if(x==39)battle_status.log+="BOSS特性：伤害开方<br>";
 	var ename="怪物";
 	if(x%5==4)ename="BOSS";
 	document.getElementById("battlelog").innerHTML=battle_status.log;
@@ -249,9 +266,13 @@ function battle(x){
 		document.getElementById("battlelog").style.display="block";
 		var damage1=Math.floor(1+getatk()*getatk()/enemydef*rand_2()*mult);
 		var damage2=Math.floor(1+enemyatk*enemyatk/getdef()*rand_2()*mult);
+		var damage1_disp=damage1;
+		if(x==39)damage1=Math.floor(damage1**0.5);
 		enemyhp-=damage1;
+		if(x==39)battle_status.log+="你对"+ename+"造成了"+damage1_disp+"点伤害<br>";
 		if(enemyhp<=0){
-			battle_status.log+="你对"+ename+"造成了"+damage1+"点伤害，"+ename+"被击败了<br>";
+			if(x==39)battle_status.log+="由于BOSS的特性，实际造成了"+damage1+"点伤害，"+ename+"被击败了<br>";
+			else battle_status.log+="你对"+ename+"造成了"+damage1+"点伤害，"+ename+"被击败了<br>";
 			clearInterval(battle_status.interval);
 			var exp_give=Math.floor(Math.pow(enemyatk*enemydef,0.75)*rand_2()*exp_data[x]*prestige_eff());
 			battle_status.log+="战斗胜利，你得到了"+exp_give+"经验<br>";
@@ -279,7 +300,8 @@ function battle(x){
 			energy--;
 			battling=0;
 		}else{
-			if(x%5==4)battle_status.log+="你对"+ename+"造成了"+damage1+"点伤害，"+ename+"还剩"+enemyhp+"点生命值<br>";
+			if(x==39)battle_status.log+="由于BOSS的特性，实际造成了"+damage1+"点伤害，"+ename+"还剩"+enemyhp+"点生命值<br>";
+			else if(x%5==4)battle_status.log+="你对"+ename+"造成了"+damage1+"点伤害，"+ename+"还剩"+enemyhp+"点生命值<br>";
 			else battle_status.log+="你对"+ename+"造成了"+damage1+"点伤害，"+ename+"还剩"+Math.ceil(enemyhp/enemyhp2*100)+"%生命值<br>";
 			curhp-=damage2;
 			if(curhp<=0){
@@ -318,16 +340,22 @@ function prestige_cost(x){
 	if(x==1){
 		if(pu[x])return Math.pow(3,pu[x])*100;else return 100;
 	}
+	if(x==2){
+		if(pu[x])return Math.pow(5,pu[x])*10;else return 10;
+	}
+	if(x==3){
+		if(pu[x])return Math.pow(2,pu[x])*10000;else return 10000;
+	}
 }
 function prestige_up(x){
 	if(pp<prestige_cost(x))return;
 	pp-=prestige_cost(x);
 	if(x==0){
 		var level1=getlv().lv;
-		if(pu[0])exp-=1000*((Math.pow(4,pu[0])-1)*(3+pu[0]*2));
+		if(pu[0])exp-=1000*((Math.pow(4,pu[0])-1)*(3+(pu[0]**pu[0])*2));
 		else pu[0]=0;
 		pu[0]++;
-		exp+=1000*((Math.pow(4,pu[0])-1)*(3+pu[0]*2));
+		exp+=1000*((Math.pow(4,pu[0])-1)*(3+(pu[0]**pu[0])*2));
 		var level2=getlv().lv;
 		hp+=(level2-level1)*10;
 		atk+=(level2-level1);
@@ -337,6 +365,12 @@ function prestige_up(x){
 	if(x==1){
 		energy++;
 		if(pu[1])pu[1]++;else pu[1]=1;
+	}
+	if(x==2){
+		if(pu[2])pu[2]++;else pu[2]=1;
+	}
+	if(x==3){
+		if(pu[3])pu[3]++;else pu[3]=1;
 	}
 }
 importsave(localStorage.zbkc);
@@ -363,7 +397,7 @@ setInterval(update,20);
 <a href="javascript:battle(6);">新手村外2（推荐战力150）</a>
 <a href="javascript:battle(7);">新手村外3（推荐战力200）</a>
 <a href="javascript:battle(8);">新手村外4（推荐战力300）</a>
-<a href="javascript:battle(9);">新手村外BOSS（推荐战力400）</a>
+<a href="javascript:battle(9);">新手村外BOSS（打败以解锁新的转生升级！）</a>
 </span><br>
 <span id="b9" style="display:none;">
 <a href="javascript:battle(10);">草原1（推荐战力400）</a>
@@ -405,9 +439,13 @@ setInterval(update,20);
 <a href="javascript:battle(36);">沙漠7（推荐战力50000）</a>
 <a href="javascript:battle(37);">沙漠8（推荐战力60000）</a>
 <a href="javascript:battle(38);">沙漠9（推荐战力80000）</a>
-<a href="javascript:battle(39);">沙漠BOSS2（打败以通关！）</a>
+<a href="javascript:battle(39);">沙漠BOSS2（打败以解锁新的转生升级并通关！）</a>
 </span><br>
 <span id="b39" style="display:none;">
+<a href="javascript:battle(40);">洞穴1（推荐战力10万）</a>
+<a href="javascript:battle(41);">洞穴2（推荐战力13万）</a>
+<a href="javascript:battle(42);">洞穴3（推荐战力17万）</a>
+<a href="javascript:battle(43);">洞穴4（推荐战力20万）</a>
 </span>
 </div>
 <div id="tab1" style="display:none;">
@@ -425,13 +463,15 @@ setInterval(update,20);
 <a href="javascript:prestige();">开始转生</a><br>
 <br>
 你有<span id="prestige3"></span>转生点，经验和装备的获得变为原来的<span id="prestige_eff"></span>倍<br>
+<a id="pu2" href="javascript:prestige_up(2);" style="display:none;">生命值加点提升</a><br>
 <a id="pu1" href="javascript:prestige_up(1);" style="display:none;">初始能量提升</a><br>
 <a id="pu0" href="javascript:prestige_up(0);" style="display:none;">初始等级提升</a><br>
+<a id="pu3" href="javascript:prestige_up(3);" style="display:none;">生命值提升</a><br>
 </div>
 <div id="battlelog">
 欢迎进入《装备狂潮》，作者为loader3229！这是一个类似于属性膨胀的游戏，特点是怪物可以直接掉落大量装备！感受爆装备的乐趣吧！<br>
 与大多数通胀类游戏不同，这个游戏内在你被打败时不消耗能量，并且可以多次挑战BOSS。<br>
-版本：Beta 0.3
+版本：Beta 0.3.1
 </div>
 </body>
 </html>
