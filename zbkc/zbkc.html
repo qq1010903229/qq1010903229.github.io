@@ -37,11 +37,11 @@ var equipment_data_extra={
 44:[4,4,4e-6],49:[4,4,4e-6],
 };
 var equipment_names=[
-["匕首","短剑","木剑","草原短刀","铁剑","钢剑","森林剑","铜剑","银剑","金剑"],
+["匕首","短剑","木剑","草原短刀","铁剑","钢剑","森林剑","铜剑","银剑","金剑","火剑"],
 ["布衣","皮甲","轻甲","铁甲","钢甲","森林铠甲","沙漠衣","铜甲","银甲","黄金铠甲","羽毛衣"],
 ["布鞋","皮鞋","森林鞋","沙漠行者","水上行者","天空之鞋"],
 ["转生宝石","生命宝石","暴击宝石","海洋之心"],
-["新手村之章","草原徽章","森林徽章","沙漠徽章"],
+["新手村之章","草原徽章","森林徽章","沙漠徽章","洞穴徽章"],
 ];
 var hpdata=[
 50,200,600,1000,2333,
@@ -378,7 +378,8 @@ function battle(x){
 	if(x==49)battle_status.log+="BOSS特性：23.33%暴击率<br>";
 	if(x==59)battle_status.log+="BOSS特性：23.33%闪避率<br>";
 	if(x==74)battle_status.log+="BOSS特性：一击必杀<br>";
-	if(x==79)battle_status.log+="BOSS特性：受到的伤害取自然对数<br>";
+	if(x==79&&chall==1)battle_status.log+="BOSS特性：受到的伤害变为原来的0.27次方<br>";
+	else if(x==79)battle_status.log+="BOSS特性：受到的伤害取自然对数<br>";
 	var ename="怪物";
 	if(x%5==4)ename="BOSS";
 	document.getElementById("battlelog").innerHTML=battle_status.log;
@@ -412,12 +413,13 @@ function battle(x){
 		}
 		var damage1_disp=damage1;
 		if(x==39||x==69)damage1=Math.floor(damage1**0.5);
-		if(x==79)damage1=Math.log(damage1);
+		if(x==79&&chall==1)damage1=Math.floor(damage1**0.27);
+		else if(x==79)damage1=Math.log(damage1);
 		if(x==59 && Math.random()<7/30)damage1=0;
 		enemyhp-=damage1;
 		if(x==39||x==69||x==79)battle_status.log+="你对"+ename+"造成了"+format(damage1_disp)+"点伤害<br>";
 		if(enemyhp<=0){
-			if(x==79)battle_status.log+="由于BOSS的特性，实际造成了"+damage1.toFixed(2)+"点伤害，"+ename+"被击败了<br>";
+			if(x==79&&chall!=1)battle_status.log+="由于BOSS的特性，实际造成了"+damage1.toFixed(2)+"点伤害，"+ename+"被击败了<br>";
 			else if(x==39||x==69||x==79)battle_status.log+="由于BOSS的特性，实际造成了"+format(damage1)+"点伤害，"+ename+"被击败了<br>";
 			else battle_status.log+="你对"+ename+"造成了"+format(damage1)+"点伤害，"+ename+"被击败了<br>";
 			clearInterval(battle_status.interval);
@@ -468,8 +470,8 @@ function battle(x){
 			battling=0;
 		}else{
 			if(x==59 && damage1==0)battle_status.log+=ename+"闪避，"+ename+"还剩"+format(enemyhp)+"点生命值<br>";
-			else if(x==79)battle_status.log+="由于BOSS的特性，实际造成了"+damage1.toFixed(2)+"点伤害，"+ename+"还剩"+format(enemyhp)+"点生命值<br>";
-			else if(x==39||x==69)battle_status.log+="由于BOSS的特性，实际造成了"+format(damage1)+"点伤害，"+ename+"还剩"+format(enemyhp)+"点生命值<br>";
+			else if(x==79&&chall!=1)battle_status.log+="由于BOSS的特性，实际造成了"+damage1.toFixed(2)+"点伤害，"+ename+"还剩"+format(enemyhp)+"点生命值<br>";
+			else if(x==39||x==69||x==79)battle_status.log+="由于BOSS的特性，实际造成了"+format(damage1)+"点伤害，"+ename+"还剩"+format(enemyhp)+"点生命值<br>";
 			else if(x%5==4)battle_status.log+="你对"+ename+"造成了"+format(damage1)+"点伤害，"+ename+"还剩"+format(enemyhp)+"点生命值<br>";
 			else battle_status.log+="你对"+ename+"造成了"+format(damage1)+"点伤害，"+ename+"还剩"+Math.ceil(enemyhp/enemyhp2*100)+"%生命值<br>";
 			if(x==49 && Math.random()<7/30){
@@ -509,7 +511,7 @@ function energyc_eff(){
 	return energyc**1.2;
 }
 function prestige_cost(x){
-	var pu_max=[7,11,10,11,7,7,1];
+	var pu_max=[7,12,10,11,7,7,2];
 	if(pu[x] && pu[x]>=pu_max[x])return Infinity;
 	if(x==0){
 		if(pu[x])return Math.floor(Math.pow(10,3+pu[x])/(Math.min(pu[x],6)**2+1));else return 1000;
