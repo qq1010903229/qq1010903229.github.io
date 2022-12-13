@@ -1,8 +1,8 @@
-if(localStorage.l2dv!='2'){
-	localStorage.l2dm='/kasumievent130.json';
-	localStorage.l2dv='2';
+if(localStorage.l2dv!='3'){
+	localStorage.l2dm='/kasumik.json';
+	localStorage.l2dv='3';
 }
-localStorage.l2dm=localStorage.l2dm || '/kasumievent130.json';
+localStorage.l2dm=localStorage.l2dm || '/kasumik.json';
 function initl2d(){
 $("#live2d").attr("width",300);
 $("#live2d").attr("height",375);
@@ -33,7 +33,7 @@ $('.waifu-tool .fui-gear').hover(function (){
 	showMessage('Do you want to change my costume?',3000);
 });
 $('.waifu-tool .fui-gear').click(function (){
-	loadlive2d('live2d', localStorage.l2dm=['/kasumi.json','/kasumievent130.json','/kasumievent168.json','/kasumi2star1.json','/kasumi2star2.json','/kasumicasual.json','/kasumi19af.json'][Math.floor(Math.random()*6.06)], null);
+	loadlive2d('live2d', localStorage.l2dm=['/kasumi.json','/kasumik.json','/kasumievent130.json','/kasumievent168.json','/kasumi2star1.json','/kasumi2star2.json','/kasumicasual.json','/kasumi19af.json'][Math.floor(Math.random()*7)], null);
 	window.l2da.currentTime=0;
 	window.l2da.pause();
 });
