@@ -32,8 +32,19 @@ var equipment_data=[
 [0,7,0.1],[1,11,1e-5],[0,7,0.3],[1,11,3e-5],[3,0,50],
 [0,9,0.003],[1,9,0.003],[3,5,1e-5],[2,7,1e-5],[3,5,3e-5],
 [0,11,1e-6],[3,6,1e-6],[0,11,3e-6],[3,6,3e-6],[3,6,1e-5],
+
 [0,0,10],[1,0,10],[0,0,40],[1,0,40],[3,2,0.007],
-[0,1,2],[1,1,2],[0,1,6],[1,1,6],[3,0,200],
+[0,1,2],[1,1,2],[0,1,6],[1,1,6],[3,7,1e-7],
+[0,2,1],[1,2,1],[0,2,3],[1,2,3],[0,3,0.3],
+[2,1,1],[1,3,1],[0,4,2],[1,3,2],[3,1,200],
+[0,5,1],[1,4,1],[0,5,2],[1,4,2],[3,8,1e-7],
+[0,6,0.2],[1,5,0.2],[0,6,0.5],[1,5,0.5],[3,8,1e-6],
+[3,0,200],[1,4,5],[0,5,5],[1,6,0.3],[3,1,500],
+[1,4,10],[1,6,0.5],[0,4,5],[2,3,0.1],[3,0,500],
+[0,7,0.5],[1,7,0.5],[0,7,1],[1,7,1],[3,2,0.01],
+[0,8,0.1],[1,8,0.1],[0,8,0.3],[1,8,0.3],[3,9,1e-7],
+[0,12,1e-8],[1,12,1e-8],[0,12,3e-8],[1,12,3e-8],[3,3,0.01],
+
 ];
 var equipment_data_extra={
 4:[4,0,1e-4],9:[4,0,1e-4],
@@ -44,13 +55,16 @@ var equipment_data_extra={
 54:[4,5,1e-6],59:[4,5,1e-6],
 64:[4,6,4e-7],69:[4,6,4e-7],
 74:[4,7,1e-7],79:[4,7,1e-7],
+84:[4,8,2e-8],89:[4,8,2e-8],
+94:[4,9,4e-9],99:[4,9,4e-9],
+104:[4,0,1e-3],109:[4,0,1e-3],
 };
 var equipment_names=[
-["匕首","短剑","木剑","草原短刀","铁剑","钢剑","森林剑","铜剑","银剑","金剑","火剑","魔法剑"],
-["布衣","皮甲","轻甲","铁甲","钢甲","森林铠甲","沙漠衣","铜甲","银甲","黄金铠甲","羽毛衣","燃烧铠甲"],
+["匕首","短剑","木剑","草原短刀","铁剑","钢剑","森林剑","铜剑","银剑","金剑","火剑","魔法剑","三叉戟"],
+["布衣","皮甲","轻甲","铁甲","钢甲","森林铠甲","沙漠衣","铜甲","银甲","黄金铠甲","羽毛衣","燃烧铠甲","水之护盾"],
 ["布鞋","皮鞋","森林鞋","沙漠行者","水上行者","天空之鞋","火焰靴","魔法鞋"],
-["转生宝石","生命宝石","暴击宝石","海洋之心","火焰核心","经验宝石","魔法核心"],
-["新手村之章","草原徽章","森林徽章","沙漠徽章","洞穴徽章","水之章","自然之章","天空之章","火之章"],
+["转生宝石","生命宝石","暴击宝石","海洋之心","火焰核心","经验宝石","魔法核心","吸血宝石","自然核心","大地核心"],
+["新手村之章","草原徽章","森林徽章","沙漠徽章","洞穴徽章","水之章","自然之章","天空之章","火之章","魔法之章"],
 ];
 var hpdata=[
 50,200,600,1000,2333,
@@ -75,6 +89,15 @@ var hpdata=[
 5.0e17,5.0e17,5.0e17,5.0e17,2.0e20/3,
 5.0e18,2.0e19,6.0e19,1.0e20,7.0e20/3,
 1.5e20,2.0e20,3.0e20,4.0e20,1.0e21,
+6.0e20,7.0e20,8.0e20,1.0e21,7.0e21/3,
+1.6e21,2.0e21,3.5e21,6.0e21,1.0e22,
+1.4e22,2.2e22,3.0e22,5.0e22,1.0e23,
+8.0e22,1.2e23,2.0e23,3.0e23,1.0e24,
+4.0e23,5.0e23,8.0e23,1.0e24,7.0e24/3,
+1.0e24,1.2e24,2.0e24,3.0e24,1.0e14,
+4.0e24,5.0e24,8.0e24,1.0e25,7.0e25/3,
+1.0e25,1.5e25,2.0e25,3.0e25,1.0e26,
+3.0e25,4.0e25,5.0e25,7.0e25,7.0e26/3,
 ];
 var atkdata=[
 12,25,40,60,75,
@@ -99,6 +122,15 @@ var atkdata=[
 3.0e13,5.0e13,7.0e13,1.0e14,0.1,
 1.2e14,2.5e14,4.0e14,6.0e14,7.5e14,
 1.0e15,1.5e15,2.0e15,2.5e15,2.4e15,
+3.0e15,4.0e15,5.0e15,6.5e15,8.0e15,
+8.0e15,1.0e16,1.2e16,1.4e16,1.5e16,
+3.0e16,3.6e16,4.0e16,4.4e16,5.5e16,
+2.5e17,3.0e17,3.5e17,4.0e17,4.0e17,
+1.0e18,1.1e18,1.2e18,1.4e18,1.4e18,
+2.4e18,2.7e18,3.0e18,3.6e18,5.0e18,
+1.5e19,2.0e19,2.2e19,2.5e19,3.1e19,
+3.5e19,4.0e19,4.5e19,6.0e19,5.5e19,
+1.2e20,1.6e20,2.0e20,2.4e20,2.4e20,
 ];
 var exp_data=[
 10,11,12,13,15,
@@ -123,6 +155,15 @@ var exp_data=[
 14,15,16,17,21,
 20,22,24,26,30,
 30,32,36,38,42,
+42,42,42,40,40,
+46,45,45,46,50,
+48,46,47,48,50,
+44,40,39,43,48,
+42,44,46,44,53,
+52,52,54,50,50,
+35,35,35,35,35,
+41,41,42,42,51,
+43,38,35,34,37,
 ];
 var pu=[];
 function softreset(s){
@@ -132,7 +173,8 @@ function softreset(s){
 	}
 	if(!s && !confirm("是否软重置？你将重新开始游戏但保留转生点和转生相关升级。"))return;
 	pp+=getpp();
-	exp=1000,hp=100,atk=10,def=10,luk=0,points=10*(4+(pu[7]||0)),energy=30+(pu[1]||0)+(challeff(2)),progress=0;
+	exp=967,hp=100,atk=10,def=10,luk=0,points=10*(4+(pu[7]||0)),energy=30+(pu[1]||0)+(challeff(2)),progress=0;
+	if(highest_progress>=120)energy+=pu[1];
 	battling=0;
 	eqtab=0;
 	equipments=[[],[],[],[],[],[],[],[],[],[]];
@@ -159,7 +201,7 @@ function reset(){
 	}
 	if(!confirm("是否硬重置？你将重新开始游戏并且失去转生点和转生相关升级！"))return;
 	if(!confirm("是否硬重置？你将失去所有东西！这是最后一次警告！"))return;
-	exp=1000,hp=100,atk=10,def=10,luk=0,points=40,energy=30,progress=0,pp=0;
+	exp=967,hp=100,atk=10,def=10,luk=0,points=40,energy=30,progress=0,pp=0;
 	highest_progress=0;pu=[];
 	battling=0;
 	eqtab=0;
@@ -176,16 +218,19 @@ function rand_2(){
 function getlv(){
 	if(chall==3){
 		var tmp=Math.log10(exp)**2+1;
-		return {"lv":Math.floor(tmp),"progress":tmp-Math.floor(tmp)};
+		return {"lv":Math.floor(tmp),"progress":tmp-Math.floor(tmp),"next":10**((Math.floor(tmp))**0.5)-exp,"step":10**((Math.floor(tmp))**0.5)-10**((Math.floor(tmp)-1)**0.5)};
 	}
-	return {"lv":Math.floor(Math.pow(exp,0.335)),"progress":Math.pow(exp,0.335)-Math.floor(Math.pow(exp,0.335))};
+	if(Math.floor(Math.pow(exp,0.335))>=1e8){
+		return {"lv":Math.floor(Math.pow(exp,0.335)),"progress":Math.pow(exp,0.335)-Math.floor(Math.pow(exp,0.335)),"next":(Math.floor(Math.pow(exp,0.335)+1)**(1/0.335))-exp,"step":(Math.pow(exp,0.665)/0.335)};
+	}
+	return {"lv":Math.floor(Math.pow(exp,0.335)),"progress":Math.pow(exp,0.335)-Math.floor(Math.pow(exp,0.335)),"next":(Math.floor(Math.pow(exp,0.335)+1)**(1/0.335))-exp,"step":(Math.floor(Math.pow(exp,0.335)+1)**(1/0.335))-(Math.floor(Math.pow(exp,0.335))**(1/0.335))};
 }
 function gethp(){
 	if(chall==1)return 1;
-	return Math.floor(hp*geteqeffs(3,1)*geteqeffs(3,3)*geteqeffs(3,4)*geteqeffs(3,6)*geteqeff(4)*Math.pow(1.25,(pu[3]||0))*Math.pow((pu[3]||0)+1,highest_progress>=100?2:highest_progress>=70?1:0.5)*challeff(1));
+	return Math.floor(hp*geteqeffs(3,1)*geteqeffs(3,3)*geteqeffs(3,4)*geteqeffs(3,6)*geteqeffs(3,8)*geteqeffs(3,9)*geteqeff(4)*Math.pow(1.25,(pu[3]||0))*Math.pow((pu[3]||0)+1,highest_progress>=130?3:highest_progress>=100?2:highest_progress>=70?1:0.5)*challeff(1));
 }
 function getatk(){
-	return atk*geteqeff(0)*geteqeff(4);
+	return atk*geteqeff(0)*geteqeff(4)*challeff(5);
 }
 function getdef(){
 	return def*geteqeff(1)*geteqeff(4);
@@ -212,6 +257,19 @@ function getedef(x){
 	return atkdata[x]*rand_2();
 }
 function geteqeffs(x,i){
+	if(x==3&&i==0){
+		let temp=1+Math.log(1+(equipments[x][i]||0))/10*(1+(eqlevels[x][i]||0)**(0.5+0.1*(pu[5]||0))/10);
+		if(temp>=16&&highest_progress>=150)temp=Math.log2(temp)**2;
+		else if(temp>=16)temp=Math.log2(temp)*4;
+		return temp;
+	}
+	if(x==3&&i==2){
+		let temp=1+Math.log(1+(equipments[x][i]||0))/10*(1+(eqlevels[x][i]||0)**(0.5+0.1*(pu[5]||0))/10);
+		if(temp>=4)temp=Math.log2(temp-2)**0.75+3;
+		if(temp>=5)temp=Math.log2(temp-3)**0.75+4;
+		return temp;
+	}
+	if(x==3&&i==7)return 1+Math.sqrt(Math.log(1+(equipments[x][i]||0))*(1+(eqlevels[x][i]||0)**(0.5+0.1*(pu[5]||0))/10))/50000;
 	return 1+Math.log(1+(equipments[x][i]||0))/10*(1+(eqlevels[x][i]||0)**(0.5+0.1*(pu[5]||0))/10);
 }
 function geteqeff(x){
@@ -224,8 +282,16 @@ function geteqeff(x){
 	if(x==4)result=result**0.2;
 	if(x==4&&highest_progress>=70)result=result**1.5;
 	if(x==4&&highest_progress>=90)result=result**1.1;
+	
 	if(x==4&&result>=2&&highest_progress<90)result=Math.log2(result)**0.6+1;
-	if(x==4&&result>=3)result=Math.log2(result-1)**0.6+2;
+	
+	if(x==4&&result>=3&&highest_progress<130)result=Math.log2(result-1)**0.6+2;
+	else if(x==4&&result>=3&&highest_progress<150)result=Math.log2(result-1)**0.8+2;
+	else if(x==4&&result>=3)result=Math.log2(result-1)+2;
+	
+	if(x==4&&result>=4)result=Math.log2(result-2)**0.6+3;
+	
+	if(x==4&&result>=5)result=5;
 	return result;
 }
 function add(x,y){
@@ -234,6 +300,7 @@ function add(x,y){
 	if(x==1)hp+=y*(4+(pu[2]||0));
 	if(x==1&&highest_progress>=80)hp+=y*(pu[2]||0);
 	if(x==1&&highest_progress>=90)hp+=y*(pu[2]||0);
+	if(x==1&&highest_progress>=110)hp+=y*(pu[2]||0)*2;
 	if(x==2)atk+=y;
 	if(x==3)def+=y;
 	if(x==4)luk+=y;
@@ -275,7 +342,8 @@ function load(){
 	document.location.reload();
 }
 function update(){
-	document.getElementById("lv").innerHTML=format(getlv().lv)+(getlv().lv<10000?" ("+Math.floor(getlv().progress*100)+"%)":"");
+	document.getElementById("lv").innerHTML=format(getlv().lv)+" 经验值："+format(getlv().step-getlv().next)+"/"+format(getlv().step);
+	if(getlv().lv>=1e8)document.getElementById("lv").innerHTML=format(getlv().lv)+" &nbsp;&nbsp;"+format(getlv().step)+"经验值升1级";
 	document.getElementById("power").innerHTML=format(getpower());
 	document.getElementById("energy").innerHTML=energy;
 	document.getElementById("hp").innerHTML=format(hp)+" ("+format(gethp())+")";
@@ -285,8 +353,9 @@ function update(){
 	document.getElementById("prestige2").innerHTML=format(getpp());
 	document.getElementById("prestige3").innerHTML=format(pp);
 	document.getElementById("prestige_eff").innerHTML=Math.floor(prestige_eff()*100)/100;
-	document.getElementById("luk").innerHTML=luk;
-	document.getElementById("points").innerHTML=points;
+	if(prestige_eff()>=10000)document.getElementById("prestige_eff").innerHTML=format(prestige_eff());
+	document.getElementById("luk").innerHTML=format(luk);
+	document.getElementById("points").innerHTML=format(points);
 	document.getElementById("save").value=exportsave();
 	localStorage.zbkc=exportsave();
 	for(var i=4;i<progress;i+=5)document.getElementById("b"+i).style.display="inline";
@@ -314,6 +383,9 @@ function update(){
 			if(eqtab==3&&i==4)eq_log=eq_log+"(+"+format((geteqeffs(3,4)-1)*100)+"%生命值)";
 			if(eqtab==3&&i==5)eq_log=eq_log+"(+"+format((geteqeffs(3,5)-1)*100)+"%经验值)";
 			if(eqtab==3&&i==6)eq_log=eq_log+"(+"+format((geteqeffs(3,6)-1)*100)+"%生命值)";
+			if(eqtab==3&&i==7)eq_log=eq_log+"(+"+((geteqeffs(3,7)-1)*100).toFixed(4)+"%吸血)";
+			if(eqtab==3&&i==8)eq_log=eq_log+"(+"+format((geteqeffs(3,8)-1)*100)+"%生命值)";
+			if(eqtab==3&&i==9)eq_log=eq_log+"(+"+format((geteqeffs(3,9)-1)*100)+"%生命值)";
 			if(highest_progress>=50){
 				eq_log=eq_log+" <a href=\"javascript:eqlevelup("+eqtab+","+i+");\">强化（需要"+format(eqlevel_cost(eqtab,i))+"个"+equipment_names[eqtab][i]+"）</a>";
 			}
@@ -324,13 +396,16 @@ function update(){
 	if(highest_progress>=10){
 		document.getElementById("pu2").style.display="inline";
 		var temp="";
-		if(highest_progress>=90)temp="+2";
+		if(highest_progress>=110)temp="+3";
+		else if(highest_progress>=90)temp="+2";
 		else if(highest_progress>=80)temp="+1";
 		document.getElementById("pu2").innerHTML="生命加点提升"+temp+"（"+(pu[2]||0)+"级，升级需"+format(prestige_cost(2))+"转生点）";
 	}
 	if(highest_progress>=20){
 		document.getElementById("pu1").style.display="inline";
-		document.getElementById("pu1").innerHTML="初始能量提升（"+(pu[1]||0)+"级，升级需"+format(prestige_cost(1))+"转生点）";
+		var temp="";
+		if(highest_progress>=120)temp="+1";
+		document.getElementById("pu1").innerHTML="初始能量提升"+temp+"（"+(pu[1]||0)+"级，升级需"+format(prestige_cost(1))+"转生点）";
 	}
 	if(highest_progress>=30){
 		document.getElementById("pu0").style.display="inline";
@@ -339,13 +414,16 @@ function update(){
 	if(highest_progress>=40){
 		document.getElementById("pu3").style.display="inline";
 		var temp="";
-		if(highest_progress>=100)temp="+2";
+		if(highest_progress>=130)temp="+3";
+		else if(highest_progress>=100)temp="+2";
 		else if(highest_progress>=70)temp="+1";
 		document.getElementById("pu3").innerHTML="生命值提升"+temp+"（"+(pu[3]||0)+"级，升级需"+format(prestige_cost(3))+"转生点）";
 	}
 	if(highest_progress>=50){
 		document.getElementById("pu4").style.display="inline";
-		document.getElementById("pu4").innerHTML="BOSS额外掉落（"+(pu[4]||0)+"级，升级需"+format(prestige_cost(4))+"转生点）";
+		var temp="";
+		if(highest_progress>=150)temp="+1";
+		document.getElementById("pu4").innerHTML="BOSS额外掉落"+temp+"（"+(pu[4]||0)+"级，升级需"+format(prestige_cost(4))+"转生点）";
 	}
 	if(pu[4]>=3){
 		document.getElementById("eq_4").style.display="inline";
@@ -407,6 +485,15 @@ function update(){
 		document.getElementById("pu8").style.display="inline";
 		document.getElementById("pu8").innerHTML="经验值提升（"+(pu[8]||0)+"级，升级需"+format(prestige_cost(8))+"转生点）";
 	}
+	if(highest_progress>=105){
+		document.getElementById("chall5").style.display="block";
+		document.getElementById("chall5lv").innerHTML=format(challlvs[5]||0);
+		document.getElementById("chall5eff").innerHTML=format((challeff(5)-1)*100);
+	}
+	if(highest_progress>=125){
+		document.getElementById("pu9").style.display="inline";
+		document.getElementById("pu9").innerHTML="战斗速度提升（"+(pu[9]||0)+"级，升级需"+format(prestige_cost(9))+"转生点）";
+	}
 }
 function settab(x){
 	if(battling){
@@ -458,10 +545,11 @@ function battle(x){
 	var mult=1;
 	var battle_status={"log":"你遇到了怪物<br>","interval":-1};
 	if(x%5==4)battle_status.log="你遇到了BOSS，BOSS有"+format(enemyhp)+"点生命值<br>";
-	if(x==39||x==69)battle_status.log+="BOSS特性：受到的伤害开方<br>";
-	if(x==49||x==99)battle_status.log+="BOSS特性：23.33%暴击率<br>";
+	if(x==39||x==69||x==139)battle_status.log+="BOSS特性：受到的伤害开方<br>";
+	if(x==49||x==99||x==149)battle_status.log+="BOSS特性：23.33%暴击率<br>";
 	if(x==59||x==99)battle_status.log+="BOSS特性：23.33%闪避率<br>";
-	if(x==74)battle_status.log+="BOSS特性：一击必杀<br>";
+	if(x==74&&chall==5)battle_status.log+="BOSS特性：BOSS的第二次攻击为必杀<br>";
+	else if(x==74)battle_status.log+="BOSS特性：一击必杀<br>";
 	if(x==79&&chall==1)battle_status.log+="BOSS特性：受到的伤害变为原来的0.25次方<br>";
 	else if(x==79)battle_status.log+="BOSS特性：受到的伤害取自然对数<br>";
 	if(x==84)battle_status.log+="BOSS特性：你的能量越多，BOSS越强<br>",enemyatk*=(1+0.15*energy),enemydef*=(1+0.15*(energy**1.5));
@@ -469,6 +557,15 @@ function battle(x){
 	if(x==94||x==99)battle_status.log+="BOSS特性：你的武器和防具越多，BOSS越强<br>",enemyatk*=(geteqeff(1)),enemydef*=(geteqeff(0));
 	var ename="怪物";
 	if(x%5==4)ename="BOSS";
+	if(chall==5){
+		var damage2=Math.floor(1+enemyatk*enemyatk/getdef()*rand_2()*mult);
+		damage2=Math.floor(1+damage2*(Math.log10(damage2)**1.5)*1.5);
+		curhp-=damage2;if(curhp<=0){
+			clearInterval(battle_status.interval);
+			battle_status.log+=ename+"对你造成了"+format(damage2)+"点伤害，你倒下了<br><a href=\"javascript:battle("+x+");\">再次战斗</a>";
+			battling=0;
+		}else battle_status.log+=ename+"对你造成了"+format(damage2)+"点伤害，你还剩"+format(curhp)+"点生命值<br>";
+	}
 	document.getElementById("battlelog").innerHTML=battle_status.log;
 	var battle_turn=function(){
 		document.getElementById("tab0").style.display="none";
@@ -476,6 +573,7 @@ function battle(x){
 		document.getElementById("battlelog").style.display="block";
 		var damage1=Math.floor(1+getatk()*getatk()/enemydef*rand_2()*mult);
 		var damage2=Math.floor(1+enemyatk*enemyatk/getdef()*rand_2()*mult);
+		if(chall==5)damage2=Math.floor(1+damage2*(Math.log10(damage2)**1.5));
 		if(Math.random()+1<geteqeffs(3,2)){
 			if(Math.random()+2<geteqeffs(3,2)){
 				damage1*=2;battle_status.log+="超级";
@@ -499,21 +597,26 @@ function battle(x){
 			battle_status.log+="！";
 		}
 		var damage1_disp=damage1;
-		if(x==39||x==69)damage1=Math.floor(damage1**0.5);
+		if(x==39||x==69||x==139)damage1=Math.floor(damage1**0.5);
 		if(x==79&&chall==1)damage1=Math.floor(damage1**0.25);
 		else if(x==79)damage1=Math.log(damage1);
 		if((x==59||x==99) && Math.random()<7/30)damage1=0;
 		enemyhp-=damage1;
-		if(x==39||x==69||x==79)battle_status.log+="你对"+ename+"造成了"+format(damage1_disp)+"点伤害<br>";
+		if(x==39||x==69||x==79||x==139)battle_status.log+="你对"+ename+"造成了"+format(damage1_disp)+"点伤害<br>";
 		if(enemyhp<=0){
 			if(x==79&&chall!=1)battle_status.log+="由于BOSS的特性，实际造成了"+damage1.toFixed(2)+"点伤害，"+ename+"被击败了<br>";
-			else if(x==39||x==69||x==79)battle_status.log+="由于BOSS的特性，实际造成了"+format(damage1)+"点伤害，"+ename+"被击败了<br>";
+			else if(x==39||x==69||x==79||x==139)battle_status.log+="由于BOSS的特性，实际造成了"+format(damage1)+"点伤害，"+ename+"被击败了<br>";
 			else battle_status.log+="你对"+ename+"造成了"+format(damage1)+"点伤害，"+ename+"被击败了<br>";
 			clearInterval(battle_status.interval);
 			var exp_base=Math.pow(enemyatk*enemydef,0.75);
 			if(exp_base>=9e10)exp_base=(exp_base*9e10)**0.5;
 			if(exp_base>=3e13)exp_base=(exp_base*3e13)**0.5;
-			var exp_give=Math.floor(exp_base*rand_2()*geteqeffs(3,5)*exp_data[x]*prestige_eff()*energyc_eff()*challeff(3)*Math.pow(1.2,(pu[8]||0)));
+			if(highest_progress>=140&&x<=100){
+				exp_base*=(exp_data[x]+(100-x)/5);
+			}else{
+				exp_base*=exp_data[x];
+			}
+			var exp_give=Math.floor(exp_base*rand_2()*geteqeffs(3,5)*prestige_eff()*energyc_eff()*challeff(3)*Math.pow(1.2,(pu[8]||0)));
 			battle_status.log+="战斗胜利，你得到了"+format(exp_give)+"经验<br>";
 			var level1=getlv().lv;
 			exp+=exp_give;
@@ -540,8 +643,14 @@ function battle(x){
 				if(x==79&&highest_progress<79)battle_status.log+="<br>由于你第一次打败天空BOSS2，转生升级“生命加点提升”的效果增加了。";
 				if(x==89&&highest_progress<89)battle_status.log+="<br>由于你第一次打败火山BOSS2，转生升级“生命加点提升”的效果增加了，同时徽章的效果增加了。";
 				if(x==99&&highest_progress<99)battle_status.log+="<br>由于你第一次打败城堡BOSS2，转生升级“生命值提升”的效果增加了，同时解锁了新难度！";
+				if(x==109&&highest_progress<109)battle_status.log+="<br>由于你第一次打败普通新手村外BOSS，转生升级“生命加点提升”的效果增加了。";
+				if(x==119&&highest_progress<119)battle_status.log+="<br>由于你第一次打败普通草原BOSS2，转生升级“初始能量提升”的效果增加了。";
+				if(x==129&&highest_progress<129)battle_status.log+="<br>由于你第一次打败普通森林BOSS2，转生升级“生命值提升”的效果增加了，同时徽章的效果增加了。";
+				if(x==139&&highest_progress<139)battle_status.log+="<br>由于你第一次打败普通沙漠BOSS2，简单难度怪物获得的经验值得到了不同程度的增加。";
+				if(x==149&&highest_progress<149)battle_status.log+="<br>由于你第一次打败普通洞穴BOSS2，转生升级“BOSS额外掉落”的效果增加了，同时徽章的效果增加了。";
 				if(pu[4]){
 					var rate2=1-Math.pow(0.85,pu[4]**0.75);
+					if(highest_progress>=150)rate2=1-Math.pow(0.85,pu[4]**0.85);
 					for(var j=x-((pu[4]>=6&&x>=pu[4])?pu[4]:(pu[4]>=6)?x:(pu[4]>=2&&x>=5)?5:4);j<=x;j++){
 						give_equipments=Math.floor(equipment_data[j][2]*(luk**0.5)*(1+(eqlevels[equipment_data[j][0]][equipment_data[j][1]]||0)*0.15)*Math.random()*prestige_eff()*energyc_eff()*rate2*challeff(4));
 						if(chall==4)give_equipments=0;
@@ -550,6 +659,7 @@ function battle(x){
 					}
 					if(pu[4]>=2+x/10){
 						give_equipments=Math.floor(equipment_data_extra[x][2]*(luk**0.5)*(1+(eqlevels[equipment_data_extra[x][0]][equipment_data_extra[x][1]]||0)*0.15)*Math.random()*prestige_eff()*energyc_eff()*challeff(4));
+						if(highest_progress>=150)give_equipments=Math.floor(give_equipments*1.5);
 						if(chall==4)give_equipments=0;
 						if(give_equipments>0){
 							battle_status.log+="<br>由于转生升级“BOSS额外掉落”的效果，"+ename+"额外掉落了"+format(give_equipments)+"个"+equipment_names[equipment_data_extra[x][0]][equipment_data_extra[x][1]];
@@ -564,10 +674,14 @@ function battle(x){
 		}else{
 			if((x==59||x==99) && damage1==0)battle_status.log+=ename+"闪避，"+ename+"还剩"+format(enemyhp)+"点生命值<br>";
 			else if(x==79&&chall!=1)battle_status.log+="由于BOSS的特性，实际造成了"+damage1.toFixed(2)+"点伤害，"+ename+"还剩"+format(enemyhp)+"点生命值<br>";
-			else if(x==39||x==69||x==79)battle_status.log+="由于BOSS的特性，实际造成了"+format(damage1)+"点伤害，"+ename+"还剩"+format(enemyhp)+"点生命值<br>";
+			else if(x==39||x==69||x==79||x==139)battle_status.log+="由于BOSS的特性，实际造成了"+format(damage1)+"点伤害，"+ename+"还剩"+format(enemyhp)+"点生命值<br>";
 			else if(x%5==4)battle_status.log+="你对"+ename+"造成了"+format(damage1)+"点伤害，"+ename+"还剩"+format(enemyhp)+"点生命值<br>";
 			else battle_status.log+="你对"+ename+"造成了"+format(damage1)+"点伤害，"+ename+"还剩"+Math.ceil(enemyhp/enemyhp2*100)+"%生命值<br>";
-			if((x==49||x==99) && Math.random()<7/30){
+			let lifesteal=damage1*(geteqeffs(3,7)-1);
+			if(lifesteal>gethp()-curhp)lifesteal=gethp()-curhp;
+			curhp+=lifesteal;
+			if(lifesteal>0)battle_status.log+="你吸取了"+format(lifesteal)+"点生命值，你还剩"+format(curhp)+"点生命值<br>";
+			if((x==49||x==99||x==149) && Math.random()<7/30){
 				damage2*=2;battle_status.log+="BOSS暴击！";
 			}
 			if(x==74)damage2=Infinity;
@@ -582,17 +696,18 @@ function battle(x){
 		mult=mult*1.01;
 		if(mult>1.2)mult=mult*1.01;
 	}
-	battle_status.interval=setInterval(battle_turn,777/geteqeff(2));
+	if(curhp>0)battle_status.interval=setInterval(battle_turn,777/(geteqeff(2)+(pu[9]||0)));
 }
 
 
 function getpp(){
 	var pp=0;
 	for(var j=0;j<4;j++)for(var i=0;i<equipment_names[j].length;i++){
-		if((equipments[j][i]||0)>0)pp=pp+Math.log(1+(equipments[j][i]||0))*(1+(eqlevels[j][i]||0)/Math.max(20-(pu[5]||0),10));
+		if((equipments[j][i]||0)>0)pp=pp+Math.log(1+(equipments[j][i]||0))*(1+(eqlevels[j][i]||0)/Math.max(20-(pu[5]||0),11));
 	}
 	pp=pp*Math.log10(getlv().lv);
 	if(chall==2)return Math.floor(((pp**1.9)/75) * geteqeffs(3,0) * Math.pow(1.01,progress)*geteqeff(4)*challeff(0));
+	if(highest_progress>=120)return Math.floor(((pp**1.9)/75+(30+progress+(pu[1]||0)*2+challeff(2)-energy)/15) * geteqeffs(3,0) * Math.pow(1.01,progress)*geteqeff(4)*challeff(0)-8);
 	if(highest_progress>=100)return Math.floor(((pp**1.9)/75+(30+progress+(pu[1]||0)+challeff(2)-energy)/15) * geteqeffs(3,0) * Math.pow(1.01,progress)*geteqeff(4)*challeff(0)-8);
 	return Math.floor(((pp**1.9)/75+(30+progress+(pu[1]||0)+challeff(2)-energy)/15) * geteqeffs(3,0) * Math.pow(1.01,progress)*geteqeff(4)*challeff(0));
 }
@@ -606,10 +721,10 @@ function energyc_eff(){
 	return energyc**1.2;
 }
 function prestige_cost(x){
-	var pu_max=[8,15,12,16,10,9,4,3,3];
+	var pu_max=[10,17,14,20,13,11,5,4,5,9];
 	if(pu[x] && pu[x]>=pu_max[x])return Infinity;
 	if(x==0){
-		if(pu[x])return Math.floor(Math.pow(10,3+pu[x])/(Math.min(pu[x],6)**2+1));else return 1000;
+		if(pu[x])return Math.floor(Math.pow(10,3+pu[x])/(Math.min(pu[x],7)**2+1));else return 1000;
 	}
 	if(x==1){
 		if(pu[x])return Math.pow(3,pu[x])*100;else return 100;
@@ -636,6 +751,9 @@ function prestige_cost(x){
 	if(x==8){
 		if(pu[x])return Math.pow(3,pu[x])*100000000;else return 100000000;
 	}
+	if(x==9){
+		if(pu[x])return Math.pow(2,pu[x]**2)*1000000000;else return 1000000000;
+	}
 }
 function prestige_up(x){
 	if(pp<prestige_cost(x))return;
@@ -654,6 +772,7 @@ function prestige_up(x){
 	}
 	if(x==1){
 		energy++;
+		if(highest_progress>=120)energy++;
 		if(pu[1])pu[1]++;else pu[1]=1;
 	}
 	if(x==2){
@@ -677,6 +796,9 @@ function prestige_up(x){
 	}
 	if(x==8){
 		if(pu[8])pu[8]++;else pu[8]=1;
+	}
+	if(x==9){
+		if(pu[9])pu[9]++;else pu[9]=1;
 	}
 }
 function format(x){
@@ -731,9 +853,10 @@ function eqlevelup(x,i){
 function startchall(x){
 	softreset(true);
 	chall=x;
-	if(chall==2)energy=1,progress=0;
+	if(chall==2)energy=1,progress=0,setdiff(0);
 	if(chall==3){
 		exp=1000,hp=100,atk=10,def=10,luk=0,points=10*(4+(pu[7]||0)),energy=30+(pu[1]||0)+(challeff(2)),progress=0;
+		if(highest_progress>=120)energy+=pu[1];
 		if(highest_progress>=100){
 			progress=100;
 			energy+=60;
@@ -741,21 +864,30 @@ function startchall(x){
 	}
 }
 function challeff(x){
+	if(highest_progress<75&&x==2)return 0;
 	if(highest_progress<75)return 1;
 	var temp=(challlvs[x]||0)+1;
 	temp=Math.log10(temp);
 	if(x==0)return temp**2/500+1;
-	if(x==1)return temp**2/50+1;
-	if(x==2)return Math.max(Math.floor((temp-3)**1.1),0);
+	if(x==1){
+		if(temp**2>=50)return temp**6/125000+1;
+		return temp**2/50+1;
+	}
+	if(x==2){
+		if(temp>=6.5)return Math.floor((temp-2.5)**2/4);
+		return Math.max(Math.floor((temp-3)**1.1),0);
+	}
 	if(x==3)return temp**3/50+1;
 	if(x==4)return temp**2/100+1;
+	if(x==5)return temp**1.5/100+1;
 }
 importsave(localStorage.zbkc);
 setInterval(update,20);
 </script>
 </head>
 <body>
-等级：<span id="lv"></span> 战力：<span id="power"></span> 能量：<span id="energy"></span> 转生点：<span id="prestige"></span><br>
+等级：<span id="lv"></span><br>
+战力：<span id="power"></span> 能量：<span id="energy"></span> 转生点：<span id="prestige"></span><br>
 生命值：<span id="hp"></span> <a href="javascript:add(1,0.2)">20%加点</a> <a href="javascript:add(1,0.5)">50%加点</a> <a href="javascript:add(1,1)">全加点</a><br>
 攻击：<span id="atk"></span> <a href="javascript:add(2,0.2)">20%加点</a> <a href="javascript:add(2,0.5)">50%加点</a> <a href="javascript:add(2,1)">全加点</a><br>
 防御：<span id="def"></span> <a href="javascript:add(3,0.2)">20%加点</a> <a href="javascript:add(3,0.5)">50%加点</a> <a href="javascript:add(3,1)">全加点</a><br>
@@ -915,13 +1047,76 @@ setInterval(update,20);
 <a href="javascript:battle(101);">新手村2（推荐战力5000兆）</a>
 <a href="javascript:battle(102);">新手村3（推荐战力1京）</a>
 <a href="javascript:battle(103);">新手村4（推荐战力2京）</a>
-<a href="javascript:battle(104);">新手村BOSS（打败以通关！）</a>
+<a href="javascript:battle(104);">新手村BOSS（打败以解锁新挑战！）</a>
 </span><br>
 <span id="b104" style="display:none;">
-<a href="javascript:battle(105);">新手村外1（推荐战力4京）</a>
-<a href="javascript:battle(106);">新手村外2（推荐战力5京）</a>
-<a href="javascript:battle(107);">新手村外3（推荐战力7京）</a>
-<a href="javascript:battle(108);">新手村外4（推荐战力9京）</a>
+<a href="javascript:battle(105);">新手村外1（推荐战力3京）</a>
+<a href="javascript:battle(106);">新手村外2（推荐战力4京）</a>
+<a href="javascript:battle(107);">新手村外3（推荐战力5京）</a>
+<a href="javascript:battle(108);">新手村外4（推荐战力7京）</a>
+<a href="javascript:battle(109);">新手村外BOSS</a>
+</span><br>
+<span id="b109" style="display:none;">
+<a href="javascript:battle(110);">草原1（推荐战力10京）</a>
+<a href="javascript:battle(111);">草原2（推荐战力12京）</a>
+<a href="javascript:battle(112);">草原3（推荐战力14京）</a>
+<a href="javascript:battle(113);">草原4（推荐战力17京）</a>
+<a href="javascript:battle(114);">草原BOSS1</a>
+</span><br>
+<span id="b114" style="display:none;">
+<a href="javascript:battle(115);">草原6（推荐战力25京）</a>
+<a href="javascript:battle(116);">草原7（推荐战力30京）</a>
+<a href="javascript:battle(117);">草原8（推荐战力40京）</a>
+<a href="javascript:battle(118);">草原9（推荐战力50京）</a>
+<a href="javascript:battle(119);">草原BOSS2</a>
+</span><br>
+<span id="b119" style="display:none;">
+<a href="javascript:battle(120);">森林1（推荐战力100京）</a>
+<a href="javascript:battle(121);">森林2（推荐战力150京）</a>
+<a href="javascript:battle(122);">森林3（推荐战力200京）</a>
+<a href="javascript:battle(123);">森林4（推荐战力250京）</a>
+<a href="javascript:battle(124);">森林BOSS1（打败以解锁新的转生升级！）</a>
+</span><br>
+<span id="b124" style="display:none;">
+<a href="javascript:battle(125);">森林6（推荐战力800京）</a>
+<a href="javascript:battle(126);">森林7（推荐战力1000京）</a>
+<a href="javascript:battle(127);">森林8（推荐战力1400京）</a>
+<a href="javascript:battle(128);">森林9（推荐战力1800京）</a>
+<a href="javascript:battle(129);">森林BOSS2</a>
+</span><br>
+<span id="b129" style="display:none;">
+<a href="javascript:battle(130);">沙漠1（推荐战力4000京）</a>
+<a href="javascript:battle(131);">沙漠2（推荐战力5000京）</a>
+<a href="javascript:battle(132);">沙漠3（推荐战力6000京）</a>
+<a href="javascript:battle(133);">沙漠4（推荐战力7000京）</a>
+<a href="javascript:battle(134);">沙漠BOSS1</a>
+</span><br>
+<span id="b134" style="display:none;">
+<a href="javascript:battle(135);">沙漠6（推荐战力1垓）</a>
+<a href="javascript:battle(136);">沙漠7（推荐战力1垓）</a>
+<a href="javascript:battle(137);">沙漠8（推荐战力1.5垓）</a>
+<a href="javascript:battle(138);">沙漠9（推荐战力2垓）</a>
+<a href="javascript:battle(139);">沙漠BOSS2</a>
+</span><br>
+<span id="b139" style="display:none;">
+<a href="javascript:battle(140);">洞穴1（推荐战力5垓）</a>
+<a href="javascript:battle(141);">洞穴2（推荐战力6垓）</a>
+<a href="javascript:battle(142);">洞穴3（推荐战力8垓）</a>
+<a href="javascript:battle(143);">洞穴4（推荐战力10垓）</a>
+<a href="javascript:battle(144);">洞穴BOSS1</a>
+</span><br>
+<span id="b144" style="display:none;">
+<a href="javascript:battle(145);">洞穴6（推荐战力12垓）</a>
+<a href="javascript:battle(146);">洞穴7（推荐战力15垓）</a>
+<a href="javascript:battle(147);">洞穴8（推荐战力18垓）</a>
+<a href="javascript:battle(148);">洞穴9（推荐战力24垓）</a>
+<a href="javascript:battle(149);">洞穴BOSS2（打败以通关！）</a>
+</span><br>
+<span id="b149" style="display:none;">
+<a href="javascript:battle(150);">海洋1（推荐战力40垓）</a>
+<a href="javascript:battle(151);">海洋2（推荐战力50垓）</a>
+<a href="javascript:battle(152);">海洋3（推荐战力60垓）</a>
+<a href="javascript:battle(153);">海洋4（推荐战力80垓）</a>
 </span>
 </div>
 </div>
@@ -950,6 +1145,7 @@ setInterval(update,20);
 <a id="pu6" href="javascript:prestige_up(6);" style="display:none;"></a><br>
 <a id="pu7" href="javascript:prestige_up(7);" style="display:none;"></a><br>
 <a id="pu8" href="javascript:prestige_up(8);" style="display:none;"></a><br>
+<a id="pu9" href="javascript:prestige_up(9);" style="display:none;"></a><br>
 </div>
 <div id="tab4" style="display:none;">
 <div id="chall0" style="display:none;">
@@ -977,11 +1173,17 @@ setInterval(update,20);
 最高等级：<span id="chall4lv"></span>，效果：+<span id="chall4eff"></span>%装备掉落
 <hr>
 </div>
+<div id="chall5" style="display:none;">
+挑战5：怪物造成的伤害提升，并且怪物在战斗开始时会以1.5倍伤害攻击一次。<a href="javascript:startchall(5);">开始</a><br>
+最高等级：<span id="chall5lv"></span>，效果：+<span id="chall5eff"></span>%攻击
+<hr>
+</div>
 </div>
 <div id="battlelog">
 欢迎进入《装备狂潮》，作者为loader3229！这是一个类似于属性膨胀的游戏，特点是怪物可以直接掉落大量装备！感受爆装备的乐趣吧！<br>
 与大多数通胀类游戏不同，这个游戏内在你被打败时不消耗能量，并且可以多次挑战BOSS。<br>
-版本：Beta 0.7
+版本：Beta 0.8<br>
+当前版本残局：打败普通难度的洞穴BOSS2
 </div>
 </body>
 </html>
