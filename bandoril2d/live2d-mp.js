@@ -1,8 +1,8 @@
 if(localStorage.l2dv!='3'){
-	localStorage.l2dm='/kasumik.json';
+	localStorage.l2dm='/kasumievent130.json';
 	localStorage.l2dv='3';
 }
-localStorage.l2dm=localStorage.l2dm || '/kasumik.json';
+localStorage.l2dm=localStorage.l2dm || '/kasumievent130.json';
 function initl2d(){
 $("#live2d").attr("width",300);
 $("#live2d").attr("height",375);
