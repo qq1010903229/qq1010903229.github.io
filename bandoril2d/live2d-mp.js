@@ -27,8 +27,8 @@ $('.waifu-tool .fui-chat').click(function (){
 	}else showMessage([
 	'你知道吗？我会跳舞！<a href="https://www.bilibili.com/video/BV14S4y177bd">看一下我跳的《千本桜》吧！</a>',
 	'你知道吗？我会跳舞！<a href="https://www.bilibili.com/video/BV14S4y177bd">看一下我跳的《千本桜》吧！</a>',
-	'你知道吗？我会跳舞！<a href="https://www.bilibili.com/video/BV14S4y177bd">看一下我跳的《千本桜》吧！</a>',
-	'你知道吗？我会跳舞！<a href="https://www.bilibili.com/video/BV14S4y177bd">看一下我跳的《千本桜》吧！</a>',
+	'你知道吗？我会跳舞！<a href="https://www.bilibili.com/video/BV1hv4y1i7EM">看一下我跳的《スターナイトスノー》吧！</a>',
+	'你知道吗？我会跳舞！<a href="https://www.bilibili.com/video/BV1hv4y1i7EM">看一下我跳的《スターナイトスノー》吧！</a>',
 	'你知道吗？我已经打出了《HELL! or HELL?》Special难度的ALL PERFECT！',
 	'你知道吗？我已经打出了《SENSENFUKOKU》Special难度的ALL PERFECT！',
 	'你知道吗？我已经打出了loader3229的qualia -ideaesthesia- [ANOTHER]（Bestdori ID 73910）的ALL PERFECT！',
@@ -64,6 +64,12 @@ $('.waifu-tool .fui-image').hover(function (){
 $('.waifu-tool .fui-image').click(function (){
 	window.open('/ksm/MMDPic'+Math.floor(Math.random()*2)+'.png');
 });
+$('.waifu-tool .fui-folder').hover(function (){
+	showMessage('想看一下我的档案吗？',3000);
+});
+$('.waifu-tool .fui-folder').click(function (){
+	document.location.href='/ksm/';
+});
 $('.waifu-tool .fui-gear').hover(function (){
 	showMessage('想切换我的Live2D服装吗？',3000);
 });
@@ -88,7 +94,8 @@ $('.waifu-tool .fui-cmd').click(function (){
 	window.l2da.pause();
 });
 loadlive2d('live2d', localStorage.l2dm, null);
-showMessage('我是闪闪发光、心动不已的户山香澄！而且，因为loader3229，我和其他的户山香澄不一样！（点击我右边最下面的按钮或上面“Live2D模型显示不正常修复”修复我的Live2D模型显示问题）',3000,true);
+if(document.location.href.startsWith(document.location.origin+"/ksm/?")||document.location.href==document.location.origin+"/ksm/")showMessage('你进入了我的档案页，是想更多的了解我吗？（点击我右边最下面的按钮或上面“Live2D模型显示不正常修复”修复我的Live2D模型显示问题）',3000,true);
+else showMessage('我是闪闪发光、心动不已的户山香澄！而且，因为loader3229，我和其他的户山香澄不一样！（点击我右边最下面的按钮或上面“Live2D模型显示不正常修复”修复我的Live2D模型显示问题）',3000,true);
 }
 function setl2dm(a){
 	loadlive2d('live2d', localStorage.l2dm=a, null);
