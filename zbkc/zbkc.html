@@ -51,6 +51,7 @@ var equipment_data=[
 [0,9,0.1],[1,9,0.1],[1,10,1e-3],[1,10,3e-3],[3,10,1e-9],
 [0,8,3],[1,8,3],[1,10,5e-3],[1,10,0.01],[3,1,1500],
 [0,10,1e-4],[2,6,1e-4],[0,10,3e-4],[2,6,3e-4],[3,4,1e-4],
+[0,10,1e-3],[1,11,1e-4],[0,10,3e-3],[1,11,3e-4],[3,4,1e-3],
 
 ];
 equipment_data.tower=[0,0,0];
@@ -68,6 +69,7 @@ var equipment_data_extra={
 104:[4,0,1e-3],109:[4,0,1e-3],
 114:[4,1,4e-4],119:[4,1,4e-4],
 124:[4,2,2e-4],129:[4,2,2e-4],
+134:[4,3,1e-4],139:[4,3,1e-4],
 };
 var equipment_names=[
 ["匕首","短剑","木剑","草原短刀","铁剑","钢剑","森林剑","铜剑","银剑","金剑","火剑","魔法剑","三叉戟"],
@@ -114,6 +116,7 @@ var hpdata=[
 1.0e28,1.5e28,5.0e28,3.0e28,1.0e28,
 3.0e28,5.0e28,1.0e29,6.0e29,1.0e4,
 1.0e29,1.0e29,1.0e29,2.0e29,7.0e29/3,
+5.0e29,5.0e29,5.0e29,5.0e29,7.0e30/3,
 ];
 var atkdata=[
 12,25,40,60,75,
@@ -153,6 +156,7 @@ var atkdata=[
 1.0e23,1.5e23,1.5e23,3.0e23,2.0e23,
 5.0e23,1.1e24,1.5e24,9.0e23,7.0e23,
 2.5e24,5.0e24,7.5e24,1.0e25,2.5e25,
+2.0e26,3.0e26,5.0e26,7.0e26,3.0e16,
 ];
 var exp_data=[
 10,11,12,13,15,
@@ -192,6 +196,7 @@ var exp_data=[
 18,18,19,18,20,
 13,12,12,15,20,
 11,11,12,13,10,
+11,12,13,14,15,
 ];
 var pu=[];
 function softreset(s){
@@ -256,7 +261,7 @@ function getlv(){
 }
 function gethp(){
 	if(chall==1)return 1;
-	let temp=Math.floor(hp*geteqeffs(3,1)*geteqeffs(3,3)*geteqeffs(3,4)*geteqeffs(3,6)*geteqeffs(3,8)*geteqeffs(3,9)*geteqeffs(3,10)*geteqeff(4)*Math.pow(1.25,(pu[3]||0))*Math.pow((pu[3]||0)+1,highest_progress>=130?3:highest_progress>=100?2:highest_progress>=70?1:0.5)*challeff(1)*(1+tower*1.5/100));
+	let temp=Math.floor(hp*geteqeffs(3,1)*geteqeffs(3,3)*geteqeffs(3,4)*geteqeffs(3,6)*geteqeffs(3,8)*geteqeffs(3,9)*geteqeffs(3,10)*geteqeff(4)*Math.pow(1.25,(pu[3]||0))*Math.pow((pu[3]||0)+1,highest_progress>=190?3.5:highest_progress>=130?3:highest_progress>=100?2:highest_progress>=70?1:0.5)*challeff(1)*(1+tower*1.5/100));
 	if(chall==6)return Math.floor(temp**0.5);
 	return temp;
 }
@@ -279,8 +284,14 @@ function getpower(){
 	if(temp>=9)temp2=20;
 	return Math.floor((gethp()*getatk()*getdef())**(1/3)/2*temp2);
 }
+function gettowerpower(){
+	if(tower>=90)return (getehp('tower')*geteatk('tower')*getedef('tower'))**(1/3)/1.25;
+	if(tower>=70)return (getehp('tower')*geteatk('tower')*getedef('tower'))**(1/3)/1.5;
+	return (getehp('tower')*geteatk('tower')*getedef('tower'))**(1/3);
+}
 function getehp(x){
 	if(x=='tower'){
+		if(tower>=100)return Infinity;
 		if(tower>=41)return 5e21*Math.pow(1.15,tower**0.75)*((tower-9)**4);
 		if(tower>=33)return 5e21*Math.pow(1.15,tower**0.75)*((tower-25)**5);
 		if(tower>=17)return 5e21*Math.pow(1.15,tower**0.75)*((tower-1)**3);
@@ -292,6 +303,7 @@ function getehp(x){
 }
 function geteatk(x){
 	if(x=='tower'){
+		if(tower>=70)return 1e13*(tower**6)*Math.pow(1.15,tower**0.75);
 		if(tower>=50)return 4e14*(tower**5)*Math.pow(1.15,tower**0.75);
 		if(tower>=25)return 2e16*(tower**4)*Math.pow(1.15,tower**0.75);
 		if(tower>=20)return 5e17*(tower**3)*Math.pow(1.15,tower**0.75);
@@ -303,6 +315,7 @@ function geteatk(x){
 }
 function getedef(x){
 	if(x=='tower'){
+		if(tower>=70)return 2e13*(tower**6)*Math.pow(1.15,tower**0.75);
 		if(tower>=50)return 8e14*(tower**5)*Math.pow(1.15,tower**0.75);
 		if(tower>=25)return 4e16*(tower**4)*Math.pow(1.15,tower**0.75);
 		if(tower>=20)return 1e18*(tower**3)*Math.pow(1.15,tower**0.75);
@@ -314,7 +327,7 @@ function getedef(x){
 }
 function eqlevel_exp(){
 	let temp=0.5+0.1*(pu[5]||0);
-	if(temp>=1.6)temp=(temp*1.6)**0.5;
+	if(temp>=1.6)temp=1.27+0.03*(pu[5]||0);
 	return temp;
 }
 function geteqeffs(x,i){
@@ -357,7 +370,7 @@ function geteqeff(x){
 	
 	if(x==4&&result>=4)result=Math.log2(result-2)**0.6+3;
 	
-	if(x==4&&result>=6)result=6;
+	if(x==4&&result>=7)result=7;
 	return result;
 }
 function add(x,y){
@@ -440,7 +453,9 @@ function update(){
 		eq_log=eq_log+"你的鞋子提供了"+format((geteqeff(2)-1)*100)+"%的额外战斗速度，你有：";
 	}
 	if(eqtab==4){
-		eq_log=eq_log+"你的徽章提供了"+format((geteqeff(4)-1)*100)+"%的额外生命值、攻击、防御和转生点，你有：";
+		eq_log=eq_log+"你的徽章提供了"+format((geteqeff(4)-1)*100)+"%的额外生命值、攻击、防御";
+		if(highest_progress>=185)eq_log=eq_log+"、经验值";
+		eq_log=eq_log+"和转生点，你有：";
 	}
 	for(var i=0;i<equipment_names[eqtab].length;i++){
 		if((equipments[eqtab][i]||0)>0 || (eqlevels[eqtab][i]||0)>0){
@@ -486,7 +501,8 @@ function update(){
 	if(highest_progress>=40){
 		document.getElementById("pu3").style.display="inline";
 		var temp="";
-		if(highest_progress>=130)temp="+3";
+		if(highest_progress>=190)temp="+4";
+		else if(highest_progress>=130)temp="+3";
 		else if(highest_progress>=100)temp="+2";
 		else if(highest_progress>=70)temp="+1";
 		document.getElementById("pu3").innerHTML="生命值提升"+temp+"（"+(pu[3]||0)+"级，升级需"+format(prestige_cost(3))+"转生点）";
@@ -573,7 +589,7 @@ function update(){
 		document.getElementById("challtower").style.display="block";
 		document.getElementById("tower_floor").innerHTML=tower;
 		document.getElementById("tower_floor2").innerHTML=tower*1.5;
-		document.getElementById("tower_battle").innerHTML="挑战第"+(tower+1)+"层（战力"+format((getehp('tower')*geteatk('tower')*getedef('tower'))**(1/3))+"）";
+		document.getElementById("tower_battle").innerHTML="挑战第"+(tower+1)+"层（战力"+format(gettowerpower())+"）";
 	}
 	if(highest_progress>=170){
 		document.getElementById("chall6").style.display="block";
@@ -644,7 +660,7 @@ function battle(x){
 	if(x==179&&chall==1)battle_status.log+="BOSS特性：受到的伤害变为原来的0.25次方<br>";
 	else if(x==179)battle_status.log+="BOSS特性：受到的伤害取自然对数<br>";
 	if(x==84||x==184)battle_status.log+="BOSS特性：你的能量越多，BOSS越强<br>",enemyatk*=(1+0.15*energy),enemydef*=(1+0.15*(energy**1.5));
-	if(x==89||x==99)battle_status.log+="BOSS特性：你的等级越高，BOSS越强<br>",enemyatk*=(getlv().lv),enemydef*=(getlv().lv);
+	if(x==89||x==189||x==99)battle_status.log+="BOSS特性：你的等级越高，BOSS越强<br>",enemyatk*=(getlv().lv),enemydef*=(getlv().lv);
 	if(x==94||x==99)battle_status.log+="BOSS特性：你的武器和防具越多，BOSS越强<br>",enemyatk*=(geteqeff(1)),enemydef*=(geteqeff(0));
 	var ename="怪物";
 	if(x%5==4)ename="BOSS";
@@ -713,6 +729,7 @@ function battle(x){
 			}else{
 				exp_base*=exp_data[x];
 			}
+			if(highest_progress>=185)exp_base*=geteqeff(4);
 			var exp_give=Math.floor(exp_base*rand_2()*geteqeffs(3,5)*prestige_eff()*energyc_eff()*challeff(3)*Math.pow(1.2,(pu[8]||0))*(1+tower*1.5/100));
 			if(x=='tower')exp_give=0;
 			battle_status.log+="战斗胜利，你得到了"+format(exp_give)+"经验<br>";
@@ -749,6 +766,8 @@ function battle(x){
 				if(x==159&&highest_progress<159)battle_status.log+="<br>由于你第一次打败普通海洋BOSS2，你得到了1000个永久性的经验宝石（不可用于强化）。";
 				if(x==169&&highest_progress<169)battle_status.log+="<br>由于你第一次打败普通山脉BOSS2，转生升级“多倍能量消耗设定”的效果增加了，同时你得到的经验值提升了。";
 				if(x==179&&highest_progress<179)battle_status.log+="<br>由于你第一次打败普通天空BOSS2，转生升级“生命加点提升”的效果增加了，同时徽章的效果增加了。";
+				if(x==184&&highest_progress<184)battle_status.log+="<br>由于你第一次打败普通火山BOSS1，转生升级“初始等级提升”的效果在挑战3中生效，同时徽章的效果开始对经验值生效。";
+				if(x==189&&highest_progress<189)battle_status.log+="<br>由于你第一次打败普通火山BOSS2，转生升级“生命值提升”的效果增加了。";
 				if(pu[4]){
 					var rate2=1-Math.pow(0.85,pu[4]**0.75);
 					if(highest_progress>=150)rate2=1-Math.pow(0.85,pu[4]**0.85);
@@ -825,7 +844,7 @@ function energyc_eff(){
 	return energyc**1.2;
 }
 function prestige_cost(x){
-	var pu_max=[11,19,15,23,15,12,6,5,7,9];
+	var pu_max=[11,50,16,24,16,13,6,6,7,9];
 	if(pu[x] && pu[x]>=pu_max[x])return Infinity;
 	if(x==0){
 		if(pu[x])return Math.floor(Math.pow(10,3+pu[x])/(pu[x]**2+1));else return 1000;
@@ -966,6 +985,15 @@ function startchall(x){
 			progress=100;
 			energy+=60;
 		}
+		if(pu[0]&&highest_progress>=185){
+			var level1=getlv().lv;
+			exp+=1000*((Math.pow(4,pu[0])-1)*(3+(pu[0]**pu[0])*2));
+			var level2=getlv().lv;
+			hp+=(level2-level1)*10;
+			atk+=(level2-level1);
+			def+=(level2-level1);
+			points+=(level2-level1)*(4+(pu[7]||0));
+		}
 	}
 }
 function challeff(x){
@@ -979,6 +1007,7 @@ function challeff(x){
 		return temp**2/50+1;
 	}
 	if(x==2){
+		if(temp>=8.4)return Math.floor(temp**3/68);
 		if(temp>=6.5)return Math.floor((temp-2.5)**2/4);
 		return Math.max(Math.floor((temp-3)**1.1),0);
 	}
@@ -1269,6 +1298,13 @@ setInterval(update,20);
 <a href="javascript:battle(184);">火山BOSS1</a>
 </span><br>
 <span id="b184" style="display:none;">
+<a href="javascript:battle(185);">火山6（推荐战力1500秭）</a>
+<a href="javascript:battle(186);">火山7（推荐战力2000秭）</a>
+<a href="javascript:battle(187);">火山8（推荐战力2500秭）</a>
+<a href="javascript:battle(188);">火山9（推荐战力3000秭）</a>
+<a href="javascript:battle(189);">火山BOSS2</a>
+</span><br>
+<span id="b189" style="display:none;">
 </span>
 </div>
 </div>
@@ -1345,8 +1381,8 @@ setInterval(update,20);
 <div id="battlelog">
 欢迎进入《装备狂潮》，作者为loader3229！这是一个类似于属性膨胀的游戏，特点是怪物可以直接掉落大量装备！感受爆装备的乐趣吧！<br>
 与大多数通胀类游戏不同，这个游戏内在你被打败时不消耗能量，并且可以多次挑战BOSS。<br>
-版本：Beta 0.9<br>
-当前版本残局：打败普通难度的山脉BOSS2
+版本：Beta 0.10<br>
+当前版本残局：通天塔到达100层
 </div>
 </body>
 </html>

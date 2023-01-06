@@ -25,13 +25,13 @@ $('.waifu-tool .fui-chat').click(function (){
 	'你知道吗？我，名侦探香澄，很快就找出了丸之山上的许多线索！'
 	],5000,true);
 	}else showMessage([
-	'你知道吗？我会跳舞！<a href="https://www.bilibili.com/video/BV14S4y177bd">看一下我跳的《千本桜》吧！</a>',
-	'你知道吗？我会跳舞！<a href="https://www.bilibili.com/video/BV14S4y177bd">看一下我跳的《千本桜》吧！</a>',
-	'你知道吗？我会跳舞！<a href="https://www.bilibili.com/video/BV1hv4y1i7EM">看一下我跳的《スターナイトスノー》吧！</a>',
-	'你知道吗？我会跳舞！<a href="https://www.bilibili.com/video/BV1hv4y1i7EM">看一下我跳的《スターナイトスノー》吧！</a>',
+	'你知道吗？我会跳舞！<a href="https://www.bilibili.com/video/BV14S4y177bd" target="_blank">看一下我跳的《千本桜》吧！</a>',
+	'你知道吗？我会跳舞！<a href="https://www.bilibili.com/video/BV14S4y177bd" target="_blank">看一下我跳的《千本桜》吧！</a>',
+	'你知道吗？我会跳舞！<a href="https://www.bilibili.com/video/BV1hv4y1i7EM" target="_blank">看一下我跳的《スターナイトスノー》吧！</a>',
+	'你知道吗？我会跳舞！<a href="https://www.bilibili.com/video/BV1hv4y1i7EM" target="_blank">看一下我跳的《スターナイトスノー》吧！</a>',
 	'你知道吗？我已经打出了《HELL! or HELL?》Special难度的ALL PERFECT！',
 	'你知道吗？我已经打出了《SENSENFUKOKU》Special难度的ALL PERFECT！',
-	'你知道吗？我已经打出了loader3229的qualia -ideaesthesia- [ANOTHER]（Bestdori ID 73910）的ALL PERFECT！',
+	'你知道吗？我已经打出了loader3229的<a href="https://bestdori.com/community/charts/73910">qualia -ideaesthesia- [ANOTHER 35]</a>（Bestdori ID 73910）的ALL PERFECT！',
 	'你知道吗？我的手指每秒可以点击屏幕15次，而loader3229的手指每秒可以点击屏幕9.6次。',
 	'你知道吗？我会弹任何型号的吉他，包括RANDOM STAR。',
 	'你知道吗？把我的Live2D服装切换到国服2021愚人节，再点一次这个按钮，就会发生不同的事情哦！',
