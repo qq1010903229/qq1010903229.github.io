@@ -1,0 +1,12 @@
+{"type":"Live2D Model Setting",
+"name":"arisa",
+"model":"arisa.moc",
+"textures":["texture_00.png"],
+"physics":"arisa.physics.json",
+"expressions":[{"name":"default","file":"arisa_default.exp.json"}],
+"motions":{
+"p1":[{"file":"smile02_5.mtn","fade_in":1000,"fade_out":1000,"motion_duration":100000}],
+"p2":[{"file":"surprised01_5.mtn","fade_in":1000,"fade_out":1000,"motion_duration":100000}],
+"p3":[{"file":"angry01_5.mtn","fade_in":1000,"fade_out":1000,"motion_duration":100000}]
+}
+}

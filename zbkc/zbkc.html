@@ -52,6 +52,8 @@ var equipment_data=[
 [0,8,3],[1,8,3],[1,10,5e-3],[1,10,0.01],[3,1,1500],
 [0,10,1e-4],[2,6,1e-4],[0,10,3e-4],[2,6,3e-4],[3,4,1e-4],
 [0,10,1e-3],[1,11,1e-4],[0,10,3e-3],[1,11,3e-4],[3,4,1e-3],
+[0,11,1e-5],[3,7,1e-6],[0,11,3e-5],[3,7,3e-6],[3,5,3e-4],
+[0,11,1e-4],[3,6,3e-5],[0,11,3e-4],[3,6,1e-4],[3,6,3e-4],
 
 ];
 equipment_data.tower=[0,0,0];
@@ -70,6 +72,8 @@ var equipment_data_extra={
 114:[4,1,4e-4],119:[4,1,4e-4],
 124:[4,2,2e-4],129:[4,2,2e-4],
 134:[4,3,1e-4],139:[4,3,1e-4],
+144:[4,4,4e-5],149:[4,4,4e-5],
+154:[4,5,1e-5],159:[4,5,1e-5],
 };
 var equipment_names=[
 ["匕首","短剑","木剑","草原短刀","铁剑","钢剑","森林剑","铜剑","银剑","金剑","火剑","魔法剑","三叉戟"],
@@ -117,6 +121,8 @@ var hpdata=[
 3.0e28,5.0e28,1.0e29,6.0e29,1.0e4,
 1.0e29,1.0e29,1.0e29,2.0e29,7.0e29/3,
 5.0e29,5.0e29,5.0e29,5.0e29,7.0e30/3,
+2.0e30,2.0e30,2.0e30,2.0e30,7.0e31/3,
+2.0e31,2.0e31,2.0e31,2.0e31,
 ];
 var atkdata=[
 12,25,40,60,75,
@@ -157,6 +163,8 @@ var atkdata=[
 5.0e23,1.1e24,1.5e24,9.0e23,7.0e23,
 2.5e24,5.0e24,7.5e24,1.0e25,2.5e25,
 2.0e26,3.0e26,5.0e26,7.0e26,3.0e16,
+2.0e27,3.0e27,5.0e27,7.0e27,9.0e11,
+3.0e28,5.0e28,7.0e28,1.0e29,
 ];
 var exp_data=[
 10,11,12,13,15,
@@ -197,6 +205,8 @@ var exp_data=[
 13,12,12,15,20,
 11,11,12,13,10,
 11,12,13,14,15,
+16,17,18,19,18,
+19,20,21,22,
 ];
 var pu=[];
 function softreset(s){
@@ -291,7 +301,7 @@ function gettowerpower(){
 }
 function getehp(x){
 	if(x=='tower'){
-		if(tower>=100)return Infinity;
+		//if(tower>=100)return Infinity;
 		if(tower>=41)return 5e21*Math.pow(1.15,tower**0.75)*((tower-9)**4);
 		if(tower>=33)return 5e21*Math.pow(1.15,tower**0.75)*((tower-25)**5);
 		if(tower>=17)return 5e21*Math.pow(1.15,tower**0.75)*((tower-1)**3);
@@ -303,6 +313,7 @@ function getehp(x){
 }
 function geteatk(x){
 	if(x=='tower'){
+		if(tower>=100)return 3e13*(tower**6)*Math.pow(1.15,tower**0.75);
 		if(tower>=70)return 1e13*(tower**6)*Math.pow(1.15,tower**0.75);
 		if(tower>=50)return 4e14*(tower**5)*Math.pow(1.15,tower**0.75);
 		if(tower>=25)return 2e16*(tower**4)*Math.pow(1.15,tower**0.75);
@@ -315,6 +326,7 @@ function geteatk(x){
 }
 function getedef(x){
 	if(x=='tower'){
+		if(tower>=100)return 5e13*(tower**6)*Math.pow(1.15,tower**0.75);
 		if(tower>=70)return 2e13*(tower**6)*Math.pow(1.15,tower**0.75);
 		if(tower>=50)return 8e14*(tower**5)*Math.pow(1.15,tower**0.75);
 		if(tower>=25)return 4e16*(tower**4)*Math.pow(1.15,tower**0.75);
@@ -333,8 +345,8 @@ function eqlevel_exp(){
 function geteqeffs(x,i){
 	if(x==3&&i==0){
 		let temp=1+Math.log(1+(equipments[x][i]||0))/10*(1+(eqlevels[x][i]||0)**(eqlevel_exp())/10);
-		if(temp>=16&&highest_progress>=150)temp=Math.log2(temp)**2;
-		else if(temp>=16)temp=Math.log2(temp)*4;
+		if(temp>=16&&highest_progress<150)temp=Math.log2(temp)*4;
+		else if(temp>=16&&highest_progress<190)temp=Math.log2(temp)**2;
 		return temp;
 	}
 	if(x==3&&i==2){
@@ -346,6 +358,7 @@ function geteqeffs(x,i){
 	if(x==3&&i==5){
 		let temp=(equipments[x][i]||0);
 		if(highest_progress>=160)temp+=1000;
+		if(highest_progress>=195)temp+=99000;
 		return 1+Math.log(1+(temp||0))/10*(1+(eqlevels[x][i]||0)**(eqlevel_exp())/10);
 	}
 	if(x==3&&i==7)return 1+Math.sqrt(Math.log(1+(equipments[x][i]||0))*(1+(eqlevels[x][i]||0)**(eqlevel_exp())/10))/50000;
@@ -466,6 +479,7 @@ function update(){
 			if(eqtab==3&&i==3)eq_log=eq_log+"(+"+format((geteqeffs(3,3)-1)*100)+"%生命值)";
 			if(eqtab==3&&i==4)eq_log=eq_log+"(+"+format((geteqeffs(3,4)-1)*100)+"%生命值)";
 			if(eqtab==3&&i==5&&highest_progress>=160)eq_log=eq_log+"+1000";
+			if(eqtab==3&&i==5&&highest_progress>=195)eq_log=eq_log+"00";
 			if(eqtab==3&&i==5)eq_log=eq_log+"(+"+format((geteqeffs(3,5)-1)*100)+"%经验值)";
 			if(eqtab==3&&i==6)eq_log=eq_log+"(+"+format((geteqeffs(3,6)-1)*100)+"%生命值)";
 			if(eqtab==3&&i==7)eq_log=eq_log+"(+"+((geteqeffs(3,7)-1)*100).toFixed(4)+"%吸血)";
@@ -528,9 +542,13 @@ function update(){
 	}
 	if(pu[6]>=1){
 		document.getElementById("energyc").style.display="inline";
-		document.getElementById("energycinput").max=Math.floor(pu[6]**(highest_progress>=170?1.5:1))+1;
+		var mxenergyc=Math.floor(pu[6]**(highest_progress>=170?1.5:1))+1;
+		if(mxenergyc>=8&&highest_progress>=170)mxenergyc=pu[6]+5;
+		else if(mxenergyc>=9)mxenergyc=9;
+		document.getElementById("energycinput").max=Math.ceil(mxenergyc);
 		energyc=parseInt(document.getElementById("energycinput").value);
 		if(energyc<0)energyc=0;
+		if(energyc>=9)energyc=Math.floor((energyc-5)**1.5+1);
 		if(energyc>Math.floor(pu[6]**(highest_progress>=170?1.5:1))+1)energyc=Math.floor(pu[6]**(highest_progress>=170?1.5:1))+1;
 		document.getElementById("energyc_eff").innerHTML="消耗"+energyc+"能量，得到"+energyc_eff().toFixed(2)+"倍经验和装备";
 	}else energyc=1;
@@ -661,7 +679,7 @@ function battle(x){
 	else if(x==179)battle_status.log+="BOSS特性：受到的伤害取自然对数<br>";
 	if(x==84||x==184)battle_status.log+="BOSS特性：你的能量越多，BOSS越强<br>",enemyatk*=(1+0.15*energy),enemydef*=(1+0.15*(energy**1.5));
 	if(x==89||x==189||x==99)battle_status.log+="BOSS特性：你的等级越高，BOSS越强<br>",enemyatk*=(getlv().lv),enemydef*=(getlv().lv);
-	if(x==94||x==99)battle_status.log+="BOSS特性：你的武器和防具越多，BOSS越强<br>",enemyatk*=(geteqeff(1)),enemydef*=(geteqeff(0));
+	if(x==94||x==194||x==99)battle_status.log+="BOSS特性：你的武器和防具越多，BOSS越强<br>",enemyatk*=(geteqeff(1)),enemydef*=(geteqeff(0));
 	var ename="怪物";
 	if(x%5==4)ename="BOSS";
 	if(chall==5&&x!='tower'){
@@ -768,6 +786,7 @@ function battle(x){
 				if(x==179&&highest_progress<179)battle_status.log+="<br>由于你第一次打败普通天空BOSS2，转生升级“生命加点提升”的效果增加了，同时徽章的效果增加了。";
 				if(x==184&&highest_progress<184)battle_status.log+="<br>由于你第一次打败普通火山BOSS1，转生升级“初始等级提升”的效果在挑战3中生效，同时徽章的效果开始对经验值生效。";
 				if(x==189&&highest_progress<189)battle_status.log+="<br>由于你第一次打败普通火山BOSS2，转生升级“生命值提升”的效果增加了。";
+				if(x==194&&highest_progress<194)battle_status.log+="<br>由于你第一次打败普通城堡BOSS1，你得到了99000个永久性的经验宝石（不可用于强化）。";
 				if(pu[4]){
 					var rate2=1-Math.pow(0.85,pu[4]**0.75);
 					if(highest_progress>=150)rate2=1-Math.pow(0.85,pu[4]**0.85);
@@ -844,7 +863,7 @@ function energyc_eff(){
 	return energyc**1.2;
 }
 function prestige_cost(x){
-	var pu_max=[11,50,16,24,16,13,6,6,7,9];
+	var pu_max=[12,50,16,25,16,13,7,6,8,9];
 	if(pu[x] && pu[x]>=pu_max[x])return Infinity;
 	if(x==0){
 		if(pu[x])return Math.floor(Math.pow(10,3+pu[x])/(pu[x]**2+1));else return 1000;
@@ -1305,6 +1324,17 @@ setInterval(update,20);
 <a href="javascript:battle(189);">火山BOSS2</a>
 </span><br>
 <span id="b189" style="display:none;">
+<a href="javascript:battle(190);">城堡1（推荐战力1穰）</a>
+<a href="javascript:battle(191);">城堡2（推荐战力1穰）</a>
+<a href="javascript:battle(192);">城堡3（推荐战力2穰）</a>
+<a href="javascript:battle(193);">城堡4（推荐战力3穰）</a>
+<a href="javascript:battle(194);">城堡BOSS1</a>
+</span><br>
+<span id="b194" style="display:none;">
+<a href="javascript:battle(195);">城堡6（推荐战力13穰）</a>
+<a href="javascript:battle(196);">城堡7（推荐战力18穰）</a>
+<a href="javascript:battle(197);">城堡8（推荐战力23穰）</a>
+<a href="javascript:battle(198);">城堡9（推荐战力30穰）</a>
 </span>
 </div>
 </div>
@@ -1382,7 +1412,8 @@ setInterval(update,20);
 欢迎进入《装备狂潮》，作者为loader3229！这是一个类似于属性膨胀的游戏，特点是怪物可以直接掉落大量装备！感受爆装备的乐趣吧！<br>
 与大多数通胀类游戏不同，这个游戏内在你被打败时不消耗能量，并且可以多次挑战BOSS。<br>
 版本：Beta 0.10<br>
-当前版本残局：通天塔到达100层
+当前版本残局：通天塔到达100层<br>
+本游戏建议在电脑上游玩（作者懒得写css）
 </div>
 </body>
 </html>

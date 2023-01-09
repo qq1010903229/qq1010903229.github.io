@@ -20,25 +20,22 @@ $('.waifu-tool .fui-chat').hover(function (){
 var chat_times=0;
 $('.waifu-tool .fui-chat').click(function (){
 	chat_times++;
-	if(localStorage.l2dm.indexOf('kasumi19af')!=-1){
 	showMessage([
-	'你知道吗？我，名侦探香澄，很快就找出了丸之山上的许多线索！'
-	],5000,true);
-	}else showMessage([
-	'你知道吗？我会跳舞！<a href="https://www.bilibili.com/video/BV14S4y177bd" target="_blank">看一下我跳的《千本桜》吧！</a>',
-	'你知道吗？我会跳舞！<a href="https://www.bilibili.com/video/BV14S4y177bd" target="_blank">看一下我跳的《千本桜》吧！</a>',
-	'你知道吗？我会跳舞！<a href="https://www.bilibili.com/video/BV1hv4y1i7EM" target="_blank">看一下我跳的《スターナイトスノー》吧！</a>',
-	'你知道吗？我会跳舞！<a href="https://www.bilibili.com/video/BV1hv4y1i7EM" target="_blank">看一下我跳的《スターナイトスノー》吧！</a>',
+	//'你知道吗？我会跳舞！<a href="https://www.bilibili.com/video/BV14S4y177bd" target="_blank">看一下我跳的《千本桜》吧！</a>',
+	//'你知道吗？我会跳舞！<a href="https://www.bilibili.com/video/BV14S4y177bd" target="_blank">看一下我跳的《千本桜》吧！</a>',
+	//'你知道吗？我会跳舞！<a href="https://www.bilibili.com/video/BV1hv4y1i7EM" target="_blank">看一下我跳的《スターナイトスノー》吧！</a>',
+	//'你知道吗？我会跳舞！<a href="https://www.bilibili.com/video/BV1hv4y1i7EM" target="_blank">看一下我跳的《スターナイトスノー》吧！</a>',
 	'你知道吗？我已经打出了《HELL! or HELL?》Special难度的ALL PERFECT！',
 	'你知道吗？我已经打出了《SENSENFUKOKU》Special难度的ALL PERFECT！',
 	'你知道吗？我已经打出了loader3229的<a href="https://bestdori.com/community/charts/73910">qualia -ideaesthesia- [ANOTHER 35]</a>（Bestdori ID 73910）的ALL PERFECT！',
 	'你知道吗？我的手指每秒可以点击屏幕15次，而loader3229的手指每秒可以点击屏幕9.6次。',
 	'你知道吗？我会弹任何型号的吉他，包括RANDOM STAR。',
-	'你知道吗？把我的Live2D服装切换到国服2021愚人节，再点一次这个按钮，就会发生不同的事情哦！',
+	//'你知道吗？把我的Live2D服装切换到国服2021愚人节，再点一次这个按钮，就会发生不同的事情哦！',
 	'你知道吗？Kirakira就是Kirakira，而Dokidoki就是Dokidoki！',
 	'你知道吗？loader3229正在为我制作一个特别的RANDOM STAR。',
 	'你知道吗？我知道，你已经点了'+chat_times+'次这个按钮。（本计数在刷新或离开页面后重置）',
-	'你知道吗？我有许多不同的版本，包括Live2D版，MikuMikuDance版，MV版等等。',
+	'你知道吗？我有许多不同的版本，包括Live2D版，MV版，3D版等等。',
+	'你知道吗？现在我有2个不同的3D版本，而千圣有3个不同的3D版本。',
 	'你知道吗？在loader3229的MikuMikuDance 7.39里面，可以同时存在至少10个我。',
 	'你知道吗？<a href="/gt.pdf">这个吉他谱</a>我可以完美弹出来，而其他的香澄应该不行。',
 	],5000,true);
@@ -74,7 +71,17 @@ $('.waifu-tool .fui-gear').hover(function (){
 	showMessage('想切换我的Live2D服装吗？',3000);
 });
 $('.waifu-tool .fui-gear').click(function (){
-	loadlive2d('live2d', localStorage.l2dm=['/kasumi.json','/kasumik.json','/kasumievent130.json','/kasumievent168.json','/kasumi2star1.json','/kasumi2star2.json','/kasumicasual.json','/kasumi19af.json'][Math.floor(Math.random()*7.07)], null);
+	loadlive2d('live2d', localStorage.l2dm=[
+	'/kasumi.json',
+	'/kasumik.json',
+	'/kasumievent130.json',
+	'/kasumievent168.json',
+	'/kasumi2star1.json',
+	'/kasumi2star2.json',
+	'/kasumi2star4.json',
+	'/kasumicasual.json',
+	'/kasumischoolwinter.json'
+	][Math.floor(Math.random()*9)], null);
 	window.l2da.currentTime=0;
 	window.l2da.pause();
 });
@@ -136,7 +143,7 @@ function syncupdate(){
 	var arr=lipSyncValues[currentevent];
 	if(arr){
 		var index=Math.floor(window.l2da.currentTime*20+2.5);
-		if(arr[index])window.l2de&&window.l2de.setLipSyncValue(arr[index]);
+		if(arr[index] && window.l2da.paused!=true)window.l2de&&window.l2de.setLipSyncValue(arr[index]);
 		else window.l2de&&window.l2de.setLipSyncValue(0);
 	}else window.l2de&&window.l2de.setLipSyncValue(0);
 }

@@ -1,0 +1,369 @@
+﻿<!doctype html>
+<html lang="zh-cn">
+<head>
+<meta charset="utf-8">
+<title>香澄的3.0版自我介绍</title>
+<script type="text/javascript">
+localStorage.l2dm = localStorage.l2dm || "/kasumievent130.json";
+
+String.prototype.replaceAll = function (targetStr, newStr) {
+  var sourceStr = this.valueOf();
+  while (sourceStr.indexOf(targetStr) !== -1) {
+    sourceStr = sourceStr.replace(targetStr, newStr);
+  }
+  return sourceStr;
+};
+var text={"type":"Live2D Model Setting",
+"name":"kasumi",
+"model":"",
+"textures":[""],
+"physics":"",
+"expressions":[{"name":"default","file":document.location.origin+"/ksm/selfintroductionv3/default.exp.json"}],
+"motions":{
+"testmotion":[{"file":document.location.origin+"/ksm/selfintroductionv3/smile02.mtn","fade_in":1000,"fade_out":1000,"motion_duration":100000}],
+"p1":[{"file":document.location.origin+"/ksm/selfintroductionv3/nf04.mtn","fade_in":1000,"fade_out":1000,"motion_duration":100000}],
+"p1a":[{"file":document.location.origin+"/ksm/selfintroductionv3/smile01.mtn","fade_in":1000,"fade_out":1000,"motion_duration":100000}],
+"p2":[{"file":document.location.origin+"/ksm/selfintroductionv3/nf05.mtn","fade_in":1000,"fade_out":1000,"motion_duration":100000}],
+"p2a":[{"file":document.location.origin+"/ksm/selfintroductionv3/kime01.mtn","fade_in":1000,"fade_out":1000,"motion_duration":100000}],
+"p3":[{"file":document.location.origin+"/ksm/selfintroductionv3/eeto01.mtn","fade_in":1000,"fade_out":1000,"motion_duration":100000}],
+"p3a":[{"file":document.location.origin+"/ksm/selfintroductionv3/gattsu01.mtn","fade_in":1000,"fade_out":1000,"motion_duration":100000}],
+"p4":[{"file":document.location.origin+"/ksm/selfintroductionv3/smile02.mtn","fade_in":1000,"fade_out":1000,"motion_duration":100000}],
+"p5":[{"file":document.location.origin+"/ksm/selfintroductionv3/nf04.mtn","fade_in":1000,"fade_out":1000,"motion_duration":100000}],
+"p6":[{"file":document.location.origin+"/ksm/selfintroductionv3/nf01.mtn","fade_in":1000,"fade_out":1000,"motion_duration":100000}],
+"p6a":[{"file":document.location.origin+"/ksm/selfintroductionv3/serious01.mtn","fade_in":1000,"fade_out":1000,"motion_duration":100000}],
+"p7":[{"file":document.location.origin+"/ksm/selfintroductionv3/oowarai01.mtn","fade_in":1000,"fade_out":1000,"motion_duration":100000}],
+"p7a":[{"file":document.location.origin+"/ksm/selfintroductionv3/smile01.mtn","fade_in":1000,"fade_out":1000,"motion_duration":100000}],
+"p8":[{"file":document.location.origin+"/ksm/selfintroductionv3/nf03.mtn","fade_in":1000,"fade_out":1000,"motion_duration":100000}],
+"p8a":[{"file":document.location.origin+"/ksm/selfintroductionv3/nf05.mtn","fade_in":1000,"fade_out":1000,"motion_duration":100000}],
+"p9":[{"file":document.location.origin+"/ksm/selfintroductionv3/nf02.mtn","fade_in":1000,"fade_out":1000,"motion_duration":100000}],
+"p9a":[{"file":document.location.origin+"/ksm/selfintroductionv3/gattsu01.mtn","fade_in":1000,"fade_out":1000,"motion_duration":100000}],
+"p11":[{"file":document.location.origin+"/ksm/selfintroductionv3/serious01.mtn","fade_in":1000,"fade_out":1000,"motion_duration":100000}],
+"p11a":[{"file":document.location.origin+"/ksm/selfintroductionv3/surprised01.mtn","fade_in":1000,"fade_out":1000,"motion_duration":100000}],
+"p11b":[{"file":document.location.origin+"/ksm/selfintroductionv3/nf05.mtn","fade_in":1000,"fade_out":1000,"motion_duration":100000}],
+
+}
+};
+var dialogtexts=["",
+"我是户山香澄！\nPoppin'Party的吉他手兼主唱！",
+"Popipa是我们在一年级时组成的乐队，\n现在已经是第二年了！",
+"虽然发生了很多事情，也吵过架……\n不过多亏有大家在，每天都过得很开心！",
+"哎嘿嘿，没错没错！\n闪闪发光且又令人心跳加速！",
+"这一整年，我的周围都充满了\n闪闪发光且又令人心跳加速的事物……",
+"我想，这一定不仅仅是因为我们自身，\n更是因为我们接触到了许多其他乐队的人",
+"嗯~~~~！！总觉得说着说着，就激动起来了！",
+"接下来，究竟会有怎样闪闪发光又心动不已的事在等着我们呢？\n总觉得有点等不及了！",
+"有咲！接下来可以去仓库吗？\n我有点想弹吉他了！",
+"哈啊！？\n……还在拍自我介绍呢！",
+"那就等结束之后吧！有咲，拜托了！\n……啊！就是这样，我是户山香澄——！！",
+""];
+window.mode="_1";</script>
+<script type="text/javascript">
+var bgm=new Audio();bgm.src="bgm.mp3";var modelloaded=0;var resloaded=0;var inited=0;
+var width=800,height=800,s=2,running=2,aud=new Audio();
+var ti=0;
+var currentstate=0;
+var lipSyncValues={};
+var changetime=[0,4500,6548,7636,4084,5204,7348,5684,7412,5108,4052,8692];
+window.rdialog=function(){
+return "";
+};
+function update(){
+if(!document.createElement('canvas').getContext || navigator.userAgent.indexOf("Trident")!=-1 || navigator.userAgent.indexOf("MSIE")!=-1){
+nocanvas.style.display="inline";
+return;
+}
+if(resloaded<47){
+resloading.style.display="inline";
+resloading2.innerHTML=resloaded;
+return;
+}
+if(resloaded<48){
+var script=document.createElement("script");
+script.type="text/javascript";
+script.src="widget.js";
+document.body.appendChild(script);
+resloaded=48;
+return;
+}
+if(!window.L2Dwidget)return;
+if(inited==0)setTimeout("L2Dwidget.init({display:{superSample:"+s+",width:"+width+",height:"+height+"},mobile:{show:true,scale:0.5},model:{scale:0.5}});",100);
+if(inited==0)inited=1;
+if(!window.l2de){
+resloading.style.display="inline";
+resloading2.innerHTML=resloaded;
+return;
+}
+if(inited==1&&ifr1.contentWindow.document.getElementById("live2dcanvas")&&ifr1.contentWindow.l2de){
+var temp=ifr1.contentWindow.document.getElementById("live2dcanvas");
+pl2.appendChild(temp);
+inited=2;
+window.l2de2=ifr1.contentWindow.l2de;
+}else if(inited==1){
+return;
+}
+if(running==2)running=0;
+resloading.style.display="none";
+imgplaceholder.style.display="none";
+window.l2de&&window.l2de.setLipSync(null);
+window.l2de2&&window.l2de2.setLipSync(null);
+var arr=lipSyncValues[currentstate];
+if(arr){
+var index=Math.floor((Date.now()-ti)/50);
+if(arr[index]&&currentstate!=10)window.l2de&&window.l2de.setLipSyncValue(arr[index]);
+else window.l2de&&window.l2de.setLipSyncValue(0);
+if(arr[index]&&currentstate==10)window.l2de2&&window.l2de2.setLipSyncValue(arr[index]);
+else if(running==1)window.l2de2&&window.l2de2.setLipSyncValue(0);
+}
+start_link.style="";
+if(modelloaded==0)modelloaded=1,setTimeout('start_test();',500);
+if(bgm.paused)bgm.play();
+if(clipl2d.checked){
+document.getElementById("clip").innerHTML="#live2d-widget{clip:rect(171px,800px,651px,0);}";
+}else document.getElementById("clip").innerHTML="";
+if(showdialog.checked){
+document.getElementById("showdialog1").innerHTML="";
+}else document.getElementById("showdialog1").innerHTML="#dialog1,#dialog2{display:none;}";
+
+if(running==1){
+document.getElementById("status").innerHTML="当前状态："+currentstate+"<br>时间："+(Date.now()-ti)+"/"+changetime[currentstate];
+}else{
+document.getElementById("status").innerHTML="当前状态：停止";
+document.getElementById('live2d-widget')&&(document.getElementById('live2d-widget').style.left!=''||document.getElementById('live2d-widget').style.zIndex!='')&&(document.getElementById('live2d-widget').style='');
+document.getElementById("pl2")&&(document.getElementById("pl2").style.opacity!='')&&(document.getElementById("pl2").style='');
+}
+
+//next state
+
+if(running==1)dialog2.innerHTML=dialogtexts[currentstate].slice(0,Math.floor((Date.now()-ti)/80)).replaceAll("\n","<br>");
+if(running==1&&Date.now()-ti>changetime[currentstate]){
+currentstate++;
+dialog2.innerHTML="";dialogtexts[currentstate];
+ti=Date.now();
+if(currentstate==12){
+running=0;
+currentstate=0;
+}
+aud.src=currentstate+".mp3";
+aud.play();
+if(currentstate!=10)window.l2de&&window.l2de.startMotion("p"+currentstate,0);
+else window.l2de2&&window.l2de2.startMotion("p2",0),document.getElementById("pl2").style='',document.getElementById('live2d-widget').style='',dialog1.innerHTML="有咲";
+if(currentstate==1)setTimeout("window.l2de&&window.l2de.startMotion('p1a',0);",2200);
+if(currentstate==2)setTimeout("window.l2de&&window.l2de.startMotion('p2a',0);",3600);
+if(currentstate==3)setTimeout("window.l2de&&window.l2de.startMotion('p3a',0);",3700);
+if(currentstate==6)setTimeout("window.l2de&&window.l2de.startMotion('p6a',0);",3300);
+if(currentstate==7)setTimeout("window.l2de&&window.l2de.startMotion('p7a',0);",3300);
+if(currentstate==8)setTimeout("window.l2de&&window.l2de.startMotion('p8a',0);",4000);
+if(currentstate==9)setTimeout("window.l2de&&window.l2de.startMotion('p9a',0);",2700);
+if(currentstate==10)setTimeout("window.l2de2&&window.l2de2.startMotion('p3',0);",1500);
+if(currentstate==11)setTimeout("window.l2de&&window.l2de.startMotion('p11a',0);",3800);
+if(currentstate==11)setTimeout("window.l2de&&window.l2de.startMotion('p11b',0);",6500);
+if(currentstate==11)dialog1.innerHTML="香澄";
+}
+
+}
+setInterval(update,20);
+function start(){
+if(running)return;
+if(window.l2de===undefined)return;
+ti=Date.now();
+if(bgm.paused)bgm.play();
+aud.play();
+running=1;
+document.getElementById("live2d-widget").style.left="88px";
+document.getElementById("pl2").style.opacity="0";
+}
+function start_test(){
+if(running)return;
+if(window.l2de===undefined)return;
+window.l2de&&window.l2de.startMotion("testmotion",0);
+window.l2de2&&window.l2de2.startMotion("p1",0);
+}
+function getLSV(a){
+var xhr=new XMLHttpRequest();
+xhr.onreadystatechange=(function(xhr,a){
+if(xhr.readyState==4 && xhr.status == 200){
+resloaded++;
+var resp=xhr.responseText.split("\n");
+var result=[];
+for(var i=1;i<resp.length;i++){
+if(result[Math.floor(i/50)]===undefined)result[Math.floor(i/50)]=0;
+var temp=parseFloat(resp[i]);
+if(temp!=temp)temp=0;
+result[Math.floor(i/50)]+=(temp/13);
+}
+result.push(0);
+lipSyncValues[a]=result;
+}
+}).bind(null,xhr,a);
+xhr.open("GET",a+".txt",true);
+xhr.send();
+}
+function getres(a){
+var xhr=new XMLHttpRequest();
+xhr.onreadystatechange=(function(xhr,a){
+if(xhr.readyState==4 && xhr.status == 200){
+resloaded++;
+}
+if(xhr.readyState==4 && xhr.status != 200){
+alert("Cannot load "+a);
+}
+}).bind(null,xhr,a);
+xhr.open("GET",a,true);
+xhr.send();
+}
+getLSV("1");
+getLSV("2");
+getLSV("3");
+getLSV("4");
+getLSV("5");
+getLSV("6");
+getLSV("7");
+getLSV("8");
+getLSV("9");
+getLSV("10");
+getLSV("11");
+getres("1.mp3");
+getres("2.mp3");
+getres("3.mp3");
+getres("4.mp3");
+getres("5.mp3");
+getres("6.mp3");
+getres("7.mp3");
+getres("8.mp3");
+getres("9.mp3");
+getres("10.mp3");
+getres("11.mp3");
+getres("bgm.mp3");
+getres("default.exp.json");
+getres("smile01.mtn");
+getres("smile02.mtn");
+getres("serious01.mtn");
+getres("shame01.mtn");
+getres("nf01.mtn");
+getres("nf02.mtn");
+getres("nf03.mtn");
+getres("nf04.mtn");
+getres("nf05.mtn");
+getres("kime01.mtn");
+getres("jaan01.mtn");
+getres("eeto01.mtn");
+getres("gattsu01.mtn");
+getres("widget.js");
+getres("angry01_5.mtn");
+getres("smile02_5.mtn");
+getres("surprised01_5.mtn");
+getres("surprised01.mtn");
+getres("oowarai01.mtn");
+
+var json_xhr=new XMLHttpRequest();
+json_xhr.onreadystatechange=(function(json_xhr,a){
+if(json_xhr.readyState==4 && json_xhr.status == 200){
+resloaded++;
+var tmp=JSON.parse(json_xhr.responseText);
+text.model=document.location.origin+"/"+tmp.model;
+text.physics=document.location.origin+"/"+tmp.physics;
+text.textures[0]=document.location.origin+"/"+tmp.textures[0];
+getres(text.model);
+getres(text.physics);
+getres(text.textures[0]);
+console.log(text);
+window.l2dmodelpath="data:application/json;base64,"+btoa(JSON.stringify(text));
+}
+if(json_xhr.readyState==4 && json_xhr.status != 200){
+alert("Cannot load "+a);
+}
+}).bind(null,json_xhr,localStorage.l2dm);
+json_xhr.open("GET",localStorage.l2dm,true);
+json_xhr.send();
+</script>
+<style>
+#imgplaceholder{clip:rect(171px,800px,651px,0);}
+#imgplaceholder{
+pointer-events:none;
+position:absolute;
+width:800px;
+height:800px;
+opacity:1;
+left:88px;
+top:-163px;
+}
+#live2d-widget{
+pointer-events:none;
+position:absolute;
+width:800px;
+height:800px;
+opacity:1;
+left:-62px;
+top:-163px;
+transition-duration:0.5s;
+}
+#dialog1{
+left:58px;
+top:298px;
+position:absolute;
+border-style:solid;
+border-width:2px;
+border-color:#ffffff;
+padding:10px;
+background-color:#ff3b72;
+color:#ffffff;
+width:200px;
+z-index:3;
+}
+#dialog2{
+position:absolute;
+left:58px;
+top:338px;
+padding:10px;
+background-color:#ffffff;
+opacity:0.8;
+width:840px;
+height:80px;
+z-index:2;
+}
+#nocanvas{
+display:none;
+}
+#pl1,#pl2{clip:rect(171px,800px,651px,0);}
+#pl1,#pl2{
+pointer-events:none;
+position:absolute;
+width:800px;
+height:800px;
+opacity:1;
+top:-163px;
+transition-duration:0.5s;
+}
+#pl2{
+left:238px;
+}
+</style>
+<style id="clip"></style>
+<style id="showdialog1"></style>
+</head>
+<body>
+<div style="position:absolute;left:8px;top:8px;background:url(bg1.png);background-position:-47px -157px;background-size:1056px 792px;width:960px;height:480px;">
+<div style="background-color:rgba(255,255,255,0.6);">
+<a id="start_link" style="display:none;" href="javascript:start();">开始自我介绍</a><noscript>请打开javascript</noscript><span id="nocanvas">你的浏览器不支持HTML5 canvas</span><span id="resloading" style="display:none;">加载中... (<span id="resloading2"></span>/48)</span><br>
+<span style="display:none;"><input id="clipl2d" name="clipl2d" type="checkbox" checked></input><label for="clipl2d">裁剪live2d模型</label><br></span>
+<input id="showdialog" name="showdialog" type="checkbox" checked></input><label for="showdialog">显示对话框</label>
+<br>
+<!--若要切换本页面中户山香澄的服装，请在<a href="/bandoril2dsettings.html">这里</a>进行设置-->
+<a href="/bandoril2dsettings.html">切换本页面中户山香澄的服装</a>
+<br>
+这是户山香澄的3.0版自我介绍。
+<br>
+<div id="status" style="">
+如果加载进度一直卡在45/48，请刷新页面
+</div>
+</div>
+</div>
+<div id="dialog1">香澄</div>
+<div id="dialog2"></div>
+<div id="pl2"></div>
+<img id="imgplaceholder" src="placeholder.png">
+<div style="position:absolute;left:8px;top:508px;width:960px;height:480px;opacity:0;user-select:none;pointer-events:none;">
+<iframe id="ifr1" src="ifr.html?YXJpc2EubW9kZWwuanNvbg==,3,2" width="400" height="400"></iframe>
+</div>
+</body>
+</html>
