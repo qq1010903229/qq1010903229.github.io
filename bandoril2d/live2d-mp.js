@@ -15,12 +15,19 @@ $(".waifu-tips").css("font-size",'15px');
 $(".waifu-tool").css("font-size",'16px');
 $(".waifu-tool span").css("line-height",'20px');
 $('.waifu-tool .fui-chat').hover(function (){
-	showMessage('想要了解不一样的我吗？',3000);
+	if(document.location.href.startsWith(document.location.origin+"/ksm/index-v7.html?")||document.location.href==document.location.origin+"/ksm/index-v7.html")showMessage('想要了解我的这两个版本之间的不一样的地方吗？',3000);
+	else showMessage('想要了解不一样的我吗？',3000);
 });
 var chat_times=0;
 $('.waifu-tool .fui-chat').click(function (){
 	chat_times++;
-	showMessage([
+	if(document.location.href.startsWith(document.location.origin+"/ksm/index-v7.html?")||document.location.href==document.location.origin+"/ksm/index-v7.html")showMessage([
+	'你知道吗？我的这两个版本的画风是不一样的。',
+	'你知道吗？我的这两个版本都有各自的3D模型，它们是不一样的。',
+	'你知道吗？我的新版本的年级是高三，而旧版本的年级是高二。',
+	'你知道吗？在3月16日的日服7.0超大型更新之后，我的这两个版本将会共享演出服装。',
+	],5000,true);
+	else showMessage([
 	//'你知道吗？我会跳舞！<a href="https://www.bilibili.com/video/BV14S4y177bd" target="_blank">看一下我跳的《千本桜》吧！</a>',
 	//'你知道吗？我会跳舞！<a href="https://www.bilibili.com/video/BV14S4y177bd" target="_blank">看一下我跳的《千本桜》吧！</a>',
 	//'你知道吗？我会跳舞！<a href="https://www.bilibili.com/video/BV1hv4y1i7EM" target="_blank">看一下我跳的《スターナイトスノー》吧！</a>',
@@ -35,7 +42,7 @@ $('.waifu-tool .fui-chat').click(function (){
 	'你知道吗？loader3229正在为我制作一个特别的RANDOM STAR。',
 	'你知道吗？我知道，你已经点了'+chat_times+'次这个按钮。（本计数在刷新或离开页面后重置）',
 	'你知道吗？我有许多不同的版本，包括Live2D版，MV版，3D版等等。',
-	'你知道吗？现在我有2个不同的3D版本，而千圣有3个不同的3D版本。',
+	'你知道吗？现在我有2个不同的3D模型，其中一个3D模型是我的新版本3D模型（我觉得…我的新版本3D模型…好像有点不好看？）',
 	'你知道吗？在loader3229的MikuMikuDance 7.39里面，可以同时存在至少10个我。',
 	'你知道吗？<a href="/gt.pdf">这个吉他谱</a>我可以完美弹出来，而其他的香澄应该不行。',
 	],5000,true);
@@ -59,7 +66,7 @@ $('.waifu-tool .fui-image').hover(function (){
 	showMessage('想看一下loader3229给我拍的照片吗？',3000);
 });
 $('.waifu-tool .fui-image').click(function (){
-	window.open('/ksm/MMDPic'+Math.floor(Math.random()*2)+'.png');
+	window.open('/ksm/MMDPicM/MMDPicM'+Math.floor(Math.random()*2)+'.png');
 });
 $('.waifu-tool .fui-folder').hover(function (){
 	showMessage('想看一下我的档案吗？',3000);
@@ -101,8 +108,10 @@ $('.waifu-tool .fui-cmd').click(function (){
 	window.l2da.pause();
 });
 loadlive2d('live2d', localStorage.l2dm, null);
-if(document.location.href.startsWith(document.location.origin+"/ksm/?")||document.location.href==document.location.origin+"/ksm/")showMessage('你进入了我的档案页，是想更多的了解我吗？（点击我右边最下面的按钮或上面“Live2D模型显示不正常修复”修复我的Live2D模型显示问题）',3000,true);
-else showMessage('我是闪闪发光、心动不已的户山香澄！而且，因为loader3229，我和其他的户山香澄不一样！（点击我右边最下面的按钮或上面“Live2D模型显示不正常修复”修复我的Live2D模型显示问题）',3000,true);
+if(document.location.href.startsWith(document.location.origin+"/ksm/?")||document.location.href==document.location.origin+"/ksm/")showMessage('你进入了我的档案页，是想更多的了解我吗？（点击我右边最下面的<span class="fui-cmd"></span>按钮或上面“Live2D模型显示不正常修复”修复我的Live2D模型显示问题）',3000,true);
+else if(document.location.href.startsWith(document.location.origin+"/ksm/index.html?")||document.location.href==document.location.origin+"/ksm/index.html")showMessage('你进入了我的档案页，是想更多的了解我吗？（点击我右边最下面的<span class="fui-cmd"></span>按钮或上面“Live2D模型显示不正常修复”修复我的Live2D模型显示问题）',3000,true);
+else if(document.location.href.startsWith(document.location.origin+"/ksm/index-v7.html?")||document.location.href==document.location.origin+"/ksm/index-v7.html")showMessage('你进入了我的新版本的档案页，是想更多的了解我的新版本吗？（注意：页面右下角Live2D版本的我是旧版本）',3000,true);
+else showMessage('我是闪闪发光、心动不已的户山香澄！而且，因为loader3229，我和其他的户山香澄不一样！（点击我右边最下面的<span class="fui-cmd"></span>按钮或上面“Live2D模型显示不正常修复”修复我的Live2D模型显示问题）',3000,true);
 }
 function setl2dm(a){
 	loadlive2d('live2d', localStorage.l2dm=a, null);
