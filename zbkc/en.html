@@ -80,11 +80,11 @@ var equipment_data_extra={
 194:[4,9,4e-8],199:[4,9,4e-8],
 };
 var equipment_names=[
-["Dagger","Shortsword","Wooden Sword","Grassland Sword","Iron Sword","Tin Sword","Forest Sword","Copper Sword","Silver Sword","Golden Sword","Firesword","Magical Sword","三叉戟"],
-["布衣","皮甲","轻甲","铁甲","钢甲","Forest Armor","Desert Armor","铜甲","银甲","黄金铠甲","羽毛衣","燃烧铠甲","水之护盾"],
+["Dagger","Shortsword","Wooden Sword","Grassland Sword","Iron Sword","Tin Sword","Forest Sword","Copper Sword","Silver Sword","Golden Sword","Firesword","Magical Sword","Trident"],
+["布衣","皮甲","Light Armor","Iron Armor","Tin Armor","Forest Armor","Desert Armor","Copper Armor","Silver Armor","Golden Armor","Feather Armor","Fire Armor","Water Shield"],
 ["布鞋","皮鞋","Forest Shoe","Desert Shoe","Ocean Shoe","Sky Shoe","Fire Shoe","Magical Shoe"],
 ["Prestige Gem","Life Gem","Critical Gem","Ocean Core","Fire Core","EXP Gem","Magical Core","Lifesteal Gem","Nature Core","Earth Core","Life Crystal"],
-["Village 之章","Grassland 徽章","Forest 徽章","Desert 徽章","Cave 徽章","水之章","自然之章","Sky 之章","火之章","魔法之章"],
+["Village Pin","Grassland Pin","Forest Pin","Desert Pin","Cave Pin","Water Pin","Nature Pin","Sky Pin","Fire Pin","Magical Pin"],
 ];
 var hpdata=[
 50,200,600,1000,2333,
@@ -480,9 +480,9 @@ function update(){
 		eq_log=eq_log+"Your shoes give you "+format((geteqeff(2)-1)*100)+"% more Battle Speed, You have: ";
 	}
 	if(eqtab==4){
-		eq_log=eq_log+"你的徽章提供了"+format((geteqeff(4)-1)*100)+"%的额外生命值、攻击、防御";
-		if(highest_progress>=185)eq_log=eq_log+"、经验值";
-		eq_log=eq_log+"和转生点，你有：";
+		eq_log=eq_log+"Your pins give you "+format((geteqeff(4)-1)*100)+"% more HP, ATK, DEF";
+		if(highest_progress>=185)eq_log=eq_log+", EXP";
+		eq_log=eq_log+"and PP, You have: ";
 	}
 	for(var i=0;i<equipment_names[eqtab].length;i++){
 		if((equipments[eqtab][i]||0)>0 || (eqlevels[eqtab][i]||0)>0){
@@ -501,7 +501,7 @@ function update(){
 			if(eqtab==3&&i==9)eq_log=eq_log+"(+"+format((geteqeffs(3,9)-1)*100)+"% HP)";
 			if(eqtab==3&&i==10)eq_log=eq_log+"(+"+format((geteqeffs(3,10)-1)*100)+"% HP)";
 			if(highest_progress>=50){
-				eq_log=eq_log+" <a href=\"javascript:eqlevelup("+eqtab+","+i+");\">强化（需要"+format(eqlevel_cost(eqtab,i))+" "+equipment_names[eqtab][i]+"）</a>";
+				eq_log=eq_log+" <a href=\"javascript:eqlevelup("+eqtab+","+i+");\">Level Up (Cost: "+format(eqlevel_cost(eqtab,i))+" "+equipment_names[eqtab][i]+")</a>";
 			}
 		}
 	}
@@ -514,17 +514,17 @@ function update(){
 		else if(highest_progress>=110)temp="+3";
 		else if(highest_progress>=90)temp="+2";
 		else if(highest_progress>=80)temp="+1";
-		document.getElementById("pu2").innerHTML="生命加点提升"+temp+"(Level "+(pu[2]||0)+", Costs "+format(prestige_cost(2))+" PP to Level Up)";
+		document.getElementById("pu2").innerHTML="Increased HP gain per Stat Point "+temp+" (Level "+(pu[2]||0)+", Costs "+format(prestige_cost(2))+" PP to Level Up)";
 	}
 	if(highest_progress>=20){
 		document.getElementById("pu1").style.display="inline";
 		var temp="";
 		if(highest_progress>=120)temp="+1";
-		document.getElementById("pu1").innerHTML="初始能量提升"+temp+"(Level "+(pu[1]||0)+", Costs "+format(prestige_cost(1))+" PP to Level Up)";
+		document.getElementById("pu1").innerHTML="More Energy "+temp+" (Level "+(pu[1]||0)+", Costs "+format(prestige_cost(1))+" PP to Level Up)";
 	}
 	if(highest_progress>=30){
 		document.getElementById("pu0").style.display="inline";
-		document.getElementById("pu0").innerHTML="初始等级提升(Level "+(pu[0]||0)+", Costs "+format(prestige_cost(0))+" PP to Level Up)";
+		document.getElementById("pu0").innerHTML="More Level at the start of game (Level "+(pu[0]||0)+", Costs "+format(prestige_cost(0))+" PP to Level Up)";
 	}
 	if(highest_progress>=40){
 		document.getElementById("pu3").style.display="inline";
@@ -533,26 +533,26 @@ function update(){
 		else if(highest_progress>=130)temp="+3";
 		else if(highest_progress>=100)temp="+2";
 		else if(highest_progress>=70)temp="+1";
-		document.getElementById("pu3").innerHTML="生命值提升"+temp+"(Level "+(pu[3]||0)+", Costs "+format(prestige_cost(3))+" PP to Level Up)";
+		document.getElementById("pu3").innerHTML="More HP "+temp+" (Level "+(pu[3]||0)+", Costs "+format(prestige_cost(3))+" PP to Level Up)";
 	}
 	if(highest_progress>=50){
 		document.getElementById("pu4").style.display="inline";
 		var temp="";
 		if(highest_progress>=150)temp="+1";
-		document.getElementById("pu4").innerHTML="BOSS额外掉落"+temp+"(Level "+(pu[4]||0)+", Costs "+format(prestige_cost(4))+" PP to Level Up)";
+		document.getElementById("pu4").innerHTML="Increased Boss Drops "+temp+" (Level "+(pu[4]||0)+", Costs "+format(prestige_cost(4))+" PP to Level Up)";
 	}
 	if(pu[4]>=3){
 		document.getElementById("eq_4").style.display="inline";
 	}
 	if(highest_progress>=60){
 		document.getElementById("pu5").style.display="inline";
-		document.getElementById("pu5").innerHTML="强化的效果提升(Level "+(pu[5]||0)+", Costs "+format(prestige_cost(5))+" PP to Level Up)";
+		document.getElementById("pu5").innerHTML="Increase the effect of Equipment Level (Level "+(pu[5]||0)+", Costs "+format(prestige_cost(5))+" PP to Level Up)";
 	}
 	if(highest_progress>=70){
 		document.getElementById("pu6").style.display="inline";
 		var temp="";
 		if(highest_progress>=170)temp="+1";
-		document.getElementById("pu6").innerHTML="多倍能量消耗设定"+temp+"(Level "+(pu[6]||0)+", Costs "+format(prestige_cost(6))+" PP to Level Up)";
+		document.getElementById("pu6").innerHTML="You can spend more energy "+temp+" (Level "+(pu[6]||0)+", Costs "+format(prestige_cost(6))+" PP to Level Up)";
 	}
 	if(pu[6]>=1){
 		document.getElementById("energyc").style.display="inline";
@@ -582,7 +582,7 @@ function update(){
 	}
 	if(highest_progress>=80){
 		document.getElementById("pu7").style.display="inline";
-		document.getElementById("pu7").innerHTML="升级可得属性点提升(Level "+(pu[7]||0)+", Costs "+format(prestige_cost(7))+" PP to Level Up)";
+		document.getElementById("pu7").innerHTML="More Stat Points (Level "+(pu[7]||0)+", Costs "+format(prestige_cost(7))+" PP to Level Up)";
 	}
 	if(highest_progress>=85){
 		document.getElementById("chall2").style.display="block";
@@ -606,7 +606,7 @@ function update(){
 	}
 	if(highest_progress>=100){
 		document.getElementById("pu8").style.display="inline";
-		document.getElementById("pu8").innerHTML="经验值提升(Level "+(pu[8]||0)+", Costs "+format(prestige_cost(8))+" PP to Level Up)";
+		document.getElementById("pu8").innerHTML="More EXP (Level "+(pu[8]||0)+", Costs "+format(prestige_cost(8))+" PP to Level Up)";
 	}
 	if(highest_progress>=105){
 		document.getElementById("chall5").style.display="block";
@@ -615,7 +615,7 @@ function update(){
 	}
 	if(highest_progress>=125){
 		document.getElementById("pu9").style.display="inline";
-		document.getElementById("pu9").innerHTML="战斗速度提升(Level "+(pu[9]||0)+", Costs "+format(prestige_cost(9))+" PP to Level Up)";
+		document.getElementById("pu9").innerHTML="Quicker Battle (Level "+(pu[9]||0)+", Costs "+format(prestige_cost(9))+" PP to Level Up)";
 	}
 	if(highest_progress>=150){
 		document.getElementById("tower_tab").style.display="inline";
@@ -631,7 +631,7 @@ function update(){
 	}
 	if(highest_progress>=190){
 		document.getElementById("pu10").style.display="inline";
-		document.getElementById("pu10").innerHTML="装备掉落提升(Level "+(pu[10]||0)+", Costs "+format(prestige_cost(10))+" PP to Level Up)";
+		document.getElementById("pu10").innerHTML="More Equipments (Level "+(pu[10]||0)+", Costs "+format(prestige_cost(10))+" PP to Level Up)";
 	}
 	if(highest_progress>=200){
 		document.getElementById("trans_tab").style.display="inline";
@@ -698,20 +698,20 @@ function battle(x){
 	var mult=1;
 	var battle_status={"log":"You encountered an enemy<br>","interval":-1};
 	if(x%5==4)battle_status.log="You encountered a BOSS, BOSS has "+format(enemyhp)+" HP<br>";
-	if(x==39||x==69||x==139||x==169)battle_status.log+="BOSS特性：受到的伤害开方<br>";
-	if(x==49||x==99||x==149||x==199)battle_status.log+="BOSS特性：23.33%暴击率<br>";
-	if(x==59||x==99||x==159||x==199)battle_status.log+="BOSS特性：23.33%闪避率<br>";
-	if(x==74&&chall==5)battle_status.log+="BOSS特性：BOSS的第二次攻击为必杀<br>";
-	else if(x==74)battle_status.log+="BOSS特性：一击必杀<br>";
-	if(x==174&&chall==5)battle_status.log+="BOSS特性：BOSS的第二次攻击为必杀<br>";
-	else if(x==174)battle_status.log+="BOSS特性：一击必杀<br>";
-	if(x==79&&chall==1)battle_status.log+="BOSS特性：受到的伤害变为原来的0.25次方<br>";
-	else if(x==79)battle_status.log+="BOSS特性：受到的伤害取自然对数<br>";
-	if(x==179&&chall==1)battle_status.log+="BOSS特性：受到的伤害变为原来的0.25次方<br>";
-	else if(x==179)battle_status.log+="BOSS特性：受到的伤害取自然对数<br>";
-	if(x==84||x==184)battle_status.log+="BOSS特性：你的能量越多，BOSS越强<br>",enemyatk*=(1+0.15*energy),enemydef*=(1+0.15*(energy**1.5));
-	if(x==89||x==99||x==189||x==199)battle_status.log+="BOSS特性：你的等级越高，BOSS越强<br>",enemyatk*=(getlv().lv),enemydef*=(getlv().lv);
-	if(x==94||x==99||x==194||x==199)battle_status.log+="BOSS特性：你的武器和防具越多，BOSS越强<br>",enemyatk*=(geteqeff(1)),enemydef*=(geteqeff(0));
+	if(x==39||x==69||x==139||x==169)battle_status.log+="BOSS Attribute: Square-root your damage<br>";
+	if(x==49||x==99||x==149||x==199)battle_status.log+="BOSS Attribute: 23.33% Critical Chance<br>";
+	if(x==59||x==99||x==159||x==199)battle_status.log+="BOSS Attribute: 23.33% Evasion Chance<br>";
+	if(x==74&&chall==5)battle_status.log+="BOSS Attribute: Boss's second attack can instakill you<br>";
+	else if(x==74)battle_status.log+="BOSS Attribute: Boss's attack can instakill you<br>";
+	if(x==174&&chall==5)battle_status.log+="BOSS Attribute: Boss's second attack can instakill you<br>";
+	else if(x==174)battle_status.log+="BOSS Attribute: Boss's attack can instakill you<br>";
+	if(x==79&&chall==1)battle_status.log+="BOSS Attribute: Your damage is raised to a power of 0.25<br>";
+	else if(x==79)battle_status.log+="BOSS Attribute: Your damage becomes ln(damage)<br>";
+	if(x==179&&chall==1)battle_status.log+="BOSS Attribute: Your damage is raised to a power of 0.25<br>";
+	else if(x==179)battle_status.log+="BOSS Attribute: Your damage becomes ln(damage)<br>";
+	if(x==84||x==184)battle_status.log+="BOSS Attribute: Your energy affects Boss's Power<br>",enemyatk*=(1+0.15*energy),enemydef*=(1+0.15*(energy**1.5));
+	if(x==89||x==99||x==189||x==199)battle_status.log+="BOSS Attribute: Your level affects Boss's Power<br>",enemyatk*=(getlv().lv),enemydef*=(getlv().lv);
+	if(x==94||x==99||x==194||x==199)battle_status.log+="BOSS Attribute: Your weapons and armors affects Boss's Power<br>",enemyatk*=(geteqeff(1)),enemydef*=(geteqeff(0));
 	var ename="Enemy";
 	if(x%5==4)ename="BOSS";
 	if(chall==5&&x!='tower'){
@@ -733,9 +733,9 @@ function battle(x){
 		if(chall==5&&x!='tower')damage2=Math.floor(1+damage2*(Math.log10(damage2)**1.5));
 		if(Math.random()+1<geteqeffs(3,2)){
 			if(Math.random()+2<geteqeffs(3,2)){
-				damage1*=2;battle_status.log+="超级";
+				damage1*=2;battle_status.log+="Super ";
 			}
-			damage1*=2;battle_status.log+="暴击";
+			damage1*=2;battle_status.log+="Critical";
 			if(Math.random()+3<geteqeffs(3,2)){
 				damage1*=1.5;battle_status.log+="+";
 			}
@@ -751,7 +751,7 @@ function battle(x){
 			if(Math.random()+7<geteqeffs(3,2)){
 				damage1*=1.25;battle_status.log+="+";
 			}
-			battle_status.log+="！";
+			battle_status.log+="! ";
 		}
 		var damage1_disp=damage1;
 		if(x==39||x==69||x==139||x==169)damage1=Math.floor(damage1**0.5);
@@ -782,11 +782,11 @@ function battle(x){
 			if(highest_progress>=185)exp_base*=geteqeff(4);
 			var exp_give=Math.floor(exp_base*rand_2()*geteqeffs(3,5)*prestige_eff()*energyc_eff()*challeff(3)*Math.pow(1.2,(pu[8]||0))*(1+tower*1.5/100)*transcend_eff());
 			if(x=='tower')exp_give=0;
-			battle_status.log+="战斗胜利，你得到了"+format(exp_give)+"经验<br>";
+			battle_status.log+="You got "+format(exp_give)+" EXP<br>";
 			var level1=getlv().lv;
 			exp+=exp_give;
 			var level2=getlv().lv;
-			if(level2>level1)battle_status.log+="你升了"+format(level2-level1)+"级<br>";
+			if(level2>level1)battle_status.log+=format(level2-level1)+" Level Up!<br>";
 			hp+=(level2-level1)*10;
 			atk+=(level2-level1);
 			def+=(level2-level1);
@@ -808,7 +808,7 @@ function battle(x){
 				if(x==79&&highest_progress<79)battle_status.log+="<br>由于你第一次打败Sky BOSS 2，转生升级“生命加点提升”的效果增加了。";
 				if(x==89&&highest_progress<89)battle_status.log+="<br>由于你第一次打败Volcano BOSS 2，转生升级“生命加点提升”的效果增加了，同时徽章的效果增加了。";
 				if(x==99&&highest_progress<99)battle_status.log+="<br>由于你第一次打败Castle BOSS 2，转生升级“生命值提升”的效果增加了，同时解锁了新难度！";
-				if(x==109&&highest_progress<109)battle_status.log+="<br>由于你第一次打败普通Village 外BOSS，转生升级“生命加点提升”的效果增加了。";
+				if(x==109&&highest_progress<109)battle_status.log+="<br>由于你第一次打败普通Village BOSS 2，转生升级“生命加点提升”的效果增加了。";
 				if(x==119&&highest_progress<119)battle_status.log+="<br>由于你第一次打败普通Grassland BOSS 2，转生升级“初始能量提升”的效果增加了。";
 				if(x==129&&highest_progress<129)battle_status.log+="<br>由于你第一次打败普通Forest BOSS 2，转生升级“生命值提升”的效果增加了，同时徽章的效果增加了。";
 				if(x==139&&highest_progress<139)battle_status.log+="<br>由于你第一次打败普通Desert BOSS 2，简单难度Enemy获得的经验值得到了不同程度的增加。";
@@ -1382,7 +1382,7 @@ Current Difficulty: Hard<br>
 </div>
 <div id="tab1" style="display:none;">
 <a href="javascript:eqtab=0;">Weapons</a> <a href="javascript:eqtab=1;">Armors</a> <a href="javascript:eqtab=2;">Shoes</a> <a href="javascript:eqtab=3;">Gems/Cores/Crystals</a>
-<a href="javascript:eqtab=4;" style="display:none;" id="eq_4">徽章</a><br>
+<a href="javascript:eqtab=4;" style="display:none;" id="eq_4">Pins</a><br>
 <div id="eq">
 </div>
 
@@ -1447,7 +1447,7 @@ Highest Level: <span id="chall6lv"></span>, Effect: +<span id="chall6eff"></span
 </div>
 </div>
 <div id="tab5" style="display:none;">
-挑战通天塔不消耗能量，不会获得装备和经验值。通天塔的进度在转生时保留。<br>
+Battle in the Tower don't cost any energy. You can't gain EXP and Equipments in the Tower. Progress in the Tower doesn't reset in Prestige.<br>
 Highest Floor: <span id="tower_floor"></span>, Effect: +<span id="tower_floor2"></span>% HP, EXP and PP<br>
 <a href="javascript:battle('tower');" id="tower_battle"></a>
 </div>
