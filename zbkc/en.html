@@ -719,9 +719,9 @@ function battle(x){
 		damage2=Math.floor(1+damage2*(Math.log10(damage2)**1.5)*1.5);
 		curhp-=damage2;if(curhp<=0){
 			clearInterval(battle_status.interval);
-			battle_status.log+=ename+"对你造成了"+format(damage2)+"点伤害，你倒下了<br><a href=\"javascript:battle("+x+");\">再次战斗</a>";
+			battle_status.log+=ename+" hits you with "+format(damage2)+" damage, you lose<br><a href=\"javascript:battle("+x+");\">Try again</a>";
 			battling=0;
-		}else battle_status.log+=ename+"对你造成了"+format(damage2)+"点伤害，你还剩"+format(curhp)+"点生命值<br>";
+		}else battle_status.log+=ename+" hits you with "+format(damage2)+" damage, you have "+format(curhp)+" HP remaining<br>";
 	}
 	document.getElementById("battlelog").innerHTML=battle_status.log;
 	var battle_turn=function(){
@@ -761,12 +761,12 @@ function battle(x){
 		else if(x==179)damage1=Math.log(damage1);
 		if((x==59||x==99||x==159||x==199) && Math.random()<7/30)damage1=0;
 		enemyhp-=damage1;
-		if(x==39||x==69||x==79||x==139||x==169||x==179)battle_status.log+="你对"+ename+"造成了"+format(damage1_disp)+"点伤害<br>";
+		if(x==39||x==69||x==79||x==139||x==169||x==179)battle_status.log+="You hit "+ename+" with "+format(damage1)+" projected damage<br>";
 		if(enemyhp<=0){
-			if(x==79&&chall!=1)battle_status.log+="由于BOSS的特性，实际造成了"+damage1.toFixed(2)+"点伤害，"+ename+"被击败了<br>";
-			else if(x==179&&chall!=1)battle_status.log+="由于BOSS的特性，实际造成了"+damage1.toFixed(2)+"点伤害，"+ename+"被击败了<br>";
-			else if(x==39||x==69||x==79||x==139||x==169||x==179)battle_status.log+="由于BOSS的特性，实际造成了"+format(damage1)+"点伤害，"+ename+"被击败了<br>";
-			else battle_status.log+="你对"+ename+"造成了"+format(damage1)+"点伤害，"+ename+"被击败了<br>";
+			if(x==79&&chall!=1)battle_status.log+="Due to BOSS attribute, BOSS got "+damage1.toFixed(2)+" damage, you win<br>";
+			else if(x==179&&chall!=1)battle_status.log+="Due to BOSS attribute, BOSS got "+damage1.toFixed(2)+" damage, you win<br>";
+			else if(x==39||x==69||x==79||x==139||x==169||x==179)battle_status.log+="Due to BOSS attribute, BOSS got "+format(damage1)+" damage, you win<br>";
+			else battle_status.log+="You hit "+ename+" with "+format(damage1)+" damage, you win<br>";
 			clearInterval(battle_status.interval);
 			var exp_base=Math.pow(enemyatk*enemydef,0.75);
 			if(exp_base>=9e10&&highest_progress>=170)exp_base=((exp_base**1.5)*9e10)**0.4;
@@ -782,7 +782,7 @@ function battle(x){
 			if(highest_progress>=185)exp_base*=geteqeff(4);
 			var exp_give=Math.floor(exp_base*rand_2()*geteqeffs(3,5)*prestige_eff()*energyc_eff()*challeff(3)*Math.pow(1.2,(pu[8]||0))*(1+tower*1.5/100)*transcend_eff());
 			if(x=='tower')exp_give=0;
-			battle_status.log+="You got "+format(exp_give)+" EXP<br>";
+			battle_status.log+="You have got "+format(exp_give)+" EXP<br>";
 			var level1=getlv().lv;
 			exp+=exp_give;
 			var level2=getlv().lv;
@@ -794,7 +794,7 @@ function battle(x){
 			var give_equipments=Math.floor(equipment_data[x][2]*(luk**0.5)*(1+(eqlevels[equipment_data[x][0]][equipment_data[x][1]]||0)*0.15)*Math.random()*prestige_eff()*energyc_eff()*challeff(4)*Math.pow(1.2,(pu[10]||0))*transcend_eff());
 			if(chall==4||x=='tower')give_equipments=0;
 			if(give_equipments>0){
-				battle_status.log+=ename+"掉落了"+format(give_equipments)+"个"+equipment_names[equipment_data[x][0]][equipment_data[x][1]];
+				battle_status.log+="You have got "+format(give_equipments)+" "+equipment_names[equipment_data[x][0]][equipment_data[x][1]];
 				equipments[equipment_data[x][0]][equipment_data[x][1]]=(equipments[equipment_data[x][0]][equipment_data[x][1]]||0)+give_equipments;
 			}
 			if(x%5==4){
@@ -804,28 +804,28 @@ function battle(x){
 					if(chall==2)energy-=2;
 					progress+=5;
 				}
-				if(x==69&&highest_progress<69)battle_status.log+="<br>由于你第一次打败Mountain BOSS 2，转生升级“生命值提升”的效果增加了，同时徽章的效果增加了。";
-				if(x==79&&highest_progress<79)battle_status.log+="<br>由于你第一次打败Sky BOSS 2，转生升级“生命加点提升”的效果增加了。";
-				if(x==89&&highest_progress<89)battle_status.log+="<br>由于你第一次打败Volcano BOSS 2，转生升级“生命加点提升”的效果增加了，同时徽章的效果增加了。";
-				if(x==99&&highest_progress<99)battle_status.log+="<br>由于你第一次打败Castle BOSS 2，转生升级“生命值提升”的效果增加了，同时解锁了新难度！";
-				if(x==109&&highest_progress<109)battle_status.log+="<br>由于你第一次打败普通Village BOSS 2，转生升级“生命加点提升”的效果增加了。";
-				if(x==119&&highest_progress<119)battle_status.log+="<br>由于你第一次打败普通Grassland BOSS 2，转生升级“初始能量提升”的效果增加了。";
-				if(x==129&&highest_progress<129)battle_status.log+="<br>由于你第一次打败普通Forest BOSS 2，转生升级“生命值提升”的效果增加了，同时徽章的效果增加了。";
-				if(x==139&&highest_progress<139)battle_status.log+="<br>由于你第一次打败普通Desert BOSS 2，简单难度Enemy获得的经验值得到了不同程度的增加。";
-				if(x==149&&highest_progress<149)battle_status.log+="<br>由于你第一次打败普通Cave BOSS 2，转生升级“BOSS额外掉落”的效果增加了，同时徽章的效果增加了。";
-				if(x==159&&highest_progress<159)battle_status.log+="<br>由于你第一次打败普通Ocean BOSS 2，你得到了1000个永久性的经验宝石（不可用于强化）。";
-				if(x==169&&highest_progress<169)battle_status.log+="<br>由于你第一次打败普通Mountain BOSS 2，转生升级“多倍能量消耗设定”的效果增加了，同时你得到的经验值提升了。";
-				if(x==179&&highest_progress<179)battle_status.log+="<br>由于你第一次打败普通Sky BOSS 2，转生升级“生命加点提升”的效果增加了，同时徽章的效果增加了。";
-				if(x==184&&highest_progress<184)battle_status.log+="<br>由于你第一次打败普通Volcano BOSS 1，转生升级“初始等级提升”的效果在挑战3中生效，同时徽章的效果Start对经验值生效。";
-				if(x==189&&highest_progress<189)battle_status.log+="<br>由于你第一次打败普通Volcano BOSS 2，转生升级“生命值提升”的效果增加了。";
-				if(x==194&&highest_progress<194)battle_status.log+="<br>由于你第一次打败普通Castle BOSS 1，你得到了99000个永久性的经验宝石（不可用于强化），且通天塔的Enemy强度降低了。";
+				/*if(x==69&&highest_progress<69)battle_status.log+="<br>You defeated Mountain BOSS 2 for the first time!，转生升级“生命值提升”的效果增加了，同时徽章的效果增加了。";
+				if(x==79&&highest_progress<79)battle_status.log+="<br>You defeated Sky BOSS 2 for the first time!，转生升级“生命加点提升”的效果增加了。";
+				if(x==89&&highest_progress<89)battle_status.log+="<br>You defeated Volcano BOSS 2 for the first time!，转生升级“生命加点提升”的效果增加了，同时徽章的效果增加了。";
+				if(x==99&&highest_progress<99)battle_status.log+="<br>You defeated Castle BOSS 2 for the first time!，转生升级“生命值提升”的效果增加了，同时解锁了新难度！";
+				if(x==109&&highest_progress<109)battle_status.log+="<br>You defeated Village BOSS 2 in Normal difficulty for the first time!，转生升级“生命加点提升”的效果增加了。";
+				if(x==119&&highest_progress<119)battle_status.log+="<br>You defeated Grassland BOSS 2 in Normal difficulty for the first time!，转生升级“初始能量提升”的效果增加了。";
+				if(x==129&&highest_progress<129)battle_status.log+="<br>You defeated Forest BOSS 2 in Normal difficulty for the first time!，转生升级“生命值提升”的效果增加了，同时徽章的效果增加了。";
+				if(x==139&&highest_progress<139)battle_status.log+="<br>You defeated Desert BOSS 2 in Normal difficulty for the first time!，简单难度Enemy获得的经验值得到了不同程度的增加。";
+				if(x==149&&highest_progress<149)battle_status.log+="<br>You defeated Cave BOSS 2 in Normal difficulty for the first time!，转生升级“BOSS额外掉落”的效果增加了，同时徽章的效果增加了。";
+				if(x==159&&highest_progress<159)battle_status.log+="<br>You defeated Ocean BOSS 2 in Normal difficulty for the first time!，你得到了1000个永久性的经验宝石（不可用于强化）。";
+				if(x==169&&highest_progress<169)battle_status.log+="<br>You defeated Mountain BOSS 2 in Normal difficulty for the first time!，转生升级“多倍能量消耗设定”的效果增加了，同时你得到的经验值提升了。";
+				if(x==179&&highest_progress<179)battle_status.log+="<br>You defeated Sky BOSS 2 in Normal difficulty for the first time!，转生升级“生命加点提升”的效果增加了，同时徽章的效果增加了。";
+				if(x==184&&highest_progress<184)battle_status.log+="<br>You defeated Volcano BOSS 1 in Normal difficulty for the first time!，转生升级“初始等级提升”的效果在挑战3中生效，同时徽章的效果Start对经验值生效。";
+				if(x==189&&highest_progress<189)battle_status.log+="<br>You defeated Volcano BOSS 2 in Normal difficulty for the first time!，转生升级“生命值提升”的效果增加了。";
+				if(x==194&&highest_progress<194)battle_status.log+="<br>You defeated Castle BOSS 1 in Normal difficulty for the first time!，你得到了99000个永久性的经验宝石（不可用于强化），且通天塔的Enemy强度降低了。";*/
 				if(pu[4]){
 					var rate2=1-Math.pow(0.85,pu[4]**0.75);
 					if(highest_progress>=150)rate2=1-Math.pow(0.85,pu[4]**0.85);
 					for(var j=x-((pu[4]>=6&&x>=pu[4])?pu[4]:(pu[4]>=6)?x:(pu[4]>=2&&x>=5)?5:4);j<=x;j++){
 						give_equipments=Math.floor(equipment_data[j][2]*(luk**0.5)*(1+(eqlevels[equipment_data[j][0]][equipment_data[j][1]]||0)*0.15)*Math.random()*prestige_eff()*energyc_eff()*rate2*challeff(4)*Math.pow(1.2,(pu[10]||0))*transcend_eff());
 						if(chall==4)give_equipments=0;
-						if(give_equipments>0)battle_status.log+="<br>由于转生升级“BOSS额外掉落”的效果，"+ename+"额外掉落了"+format(give_equipments)+"个"+equipment_names[equipment_data[j][0]][equipment_data[j][1]];
+						if(give_equipments>0)battle_status.log+="<br>Due to the effect of 'Increased Boss Drops', you have got "+format(give_equipments)+" "+equipment_names[equipment_data[j][0]][equipment_data[j][1]];
 						if(give_equipments>0)equipments[equipment_data[j][0]][equipment_data[j][1]]=(equipments[equipment_data[j][0]][equipment_data[j][1]]||0)+give_equipments;
 					}
 					if(pu[4]>=2+x/10){
@@ -833,37 +833,37 @@ function battle(x){
 						if(highest_progress>=150)give_equipments=Math.floor(give_equipments*1.5);
 						if(chall==4)give_equipments=0;
 						if(give_equipments>0){
-							battle_status.log+="<br>由于转生升级“BOSS额外掉落”的效果，"+ename+"额外掉落了"+format(give_equipments)+"个"+equipment_names[equipment_data_extra[x][0]][equipment_data_extra[x][1]];
+							battle_status.log+="<br>Due to the effect of 'Increased Boss Drops', you have got "+format(give_equipments)+" "+equipment_names[equipment_data_extra[x][0]][equipment_data_extra[x][1]];
 							equipments[equipment_data_extra[x][0]][equipment_data_extra[x][1]]=(equipments[equipment_data_extra[x][0]][equipment_data_extra[x][1]]||0)+give_equipments;
 						}
 					}
 				}
 			}
-			if(x!='tower')battle_status.log+="<br><a href=\"javascript:battle("+x+");\">再次战斗</a>";
+			if(x!='tower')battle_status.log+="<br><a href=\"javascript:battle("+x+");\">Try again</a>";
 			if(x!='tower')energy-=energyc;else tower++;
 			battling=0;
 		}else{
-			if((x==59||x==99||x==159||x==199) && damage1==0)battle_status.log+=ename+"闪避，"+ename+"还剩"+format(enemyhp)+"点生命值<br>";
-			else if(x==79&&chall!=1)battle_status.log+="由于BOSS的特性，实际造成了"+damage1.toFixed(2)+"点伤害，"+ename+"还剩"+format(enemyhp)+"点生命值<br>";
-			else if(x==179&&chall!=1)battle_status.log+="由于BOSS的特性，实际造成了"+damage1.toFixed(2)+"点伤害，"+ename+"还剩"+format(enemyhp)+"点生命值<br>";
-			else if(x==39||x==69||x==79||x==139||x==169||x==179)battle_status.log+="由于BOSS的特性，实际造成了"+format(damage1)+"点伤害，"+ename+"还剩"+format(enemyhp)+"点生命值<br>";
-			else if(x%5==4)battle_status.log+="你对"+ename+"造成了"+format(damage1)+"点伤害，"+ename+"还剩"+format(enemyhp)+"点生命值<br>";
-			else battle_status.log+="你对"+ename+"造成了"+format(damage1)+"点伤害，"+ename+"还剩"+Math.ceil(enemyhp/enemyhp2*100)+"%生命值<br>";
+			if((x==59||x==99||x==159||x==199) && damage1==0)battle_status.log+=ename+" evaded, "+ename+" has "+format(enemyhp)+" HP remaining<br>";
+			else if(x==79&&chall!=1)battle_status.log+="Due to BOSS attribute, BOSS got "+damage1.toFixed(2)+" damage, "+ename+" has "+format(enemyhp)+" HP remaining<br>";
+			else if(x==179&&chall!=1)battle_status.log+="Due to BOSS attribute, BOSS got "+damage1.toFixed(2)+" damage, "+ename+" has "+format(enemyhp)+" HP remaining<br>";
+			else if(x==39||x==69||x==79||x==139||x==169||x==179)battle_status.log+="Due to BOSS attribute, BOSS got "+damage1.toFixed(2)+" damage, "+ename+" has "+format(enemyhp)+" HP remaining<br>";
+			else if(x%5==4)battle_status.log+="You hit "+ename+" with "+format(damage1)+" damage, "+ename+" has "+format(enemyhp)+" HP remaining<br>";
+			else battle_status.log+="You hit "+ename+" with "+format(damage1)+" damage, "+ename+" has "+Math.ceil(enemyhp/enemyhp2*100)+"% HP remaining<br>";
 			let lifesteal=damage1*(geteqeffs(3,7)-1);
 			if(lifesteal>gethp()-curhp)lifesteal=gethp()-curhp;
 			curhp+=lifesteal;
-			if(lifesteal>0)battle_status.log+="你吸取了"+format(lifesteal)+"点生命值，你还剩"+format(curhp)+"点生命值<br>";
+			if(lifesteal>0)battle_status.log+="You recovered "+format(lifesteal)+" HP, you have "+format(curhp)+" HP remaining<br>";
 			if((x==49||x==99||x==149||x==199) && Math.random()<7/30){
-				damage2*=2;battle_status.log+="BOSS暴击！";
+				damage2*=2;battle_status.log+="BOSS Critical Attack! ";
 			}
 			if(x==74||x==174)damage2=Infinity;
 			curhp-=damage2;
 			if(curhp<=0){
 				clearInterval(battle_status.interval);
-				if(x!='tower')battle_status.log+=ename+"对你造成了"+format(damage2)+"点伤害，你倒下了<br><a href=\"javascript:battle("+x+");\">再次战斗</a>";
-				else battle_status.log+=ename+"对你造成了"+format(damage2)+"点伤害，你倒下了";
+				if(x!='tower')battle_status.log+=ename+" hits you with "+format(damage2)+" damage, you lose<br><a href=\"javascript:battle("+x+");\">Try again</a>";
+				else battle_status.log+=ename+" hits you with "+format(damage2)+" damage, you lose";
 				battling=0;
-			}else battle_status.log+=ename+"对你造成了"+format(damage2)+"点伤害，你还剩"+format(curhp)+"点生命值<br>";
+			}else battle_status.log+=ename+" hits you with "+format(damage2)+" damage, you have "+format(curhp)+" HP remaining<br>";
 		}
 		document.getElementById("battlelog").innerHTML=battle_status.log;
 		mult=mult*1.01;
@@ -1000,7 +1000,20 @@ function prestige_up(x){
 }
 function format(x){
 	if(x>=1e308)return "Infinity";
-	if(x>=1e33)return (x/1e33).toFixed(2)+"Dc";
+	if(x>=1e93)return format2(x/1e90)+"Tg";
+	if(x>=1e63)return format2(x/1e60)+"Vg";
+	if(x>=1e33)return format2(x/1e30)+"Dc";
+	if(x>=1e12)return format2(x);
+	if(x>=1e9)return (x/1e9).toFixed(2)+"B";
+	if(x>=1e8)return (x/1e6).toFixed(2)+"M";
+	return Math.floor(x);
+}
+function formats(x){
+	if(x>=1e308)return "Infinity";
+	if(x>=1e8)return (x/(10**Math.log10(x))).toFixed(2)+"e"+Math.floor(Math.log10(x));
+	return Math.floor(x);
+}
+function format2(x){
 	if(x>=1e30)return (x/1e30).toFixed(2)+"Nn";
 	if(x>=1e27)return (x/1e27).toFixed(2)+"Oc";
 	if(x>=1e24)return (x/1e24).toFixed(2)+"Sp";
@@ -1008,9 +1021,9 @@ function format(x){
 	if(x>=1e18)return (x/1e18).toFixed(2)+"Qi";
 	if(x>=1e15)return (x/1e15).toFixed(2)+"Qa";
 	if(x>=1e12)return (x/1e12).toFixed(2)+"T";
-	if(x>=1e9)return (x/1e9).toFixed(2)+"B";
-	if(x>=1e8)return (x/1e6).toFixed(2)+"M";
-	return Math.floor(x);
+	if(x>=1e9)return (x/1e9).toFixed(2)+"D";
+	if(x>=1e6)return (x/1e6).toFixed(2)+"U";
+	return (x/1e3).toFixed(2);
 }
 function eqlevel_cost(x,i){
 	return Math.pow(10,(eqlevels[x][i]||0));
@@ -1453,7 +1466,7 @@ Highest Floor: <span id="tower_floor"></span>, Effect: +<span id="tower_floor2">
 </div>
 <div id="tab6" style="display:none;">
 Transcend will reset your level, equipments, energy, prestige points and upgrades, but you will gain <span id="transcend2"></span> transcend points.<br>
-Transcend won't reset challenges and The Tower.<br>
+Transcend won't reset equipment levels, challenges and The Tower.<br>
 <a href="javascript:transcend();">Transcend</a><br>
 <br>
 You have <span id="transcend3"></span> Transcend Points, gaining <span id="transcend_eff"></span>x more EXP, equipments and prestige points<br>

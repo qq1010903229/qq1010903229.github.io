@@ -24,6 +24,7 @@
 我除了会唱歌、弹吉他外，我还会跳舞、打音游！<br>
 我已经ALL PERFECT了BanG Dream!所有的官谱，和loader3229制作的大部分自制谱，包括<a href="https://bestdori.com/community/charts/73910">qualia -ideaesthesia- [ANOTHER 35]</a>（Bestdori ID 73910）。<br>
 我现在的年龄是<span id="age">16</span>岁，年级是高二。（年龄显示取决于本地系统时间）<br>
+我已经陪了loader3229 <span id="day"></span>天了。<br>
 <span id="randtext"></span><script>
 function getage(){
 	let y=new Date().getFullYear();
@@ -36,7 +37,13 @@ function getage(){
 		return y-2004+(Date.now()-d1)/(d-d1);
 	}
 }
+function getday(){
+	let d=new Date(2020,3,5).valueOf();
+	return Math.floor((Date.now()-d)/86400000);
+}
 setInterval("document.getElementById('age').innerHTML=getage().toFixed(7);",100);
+setInterval("document.getElementById('day').innerHTML=getday();",100);
+//setInterval("document.getElementById('day2').innerHTML=getday()-97;",100);
 setTimeout("document.getElementById('randtext').innerHTML=['和我一起闪闪发光、心动不已吧！','KiraKira就是KiraKira，而DokiDoki就是DokiDoki！','好想再开一次仓库演出！','我也想像彩学姐一样学会更多的舞蹈动作！','loader3229给我送星星贴纸了！'][Math.floor(Math.random()*5)];",100);
 </script><br>
 <a href="selfintroduction">我的1.0版自我介绍（建议在电脑端查看）</a><br>
@@ -45,7 +52,7 @@ setTimeout("document.getElementById('randtext').innerHTML=['和我一起闪闪�
 <a href="index-v7.html">切换我的版本</a><br>
 <br>
 <hr>
-以下MMD图片或视频使用的香澄模型由タマ制作，与Craft Egg无关<br><br>
+以下MMD图片或视频使用的香澄模型由タマ制作，与Craft Egg无关<!--；以下MMD图片或视频使用的香澄模型已经陪了loader3229 <span id="day2"></span>天。--><br><br>
 <a href="MMDPicM/MMDPicM1.png" target="_blank">看一下loader3229给我拍的照片1（MMD）</a><br>
 <a href="MMDPicM/MMDPicM2.png" target="_blank">看一下loader3229给我拍的照片2（MMD）</a><br>
 <br>

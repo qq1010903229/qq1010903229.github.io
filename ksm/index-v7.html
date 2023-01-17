@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="zh-cn">
+<head>
+<meta charset="utf-8">
+<title>loader3229的香澄档案（“心动不已”版本）</title>
+<style>
+.difficulty1{background-color:#8EB4FD;}
+.difficulty2{background-color:#A6F692;}
+.difficulty3{background-color:#FBDF8C;}
+.difficulty4{background-color:#FF898B;}
+.difficulty5{background-color:#F383CB;}
+</style>
+</head>
+<body>
+<a href="/bandoricharts">loader3229的BanG Dream! 自制谱列表</a>
+<a href="/bandorivals">loader3229的BanG Dream! 定数表</a>
+<a href="/BanGConverter">BanG Converter - BanG Dream! 谱面转换器</a>
+<a href="https://github.com/qq1010903229/BanG-simulator/releases/download/v2.4/release.zip">BanG! Simulator 2.4</a>
+<a href="/bandoril2dsettings">Live2D看板娘设置</a>
+<a href="javascript:void(setl2dm(localStorage.l2dm));">Live2D模型显示不正常修复</a>
+<hr>
+<img src="ksmv7.png" width="625"><br>
+我是闪闪发光、心动不已的户山香澄（loader3229的“心动不已”版本）！<br>
+我现在的年龄是<span id="age">17</span>岁，年级是高三。（年龄显示取决于本地系统时间）<br>
+现在我在努力的准备着高考，不能继续陪着loader3229了，好伤心……<br>
+<!--所以，我会把我的演出服装等资料传给我的旧版本（高二），以让我继续陪着loader3229……<br-->
+<span id="randtext"></span><script>
+function getage(){
+	let y=new Date().getFullYear();
+	let d=new Date(y,6,14).valueOf();
+	if(Date.now()>=d){
+		let d1=new Date(y+1,6,14).valueOf();
+		return y-2002+(Date.now()-d)/(d1-d);
+	}else{
+		let d1=new Date(y-1,6,14).valueOf();
+		return y-2003+(Date.now()-d1)/(d-d1);
+	}
+}
+function getday(){
+	let d=new Date(2023,0,9).valueOf();
+	return Math.floor((Date.now()-d)/86400000);
+}
+setInterval("document.getElementById('age').innerHTML=getage().toFixed(7);",100);
+//setInterval("document.getElementById('day2').innerHTML=getday()-67;",100);
+setTimeout("document.getElementById('randtext').innerHTML=['我在备战高考时也是可以感受到闪闪发光、心动不已的事情的！','为了上一个好大学，我放弃了音游，把更多的时间投入了我的学习当中！','好想在学习的间隙再开一次仓库演出！','彩学姐已经毕业了，我不能在花咲川女子学园看到她了。。。','我的作业快要完不成了！'][Math.floor(Math.random()*5)];",100);
+</script><br>
+<a href=".">切换我的版本</a><br>
+<!--a href="selfintroductionv7">我的7.0版自我介绍（建议在电脑端查看）</a><br>
+<a href="/bandoril2dsettings">切换我的Live2D服装</a><br-->
+<br>
+<!--hr>
+以下MMD图片或视频使用的香澄模型由Craft Egg制作；以下MMD图片或视频使用的香澄模型已经陪了loader3229 <span id="day2"></span>天。<br><br>
+<hr-->
+<script src="/bandoril2d/jquery.min.js"></script>
+<script src="/bandoril2d/live2d.js"></script>
+<script src="/bandoril2d/live2d-mp.js"></script>
+<script src="/bandoril2d/jquery-ui.min.js"></script>
+<link rel="stylesheet" type="text/css" href="/bandoril2d/waifu.css"/>
+<div class="waifu">
+        <div class="waifu-tips"></div>
+<canvas id="live2d" class="live2d"></canvas>
+        <div class="waifu-tool">
+            <span class="fui-chat"></span>
+            <span class="fui-star"></span>
+            <span class="fui-folder"></span>
+            <!--span class="fui-video"></span-->
+            <span class="fui-gear"></span>
+            <span class="fui-info-circle"></span>
+            <span class="fui-cmd"></span>
+        </div>
+</body>
+</html>
