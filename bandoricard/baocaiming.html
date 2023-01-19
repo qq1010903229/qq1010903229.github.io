@@ -8,8 +8,8 @@
 .card{width:120px;height:120px;position:relative;display:inline-block;}
 .card .img1, .card .img2{width:111px;height:111px;position:absolute;background-size:cover !important;left:5px;top:5px;}
 .card .img2{display:none;}
-.card:hover .img1,.card.s .img1{display:none;}
-.card:hover .img2,.card.s .img2{display:initial;}
+.card:hover .img1,.card:focus .img1,.card.s .img1{display:none;}
+.card:hover .img2,.card:focus .img2,.card.s .img2{display:initial;}
 .card .frame{width:120px;height:120px;position:absolute;background-size:cover !important;}
 .card .frame.frame2star{background:url(2-star.png);}
 .card .frame.frame3star{background:url(3-star.png);}
@@ -31,11 +31,12 @@
 .card .star.star-1{top:80%;}
 .card .star.star-2{top:65%;}
 .card .star.star-3{top:50%;}
-.card .star.star-4{top:35%;z-index:1;}
+.card .star.star-4{top:35%;}
+.card .star.star-5{top:20%;z-index:1;opacity:0.5;}
 .card.t .star{background:url(s2.png);}
 .card .l{height:18px;position:absolute;background:rgba(0,0,0,0.5);color:white;right:5px;bottom:5px;font-size:14px;user-select:none;}
-.card .id{height:18px;position:absolute;background:rgba(0,128,255,0.5);color:white;left:5px;top:28px;font-size:14px;user-select:none;}
-.card .sl{height:18px;position:absolute;background:rgba(228,0,70,0.75);color:white;right:5px;bottom:23px;font-size:14px;user-select:none;}
+.card .id{height:18px;position:absolute;background:rgba(0,128,255,0.5);color:white;left:5px;top:5px;font-size:14px;user-select:none;}
+.card .sl{height:18px;position:absolute;background:rgba(228,0,70,0.7);color:white;right:5px;bottom:23px;font-size:14px;user-select:none;}
 </style>
 <script>
 var mirror="https://bestdori.com";
@@ -46,6 +47,12 @@ if(document.location.href.indexOf("mirror=")!=-1){
 	}
 }
 function t(a){
+	if(z.checked)return true;
+	if(a.className.indexOf("s")!=-1)return true;
+	return a.className+=" s",false;
+}
+function t1(a){
+	if(z.checked)return true;
 	if(a.className.indexOf("s")!=-1)return true;
 	return a.className+=" s",false;
 }
@@ -55,20 +62,21 @@ function d(id){
 	while(str.length<5)str="0"+str;
 	return str;
 }
-function card(id,sd,attr,band,l,p,sl){
+function card(id,sd,attr,band,l,p,sl,s,f){
 	ext=(mirror.startsWith("https://bandori.top")?"webp":"png");
 	href=`${mirror}/${mirror.startsWith("https://bandori.top")?"card/cn":"info/cards"}/${id}`;
 	return `
-<a class="card ${l>=50?"t":""}" href="${href}" ontouchend="return t(this);">
+<a class="card ${(l>=50||s)?"t":""} ${(s)?"s":""}" href="${href}" onclick="return t1(this);" ontouchend="return t(this);" target="_blank">
 <div class="img1" style="background:url(${mirror}/assets/jp/thumb/chara/card${d(id)}_rip/res${sd}_normal.${ext})"></div>
 <div class="img2" style="background:url(${mirror}/assets/jp/thumb/chara/card${d(id)}_rip/res${sd}_after_training.${ext})"></div>
 <div class="frame frame4star"></div>
 <div class="attr ${attr}"></div>
-<div class="band ${band}"></div>
+<!--div class="band ${band}"></div-->
 <div class="star star-1"></div>
 <div class="star star-2"></div>
 <div class="star star-3"></div>
 <div class="star star-4"></div>
+${(f)?'<div class="star star-5"></div>':""}
 <div class="sl">${sl}</div>
 <div class="l">L${l}/${p}</div>
 <div class="id">#${id}</div>
@@ -81,34 +89,65 @@ function card(id,sd,attr,band,l,p,sl){
 <h1>loader3229的邦邦报菜名</h1>
 <hr>
 这里列出了我的BanG Dream! 国服所有四星卡。<br>
-电脑端：鼠标移到卡牌上以查看特训后卡面（无论我的卡实际上是否已经特训），点击卡牌查看详细信息<br>
-手机端：点击卡牌以查看特训后卡面（无论我的卡实际上是否已经特训），再次点击卡牌查看详细信息<br>
-所有卡牌均为Bandori Database样式<br>
-当前卡牌图像源：<script>document.write(mirror);</script> <a href="?mirror=https://bestdori.com">切换到bestdori.com</a> <a href="?mirror=https://bestdori.reikohaku.fun">切换到bestdori.reikohaku.fun</a> <a href="?mirror=https://bandori.top">切换到bandori.top</a><hr>
+电脑端：鼠标移到卡牌上以查看特训后卡面（无论我的卡实际上是否已经特训），点击卡牌<span id="y">锁定特训后卡面，再次点击卡牌</span>查看详细信息<br>
+手机端：点击卡牌<span id="y2">以查看并锁定特训后卡面（无论我的卡实际上是否已经特训），再次点击卡牌</span>查看详细信息<br>
+<input type="checkbox" id="z" onclick="y.style.display=y2.style.display=this.checked?'none':'inline';"><label for="z">点击卡牌直接查看详细信息</label><br>
+所有卡牌均为修改过的Bandori Database样式<br>
+当前卡牌图像源：<script>document.write(mirror);</script> <a href="?mirror=https://bestdori.com">切换到bestdori.com</a> <a href="?mirror=https://bestdori.reikohaku.fun">切换到bestdori.reikohaku.fun</a> <!--a href="?mirror=https://bandori.top">切换到bandori.top</a--><hr>
 1.户山香澄<br>
-<script>document.write(card(425,"001023","happy","popipa",60,34086,"110L,SL2"));</script>
-<script>document.write(card(577,"001029","power","popipa",60,34090,"110G,SL1"));</script>
+<script>document.write(card(122,"001007","pure","popipa",25,14371,"40R,SL1"));</script>
+<script>document.write(card(425,"001023","happy","popipa",60,34086,"110L,SL4"));</script>
+<script>document.write(card(457,"001025","cool","popipa",60,32587,"60J,SL1"));</script>
+<script>document.write(card(577,"001029","power","popipa",60,34090,"110G,SL2"));</script>
+<script>document.write(card(1348,"001058","pure","popipa",60,32590,"60J,SL1"));</script>
+<script>document.write(card(1475,"001062","cool","popipa",24,15999,"125P,SL2",1,1));</script>
 <hr>
 2.花园多惠<br>
 <script>document.write(card(430,"002017","pure","popipa",60,32350,"120P,SL2"));</script>
+<script>document.write(card(944,"002036","happy","popipa",60,34150,"125/110P,SL4"));</script>
 <hr>
 3.牛込里美<br>
 <script>document.write(card(426,"003017","happy","popipa",60,34091,"100,SL4"));</script>
+<script>document.write(card(1057,"003038","happy","popipa",1,11031,"60J,SL1"));</script>
 <hr>
 4.山吹沙绫<br>
 <script>document.write(card(171,"004008","happy","popipa",60,32643,"100,SL3"));</script>
-<script>document.write(card(491,"004019","power","popipa",50,21664,"60R,SL1"));</script>
-<script>document.write(card(771,"004031","power","popipa",54,25272,"80/R,SL1"));</script>
-<script>document.write(card(1141,"004039","pure","popipa",1,10181,"115/95G,SL1"));</script>
+<script>document.write(card(286,"004010","cool","popipa",53,24185,"110L,SL1"));</script>
+<script>document.write(card(491,"004019","power","popipa",53,24409,"60R,SL2"));</script>
+<script>document.write(card(771,"004031","power","popipa",60,32590,"80/R,SL1"));</script>
+<script>document.write(card(1141,"004039","pure","popipa",58,29471,"115/95G,SL1"));</script>
 <hr>
 5.市谷有咲<br>
 <script>document.write(card(20,"005004","cool","popipa",60,31152,"40R,SL2"));</script>
-<script>document.write(card(373,"005017","power","popipa",56,27059,"110L,SL1"));</script>
-<script>document.write(card(472,"005024","happy","popipa",60,34087,"100,SL3"));</script>
-<script>document.write(card(1092,"005045","cool","popipa",1,10282,"60J,SL1"));</script>
+<script>document.write(card(373,"005017","power","popipa",60,32289,"110L,SL1"));</script>
+<script>document.write(card(472,"005024","happy","popipa",60,34087,"100,SL4"));</script>
+<script>document.write(card(666,"005032","happy","popipa",1,10930,"110G,SL1"));</script>
+<script>document.write(card(1092,"005045","cool","popipa",58,29746,"60J,SL1"));</script>
+<script>document.write(card(1462,"005057","pure","popipa",53,24183,"115/95G,SL1"));</script>
 <hr>
 6.美竹兰<br>
-<script>document.write(card(1051,"006048","cool","afterglow",60,32285,"115/95G,SL1"));</script>
+<script>document.write(card(1051,"006048","cool","afterglow",60,32285,"115/95G,SL2"));</script>
+<hr>
+7.青叶摩卡<br>
+<script>document.write(card(126,"007005","cool","afterglow",50,22009,"40J,SL3"));</script>
+<script>document.write(card(677,"007028","cool","afterglow",60,32291,"110G,SL3"));</script>
+<script>document.write(card(785,"007030","power","afterglow",51,22973,"60R,SL2"));</script>
+<script>document.write(card(867,"007033","cool","afterglow",1,10282,"60R,SL1"));</script>
+<script>document.write(card(1148,"007040","power","afterglow",52,23468,"125/110P,SL1"));</script>
+<hr>
+8.上原绯玛丽<br>
+<script>document.write(card(405,"008016","happy","afterglow",60,32592,"60R,SL1"));</script>
+<script>document.write(card(728,"008030","cool","afterglow",60,32284,"110G,SL2"));</script>
+<script>document.write(card(1052,"008042","cool","afterglow",1,10181,"100,SL1"));</script>
+<hr>
+9.宇田川巴<br>
+<script>document.write(card(443,"009022","cool","afterglow",17,13236,"60R,SL1"));</script>
+<script>document.write(card(692,"009032","cool","afterglow",60,34150,"120P,SL2"));</script>
+<hr>
+10.羽泽鸫<br>
+<script>document.write(card(558,"010028","cool","afterglow",60,34090,"110L,SL2"));</script>
+<script>document.write(card(760,"010037","cool","afterglow",19,13462,"100,SL1"));</script>
+<script>document.write(card(993,"010042","happy","afterglow",54,25041,"115/95G,SL1"));</script>
 <hr>
 16.丸山彩<br>
 <script>document.write(card(306,"016016","pure","paspale",60,34147,"120P,SL3"));</script>
