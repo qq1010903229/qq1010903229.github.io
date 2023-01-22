@@ -1,6 +1,7 @@
 var exp=967,hp=100,atk=10,def=10,luk=0,points=40,energy=30,progress=0,pp=0,highest_progress=0;
-var tower=0,tp=0;
+var tower=0,tp=0,transcendlv=0;
 var energyc=1;
+var towerc=0;
 var battling=0;
 var eqtab=0;
 var equipments=[[],[],[],[],[],[],[],[],[],[]];
@@ -52,6 +53,7 @@ var equipment_data=[
 [0,11,1e-4],[3,6,3e-5],[0,11,3e-4],[3,6,1e-4],[3,6,3e-4],
 
 [0,0,100],[1,0,100],[0,0,400],[1,0,400],[3,0,1500],
+[0,1,20],[1,1,20],[0,1,60],[1,1,60],[3,10,1e-8],
 ];
 equipment_data.tower=[0,0,0];
 var equipment_data_extra={
@@ -118,6 +120,7 @@ var hpdata=[
 2.0e30,2.0e30,2.0e30,2.0e30,7.0e31/3,
 2.0e31,2.0e31,2.0e31,2.0e31,7.0e32/3,
 5.0e34,2.0e35,6.0e35,1.0e36,7.0e36/3,
+1.5e36,2.0e36,3.0e36,4.0e36,1.0e37,
 ];
 var atkdata=[
 12,25,40,60,75,
@@ -161,6 +164,7 @@ var atkdata=[
 2.0e27,3.0e27,5.0e27,7.0e27,9.0e11,
 3.0e28,5.0e28,7.0e28,1.0e29,9,
 1.2e30,2.5e30,4.0e30,6.0e30,7.5e30,
+5.0e31,7.5e31,1.0e32,1.5e32,2.4e32,
 ];
 var exp_data=[
 10,11,12,13,15,
@@ -204,6 +208,7 @@ var exp_data=[
 16,17,18,19,18,
 19,20,21,22,26,
 30,33,36,39,45,
+45,48,51,54,60,
 ];
 var pu=[];
 function softreset(s){
@@ -249,7 +254,7 @@ function reset(){
 	if(!confirm(i18n.hardreset1()))return;
 	if(!confirm(i18n.hardreset2))return;
 	exp=967,hp=100,atk=10,def=10,luk=0,points=40,energy=30,progress=0,pp=0;
-	tower=0,tp=0;
+	tower=0,tp=0,transcendlv=0;
 	highest_progress=0;pu=[];
 	battling=0;
 	eqtab=0;
@@ -299,47 +304,47 @@ function getpower(){
 	return Math.floor((gethp()*getatk()*getdef())**(1/3)/2*temp2);
 }
 function gettowerpower(){
-	if(tower>=200)return (getehp('tower')*geteatk('tower')*getedef('tower'))**(1/3);
-	if(tower>=90)return (getehp('tower')*geteatk('tower')*getedef('tower'))**(1/3)/1.25;
-	if(tower>=70)return (getehp('tower')*geteatk('tower')*getedef('tower'))**(1/3)/1.5;
+	if((tower+towerc)>=200||transcendlv>=1)return (getehp('tower')*geteatk('tower')*getedef('tower'))**(1/3);
+	if((tower+towerc)>=90)return (getehp('tower')*geteatk('tower')*getedef('tower'))**(1/3)/1.25;
+	if((tower+towerc)>=70)return (getehp('tower')*geteatk('tower')*getedef('tower'))**(1/3)/1.5;
 	return (getehp('tower')*geteatk('tower')*getedef('tower'))**(1/3);
 }
 function getehp(x){
 	if(x=='tower'){
-		if(tower>=250)return Infinity;
-		if(tower>=41)return 5e21*Math.pow(1.15,tower**0.75)*((tower-9)**4);
-		if(tower>=33)return 5e21*Math.pow(1.15,tower**0.75)*((tower-25)**5);
-		if(tower>=17)return 5e21*Math.pow(1.15,tower**0.75)*((tower-1)**3);
-		if(tower>=13)return 5e21*Math.pow(1.15,tower**0.75)*((tower-9)**4);
-		return 5e21*Math.pow(1.15,tower**0.75)*((tower+3)**2);
+		if((tower+towerc)>=320)return Infinity;
+		if((tower+towerc)>=41)return 5e21*Math.pow(1.15,(tower+towerc)**0.75)*(((tower+towerc)-9)**4);
+		if((tower+towerc)>=33)return 5e21*Math.pow(1.15,(tower+towerc)**0.75)*(((tower+towerc)-25)**5);
+		if((tower+towerc)>=17)return 5e21*Math.pow(1.15,(tower+towerc)**0.75)*(((tower+towerc)-1)**3);
+		if((tower+towerc)>=13)return 5e21*Math.pow(1.15,(tower+towerc)**0.75)*(((tower+towerc)-9)**4);
+		return 5e21*Math.pow(1.15,(tower+towerc)**0.75)*(((tower+towerc)+3)**2);
 	}
 	if(x%5==4)return Math.floor(hpdata[x]);
 	return hpdata[x]*rand_2();
 }
 function geteatk(x){
 	if(x=='tower'){
-		if(tower>=200)return 2e11*(tower**7)*Math.pow(1.15,tower**0.75);
-		if(tower>=100&&highest_progress<195)return 3e13*(tower**6)*Math.pow(1.15,tower**0.75);
-		if(tower>=70)return 1e13*(tower**6)*Math.pow(1.15,tower**0.75);
-		if(tower>=50)return 4e14*(tower**5)*Math.pow(1.15,tower**0.75);
-		if(tower>=25)return 2e16*(tower**4)*Math.pow(1.15,tower**0.75);
-		if(tower>=20)return 5e17*(tower**3)*Math.pow(1.15,tower**0.75);
-		if(tower>=10)return 1e19*(tower**2)*Math.pow(1.15,tower**0.75);
-		return 1e21*Math.pow(1.15,tower**0.75);
+		if((tower+towerc)>=200&&transcendlv<1)return 2e11*((tower+towerc)**7)*Math.pow(1.15,(tower+towerc)**0.75);
+		if((tower+towerc)>=100&&highest_progress<195)return 3e13*((tower+towerc)**6)*Math.pow(1.15,(tower+towerc)**0.75);
+		if((tower+towerc)>=70)return 1e13*((tower+towerc)**6)*Math.pow(1.15,(tower+towerc)**0.75);
+		if((tower+towerc)>=50)return 4e14*((tower+towerc)**5)*Math.pow(1.15,(tower+towerc)**0.75);
+		if((tower+towerc)>=25)return 2e16*((tower+towerc)**4)*Math.pow(1.15,(tower+towerc)**0.75);
+		if((tower+towerc)>=20)return 5e17*((tower+towerc)**3)*Math.pow(1.15,(tower+towerc)**0.75);
+		if((tower+towerc)>=10)return 1e19*((tower+towerc)**2)*Math.pow(1.15,(tower+towerc)**0.75);
+		return 1e21*Math.pow(1.15,(tower+towerc)**0.75);
 	}
 	if(x%5==4)return atkdata[x];
 	return atkdata[x]*rand_2();
 }
 function getedef(x){
 	if(x=='tower'){
-		if(tower>=200)return 3e11*(tower**7)*Math.pow(1.15,tower**0.75);
-		if(tower>=100&&highest_progress<195)return 5e13*(tower**6)*Math.pow(1.15,tower**0.75);
-		if(tower>=70)return 2e13*(tower**6)*Math.pow(1.15,tower**0.75);
-		if(tower>=50)return 8e14*(tower**5)*Math.pow(1.15,tower**0.75);
-		if(tower>=25)return 4e16*(tower**4)*Math.pow(1.15,tower**0.75);
-		if(tower>=20)return 1e18*(tower**3)*Math.pow(1.15,tower**0.75);
-		if(tower>=10)return 2e19*(tower**2)*Math.pow(1.15,tower**0.75);
-		return 2e21*Math.pow(1.15,tower**0.75);
+		if((tower+towerc)>=200&&transcendlv<1)return 3e11*((tower+towerc)**7)*Math.pow(1.15,(tower+towerc)**0.75);
+		if((tower+towerc)>=100&&highest_progress<195)return 5e13*((tower+towerc)**6)*Math.pow(1.15,(tower+towerc)**0.75);
+		if((tower+towerc)>=70)return 2e13*((tower+towerc)**6)*Math.pow(1.15,(tower+towerc)**0.75);
+		if((tower+towerc)>=50)return 8e14*((tower+towerc)**5)*Math.pow(1.15,(tower+towerc)**0.75);
+		if((tower+towerc)>=25)return 4e16*((tower+towerc)**4)*Math.pow(1.15,(tower+towerc)**0.75);
+		if((tower+towerc)>=20)return 1e18*((tower+towerc)**3)*Math.pow(1.15,(tower+towerc)**0.75);
+		if((tower+towerc)>=10)return 2e19*((tower+towerc)**2)*Math.pow(1.15,(tower+towerc)**0.75);
+		return 2e21*Math.pow(1.15,(tower+towerc)**0.75);
 	}
 	if(x%5==4)return atkdata[x];
 	return atkdata[x]*rand_2();
@@ -408,7 +413,7 @@ function add(x,y){
 	if(x==4)luk+=y;
 }
 function exportsave(){
-	return btoa(exp+","+hp+","+atk+","+def+","+luk+","+points+","+btoa(JSON.stringify(equipments))+","+energy+","+progress+","+pp+","+highest_progress+","+btoa(JSON.stringify(pu))+","+btoa(JSON.stringify(eqlevels))+","+chall+","+btoa(JSON.stringify(challlvs))+","+tower+","+tp);
+	return btoa(exp+","+hp+","+atk+","+def+","+luk+","+points+","+btoa(JSON.stringify(equipments))+","+energy+","+progress+","+pp+","+highest_progress+","+btoa(JSON.stringify(pu))+","+btoa(JSON.stringify(eqlevels))+","+chall+","+btoa(JSON.stringify(challlvs))+","+tower+","+tp+","+transcendlv);
 }
 function importsave(a){
 	if(!a)return;
@@ -437,6 +442,8 @@ function importsave(a){
 	tower=parseInt(a[15]);
 	if(!a[16])return;
 	tp=parseFloat(a[16]);
+	if(!a[17])return;
+	transcendlv=parseInt(a[17]);
 }
 function load(){
 	if(battling){
@@ -497,7 +504,7 @@ function getpp(){
 	return Math.floor(((pp**1.9)/75+(30+progress+(pu[1]||0)+challeff(2)-energy)/15) * geteqeffs(3,0) * Math.pow(1.01,progress)*geteqeff(4)*challeff(0)*transcend_eff2());
 }
 function gettp(){
-	var tp=Math.pow(Math.log10(pp+getpp()+1)/10,9);
+	var tp=Math.pow(Math.log10(pp+getpp()+1)/10,9)*Math.pow(1.1,transcendlv);
 	return Math.floor(tp);
 }
 function prestige(){
@@ -525,7 +532,7 @@ function energyc_eff(){
 	return energyc**1.2;
 }
 function prestige_cost(x){
-	var pu_max=[13,50,20,30,18,14,7,9,10,9,3];
+	var pu_max=[13,50,20,30,18,14,9,9,10,9,5];
 	if(pu[x] && pu[x]>=pu_max[x])return Infinity;
 	if(x==0){
 		if(pu[x])return Math.floor(Math.pow(10,3+pu[x])/(pu[x]**2+1));else return 1000;
@@ -663,4 +670,11 @@ function challeff(x){
 	if(x==4)return temp**2/100+1;
 	if(x==5)return temp**1.5/100+1;
 	if(x==6)return temp**2/200+1;
+}
+function transcendlvup(){
+	if(transcendlv>=1)return;
+	if(tp>=5*Math.pow(2,transcendlv)){
+		tp-=Math.pow(2,transcendlv);
+		transcendlv++;
+	}
 }

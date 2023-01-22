@@ -194,7 +194,7 @@ function update(){
 		document.getElementById("challtower").style.display="block";
 		document.getElementById("tower_floor").innerHTML=tower;
 		document.getElementById("tower_floor2").innerHTML=tower*1.5;
-		document.getElementById("tower_battle").innerHTML="Start Floor "+(tower+1)+" (Rec. Power: "+format(gettowerpower())+")";
+		document.getElementById("tower_battle").innerHTML="Start Floor "+(tower+1+towerc)+" (Rec. Power: "+format(gettowerpower())+")";
 	}
 	if(highest_progress>=170){
 		document.getElementById("chall6").style.display="block";
@@ -212,6 +212,21 @@ function update(){
 		document.getElementById("transcend_eff").innerHTML=Math.floor(transcend_eff()*100)/100;
 		document.getElementById("transcend_eff2").innerHTML=Math.floor(transcend_eff2()*100)/100;
 	}
+	if(highest_progress>=205){
+		document.getElementById("tab6a").style.display="block";
+		document.getElementById("transcendlv").innerHTML=format(transcendlv);
+		document.getElementById("transcendlv2").innerHTML=format(Math.pow(2,transcendlv)*5);
+		document.getElementById("transcendlv3").innerHTML=format(Math.pow(2,transcendlv));
+		document.getElementById("transcendlv_eff").innerHTML=Math.floor(Math.pow(1.1,transcendlv)*100)/100;
+		document.getElementById("transcendlv_eff2").innerHTML="";
+		if(transcendlv>=1)document.getElementById("transcendlv_eff2").innerHTML+="Level 1: You can skip floor of The Tower. Remove post-200 The Tower enemy power scaling.<br>";
+	}
+	if(transcendlv>=1){
+		document.getElementById("tower_skip").style.display="inline";
+		document.getElementById("towercinput").max=9;
+		towerc=parseInt(document.getElementById("towercinput").value);
+		document.getElementById("towerc_eff").innerHTML="Skip "+towerc+" floors";
+	}else towerc=0;
 }
 function battle(x){
 	if(battling){
@@ -238,6 +253,8 @@ function battle(x){
 	var enemyhp2=enemyhp;
 	var enemyatk=geteatk(x);
 	var enemydef=getedef(x);
+	var temp_towerc=0;
+	if(x=='tower')temp_towerc=towerc;
 	var mult=1;
 	var battle_status={"log":"You encountered an enemy<br>","interval":-1};
 	if(x%5==4)battle_status.log="You encountered a BOSS, BOSS has "+format(enemyhp)+" HP<br>";
@@ -383,7 +400,7 @@ function battle(x){
 				}
 			}
 			if(x!='tower')battle_status.log+="<br><a href=\"javascript:battle("+x+");\">Try again</a>";
-			if(x!='tower')energy-=energyc;else tower++;
+			if(x!='tower')energy-=energyc;else tower+=(1+temp_towerc);
 			battling=0;
 		}else{
 			if((x==59||x==99||x==159||x==199) && damage1==0)battle_status.log+=ename+" evaded, "+ename+" has "+format(enemyhp)+" HP remaining<br>";
@@ -761,9 +778,16 @@ Current Difficulty: Hard<br>
 <a href="javascript:battle(201);">Village 2（Rec. Power: 50Nn）</a>
 <a href="javascript:battle(202);">Village 3（Rec. Power: 100Nn）</a>
 <a href="javascript:battle(203);">Village 4（Rec. Power: 200Nn）</a>
-<a href="javascript:battle(204);">Village BOSS 1</a>
+<a href="javascript:battle(204);">Village BOSS 1（Win to unlock a transcend-related feature!）</a>
 </span><br>
 <span id="b204" style="display:none;">
+<a href="javascript:battle(205);">Village 6（Rec. Power: 700Nn）</a>
+<a href="javascript:battle(206);">Village 7（Rec. Power: 1100Nn）</a>
+<a href="javascript:battle(207);">Village 8（Rec. Power: 1500Nn）</a>
+<a href="javascript:battle(208);">Village 9（Rec. Power: 2200Nn）</a>
+<a href="javascript:battle(209);">Village BOSS 2（Win to unlock a transcend-related feature!）</a>
+</span><br>
+<span id="b209" style="display:none;">
 </span><br>
 </div>
 </div>
@@ -836,7 +860,7 @@ Highest Level: <span id="chall6lv"></span>, Effect: +<span id="chall6eff"></span
 <div id="tab5" style="display:none;">
 Battle in the Tower don't cost any energy. You can't gain EXP and Equipments in the Tower. Progress in the Tower doesn't reset in Prestige.<br>
 Highest Floor: <span id="tower_floor"></span>, Effect: +<span id="tower_floor2"></span>% HP, EXP and PP<br>
-<a href="javascript:battle('tower');" id="tower_battle"></a>
+<a href="javascript:battle('tower');" id="tower_battle"></a><br><span id="tower_skip">Skip floor:<input id="towercinput" type="range" min="0" max="2" step="1" value="0"><span id="towerc_eff"></span></span>
 </div>
 <div id="tab6" style="display:none;">
 Transcend will reset your level, equipments, energy, prestige points and upgrades, but you will gain <span id="transcend2"></span> transcend points.<br>
@@ -844,12 +868,20 @@ Transcend won't reset equipment levels, challenges and The Tower.<br>
 <a href="javascript:transcend();">Transcend</a><br>
 <br>
 You have <span id="transcend3"></span> Transcend Points, gaining <span id="transcend_eff"></span>x more EXP, equipments and gaining <span id="transcend_eff2"></span>x more prestige points<br>
+<div id="tab6a" style="display:none;">
+<hr>
+God Of Transcend's level is <span id="transcendlv"></span>/1, leveling up requires <span id="transcendlv2"></span> TP, costs <span id="transcendlv3"></span> TP.<br>
+God Of Transcend is multiplying your TP gain by <span id="transcendlv_eff"></span>x
+<a href="javascript:transcendlvup();">Level Up God Of Transcend</a><br>
+<br>
+Effects of God Of Transcend: <span id="transcendlv_eff2"></span>
+</div>
 </div>
 <div id="battlelog">
 Welcome to "Lots of Equipments RPG" by loader3229! This is a game similar to Incremental RPG, and enemies in this game can drop lots of equipments at once!<br>
 Also, you don't lose energy when you lose a battle.<br>
-Version: 1.0.3<br>
-Endgame: Reach Floor 250 in the Tower<br>
+Version: 1.1<br>
+Endgame: Reach Floor 320 in the Tower<br>
 The translation to English is not finished.<br>
 </div>
 </body>

@@ -194,7 +194,7 @@ function update(){
 		document.getElementById("challtower").style.display="block";
 		document.getElementById("tower_floor").innerHTML=tower;
 		document.getElementById("tower_floor2").innerHTML=tower*1.5;
-		document.getElementById("tower_battle").innerHTML="挑战第"+(tower+1)+"层（战力"+format(gettowerpower())+"）";
+		document.getElementById("tower_battle").innerHTML="挑战第"+(tower+1+towerc)+"层（战力"+format(gettowerpower())+"）";
 	}
 	if(highest_progress>=170){
 		document.getElementById("chall6").style.display="block";
@@ -212,6 +212,21 @@ function update(){
 		document.getElementById("transcend_eff").innerHTML=Math.floor(transcend_eff()*100)/100;
 		document.getElementById("transcend_eff2").innerHTML=Math.floor(transcend_eff2()*100)/100;
 	}
+	if(highest_progress>=205){
+		document.getElementById("tab6a").style.display="block";
+		document.getElementById("transcendlv").innerHTML=format(transcendlv);
+		document.getElementById("transcendlv2").innerHTML=format(Math.pow(2,transcendlv)*5);
+		document.getElementById("transcendlv3").innerHTML=format(Math.pow(2,transcendlv));
+		document.getElementById("transcendlv_eff").innerHTML=Math.floor(Math.pow(1.1,transcendlv)*100)/100;
+		document.getElementById("transcendlv_eff2").innerHTML="";
+		if(transcendlv>=1)document.getElementById("transcendlv_eff2").innerHTML+="1级：你可以跳层挑战通天塔。取消200层以上的通天塔怪物强度放缩。<br>";
+	}
+	if(transcendlv>=1){
+		document.getElementById("tower_skip").style.display="inline";
+		document.getElementById("towercinput").max=9;
+		towerc=parseInt(document.getElementById("towercinput").value);
+		document.getElementById("towerc_eff").innerHTML="跳过"+towerc+"层";
+	}else towerc=0;
 }
 function battle(x){
 	if(battling){
@@ -238,6 +253,8 @@ function battle(x){
 	var enemyhp2=enemyhp;
 	var enemyatk=geteatk(x);
 	var enemydef=getedef(x);
+	var temp_towerc=0;
+	if(x=='tower')temp_towerc=towerc;
 	var mult=1;
 	var battle_status={"log":"你遇到了怪物<br>","interval":-1};
 	if(x%5==4)battle_status.log="你遇到了BOSS，BOSS有"+format(enemyhp)+"点生命值<br>";
@@ -384,7 +401,7 @@ function battle(x){
 				}
 			}
 			if(x!='tower')battle_status.log+="<br><a href=\"javascript:battle("+x+");\">再次战斗</a>";
-			if(x!='tower')energy-=energyc;else tower++;
+			if(x!='tower')energy-=energyc;else tower+=(1+temp_towerc);
 			battling=0;
 		}else{
 			if((x==59||x==99||x==159||x==199) && damage1==0)battle_status.log+=ename+"闪避，"+ename+"还剩"+format(enemyhp)+"点生命值<br>";
@@ -778,9 +795,16 @@ setInterval(update,20);
 <a href="javascript:battle(201);">新手村2（推荐战力5000穰）</a>
 <a href="javascript:battle(202);">新手村3（推荐战力1沟）</a>
 <a href="javascript:battle(203);">新手村4（推荐战力2沟）</a>
-<a href="javascript:battle(204);">新手村BOSS</a>
+<a href="javascript:battle(204);">新手村BOSS（打败以解锁超越选项卡下的新功能！）</a>
 </span><br>
 <span id="b204" style="display:none;">
+<a href="javascript:battle(205);">新手村外1（推荐战力7沟）</a>
+<a href="javascript:battle(206);">新手村外2（推荐战力11沟）</a>
+<a href="javascript:battle(207);">新手村外3（推荐战力15沟）</a>
+<a href="javascript:battle(208);">新手村外4（推荐战力22沟）</a>
+<a href="javascript:battle(209);">新手村外BOSS</a>
+</span><br>
+<span id="b209" style="display:none;">
 </span><br>
 </div>
 </div>
@@ -853,7 +877,7 @@ setInterval(update,20);
 <div id="tab5" style="display:none;">
 挑战通天塔不消耗能量，不会获得装备和经验值。通天塔的进度在转生时保留。<br>
 最高层数：<span id="tower_floor"></span>，增加<span id="tower_floor2"></span>%的生命值、经验值和转生点<br>
-<a href="javascript:battle('tower');" id="tower_battle"></a>
+<a href="javascript:battle('tower');" id="tower_battle"></a><br><span id="tower_skip">跳层：<input id="towercinput" type="range" min="0" max="2" step="1" value="0"><span id="towerc_eff"></span></span>
 </div>
 <div id="tab6" style="display:none;">
 超越将重置你的等级、属性、装备、能量、转生点和转生相关升级并获得<span id="transcend2"></span>超越点。<br>
@@ -861,12 +885,20 @@ setInterval(update,20);
 <a href="javascript:transcend();">开始超越</a><br>
 <br>
 你有<span id="transcend3"></span>超越点，经验、装备的获得变为原来的<span id="transcend_eff"></span>倍，转生点的获得变为原来的<span id="transcend_eff2"></span>倍<br>
+<div id="tab6a" style="display:none;">
+<hr>
+超越之神的等级为<span id="transcendlv"></span>/1，升级需要你有<span id="transcendlv2"></span>超越点，花费<span id="transcendlv3"></span>超越点。<br>
+超越之神使超越点的获得变为原来的<span id="transcendlv_eff"></span>倍。
+<a href="javascript:transcendlvup();">升级超越之神</a><br>
+<br>
+超越之神的效果：<span id="transcendlv_eff2"></span>
+</div>
 </div>
 <div id="battlelog">
 欢迎进入《装备狂潮》，作者为loader3229！这是一个类似于属性膨胀的游戏，特点是怪物可以直接掉落大量装备！感受爆装备的乐趣吧！<br>
 与大多数通胀类游戏不同，这个游戏内在你被打败时不消耗能量，并且可以多次挑战BOSS。<br>
-版本：1.0.3<br>
-当前版本残局：通天塔到达250层<br>
+版本：1.1<br>
+当前版本残局：通天塔到达320层<br>
 本游戏建议在电脑上游玩（作者懒得写css）
 </div>
 </body>
