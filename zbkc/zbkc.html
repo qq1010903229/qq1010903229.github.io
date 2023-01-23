@@ -220,6 +220,7 @@ function update(){
 		document.getElementById("transcendlv_eff").innerHTML=Math.floor(Math.pow(1.1,transcendlv)*100)/100;
 		document.getElementById("transcendlv_eff2").innerHTML="";
 		if(transcendlv>=1)document.getElementById("transcendlv_eff2").innerHTML+="1级：你可以跳层挑战通天塔。取消200层以上的通天塔怪物强度放缩。<br>";
+		if(transcendlv>=2)document.getElementById("transcendlv_eff2").innerHTML+="2级：挑战2的效果更好。<br>";
 	}
 	if(transcendlv>=1){
 		document.getElementById("tower_skip").style.display="inline";
@@ -329,10 +330,15 @@ function battle(x){
 			else battle_status.log+="你对"+ename+"造成了"+format(damage1)+"点伤害，"+ename+"被击败了<br>";
 			clearInterval(battle_status.interval);
 			var exp_base=Math.pow(enemyatk*enemydef,0.75);
-			if(exp_base>=9e10&&highest_progress>=170)exp_base=((exp_base**1.5)*9e10)**0.4;
+			if(exp_base>=9e10&&highest_progress>=210)exp_base=((exp_base**2)*9e10)**(1/3);
+			else if(exp_base>=9e10&&highest_progress>=170)exp_base=((exp_base**1.5)*9e10)**0.4;
 			else if(exp_base>=9e10)exp_base=(exp_base*9e10)**0.5;
 			if(exp_base>=3e13)exp_base=(exp_base*3e13)**0.5;
-			if(highest_progress>=170&&x<=100){
+			if(highest_progress>=210&&x<=100){
+				exp_base*=(exp_data[x]+120-x);
+			}else if(highest_progress>=210&&x<=200){
+				exp_base*=(exp_data[x]+(200-x)/5);
+			}else if(highest_progress>=170&&x<=100){
 				exp_base*=(exp_data[x]+(100-x)/2);
 			}else if(highest_progress>=140&&x<=100){
 				exp_base*=(exp_data[x]+(100-x)/5);
@@ -374,12 +380,13 @@ function battle(x){
 				if(x==139&&highest_progress<139)battle_status.log+="<br>由于你第一次打败普通沙漠BOSS2，简单难度怪物获得的经验值得到了不同程度的增加。";
 				if(x==149&&highest_progress<149)battle_status.log+="<br>由于你第一次打败普通洞穴BOSS2，转生升级“BOSS额外掉落”的效果增加了，同时徽章的效果增加了。";
 				if(x==159&&highest_progress<159)battle_status.log+="<br>由于你第一次打败普通海洋BOSS2，你得到了1000个永久性的经验宝石（不可用于强化）。";
-				if(x==169&&highest_progress<169)battle_status.log+="<br>由于你第一次打败普通山脉BOSS2，转生升级“多倍能量消耗设定”的效果增加了，同时你得到的经验值提升了。";
+				if(x==169&&highest_progress<169)battle_status.log+="<br>由于你第一次打败普通山脉BOSS2，转生升级“多倍能量消耗设定”的效果增加了，同时你得到的经验值增加了。";
 				if(x==179&&highest_progress<179)battle_status.log+="<br>由于你第一次打败普通天空BOSS2，转生升级“生命加点提升”的效果增加了，同时徽章的效果增加了。";
 				if(x==184&&highest_progress<184)battle_status.log+="<br>由于你第一次打败普通火山BOSS1，转生升级“初始等级提升”的效果在挑战3中生效，同时徽章的效果开始对经验值生效。";
 				if(x==189&&highest_progress<189)battle_status.log+="<br>由于你第一次打败普通火山BOSS2，转生升级“生命值提升”的效果增加了。";
 				if(x==194&&highest_progress<194)battle_status.log+="<br>由于你第一次打败普通城堡BOSS1，你得到了99000个永久性的经验宝石（不可用于强化），且通天塔的怪物强度降低了。";
 				if(x==199&&highest_progress<199)battle_status.log+="<br>由于你第一次打败普通城堡BOSS2，你解锁了超越（一个新的重置层）。";
+				if(x==209&&highest_progress<209)battle_status.log+="<br>由于你第一次打败困难新手村外BOSS，你得到的经验值增加了。";
 				if(pu[4]){
 					var rate2=1-Math.pow(0.85,pu[4]**0.75);
 					if(highest_progress>=150)rate2=1-Math.pow(0.85,pu[4]**0.85);
@@ -805,6 +812,17 @@ setInterval(update,20);
 <a href="javascript:battle(209);">新手村外BOSS</a>
 </span><br>
 <span id="b209" style="display:none;">
+<a href="javascript:battle(210);">草原1（推荐战力400沟）</a>
+<a href="javascript:battle(211);">草原2（推荐战力500沟）</a>
+<a href="javascript:battle(212);">草原3（推荐战力600沟）</a>
+<a href="javascript:battle(213);">草原4（推荐战力800沟）</a>
+<a href="javascript:battle(214);">草原BOSS1</a>
+</span><br>
+<span id="b214" style="display:none;">
+<a href="javascript:battle(215);">草原6（推荐战力3000沟）</a>
+<a href="javascript:battle(216);">草原7（推荐战力4000沟）</a>
+<a href="javascript:battle(217);">草原8（推荐战力5000沟）</a>
+<a href="javascript:battle(218);">草原9（推荐战力6000沟）</a>
 </span><br>
 </div>
 </div>
@@ -887,7 +905,7 @@ setInterval(update,20);
 你有<span id="transcend3"></span>超越点，经验、装备的获得变为原来的<span id="transcend_eff"></span>倍，转生点的获得变为原来的<span id="transcend_eff2"></span>倍<br>
 <div id="tab6a" style="display:none;">
 <hr>
-超越之神的等级为<span id="transcendlv"></span>/1，升级需要你有<span id="transcendlv2"></span>超越点，花费<span id="transcendlv3"></span>超越点。<br>
+超越之神的等级为<span id="transcendlv"></span>/2，升级需要你有<span id="transcendlv2"></span>超越点，花费<span id="transcendlv3"></span>超越点。<br>
 超越之神使超越点的获得变为原来的<span id="transcendlv_eff"></span>倍。
 <a href="javascript:transcendlvup();">升级超越之神</a><br>
 <br>
@@ -897,8 +915,8 @@ setInterval(update,20);
 <div id="battlelog">
 欢迎进入《装备狂潮》，作者为loader3229！这是一个类似于属性膨胀的游戏，特点是怪物可以直接掉落大量装备！感受爆装备的乐趣吧！<br>
 与大多数通胀类游戏不同，这个游戏内在你被打败时不消耗能量，并且可以多次挑战BOSS。<br>
-版本：1.1<br>
-当前版本残局：通天塔到达320层<br>
+版本：1.1.1<br>
+当前版本残局：通天塔到达450层<br>
 本游戏建议在电脑上游玩（作者懒得写css）
 </div>
 </body>

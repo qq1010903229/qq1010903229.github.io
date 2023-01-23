@@ -220,6 +220,7 @@ function update(){
 		document.getElementById("transcendlv_eff").innerHTML=Math.floor(Math.pow(1.1,transcendlv)*100)/100;
 		document.getElementById("transcendlv_eff2").innerHTML="";
 		if(transcendlv>=1)document.getElementById("transcendlv_eff2").innerHTML+="Level 1: You can skip floor of The Tower. Remove post-200 The Tower enemy power scaling.<br>";
+		if(transcendlv>=2)document.getElementById("transcendlv_eff2").innerHTML+="Level 2: Boost Challenge 2 Effect.<br>";
 	}
 	if(transcendlv>=1){
 		document.getElementById("tower_skip").style.display="inline";
@@ -329,10 +330,15 @@ function battle(x){
 			else battle_status.log+="You hit "+ename+" with "+format(damage1)+" damage, you win<br>";
 			clearInterval(battle_status.interval);
 			var exp_base=Math.pow(enemyatk*enemydef,0.75);
-			if(exp_base>=9e10&&highest_progress>=170)exp_base=((exp_base**1.5)*9e10)**0.4;
+			if(exp_base>=9e10&&highest_progress>=210)exp_base=((exp_base**2)*9e10)**(1/3);
+			else if(exp_base>=9e10&&highest_progress>=170)exp_base=((exp_base**1.5)*9e10)**0.4;
 			else if(exp_base>=9e10)exp_base=(exp_base*9e10)**0.5;
 			if(exp_base>=3e13)exp_base=(exp_base*3e13)**0.5;
-			if(highest_progress>=170&&x<=100){
+			if(highest_progress>=210&&x<=100){
+				exp_base*=(exp_data[x]+120-x);
+			}else if(highest_progress>=210&&x<=200){
+				exp_base*=(exp_data[x]+(200-x)/5);
+			}else if(highest_progress>=170&&x<=100){
 				exp_base*=(exp_data[x]+(100-x)/2);
 			}else if(highest_progress>=140&&x<=100){
 				exp_base*=(exp_data[x]+(100-x)/5);
@@ -788,6 +794,17 @@ Current Difficulty: Hard<br>
 <a href="javascript:battle(209);">Village BOSS 2（Win to unlock a transcend-related feature!）</a>
 </span><br>
 <span id="b209" style="display:none;">
+<a href="javascript:battle(110);">Grassland 1（Rec. Power: 40Dc）</a>
+<a href="javascript:battle(111);">Grassland 2（Rec. Power: 50Dc）</a>
+<a href="javascript:battle(112);">Grassland 3（Rec. Power: 60Dc）</a>
+<a href="javascript:battle(113);">Grassland 4（Rec. Power: 80Dc）</a>
+<a href="javascript:battle(114);">Grassland BOSS 1</a>
+</span><br>
+<span id="b214" style="display:none;">
+<a href="javascript:battle(115);">Grassland 1（Rec. Power: 300Dc）</a>
+<a href="javascript:battle(116);">Grassland 2（Rec. Power: 400Dc）</a>
+<a href="javascript:battle(117);">Grassland 3（Rec. Power: 500Dc）</a>
+<a href="javascript:battle(118);">Grassland 4（Rec. Power: 600Dc）</a>
 </span><br>
 </div>
 </div>
@@ -870,7 +887,7 @@ Transcend won't reset equipment levels, challenges and The Tower.<br>
 You have <span id="transcend3"></span> Transcend Points, gaining <span id="transcend_eff"></span>x more EXP, equipments and gaining <span id="transcend_eff2"></span>x more prestige points<br>
 <div id="tab6a" style="display:none;">
 <hr>
-God Of Transcend's level is <span id="transcendlv"></span>/1, leveling up requires <span id="transcendlv2"></span> TP, costs <span id="transcendlv3"></span> TP.<br>
+God Of Transcend's level is <span id="transcendlv"></span>/2, leveling up requires <span id="transcendlv2"></span> TP, costs <span id="transcendlv3"></span> TP.<br>
 God Of Transcend is multiplying your TP gain by <span id="transcendlv_eff"></span>x
 <a href="javascript:transcendlvup();">Level Up God Of Transcend</a><br>
 <br>
@@ -880,8 +897,8 @@ Effects of God Of Transcend: <span id="transcendlv_eff2"></span>
 <div id="battlelog">
 Welcome to "Lots of Equipments RPG" by loader3229! This is a game similar to Incremental RPG, and enemies in this game can drop lots of equipments at once!<br>
 Also, you don't lose energy when you lose a battle.<br>
-Version: 1.1<br>
-Endgame: Reach Floor 320 in the Tower<br>
+Version: 1.1.1<br>
+Endgame: Reach Floor 450 in the Tower<br>
 The translation to English is not finished.<br>
 </div>
 </body>
