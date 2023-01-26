@@ -55,7 +55,9 @@ var equipment_data=[
 [0,0,100],[1,0,100],[0,0,400],[1,0,400],[3,0,1500],
 [0,1,20],[1,1,20],[0,1,60],[1,1,60],[3,10,1e-8],
 [0,3,1],[1,2,10],[0,2,20],[1,2,30],[3,8,1e-3],
-[0,3,3],[1,13,0],[0,4,10],[1,3,3],[3,8,0],
+[0,3,3],[1,13,1e-14],[0,4,10],[1,3,3],[3,11,1e-14],
+[0,13,1e-14],[1,5,1],[0,5,10],[1,5,3],[3,5,1e-3],
+[0,13,1e-13],[1,13,1e-13],[0,6,3],[1,4,20],[3,2,0.02],
 ];
 equipment_data.tower=[0,0,0];
 var equipment_data_extra={
@@ -79,6 +81,28 @@ var equipment_data_extra={
 174:[4,7,1e-6],179:[4,7,1e-6],
 184:[4,8,2e-7],189:[4,8,2e-7],
 194:[4,9,4e-8],199:[4,9,4e-8],
+204:[4,0,1e-2],209:[4,0,1e-2],
+214:[4,1,4e-3],219:[4,1,4e-3],
+224:[4,2,2e-3],229:[4,2,2e-3],
+234:[4,3,1e-3],239:[4,3,1e-3],
+244:[4,4,4e-4],249:[4,4,4e-4],
+254:[4,5,1e-4],259:[4,5,1e-4],
+264:[4,6,4e-5],269:[4,6,4e-5],
+274:[4,7,1e-5],279:[4,7,1e-5],
+284:[4,8,2e-6],289:[4,8,2e-6],
+294:[4,9,4e-7],299:[4,9,4e-7],
+};
+var equipment_data_extra2={
+204:[2,0,3],209:[2,0,3],
+214:[2,1,3],219:[2,1,3],
+224:[2,2,3],229:[2,2,3],
+234:[2,3,3],239:[2,3,3],
+244:[3,9,1e-5],249:[3,9,1e-5],
+254:[2,4,3],259:[2,4,3],
+264:[3,11,1e-12],269:[3,11,1e-12],
+274:[2,5,3],279:[2,5,3],
+284:[2,6,3],289:[2,6,3],
+294:[2,7,3],299:[2,7,3],
 };
 var hpdata=[
 50,200,600,1000,2333,
@@ -125,6 +149,7 @@ var hpdata=[
 1.5e36,2.0e36,3.0e36,4.0e36,1.0e37,
 5.0e37,6.0e37,7.0e37,1.0e38,7.0e38/3,
 1.3e38,1.7e38,2.5e38,3.5e38,1.0e39,
+5.5e39,7.0e39,9.0e39,1.1e40,7.0e40/3,
 ];
 var atkdata=[
 12,25,40,60,75,
@@ -171,6 +196,7 @@ var atkdata=[
 5.0e31,7.5e31,1.0e32,1.5e32,2.4e32,
 3.0e33,4.0e33,5.0e33,6.5e33,8.0e33,
 4.0e34,5.0e34,6.0e34,7.0e34,7.5e34,
+6.0e35,7.2e35,8.0e35,8.8e35,8.8e35,
 ];
 var exp_data=[
 10,11,12,13,15,
@@ -217,6 +243,7 @@ var exp_data=[
 45,48,51,54,60,
 60,60,60,60,60,
 56,55,55,56,60,
+58,56,57,58,60,
 ];
 var pu=[];
 function softreset(s){
@@ -298,7 +325,7 @@ function getatk(){
 	return temp;
 }
 function getdef(){
-	let temp=def*geteqeff(1)*geteqeff(4)*challeff(6);
+	let temp=def*geteqeff(1)*geteqeff(4)*challeff(6)*Math.pow(1.25,(pu[11]||0));
 	if(chall==6)return Math.floor(temp**0.5);
 	return temp;
 }
@@ -319,7 +346,7 @@ function gettowerpower(){
 }
 function getehp(x){
 	if(x=='tower'){
-		if((tower+towerc)>=450)return Infinity;
+		if((tower+towerc)>=600)return Infinity;
 		if((tower+towerc)>=41)return 5e21*Math.pow(1.15,(tower+towerc)**0.75)*(((tower+towerc)-9)**4);
 		if((tower+towerc)>=33)return 5e21*Math.pow(1.15,(tower+towerc)**0.75)*(((tower+towerc)-25)**5);
 		if((tower+towerc)>=17)return 5e21*Math.pow(1.15,(tower+towerc)**0.75)*(((tower+towerc)-1)**3);
@@ -381,9 +408,15 @@ function geteqeffs(x,i){
 		let temp=(equipments[x][i]||0);
 		if(highest_progress>=160)temp+=1000;
 		if(highest_progress>=195)temp+=99000;
+		if(highest_progress>=220)temp+=9900000;
 		return 1+Math.log(1+(temp||0))/10*(1+(eqlevels[x][i]||0)**(eqlevel_exp())/10);
 	}
 	if(x==3&&i==7)return 1+Math.sqrt(Math.log(1+(equipments[x][i]||0))*(1+(eqlevels[x][i]||0)**(eqlevel_exp())/10))/50000;
+	if(x==3&&i==11){
+		let temp=Math.sqrt(Math.log(1+(equipments[x][i]||0))*(1+(eqlevels[x][i]||0)**(eqlevel_exp())/10))/200;
+		if(temp>=0.01)temp=Math.sqrt(temp)/10;
+		return 2-1/(1+temp);
+	}
 	return 1+Math.log(1+(equipments[x][i]||0))/10*(1+(eqlevels[x][i]||0)**(eqlevel_exp())/10);
 }
 function geteqeff(x){
@@ -540,7 +573,7 @@ function energyc_eff(){
 	return energyc**1.2;
 }
 function prestige_cost(x){
-	var pu_max=[13,50,20,30,19,14,9,9,12,9,5];
+	var pu_max=[15,50,20,40,20,15,9,9,12,9,5,1];
 	if(pu[x] && pu[x]>=pu_max[x])return Infinity;
 	if(x==0){
 		if(pu[x])return Math.floor(Math.pow(10,3+pu[x])/(pu[x]**2+1));else return 1000;
@@ -576,6 +609,9 @@ function prestige_cost(x){
 	}
 	if(x==10){
 		if(pu[x])return Math.pow(3,pu[x])*1e11;else return 1e11;
+	}
+	if(x==11){
+		if(pu[x])return Math.pow(2,pu[x])*1e13;else return 1e13;
 	}
 }
 function prestige_up(x){
@@ -686,7 +722,7 @@ function challeff(x){
 	if(x==6)return temp**2/200+1;
 }
 function transcendlvup(){
-	if(transcendlv>=2)return;
+	if(transcendlv>=3)return;
 	if(tp>=5*Math.pow(2,transcendlv)){
 		tp-=Math.pow(2,transcendlv);
 		transcendlv++;

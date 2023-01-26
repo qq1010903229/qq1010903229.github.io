@@ -5,10 +5,10 @@
 <title>Lots of Equipments RPG</title>
 <script>
 var equipment_names=[
-["Dagger","Shortsword","Wooden Sword","Grassland Sword","Iron Sword","Tin Sword","Forest Sword","Copper Sword","Silver Sword","Golden Sword","Firesword","Magical Sword","Trident"],
-["布衣","皮甲","Light Armor","Iron Armor","Tin Armor","Forest Armor","Desert Armor","Copper Armor","Silver Armor","Golden Armor","Feather Armor","Fire Armor","Water Shield"],
+["Dagger","Shortsword","Wooden Sword","Grassland Sword","Iron Sword","Tin Sword","Forest Sword","Copper Sword","Silver Sword","Golden Sword","Firesword","Magical Sword","Trident","Nature Sword"],
+["布衣","皮甲","Light Armor","Iron Armor","Tin Armor","Forest Armor","Desert Armor","Copper Armor","Silver Armor","Golden Armor","Feather Armor","Fire Armor","Water Shield","Nature Shield"],
 ["布鞋","皮鞋","Forest Shoe","Desert Shoe","Ocean Shoe","Sky Shoe","Fire Shoe","Magical Shoe"],
-["Prestige Gem","Life Gem","Critical Gem","Ocean Core","Fire Core","EXP Gem","Magical Core","Lifesteal Gem","Nature Core","Earth Core","Life Crystal"],
+["Prestige Gem","Life Gem","Critical Gem","Ocean Core","Fire Core","EXP Gem","Magical Core","Lifesteal Gem","Nature Core","Earth Core","Life Crystal","Recovery Gem"],
 ["Village Pin","Grassland Pin","Forest Pin","Desert Pin","Cave Pin","Water Pin","Nature Pin","Sky Pin","Fire Pin","Magical Pin"],
 ];
 var i18n={
@@ -66,12 +66,14 @@ function update(){
 			if(eqtab==3&&i==4)eq_log=eq_log+"(+"+format((geteqeffs(3,4)-1)*100)+"% HP)";
 			if(eqtab==3&&i==5&&highest_progress>=160)eq_log=eq_log+"+1000";
 			if(eqtab==3&&i==5&&highest_progress>=195)eq_log=eq_log+"00";
+			if(eqtab==3&&i==5&&highest_progress>=220)eq_log=eq_log+"00";
 			if(eqtab==3&&i==5)eq_log=eq_log+"(+"+format((geteqeffs(3,5)-1)*100)+"% EXP)";
 			if(eqtab==3&&i==6)eq_log=eq_log+"(+"+format((geteqeffs(3,6)-1)*100)+"% HP)";
 			if(eqtab==3&&i==7)eq_log=eq_log+"(+"+((geteqeffs(3,7)-1)*100).toFixed(4)+"% Lifesteal)";
 			if(eqtab==3&&i==8)eq_log=eq_log+"(+"+format((geteqeffs(3,8)-1)*100)+"% HP)";
 			if(eqtab==3&&i==9)eq_log=eq_log+"(+"+format((geteqeffs(3,9)-1)*100)+"% HP)";
 			if(eqtab==3&&i==10)eq_log=eq_log+"(+"+format((geteqeffs(3,10)-1)*100)+"% HP)";
+			if(eqtab==3&&i==11)eq_log=eq_log+"(+"+((geteqeffs(3,11)-1)*100).toFixed(4)+"% HP Recovery)";
 			if(highest_progress>=50){
 				eq_log=eq_log+" <a href=\"javascript:eqlevelup("+eqtab+","+i+");\">Level Up (Cost: "+format(eqlevel_cost(eqtab,i))+" "+equipment_names[eqtab][i]+")</a>";
 			}
@@ -221,6 +223,11 @@ function update(){
 		document.getElementById("transcendlv_eff2").innerHTML="";
 		if(transcendlv>=1)document.getElementById("transcendlv_eff2").innerHTML+="Level 1: You can skip floor of The Tower. Remove post-200 The Tower enemy power scaling.<br>";
 		if(transcendlv>=2)document.getElementById("transcendlv_eff2").innerHTML+="Level 2: Boost Challenge 2 Effect.<br>";
+		if(transcendlv>=3)document.getElementById("transcendlv_eff2").innerHTML+="Level 3: Keep 1 HP when you got fatal damage 1 time per battle.<br>";
+	}
+	if(highest_progress>=225){
+		document.getElementById("pu11").style.display="inline";
+		document.getElementById("pu11").innerHTML="More Defense (Level "+(pu[11]||0)+", Costs "+format(prestige_cost(11))+" PP to Level Up)";
 	}
 	if(transcendlv>=1){
 		document.getElementById("tower_skip").style.display="inline";
@@ -254,6 +261,8 @@ function battle(x){
 	var enemyhp2=enemyhp;
 	var enemyatk=geteatk(x);
 	var enemydef=getedef(x);
+	var keep1hp=0;
+	if(transcendlv>=3)keep1hp=1;
 	var temp_towerc=0;
 	if(x=='tower')temp_towerc=towerc;
 	var mult=1;
@@ -278,7 +287,11 @@ function battle(x){
 	if(chall==5&&x!='tower'){
 		var damage2=Math.floor(1+enemyatk*enemyatk/getdef()*rand_2()*mult);
 		damage2=Math.floor(1+damage2*(Math.log10(damage2)**1.5)*1.5);
-		curhp-=damage2;if(curhp<=0){
+		curhp-=damage2;if(curhp<=0&&keep1hp>0){
+				battle_status.log+=ename+" hits you with "+format(damage2)+" damage, but you kept 1 HP when "+ename+" hits you ("+(keep1hp-1)+"times remaining)<br>";
+				curhp=1;
+				keep1hp--;
+			}else if(curhp<=0){
 			clearInterval(battle_status.interval);
 			battle_status.log+=ename+" hits you with "+format(damage2)+" damage, you lose<br><a href=\"javascript:battle("+x+");\">Try again</a>";
 			battling=0;
@@ -289,6 +302,10 @@ function battle(x){
 		document.getElementById("tab0").style.display="none";
 		document.getElementById("tab1").style.display="none";
 		document.getElementById("battlelog").style.display="block";
+		let liferecovery=gethp()*(geteqeffs(3,11)-1);
+		if(liferecovery>gethp()-curhp)liferecovery=gethp()-curhp;
+		curhp+=liferecovery;
+		if(liferecovery>0)battle_status.log+="You recovered "+format(liferecovery)+" HP, you have "+format(curhp)+" HP remaining<br>";
 		var damage1=Math.floor(1+getatk()*getatk()/enemydef*rand_2()*mult);
 		var damage2=Math.floor(1+enemyatk*enemyatk/getdef()*rand_2()*mult);
 		if(chall==5&&x!='tower')damage2=Math.floor(1+damage2*(Math.log10(damage2)**1.5));
@@ -330,11 +347,16 @@ function battle(x){
 			else battle_status.log+="You hit "+ename+" with "+format(damage1)+" damage, you win<br>";
 			clearInterval(battle_status.interval);
 			var exp_base=Math.pow(enemyatk*enemydef,0.75);
-			if(exp_base>=9e10&&highest_progress>=210)exp_base=((exp_base**2)*9e10)**(1/3);
+			if(exp_base>=9e10&&highest_progress>=225)exp_base=((exp_base**(7/3))*9e10)**(3/10);
+			else if(exp_base>=9e10&&highest_progress>=210)exp_base=((exp_base**2)*9e10)**(1/3);
 			else if(exp_base>=9e10&&highest_progress>=170)exp_base=((exp_base**1.5)*9e10)**0.4;
 			else if(exp_base>=9e10)exp_base=(exp_base*9e10)**0.5;
 			if(exp_base>=3e13)exp_base=(exp_base*3e13)**0.5;
-			if(highest_progress>=210&&x<=100){
+			if(highest_progress>=225&&x<=100){
+				exp_base*=(exp_data[x]+125-x);
+			}else if(highest_progress>=225&&x<=200){
+				exp_base*=(exp_data[x]+(200-x)/4);
+			}else if(highest_progress>=210&&x<=100){
 				exp_base*=(exp_data[x]+120-x);
 			}else if(highest_progress>=210&&x<=200){
 				exp_base*=(exp_data[x]+(200-x)/5);
@@ -424,7 +446,11 @@ function battle(x){
 			}
 			if(x==74||x==174)damage2=Infinity;
 			curhp-=damage2;
-			if(curhp<=0){
+			if(curhp<=0&&keep1hp>0){
+				battle_status.log+=ename+" hits you with "+format(damage2)+" damage, but you kept 1 HP when "+ename+" hits you ("+(keep1hp-1)+"times remaining)<br>";
+				curhp=1;
+				keep1hp--;
+			}else if(curhp<=0){
 				clearInterval(battle_status.interval);
 				if(x!='tower')battle_status.log+=ename+" hits you with "+format(damage2)+" damage, you lose<br><a href=\"javascript:battle("+x+");\">Try again</a>";
 				else battle_status.log+=ename+" hits you with "+format(damage2)+" damage, you lose";
@@ -791,20 +817,40 @@ Current Difficulty: Hard<br>
 <a href="javascript:battle(206);">Village 7（Rec. Power: 1100Nn）</a>
 <a href="javascript:battle(207);">Village 8（Rec. Power: 1500Nn）</a>
 <a href="javascript:battle(208);">Village 9（Rec. Power: 2200Nn）</a>
-<a href="javascript:battle(209);">Village BOSS 2（Win to unlock a transcend-related feature!）</a>
+<a href="javascript:battle(209);">Village BOSS 2</a>
 </span><br>
 <span id="b209" style="display:none;">
-<a href="javascript:battle(110);">Grassland 1（Rec. Power: 40Dc）</a>
-<a href="javascript:battle(111);">Grassland 2（Rec. Power: 50Dc）</a>
-<a href="javascript:battle(112);">Grassland 3（Rec. Power: 60Dc）</a>
-<a href="javascript:battle(113);">Grassland 4（Rec. Power: 80Dc）</a>
-<a href="javascript:battle(114);">Grassland BOSS 1</a>
+<a href="javascript:battle(210);">Grassland 1（Rec. Power: 40Dc）</a>
+<a href="javascript:battle(211);">Grassland 2（Rec. Power: 50Dc）</a>
+<a href="javascript:battle(212);">Grassland 3（Rec. Power: 60Dc）</a>
+<a href="javascript:battle(213);">Grassland 4（Rec. Power: 80Dc）</a>
+<a href="javascript:battle(214);">Grassland BOSS 1</a>
 </span><br>
 <span id="b214" style="display:none;">
-<a href="javascript:battle(115);">Grassland 1（Rec. Power: 300Dc）</a>
-<a href="javascript:battle(116);">Grassland 2（Rec. Power: 400Dc）</a>
-<a href="javascript:battle(117);">Grassland 3（Rec. Power: 500Dc）</a>
-<a href="javascript:battle(118);">Grassland 4（Rec. Power: 600Dc）</a>
+<a href="javascript:battle(215);">Grassland 1（Rec. Power: 300Dc）</a>
+<a href="javascript:battle(216);">Grassland 2（Rec. Power: 400Dc）</a>
+<a href="javascript:battle(217);">Grassland 3（Rec. Power: 500Dc）</a>
+<a href="javascript:battle(218);">Grassland 4（Rec. Power: 600Dc）</a>
+<a href="javascript:battle(219);">Grassland BOSS 2</a>
+</span><br>
+<span id="b219" style="display:none;">
+<a href="javascript:battle(220);">Forest 1（Rec. Power: 6UDc）</a>
+<a href="javascript:battle(221);">Forest 2（Rec. Power: 7UDc）</a>
+<a href="javascript:battle(222);">Forest 3（Rec. Power: 8UDc）</a>
+<a href="javascript:battle(223);">Forest 4（Rec. Power: 10UDc）</a>
+<a href="javascript:battle(224);">Forest BOSS 1（Win to unlock a new prestige upgrade!）</a>
+</span><br>
+<span id="b224" style="display:none;">
+</span><br>
+<span id="b229" style="display:none;">
+</span><br>
+<span id="b234" style="display:none;">
+</span><br>
+<span id="b239" style="display:none;">
+</span><br>
+<span id="b244" style="display:none;">
+</span><br>
+<span id="b249" style="display:none;">
 </span><br>
 </div>
 </div>
@@ -835,6 +881,7 @@ You have <span id="prestige3"></span> Prestige Points, gaining <span id="prestig
 <a id="pu8" href="javascript:prestige_up(8);" style="display:none;"></a><br>
 <a id="pu9" href="javascript:prestige_up(9);" style="display:none;"></a><br>
 <a id="pu10" href="javascript:prestige_up(10);" style="display:none;"></a><br>
+<a id="pu11" href="javascript:prestige_up(11);" style="display:none;"></a><br>
 </div>
 <div id="tab4" style="display:none;">
 <div id="challtower" style="display:none;">The effect of Challenge 5 won't apply in the Tower.</div>
@@ -887,7 +934,7 @@ Transcend won't reset equipment levels, challenges and The Tower.<br>
 You have <span id="transcend3"></span> Transcend Points, gaining <span id="transcend_eff"></span>x more EXP, equipments and gaining <span id="transcend_eff2"></span>x more prestige points<br>
 <div id="tab6a" style="display:none;">
 <hr>
-God Of Transcend's level is <span id="transcendlv"></span>/2, leveling up requires <span id="transcendlv2"></span> TP, costs <span id="transcendlv3"></span> TP.<br>
+God Of Transcend's level is <span id="transcendlv"></span>/3, leveling up requires <span id="transcendlv2"></span> TP, costs <span id="transcendlv3"></span> TP.<br>
 God Of Transcend is multiplying your TP gain by <span id="transcendlv_eff"></span>x
 <a href="javascript:transcendlvup();">Level Up God Of Transcend</a><br>
 <br>
@@ -897,8 +944,8 @@ Effects of God Of Transcend: <span id="transcendlv_eff2"></span>
 <div id="battlelog">
 Welcome to "Lots of Equipments RPG" by loader3229! This is a game similar to Incremental RPG, and enemies in this game can drop lots of equipments at once!<br>
 Also, you don't lose energy when you lose a battle.<br>
-Version: 1.1.1<br>
-Endgame: Reach Floor 450 in the Tower<br>
+Version: 1.1.2<br>
+Endgame: Reach Floor 600 in the Tower<br>
 The translation to English is not finished.<br>
 </div>
 </body>
