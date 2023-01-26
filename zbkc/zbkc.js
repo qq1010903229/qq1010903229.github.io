@@ -662,6 +662,9 @@ function prestige_up(x){
 	if(x==10){
 		if(pu[10])pu[10]++;else pu[10]=1;
 	}
+	if(x==11){
+		if(pu[11])pu[11]++;else pu[11]=1;
+	}
 }
 function eqlevel_cost(x,i){
 	return Math.pow(10,(eqlevels[x][i]||0));
