@@ -346,7 +346,7 @@ function gettowerpower(){
 }
 function getehp(x){
 	if(x=='tower'){
-		if((tower+towerc)>=600)return Infinity;
+		if((tower+towerc)>=700)return Infinity;
 		if((tower+towerc)>=41)return 5e21*Math.pow(1.15,(tower+towerc)**0.75)*(((tower+towerc)-9)**4);
 		if((tower+towerc)>=33)return 5e21*Math.pow(1.15,(tower+towerc)**0.75)*(((tower+towerc)-25)**5);
 		if((tower+towerc)>=17)return 5e21*Math.pow(1.15,(tower+towerc)**0.75)*(((tower+towerc)-1)**3);
@@ -573,7 +573,7 @@ function energyc_eff(){
 	return energyc**1.2;
 }
 function prestige_cost(x){
-	var pu_max=[15,50,20,40,20,15,9,9,12,9,5,1];
+	var pu_max=[15,50,20,40,21,15,9,9,12,9,6,2];
 	if(pu[x] && pu[x]>=pu_max[x])return Infinity;
 	if(x==0){
 		if(pu[x])return Math.floor(Math.pow(10,3+pu[x])/(pu[x]**2+1));else return 1000;
@@ -611,7 +611,7 @@ function prestige_cost(x){
 		if(pu[x])return Math.pow(3,pu[x])*1e11;else return 1e11;
 	}
 	if(x==11){
-		if(pu[x])return Math.pow(2,pu[x])*1e13;else return 1e13;
+		if(pu[x])return Math.pow(3,pu[x])*1e13;else return 1e13;
 	}
 }
 function prestige_up(x){
