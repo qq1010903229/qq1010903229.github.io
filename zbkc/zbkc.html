@@ -223,7 +223,10 @@ function update(){
 		document.getElementById("transcendlv_eff2").innerHTML="";
 		if(transcendlv>=1)document.getElementById("transcendlv_eff2").innerHTML+="1级：你可以跳层挑战通天塔。取消200层以上的通天塔怪物强度放缩。<br>";
 		if(transcendlv>=2)document.getElementById("transcendlv_eff2").innerHTML+="2级：挑战2的效果更好。<br>";
-		if(transcendlv>=3)document.getElementById("transcendlv_eff2").innerHTML+="3级：在你受到致命伤害之后，以1点生命值复活，1场战斗最多1次。<br>";
+		if(transcendlv>=4){
+			document.getElementById("transcendlv_eff2").innerHTML+="3级：在你受到致命伤害之后，以1点生命值复活，1场战斗最多"+tlv3eff()+"次。<br>";
+			document.getElementById("transcendlv_eff2").innerHTML+="4级：转生或超越后你直接解锁普通难度的所有战斗区域。（挑战2中无效）<br>";
+		}else if(transcendlv>=3)document.getElementById("transcendlv_eff2").innerHTML+="3级：在你受到致命伤害之后，以1点生命值复活，1场战斗最多1次。<br>";
 	}
 	if(highest_progress>=225){
 		document.getElementById("pu11").style.display="inline";
@@ -262,7 +265,7 @@ function battle(x){
 	var enemyatk=geteatk(x);
 	var enemydef=getedef(x);
 	var keep1hp=0;
-	if(transcendlv>=3)keep1hp=1;
+	if(transcendlv>=3)keep1hp=tlv3eff();
 	var temp_towerc=0;
 	if(x=='tower')temp_towerc=towerc;
 	var mult=1;
@@ -347,12 +350,17 @@ function battle(x){
 			else battle_status.log+="你对"+ename+"造成了"+format(damage1)+"点伤害，"+ename+"被击败了<br>";
 			clearInterval(battle_status.interval);
 			var exp_base=Math.pow(enemyatk*enemydef,0.75);
-			if(exp_base>=9e10&&highest_progress>=225)exp_base=((exp_base**(7/3))*9e10)**(3/10);
-			else if(exp_base>=9e10&&highest_progress>=210)exp_base=((exp_base**2)*9e10)**(1/3);
-			else if(exp_base>=9e10&&highest_progress>=170)exp_base=((exp_base**1.5)*9e10)**0.4;
-			else if(exp_base>=9e10)exp_base=(exp_base*9e10)**0.5;
-			if(exp_base>=3e13)exp_base=(exp_base*3e13)**0.5;
-			if(highest_progress>=225&&x<=100){
+			if(exp_base>=9e10&&highest_progress>=230)exp_base=(exp_base**0.75)*(9e10**0.25);
+			else if(exp_base>=9e10&&highest_progress>=225)exp_base=(exp_base**0.7)*(9e10**0.3);
+			else if(exp_base>=9e10&&highest_progress>=210)exp_base=(exp_base**0.666)*(9e10**0.334);
+			else if(exp_base>=9e10&&highest_progress>=170)exp_base=(exp_base**0.6)*(9e10**0.4);
+			else if(exp_base>=9e10)exp_base=(exp_base**0.5)*(9e10**0.5);
+			if(exp_base>=3e13)exp_base=(exp_base**0.5)*(3e13**0.5);
+			if(highest_progress>=230&&x<=100){
+				exp_base*=(exp_data[x]+150-x);
+			}else if(highest_progress>=230&&x<=200){
+				exp_base*=(exp_data[x]+(200-x)/2);
+			}else if(highest_progress>=225&&x<=100){
 				exp_base*=(exp_data[x]+125-x);
 			}else if(highest_progress>=225&&x<=200){
 				exp_base*=(exp_data[x]+(200-x)/4);
@@ -411,6 +419,7 @@ function battle(x){
 				if(x==209&&highest_progress<209)battle_status.log+="<br>由于你第一次打败困难新手村外BOSS，你得到的经验值增加了。";
 				if(x==219&&highest_progress<219)battle_status.log+="<br>由于你第一次打败困难草原BOSS2，你得到了9900000个永久性的经验宝石（不可用于强化）。";
 				if(x==224&&highest_progress<224)battle_status.log+="<br>由于你第一次打败困难森林BOSS1，你得到的经验值增加了。";
+				if(x==229&&highest_progress<229)battle_status.log+="<br>由于你第一次打败困难森林BOSS2，你得到的经验值增加了。";
 				if(pu[4]){
 					var rate2=1-Math.pow(0.85,pu[4]**0.75);
 					if(highest_progress>=150)rate2=1-Math.pow(0.85,pu[4]**0.85);
@@ -512,7 +521,7 @@ function formats(x){
 	return Math.floor(x);
 }
 </script>
-<script src="zbkc.js?1.1.2a"></script>
+<script src="zbkc.js?1.1.3"></script>
 <script>
 importsave(localStorage.zbkc);
 setInterval(update,20);
@@ -861,8 +870,18 @@ setInterval(update,20);
 <a href="javascript:battle(224);">森林BOSS1（打败以解锁新的转生升级！）</a>
 </span><br>
 <span id="b224" style="display:none;">
+<a href="javascript:battle(225);">森林6（推荐战力400涧）</a>
+<a href="javascript:battle(226);">森林7（推荐战力500涧）</a>
+<a href="javascript:battle(227);">森林8（推荐战力600涧）</a>
+<a href="javascript:battle(228);">森林9（推荐战力800涧）</a>
+<a href="javascript:battle(229);">森林BOSS2</a>
 </span><br>
 <span id="b229" style="display:none;">
+<a href="javascript:battle(230);">沙漠1（推荐战力2正）</a>
+<a href="javascript:battle(231);">沙漠2（推荐战力3正）</a>
+<a href="javascript:battle(232);">沙漠3（推荐战力5正）</a>
+<a href="javascript:battle(233);">沙漠4（推荐战力7正）</a>
+<a href="javascript:battle(234);">沙漠BOSS1</a>
 </span><br>
 <span id="b234" style="display:none;">
 </span><br>
@@ -954,7 +973,7 @@ setInterval(update,20);
 你有<span id="transcend3"></span>超越点，经验、装备的获得变为原来的<span id="transcend_eff"></span>倍，转生点的获得变为原来的<span id="transcend_eff2"></span>倍<br>
 <div id="tab6a" style="display:none;">
 <hr>
-超越之神的等级为<span id="transcendlv"></span>/3，升级需要你有<span id="transcendlv2"></span>超越点，花费<span id="transcendlv3"></span>超越点。<br>
+超越之神的等级为<span id="transcendlv"></span>/4，升级需要你有<span id="transcendlv2"></span>超越点，花费<span id="transcendlv3"></span>超越点。<br>
 超越之神使超越点的获得变为原来的<span id="transcendlv_eff"></span>倍。
 <a href="javascript:transcendlvup();">升级超越之神</a><br>
 <br>
@@ -964,8 +983,8 @@ setInterval(update,20);
 <div id="battlelog">
 欢迎进入《装备狂潮》，作者为loader3229！这是一个类似于属性膨胀的游戏，特点是怪物可以直接掉落大量装备！感受爆装备的乐趣吧！<br>
 与大多数通胀类游戏不同，这个游戏内在你被打败时不消耗能量，并且可以多次挑战BOSS。<br>
-版本：1.1.2a<br>
-当前版本残局：通天塔到达700层<br>
+版本：1.1.3<br>
+当前版本残局：通天塔到达888层<br>
 本游戏建议在电脑上游玩（作者懒得写css）
 </div>
 </body>

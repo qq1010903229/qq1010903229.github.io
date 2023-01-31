@@ -58,6 +58,7 @@ var equipment_data=[
 [0,3,3],[1,13,1e-14],[0,4,10],[1,3,3],[3,11,1e-14],
 [0,13,1e-14],[1,5,1],[0,5,10],[1,5,3],[3,5,1e-3],
 [0,13,1e-13],[1,13,1e-13],[0,6,3],[1,4,20],[3,2,0.02],
+[0,7,5],[1,6,1],[0,7,10],[1,6,3],[3,7,1e-4],
 ];
 equipment_data.tower=[0,0,0];
 var equipment_data_extra={
@@ -150,6 +151,8 @@ var hpdata=[
 5.0e37,6.0e37,7.0e37,1.0e38,7.0e38/3,
 1.3e38,1.7e38,2.5e38,3.5e38,1.0e39,
 5.5e39,7.0e39,9.0e39,1.1e40,7.0e40/3,
+1.6e41,2.0e41,3.5e41,6.0e41,1.0e42,
+2.0e43,4.0e43,6.0e43,8.0e43,1.0e44,
 ];
 var atkdata=[
 12,25,40,60,75,
@@ -197,6 +200,8 @@ var atkdata=[
 3.0e33,4.0e33,5.0e33,6.5e33,8.0e33,
 4.0e34,5.0e34,6.0e34,7.0e34,7.5e34,
 6.0e35,7.2e35,8.0e35,8.8e35,8.8e35,
+5.0e37,6.0e37,7.0e37,7.5e37,8.0e37,
+1.0e39,2.0e39,4.0e39,7.0e39,1.0e40,
 ];
 var exp_data=[
 10,11,12,13,15,
@@ -244,6 +249,8 @@ var exp_data=[
 60,60,60,60,60,
 56,55,55,56,60,
 58,56,57,58,60,
+44,40,39,43,48,
+40,40,40,40,40,
 ];
 var pu=[];
 function softreset(s){
@@ -271,6 +278,10 @@ function softreset(s){
 	for(var i=4;i<highest_progress;i+=5)document.getElementById("b"+i).style.display="none";
 	if(highest_progress>=100 && chall!=2){
 		progress=100;
+		energy+=60;
+	}
+	if(transcendlv>=4 && chall!=2){
+		progress=200;
 		energy+=60;
 	}
 	if(chall==2){
@@ -346,7 +357,7 @@ function gettowerpower(){
 }
 function getehp(x){
 	if(x=='tower'){
-		if((tower+towerc)>=700)return Infinity;
+		if((tower+towerc)>=888)return Infinity;
 		if((tower+towerc)>=41)return 5e21*Math.pow(1.15,(tower+towerc)**0.75)*(((tower+towerc)-9)**4);
 		if((tower+towerc)>=33)return 5e21*Math.pow(1.15,(tower+towerc)**0.75)*(((tower+towerc)-25)**5);
 		if((tower+towerc)>=17)return 5e21*Math.pow(1.15,(tower+towerc)**0.75)*(((tower+towerc)-1)**3);
@@ -534,11 +545,12 @@ function setdiff(x){
 function getpp(){
 	var pp=0;
 	for(var j=0;j<4;j++)for(var i=0;i<equipment_names[j].length;i++){
-		if((equipments[j][i]||0)>0)pp=pp+Math.log(1+(equipments[j][i]||0))*(1+(eqlevels[j][i]||0)/Math.max(20-(pu[5]||0),11));
+		if((equipments[j][i]||0)>0)pp=pp+(Math.log(1+(equipments[j][i]||0))*(1+(eqlevels[j][i]||0)/Math.max(20-(pu[5]||0),11)));
 	}
 	pp=pp*Math.log10(getlv().lv);
 	if(chall==2&&highest_progress>=150)return Math.floor(((pp**1.9)/75) * geteqeffs(3,0) * Math.pow(1.01,progress)*geteqeff(4)*challeff(0)*(1+tower*1.5/100)*transcend_eff2());
 	if(chall==2)return Math.floor(((pp**1.9)/75) * geteqeffs(3,0) * Math.pow(1.01,progress)*geteqeff(4)*challeff(0)*transcend_eff2());
+	if(transcendlv>=4)return Math.floor(((pp**1.9)/75+(progress+(pu[1]||0)*2+challeff(2)-energy-50)/15) * geteqeffs(3,0) * Math.pow(1.01,progress)*geteqeff(4)*challeff(0)*(1+tower*1.5/100)*transcend_eff2());
 	if(highest_progress>=150)return Math.floor(((pp**1.9)/75+(progress+(pu[1]||0)*2+challeff(2)-energy-10)/15) * geteqeffs(3,0) * Math.pow(1.01,progress)*geteqeff(4)*challeff(0)*(1+tower*1.5/100)*transcend_eff2());
 	if(highest_progress>=120)return Math.floor(((pp**1.9)/75+(progress+(pu[1]||0)*2+challeff(2)-energy-10)/15) * geteqeffs(3,0) * Math.pow(1.01,progress)*geteqeff(4)*challeff(0)*transcend_eff2());
 	if(highest_progress>=100)return Math.floor(((pp**1.9)/75+(progress+(pu[1]||0)+challeff(2)-energy-10)/15) * geteqeffs(3,0) * Math.pow(1.01,progress)*geteqeff(4)*challeff(0)*transcend_eff2());
@@ -573,7 +585,7 @@ function energyc_eff(){
 	return energyc**1.2;
 }
 function prestige_cost(x){
-	var pu_max=[15,50,20,40,21,15,9,9,12,9,6,2];
+	var pu_max=[15,50,20,40,20,15,10,10,15,10,10,2];
 	if(pu[x] && pu[x]>=pu_max[x])return Infinity;
 	if(x==0){
 		if(pu[x])return Math.floor(Math.pow(10,3+pu[x])/(pu[x]**2+1));else return 1000;
@@ -687,6 +699,10 @@ function startchall(x){
 			progress=100;
 			energy+=60;
 		}
+		if(transcendlv>=4 && chall!=2){
+			progress=200;
+			energy+=60;
+		}
 		if(pu[0]&&highest_progress>=185){
 			var level1=getlv().lv;
 			exp+=1000*((Math.pow(4,pu[0])-1)*(3+(pu[0]**pu[0])*2));
@@ -720,14 +736,27 @@ function challeff(x){
 		if(temp>=3)return temp**6/1350+1;
 		return temp**3/50+1;
 	}
-	if(x==4)return temp**2/100+1;
-	if(x==5)return temp**1.5/100+1;
-	if(x==6)return temp**2/200+1;
+	if(x==4){
+		if(temp>=10)return temp**3/1000+1;
+		return temp**2/100+1;
+	}
+	if(x==5){
+		if(temp**1.5>=50)return temp**3/5000+1;
+		return temp**1.5/100+1;
+	}
+	if(x==6){
+		if(temp>=10)return temp**3/2000+1;
+		return temp**2/200+1;
+	}
 }
 function transcendlvup(){
-	if(transcendlv>=3)return;
+	if(transcendlv>=4)return;
 	if(tp>=5*Math.pow(2,transcendlv)){
 		tp-=Math.pow(2,transcendlv);
 		transcendlv++;
 	}
+}
+function tlv3eff(){
+	if(transcendlv>=4)return 2;
+	return 1;
 }
