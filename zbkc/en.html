@@ -221,12 +221,24 @@ function update(){
 		document.getElementById("transcendlv3").innerHTML=format(Math.pow(2,transcendlv));
 		document.getElementById("transcendlv_eff").innerHTML=Math.floor(Math.pow(1.1,transcendlv)*100)/100;
 		document.getElementById("transcendlv_eff2").innerHTML="";
-		if(transcendlv>=1)document.getElementById("transcendlv_eff2").innerHTML+="Level 1: You can skip floor of The Tower. Remove post-200 The Tower enemy power scaling.<br>";
+		if(transcendlv>=1)document.getElementById("transcendlv_eff2").innerHTML+="Level 1: You can skip floor of The Tower. Remove post-"+(transcendlv>=5?70:200)+" The Tower enemy power scaling.<br>";
 		if(transcendlv>=2)document.getElementById("transcendlv_eff2").innerHTML+="Level 2: Boost Challenge 2 Effect.<br>";
 		if(transcendlv>=4){
 			document.getElementById("transcendlv_eff2").innerHTML+="Level 3: Keep 1 HP when you got fatal damage "+tlv3eff()+" times per battle.<br>";
 			document.getElementById("transcendlv_eff2").innerHTML+="Level 4: You permanently unlock all battle areas in the Normal difficulty unless you're in Challenge 2.<br>";
 		}else if(transcendlv>=3)document.getElementById("transcendlv_eff2").innerHTML+="Level 3: Keep 1 HP when you got fatal damage 1 time per battle.<br>";
+		if(transcendlv>=5){
+			document.getElementById("transcendlv_eff2").innerHTML+="Level 5: You can gain highest levels in challenges 0,1,5 at any time.";
+			if(!challlvs[0] || challlvs[0]<getlv().lv){
+				challlvs[0]=getlv().lv;
+			}
+			if(!challlvs[1] || challlvs[1]<getlv().lv){
+				challlvs[1]=getlv().lv;
+			}
+			if(!challlvs[5] || challlvs[5]<getlv().lv){
+				challlvs[5]=getlv().lv;
+			}
+		}
 	}
 	if(highest_progress>=225){
 		document.getElementById("pu11").style.display="inline";
@@ -400,21 +412,6 @@ function battle(x){
 					if(chall==2)energy-=2;
 					progress+=5;
 				}
-				/*if(x==69&&highest_progress<69)battle_status.log+="<br>You defeated Mountain BOSS 2 for the first time!，转生升级“生命值提升”的效果增加了，同时徽章的效果增加了。";
-				if(x==79&&highest_progress<79)battle_status.log+="<br>You defeated Sky BOSS 2 for the first time!，转生升级“生命加点提升”的效果增加了。";
-				if(x==89&&highest_progress<89)battle_status.log+="<br>You defeated Volcano BOSS 2 for the first time!，转生升级“生命加点提升”的效果增加了，同时徽章的效果增加了。";
-				if(x==99&&highest_progress<99)battle_status.log+="<br>You defeated Castle BOSS 2 for the first time!，转生升级“生命值提升”的效果增加了，同时解锁了新难度！";
-				if(x==109&&highest_progress<109)battle_status.log+="<br>You defeated Village BOSS 2 in Normal difficulty for the first time!，转生升级“生命加点提升”的效果增加了。";
-				if(x==119&&highest_progress<119)battle_status.log+="<br>You defeated Grassland BOSS 2 in Normal difficulty for the first time!，转生升级“初始能量提升”的效果增加了。";
-				if(x==129&&highest_progress<129)battle_status.log+="<br>You defeated Forest BOSS 2 in Normal difficulty for the first time!，转生升级“生命值提升”的效果增加了，同时徽章的效果增加了。";
-				if(x==139&&highest_progress<139)battle_status.log+="<br>You defeated Desert BOSS 2 in Normal difficulty for the first time!，简单难度Enemy获得的经验值得到了不同程度的增加。";
-				if(x==149&&highest_progress<149)battle_status.log+="<br>You defeated Cave BOSS 2 in Normal difficulty for the first time!，转生升级“BOSS额外掉落”的效果增加了，同时徽章的效果增加了。";
-				if(x==159&&highest_progress<159)battle_status.log+="<br>You defeated Ocean BOSS 2 in Normal difficulty for the first time!，你得到了1000个永久性的经验宝石（不可用于强化）。";
-				if(x==169&&highest_progress<169)battle_status.log+="<br>You defeated Mountain BOSS 2 in Normal difficulty for the first time!，转生升级“多倍能量消耗设定”的效果增加了，同时你得到的经验值提升了。";
-				if(x==179&&highest_progress<179)battle_status.log+="<br>You defeated Sky BOSS 2 in Normal difficulty for the first time!，转生升级“生命加点提升”的效果增加了，同时徽章的效果增加了。";
-				if(x==184&&highest_progress<184)battle_status.log+="<br>You defeated Volcano BOSS 1 in Normal difficulty for the first time!，转生升级“初始等级提升”的效果在挑战3中生效，同时徽章的效果Start对经验值生效。";
-				if(x==189&&highest_progress<189)battle_status.log+="<br>You defeated Volcano BOSS 2 in Normal difficulty for the first time!，转生升级“生命值提升”的效果增加了。";
-				if(x==194&&highest_progress<194)battle_status.log+="<br>You defeated Castle BOSS 1 in Normal difficulty for the first time!，你得到了99000个永久性的经验宝石（不可用于强化），且通天塔的Enemy强度降低了。";*/
 				if(pu[4]){
 					var rate2=1-Math.pow(0.85,pu[4]**0.75);
 					if(highest_progress>=150)rate2=1-Math.pow(0.85,pu[4]**0.85);
@@ -431,6 +428,14 @@ function battle(x){
 						if(give_equipments>0){
 							battle_status.log+="<br>Due to the effect of 'Increased Boss Drops', you have got "+format(give_equipments)+" "+equipment_names[equipment_data_extra[x][0]][equipment_data_extra[x][1]];
 							equipments[equipment_data_extra[x][0]][equipment_data_extra[x][1]]=(equipments[equipment_data_extra[x][0]][equipment_data_extra[x][1]]||0)+give_equipments;
+						}
+					}
+					if(pu[4]>=x/10 && x>200){
+						give_equipments=Math.floor(equipment_data_extra2[x][2]*(luk**0.5)*(1+(eqlevels[equipment_data_extra2[x][0]][equipment_data_extra2[x][1]]||0)*0.15)*Math.random()*prestige_eff()*energyc_eff()*challeff(4)*Math.pow(1.2,(pu[10]||0))*transcend_eff());
+						if(chall==4)give_equipments=0;
+						if(give_equipments>0){
+							battle_status.log+="<br>Due to the effect of 'Increased Boss Drops', you have got "+format(give_equipments)+" "+equipment_names[equipment_data_extra2[x][0]][equipment_data_extra2[x][1]];
+							equipments[equipment_data_extra2[x][0]][equipment_data_extra2[x][1]]=(equipments[equipment_data_extra2[x][0]][equipment_data_extra2[x][1]]||0)+give_equipments;
 						}
 					}
 				}
@@ -499,7 +504,7 @@ function format2(x){
 	return (x/1e3).toFixed(2);
 }
 </script>
-<script src="zbkc.js?1.1.3"></script>
+<script src="zbkc.js?1.1.4"></script>
 <script>
 importsave(localStorage.zbkc);
 setInterval(update,20);
@@ -952,7 +957,7 @@ Transcend won't reset equipment levels, challenges and The Tower.<br>
 You have <span id="transcend3"></span> Transcend Points, gaining <span id="transcend_eff"></span>x more EXP, equipments and gaining <span id="transcend_eff2"></span>x more prestige points<br>
 <div id="tab6a" style="display:none;">
 <hr>
-God Of Transcend's level is <span id="transcendlv"></span>/4, leveling up requires <span id="transcendlv2"></span> TP, costs <span id="transcendlv3"></span> TP.<br>
+God Of Transcend's level is <span id="transcendlv"></span>/5, leveling up requires <span id="transcendlv2"></span> TP, costs <span id="transcendlv3"></span> TP.<br>
 God Of Transcend is multiplying your TP gain by <span id="transcendlv_eff"></span>x
 <a href="javascript:transcendlvup();">Level Up God Of Transcend</a><br>
 <br>
@@ -962,8 +967,8 @@ Effects of God Of Transcend: <span id="transcendlv_eff2"></span>
 <div id="battlelog">
 Welcome to "Lots of Equipments RPG" by loader3229! This is a game similar to Incremental RPG, and enemies in this game can drop lots of equipments at once!<br>
 Also, you don't lose energy when you lose a battle.<br>
-Version: 1.1.3<br>
-Endgame: Reach Floor 888 in the Tower<br>
+Version: 1.1.4<br>
+Endgame: Reach Floor 920 in the Tower<br>
 The translation to English is not finished, and my English is poor. Sorry.<br>
 </div>
 </body>

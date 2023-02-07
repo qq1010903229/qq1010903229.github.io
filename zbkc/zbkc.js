@@ -357,7 +357,7 @@ function gettowerpower(){
 }
 function getehp(x){
 	if(x=='tower'){
-		if((tower+towerc)>=888)return Infinity;
+		if((tower+towerc)>=1000)return Infinity;
 		if((tower+towerc)>=41)return 5e21*Math.pow(1.15,(tower+towerc)**0.75)*(((tower+towerc)-9)**4);
 		if((tower+towerc)>=33)return 5e21*Math.pow(1.15,(tower+towerc)**0.75)*(((tower+towerc)-25)**5);
 		if((tower+towerc)>=17)return 5e21*Math.pow(1.15,(tower+towerc)**0.75)*(((tower+towerc)-1)**3);
@@ -371,7 +371,7 @@ function geteatk(x){
 	if(x=='tower'){
 		if((tower+towerc)>=200&&transcendlv<1)return 2e11*((tower+towerc)**7)*Math.pow(1.15,(tower+towerc)**0.75);
 		if((tower+towerc)>=100&&highest_progress<195)return 3e13*((tower+towerc)**6)*Math.pow(1.15,(tower+towerc)**0.75);
-		if((tower+towerc)>=70)return 1e13*((tower+towerc)**6)*Math.pow(1.15,(tower+towerc)**0.75);
+		if((tower+towerc)>=70&&transcendlv<5)return 1e13*((tower+towerc)**6)*Math.pow(1.15,(tower+towerc)**0.75);
 		if((tower+towerc)>=50)return 4e14*((tower+towerc)**5)*Math.pow(1.15,(tower+towerc)**0.75);
 		if((tower+towerc)>=25)return 2e16*((tower+towerc)**4)*Math.pow(1.15,(tower+towerc)**0.75);
 		if((tower+towerc)>=20)return 5e17*((tower+towerc)**3)*Math.pow(1.15,(tower+towerc)**0.75);
@@ -385,7 +385,7 @@ function getedef(x){
 	if(x=='tower'){
 		if((tower+towerc)>=200&&transcendlv<1)return 3e11*((tower+towerc)**7)*Math.pow(1.15,(tower+towerc)**0.75);
 		if((tower+towerc)>=100&&highest_progress<195)return 5e13*((tower+towerc)**6)*Math.pow(1.15,(tower+towerc)**0.75);
-		if((tower+towerc)>=70)return 2e13*((tower+towerc)**6)*Math.pow(1.15,(tower+towerc)**0.75);
+		if((tower+towerc)>=70&&transcendlv<5)return 2e13*((tower+towerc)**6)*Math.pow(1.15,(tower+towerc)**0.75);
 		if((tower+towerc)>=50)return 8e14*((tower+towerc)**5)*Math.pow(1.15,(tower+towerc)**0.75);
 		if((tower+towerc)>=25)return 4e16*((tower+towerc)**4)*Math.pow(1.15,(tower+towerc)**0.75);
 		if((tower+towerc)>=20)return 1e18*((tower+towerc)**3)*Math.pow(1.15,(tower+towerc)**0.75);
@@ -449,7 +449,7 @@ function geteqeff(x){
 	
 	if(x==4&&result>=4)result=Math.log2(result-2)**0.6+3;
 	
-	if(x==4&&result>=8)result=8;
+	if(x==4&&result>=9)result=9;
 	return result;
 }
 function add(x,y){
@@ -585,7 +585,7 @@ function energyc_eff(){
 	return energyc**1.2;
 }
 function prestige_cost(x){
-	var pu_max=[15,50,20,40,20,15,10,10,15,10,10,2];
+	var pu_max=[15,50,20,40,22,15,10,10,15,10,10,4];
 	if(pu[x] && pu[x]>=pu_max[x])return Infinity;
 	if(x==0){
 		if(pu[x])return Math.floor(Math.pow(10,3+pu[x])/(pu[x]**2+1));else return 1000;
@@ -750,13 +750,14 @@ function challeff(x){
 	}
 }
 function transcendlvup(){
-	if(transcendlv>=4)return;
+	if(transcendlv>=5)return;
 	if(tp>=5*Math.pow(2,transcendlv)){
 		tp-=Math.pow(2,transcendlv);
 		transcendlv++;
 	}
 }
 function tlv3eff(){
+	if(transcendlv>=5)return 3;
 	if(transcendlv>=4)return 2;
 	return 1;
 }
