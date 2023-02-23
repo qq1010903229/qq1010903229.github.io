@@ -3,23 +3,22 @@
 <head>
 <meta charset="utf-8">
 <title>loader3229的邦邦报菜名</title>
-<style id="sty"></style>
 <style>
 .card{width:120px;height:120px;position:relative;display:inline-block;}
 .card .img1, .card .img2{width:111px;height:111px;position:absolute;background-size:cover !important;left:5px;top:5px;}
 .card .img2{display:none;}
 .card:hover .img1,.card:focus .img1,.card.s .img1{display:none;}
 .card:hover .img2,.card:focus .img2,.card.s .img2{display:initial;}
-.card .frame{width:120px;height:120px;position:absolute;background-size:cover !important;}
+.card .frame{width:120px;height:120px;position:absolute;background-size:cover !important;pointer-events:none;}
 .card .frame.frame2star{background:url(2-star.png);}
 .card .frame.frame3star{background:url(3-star.png);}
 .card .frame.frame4star{background:url(4-star.png);}
-.card .attr{width:30px;height:30px;position:absolute;background-size:cover !important;top:2%;right:1%;}
+.card .attr{width:30px;height:30px;position:absolute;background-size:cover !important;top:2%;right:1%;pointer-events:none;}
 .card .attr.cool{background:url(cool.png);}
 .card .attr.happy{background:url(happy.png);}
 .card .attr.power{background:url(power.png);}
 .card .attr.pure{background:url(pure.png);}
-.card .band{width:22px;height:25px;position:absolute;background-position-x:50% !important;background-size:cover !important;top:3%;left:2%;z-index:1;}
+.card .band{width:22px;height:25px;position:absolute;background-position-x:50% !important;background-size:cover !important;top:3%;left:2%;z-index:1;}pointer-events:none;
 .card .band.popipa{background:url(popipa.png);}
 .card .band.afterglow{background:url(afterglow.png);}
 .card .band.paspale{background:url(paspale.png);}
@@ -27,18 +26,18 @@
 .card .band.roselia{background:url(roselia.png);}
 .card .band.monica{background:url(monica.png);}
 .card .band.ras{background:url(ras.png);}
-.card .star{width:22.5px;height:22.5px;position:absolute;background:url(s1.png);background-size:100% 100% !important;left:2.5%;}
+.card .star{width:22.5px;height:22.5px;position:absolute;background:url(s1.png);background-size:100% 100% !important;left:2.5%;pointer-events:none;}
 .card .star.star-1{top:80%;}
 .card .star.star-2{top:65%;}
 .card .star.star-3{top:50%;}
 .card .star.star-4{top:35%;}
-.card .star.star-5{top:20%;z-index:1;opacity:0.5;}
 .card.t .star{background:url(s2.png);}
-.card .l{height:18px;position:absolute;background:rgba(0,0,0,0.5);color:white;right:5px;bottom:5px;font-size:14px;user-select:none;}
-.card .id{height:18px;position:absolute;background:rgba(0,128,255,0.5);color:white;left:5px;top:5px;font-size:14px;user-select:none;}
-.card .sl{height:18px;position:absolute;background:rgba(228,0,70,0.7);color:white;right:5px;bottom:23px;font-size:14px;user-select:none;}
+.card .l{height:18px;position:absolute;background:rgba(0,0,0,0.5);color:white;right:5px;bottom:5px;font-size:14px;user-select:none;pointer-events:none;}
+.card .id{height:18px;position:absolute;background:rgba(0,128,255,0.5);color:white;left:5px;top:5px;font-size:14px;user-select:none;pointer-events:none;}
+.card .sl{height:18px;position:absolute;background:rgba(228,0,70,0.7);color:white;right:5px;bottom:23px;font-size:14px;user-select:none;pointer-events:none;}
 </style>
 <script>
+document.write("<style>.card .star.star-5{top:20%;z-index:1;opacity:"+Math.min(1,0.8-(new Date(2023,2,16)-Date.now())/15000000000)+";}</style>");
 var mirror="https://bestdori.com";
 if(document.location.href.indexOf("mirror=")!=-1){
 	mirror=document.location.href.slice(document.location.href.indexOf("mirror=")+7);
@@ -62,13 +61,12 @@ function d(id){
 	while(str.length<5)str="0"+str;
 	return str;
 }
-function card(id,sd,attr,band,l,p,sl,s,f){
-	ext=(mirror.startsWith("https://bandori.top")?"webp":"png");
-	href=`${mirror}/${mirror.startsWith("https://bandori.top")?"card/cn":"info/cards"}/${id}`;
+function card(id,sd,attr,band,l,p,sl,s,f){ //R:Life Recovery S:Shield J:Judge Boost D:Life cannot drain to 0 P:Perfect Score UP L:Score UP+ When Life>=900 G:Score UP+ When No Great 
+	href=`${mirror}/info/cards/${id}`;
 	return `
 <a class="card ${(l>=50||s)?"t":""} ${(s)?"s":""}" href="${href}" onclick="return t1(this);" ontouchend="return t(this);" target="_blank">
-<div class="img1" style="background:url(${mirror}/assets/jp/thumb/chara/card${d(id)}_rip/res${sd}_normal.${ext})"></div>
-<div class="img2" style="background:url(${mirror}/assets/jp/thumb/chara/card${d(id)}_rip/res${sd}_after_training.${ext})"></div>
+<img class="img1" src="${mirror}/assets/jp/thumb/chara/card${d(id)}_rip/res${sd}_normal.png"></div>
+<img class="img2" src="${mirror}/assets/jp/thumb/chara/card${d(id)}_rip/res${sd}_after_training.png"></div>
 <div class="frame frame4star"></div>
 <div class="attr ${attr}"></div>
 <!--div class="band ${band}"></div-->
@@ -88,12 +86,14 @@ ${(f)?'<div class="star star-5"></div>':""}
 <body>
 <h1>loader3229的邦邦报菜名</h1>
 <hr>
-这里列出了我的BanG Dream! 国服所有四星卡。<br>
+这里列出了我的BanG Dream! 国服所有四星<!--和五星-->卡。<br>
 电脑端：鼠标移到卡牌上以查看特训后卡面（无论我的卡实际上是否已经特训），点击卡牌<span id="y">锁定特训后卡面，再次点击卡牌</span>查看详细信息<br>
 手机端：点击卡牌<span id="y2">以查看并锁定特训后卡面（无论我的卡实际上是否已经特训），再次点击卡牌</span>查看详细信息<br>
 <input type="checkbox" id="z" onclick="y.style.display=y2.style.display=this.checked?'none':'inline';"><label for="z">点击卡牌直接查看详细信息</label><br>
 所有卡牌均为修改过的Bandori Database样式<br>
-当前卡牌图像源：<script>document.write(mirror);</script> <a href="?mirror=https://bestdori.com">切换到bestdori.com</a> <a href="?mirror=https://bestdori.reikohaku.fun">切换到bestdori.reikohaku.fun</a> <!--a href="?mirror=https://bandori.top">切换到bandori.top</a--><hr>
+当前卡牌图像源：<script>document.write(mirror);</script> <a href="?mirror=https://bestdori.com">切换到bestdori.com</a> <a href="?mirror=https://bestdori.reikohaku.fun">切换到bestdori.reikohaku.fun</a><hr>
+<script>document.write("<img src="+mirror+"/assets/jp/band/logo/001_rip/logoL.png height=50>");</script>
+<hr>
 1.户山香澄<br>
 <script>document.write(card(122,"001007","pure","popipa",25,14371,"40R,SL1"));</script>
 <script>document.write(card(425,"001023","happy","popipa",60,34086,"110L,SL4"));</script>
@@ -125,6 +125,8 @@ ${(f)?'<div class="star star-5"></div>':""}
 <script>document.write(card(1092,"005045","cool","popipa",58,29746,"60J,SL1"));</script>
 <script>document.write(card(1462,"005057","pure","popipa",53,24183,"115/95G,SL1"));</script>
 <hr>
+<script>document.write("<img src="+mirror+"/assets/jp/band/logo/002_rip/logoL.png height=50>");</script>
+<hr>
 6.美竹兰<br>
 <script>document.write(card(1051,"006048","cool","afterglow",60,32285,"115/95G,SL2"));</script>
 <hr>
@@ -149,6 +151,8 @@ ${(f)?'<div class="star star-5"></div>':""}
 <script>document.write(card(760,"010037","cool","afterglow",19,13462,"100,SL1"));</script>
 <script>document.write(card(993,"010042","happy","afterglow",54,25041,"115/95G,SL1"));</script>
 <hr>
+<script>document.write("<img src="+mirror+"/assets/jp/band/logo/004_rip/logoL.png height=50>");</script>
+<hr>
 16.丸山彩<br>
 <script>document.write(card(306,"016016","pure","paspale",60,34147,"120P,SL3"));</script>
 <script>document.write(card(733,"016039","happy","paspale",1,10282,"60J,SL1"));</script>
@@ -172,4 +176,12 @@ ${(f)?'<div class="star star-5"></div>':""}
 20.若宫伊芙<br>
 <script>document.write(card(415,"020023","cool","paspale",12,12431,"60R,SL1"));</script>
 <script>document.write(card(583,"020028","pure","paspale",60,34089,"110G,SL3"));</script>
+<hr>
+<script>if(document.location.href.startsWith("file")){
+//document.write(card(0,"000000","power","popipa",1,12345,"100,SL1",0,0));
+//document.write(card(0,"000000","power","popipa",1,12345,"100,SL1",0,1));
+//document.write(card(0,"000000","power","popipa",1,12345,"100,SL1",1,0));
+//document.write(card(0,"000000","power","popipa",1,12345,"100,SL1",1,1));
+}</script>
 </body>
+</html>

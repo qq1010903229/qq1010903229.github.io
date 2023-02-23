@@ -22,10 +22,14 @@ var chat_times=0;
 $('.waifu-tool .fui-chat').click(function (){
 	chat_times++;
 	if(document.location.href.startsWith(document.location.origin+"/ksm/index-v7.html?")||document.location.href==document.location.origin+"/ksm/index-v7.html")showMessage([
-	'你知道吗？我的这两个版本的画风是不一样的。',
+	'你知道吗？我的这两个版本的画风是不一样的（注意看我的这两个版本的眼睛）。',
 	'你知道吗？我的这两个版本都有各自的3D模型，它们是不一样的。',
+	'你知道吗？我的新版本的年龄正好是旧版本的年龄+1岁。',
 	'你知道吗？我的新版本的年级是高三，而旧版本的年级是高二。',
-	'你知道吗？在3月16日的日服7.0超大型更新之后，我的这两个版本将会共享演出服装。',
+	'你知道吗？我的新版本将不会再打歌了，因此，loader3229会继续用我的旧版本进行测试自制谱。',
+	'你知道吗？我的新版本除了可以弹吉他之外，还可以打鼓，弹键盘，甚至还可以当DJ？当然，只要有VMD文件，我的旧版本也可以！',
+	//'你知道吗？在3月16日的日服7.0超大型更新之后，我的这两个版本将会共享演出服装。',
+	//'你知道吗？在3月16日的日服7.0超大型更新之后的某个时间点，我的这两个版本将会同时出场。',
 	],5000,true);
 	else showMessage([
 	//'你知道吗？我会跳舞！<a href="https://www.bilibili.com/video/BV14S4y177bd" target="_blank">看一下我跳的《千本桜》吧！</a>',
@@ -39,9 +43,9 @@ $('.waifu-tool .fui-chat').click(function (){
 	'你知道吗？我会弹任何型号的吉他，包括RANDOM STAR。',
 	//'你知道吗？把我的Live2D服装切换到国服2021愚人节，再点一次这个按钮，就会发生不同的事情哦！',
 	'你知道吗？Kirakira就是Kirakira，而Dokidoki就是Dokidoki！',
-	'你知道吗？loader3229正在为我制作一个特别的RANDOM STAR。',
+	//'你知道吗？loader3229正在为我制作一个特别的RANDOM STAR。',
 	'你知道吗？我知道，你已经点了'+chat_times+'次这个按钮。（本计数在刷新或离开页面后重置）',
-	'你知道吗？我有许多不同的版本，包括Live2D版，MV版，3D版等等。',
+	'你知道吗？我有许多不同的版本，包括Live2D版，MV版，2个不同的3D版等等。',
 	'你知道吗？现在我有2个不同的3D模型，其中一个3D模型是我的新版本3D模型（我觉得…我的新版本3D模型…好像有点不好看？）',
 	'你知道吗？在loader3229的MikuMikuDance 7.39里面，可以同时存在至少10个我。',
 	'你知道吗？<a href="/gt.pdf">这个吉他谱</a>我可以完美弹出来，而其他的香澄应该不行。',
