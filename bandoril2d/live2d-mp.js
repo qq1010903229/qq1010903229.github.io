@@ -5,8 +5,10 @@ if(localStorage.l2dv!='4'){
 localStorage.l2dm=localStorage.l2dm || '/kasumievent130.json';
 localStorage.l2dmn=localStorage.l2dmn || '/newkasumicasual.json';
 function initl2d(){
-$("#live2d").attr("width",300);
-$("#live2d").attr("height",375);
+$("#live2d").attr("width",600);
+$("#live2d").attr("height",750);
+$("#live2d").css("width",'300px');
+$("#live2d").css("height",'375px');
 $(".waifu").css("right",'0px');
 $('.waifu-tool').show();
 $(".waifu-tips").width('250px');
