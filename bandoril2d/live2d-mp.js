@@ -1,8 +1,9 @@
-if(localStorage.l2dv!='3'){
-	localStorage.l2dm='/kasumievent130.json';
-	localStorage.l2dv='3';
+if(localStorage.l2dv!='4'){
+	localStorage.l2dv='4';
+	localStorage.l2dmv='0';
 }
 localStorage.l2dm=localStorage.l2dm || '/kasumievent130.json';
+localStorage.l2dmn=localStorage.l2dmn || '/newkasumicasual.json';
 function initl2d(){
 $("#live2d").attr("width",300);
 $("#live2d").attr("height",375);
@@ -71,19 +72,20 @@ $('.waifu-tool .fui-image').hover(function (){
 	showMessage('想看一下loader3229给我拍的照片吗？',3000);
 });
 $('.waifu-tool .fui-image').click(function (){
+	if(localStorage.l2dmv!='0')return alert('该版本暂不支持此操作');
 	window.open('/ksm/MMDPicM/MMDPicM'+Math.floor(Math.random()*2)+'.png');
 });
 $('.waifu-tool .fui-folder').hover(function (){
 	showMessage('想看一下我的档案吗？',3000);
 });
 $('.waifu-tool .fui-folder').click(function (){
-	document.location.href='/ksm/';
+	document.location.href='/ksm/'+(localStorage.l2dmv=='0'?'':'index-v7.html');
 });
 $('.waifu-tool .fui-gear').hover(function (){
 	showMessage('想切换我的Live2D服装吗？',3000);
 });
 $('.waifu-tool .fui-gear').click(function (){
-	loadlive2d('live2d', localStorage.l2dm=[
+	if(localStorage.l2dmv=='0')loadlive2d('live2d', localStorage.l2dm=[
 	'/kasumi.json',
 	'/kasumik.json',
 	'/kasumievent130.json',
@@ -94,6 +96,11 @@ $('.waifu-tool .fui-gear').click(function (){
 	'/kasumicasual.json',
 	'/kasumischoolwinter.json'
 	][Math.floor(Math.random()*9)], null);
+	else loadlive2d('live2d', localStorage.l2dmn=[
+	'/newkasumicasual.json',
+	'/newkasumischoolwinter.json',
+	'/newkasumilivedefault.json'
+	][Math.floor(Math.random()*3)], null);
 	window.l2da.currentTime=0;
 	window.l2da.pause();
 });
@@ -108,18 +115,35 @@ $('.waifu-tool .fui-cmd').hover(function (){
 	showMessage('想修复我的Live2D模型显示问题吗？',3000);
 });
 $('.waifu-tool .fui-cmd').click(function (){
-	loadlive2d('live2d', localStorage.l2dm, null);
+	loadlive2d('live2d', localStorage.l2dmv=='0'?localStorage.l2dm:localStorage.l2dmn, null);
 	window.l2da.currentTime=0;
 	window.l2da.pause();
 });
-loadlive2d('live2d', localStorage.l2dm, null);
+loadlive2d('live2d', localStorage.l2dmv=='0'?localStorage.l2dm:localStorage.l2dmn, null);
 if(document.location.href.startsWith(document.location.origin+"/ksm/?")||document.location.href==document.location.origin+"/ksm/")showMessage('你进入了我的档案页，是想更多的了解我吗？（点击我右边最下面的<span class="fui-cmd"></span>按钮或上面“Live2D模型显示不正常修复”修复我的Live2D模型显示问题）',3000,true);
 else if(document.location.href.startsWith(document.location.origin+"/ksm/index.html?")||document.location.href==document.location.origin+"/ksm/index.html")showMessage('你进入了我的档案页，是想更多的了解我吗？（点击我右边最下面的<span class="fui-cmd"></span>按钮或上面“Live2D模型显示不正常修复”修复我的Live2D模型显示问题）',3000,true);
 else if(document.location.href.startsWith(document.location.origin+"/ksm/index-v7.html?")||document.location.href==document.location.origin+"/ksm/index-v7.html")showMessage('你进入了我的新版本的档案页，是想更多的了解我的新版本吗？（注意：页面右下角Live2D版本的我是旧版本）',3000,true);
 else showMessage('我是闪闪发光、心动不已的户山香澄！而且，因为loader3229，我和其他的户山香澄不一样！（点击我右边最下面的<span class="fui-cmd"></span>按钮或上面“Live2D模型显示不正常修复”修复我的Live2D模型显示问题）',3000,true);
 }
 function setl2dm(a){
+	if(localStorage.l2dmv!='0'){
+		localStorage.l2dm=a;return;
+	}
 	loadlive2d('live2d', localStorage.l2dm=a, null);
+	window.l2da.currentTime=0;
+	window.l2da.pause();
+}
+function setl2dmn(a){
+	if(localStorage.l2dmv=='0'){
+		localStorage.l2dmn=a;return;
+	}
+	loadlive2d('live2d', localStorage.l2dmn=a, null);
+	window.l2da.currentTime=0;
+	window.l2da.pause();
+}
+function setl2dv(a){
+	localStorage.l2dmv=a;
+	loadlive2d('live2d', localStorage.l2dmv=='0'?localStorage.l2dm:localStorage.l2dmn, null);
 	window.l2da.currentTime=0;
 	window.l2da.pause();
 }
