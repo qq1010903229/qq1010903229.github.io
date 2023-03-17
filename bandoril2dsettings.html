@@ -8,15 +8,20 @@
 <a href="/bandoricharts">loader3229的BanG Dream! 自制谱列表</a>
 <a href="/bandorivals">loader3229的BanG Dream! 定数表</a>
 <a href="/BanGConverter">BanG Converter - BanG Dream! 谱面转换器</a>
-<a href="https://github.com/qq1010903229/BanG-simulator/releases/download/v2.4/release.zip">BanG! Simulator 2.4</a>
+<a href="https://github.com/qq1010903229/BanG-simulator/releases/download/v2.5.0/release.zip">BanG! Simulator 2.5.0</a>
 <a href="/bandoril2dsettings">Live2D看板娘设置</a>
-<a href="javascript:void(setl2dm(localStorage.l2dm));">Live2D模型显示不正常修复</a>
+<a href="javascript:void(setl2dm(localStorage.l2dm),setl2dmn(localStorage.l2dmn));">Live2D模型显示不正常修复</a>
 <hr>
 <h1>Live2D看板娘设置</h1><br>
 <hr>
 <a href="javascript:void(setl2dm(localStorage.l2dm));">Live2D模型显示不正常修复</a>
 <hr>
-<h2>切换香澄的Live2D服装</h2>
+<h2>切换香澄的版本</h2>
+<hr>
+<a href="javascript:void(setl2dv('0'));">切换到“闪闪发光”版本（7.0以前的旧版本）</a><br>
+<a href="javascript:void(setl2dv('1'));">切换到“心动不已”版本（7.0开始的新版本）</a><br>
+<hr>
+<h2>切换香澄的旧版本Live2D服装</h2>
 <hr>
 <a href="javascript:void(setl2dm('/kasumievent130.json'));">全力采访！（130期活动）</a><br>
 <a href="javascript:void(setl2dm('/kasumik.json'));">情谊的礼物（KiraFES）</a><br>
@@ -33,10 +38,17 @@
 <a href="javascript:void(setl2dm('/kasumischoolsummer.json'));">夏季校服</a><br>
 <a href="javascript:void(setl2dm('/kasumicasualwinter.json'));">冬季休闲</a><br>
 <a href="javascript:void(setl2dm('/kasumicasualsummer.json'));">夏季休闲</a><br>
+<a href="javascript:void(setl2dm('/kasumisp5th.json'));">CiRCLE THANKS PARTY!</a><br>
 <a href="javascript:void(setl2dm('/kasumi19af.json'));">国服2021愚人节</a><hr>
+<h2>切换香澄的新版本Live2D服装</h2>
+<hr>
+<a href="javascript:void(setl2dmn('/newkasumicasual.json'));">春季休闲</a><br>
+<a href="javascript:void(setl2dmn('/newkasumischoolwinter.json'));">冬季校服</a><br>
+<a href="javascript:void(setl2dmn('/newkasumilivedefault.json'));">日服6周年默认服装</a><br>
+<hr>
 <script src="bandoril2d/jquery.min.js"></script>
 <script src="bandoril2d/live2d.js"></script>
-<script src="bandoril2d/live2d-mp.js"></script>
+<script src="bandoril2d/live2d-mp.js?5"></script>
 <script src="bandoril2d/jquery-ui.min.js"></script>
 <link rel="stylesheet" type="text/css" href="bandoril2d/waifu.css"/>
 <div class="waifu">

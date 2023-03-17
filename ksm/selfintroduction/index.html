@@ -60,6 +60,12 @@ var changetime=[0,5288,6006,2444,6006,5828,3452,3380,4784,3416,2588,5308];
 window.rdialog=function(){
 return "";
 };
+function loadwidget(){
+var script=document.createElement("script");
+script.type="text/javascript";
+script.src="widget.js";
+document.body.appendChild(script);
+}
 function update(){
 if(!document.createElement('canvas').getContext || navigator.userAgent.indexOf("Trident")!=-1 || navigator.userAgent.indexOf("MSIE")!=-1){
 nocanvas.style.display="inline";
@@ -70,16 +76,15 @@ resloading.style.display="inline";
 resloading2.innerHTML=resloaded;
 return;
 }
+resloading2.innerHTML=resloaded;
+if(!window.l2dready)return;
 if(resloaded<37){
-var script=document.createElement("script");
-script.type="text/javascript";
-script.src="widget.js";
-document.body.appendChild(script);
+setTimeout(loadwidget,100);
 resloaded=37;
 return;
 }
 if(!window.L2Dwidget)return;
-if(inited==0)setTimeout("L2Dwidget.init({display:{superSample:"+s+",width:"+width+",height:"+height+"},mobile:{show:true,scale:0.5},model:{scale:0.5}});",100);
+if(inited==0)setTimeout("L2Dwidget.init({display:{superSample:"+s+",width:"+width+",height:"+height+"},mobile:{show:true,scale:0.5},model:{scale:0.5}});",200);
 inited=1;
 if(!window.l2de){
 resloading.style.display="inline";
@@ -234,6 +239,7 @@ getres(text.physics);
 getres(text.textures[0]);
 console.log(text);
 window.l2dmodelpath="data:application/json;base64,"+btoa(JSON.stringify(text));
+window.l2dready=true;
 }
 if(json_xhr.readyState==4 && json_xhr.status != 200){
 alert("Cannot load "+a);
@@ -297,7 +303,7 @@ display:none;
 这是户山香澄的1.0版自我介绍。
 <br>
 <div id="status" style="">
-如果加载进度一直卡在35/38，请刷新页面
+如果加载进度一直卡在37/38，请<a href="javascript:loadwidget();">点击这里</a>
 </div>
 </div>
 </div>

@@ -27,17 +27,17 @@
 .card .band.monica{background:url(monica.png);}
 .card .band.ras{background:url(ras.png);}
 .card .star{width:22.5px;height:22.5px;position:absolute;background:url(s1.png);background-size:100% 100% !important;left:2.5%;pointer-events:none;}
-.card .star.star-1{top:80%;}
-.card .star.star-2{top:65%;}
-.card .star.star-3{top:50%;}
-.card .star.star-4{top:35%;}
+.card .star.star-1{top:80%;z-index:1;}
+.card .star.star-2{top:65%;z-index:1;}
+.card .star.star-3{top:50%;z-index:1;}
+.card .star.star-4{top:35%;z-index:1;}
+.card .star.star-5{top:20%;z-index:1;}
 .card.t .star{background:url(s2.png);}
 .card .l{height:18px;position:absolute;background:rgba(0,0,0,0.5);color:white;right:5px;bottom:5px;font-size:14px;user-select:none;pointer-events:none;}
 .card .id{height:18px;position:absolute;background:rgba(0,128,255,0.5);color:white;left:5px;top:5px;font-size:14px;user-select:none;pointer-events:none;}
 .card .sl{height:18px;position:absolute;background:rgba(228,0,70,0.7);color:white;right:5px;bottom:23px;font-size:14px;user-select:none;pointer-events:none;}
 </style>
 <script>
-document.write("<style>.card .star.star-5{top:20%;z-index:1;opacity:"+Math.min(1,0.8-(new Date(2023,2,16)-Date.now())/15000000000)+";}</style>");
 var mirror="https://bestdori.com";
 if(document.location.href.indexOf("mirror=")!=-1){
 	mirror=document.location.href.slice(document.location.href.indexOf("mirror=")+7);
@@ -86,7 +86,7 @@ ${(f)?'<div class="star star-5"></div>':""}
 <body>
 <h1>loader3229的邦邦报菜名</h1>
 <hr>
-这里列出了我的BanG Dream! 国服所有四星<!--和五星-->卡。<br>
+这里列出了我的BanG Dream! 国服所有四星和五星卡。<br>
 电脑端：鼠标移到卡牌上以查看特训后卡面（无论我的卡实际上是否已经特训），点击卡牌<span id="y">锁定特训后卡面，再次点击卡牌</span>查看详细信息<br>
 手机端：点击卡牌<span id="y2">以查看并锁定特训后卡面（无论我的卡实际上是否已经特训），再次点击卡牌</span>查看详细信息<br>
 <input type="checkbox" id="z" onclick="y.style.display=y2.style.display=this.checked?'none':'inline';"><label for="z">点击卡牌直接查看详细信息</label><br>

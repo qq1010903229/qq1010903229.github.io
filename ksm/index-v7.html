@@ -15,15 +15,15 @@
 <a href="/bandoricharts">loader3229的BanG Dream! 自制谱列表</a>
 <a href="/bandorivals">loader3229的BanG Dream! 定数表</a>
 <a href="/BanGConverter">BanG Converter - BanG Dream! 谱面转换器</a>
-<a href="https://github.com/qq1010903229/BanG-simulator/releases/download/v2.4/release.zip">BanG! Simulator 2.4</a>
+<a href="https://github.com/qq1010903229/BanG-simulator/releases/download/v2.5.0/release.zip">BanG! Simulator 2.5.0</a>
 <a href="/bandoril2dsettings">Live2D看板娘设置</a>
-<a href="javascript:void(setl2dm(localStorage.l2dm));">Live2D模型显示不正常修复</a>
+<a href="javascript:void(setl2dm(localStorage.l2dm),setl2dmn(localStorage.l2dmn));">Live2D模型显示不正常修复</a>
 <hr>
 <img src="ksmv7.png" width="625"><br>
 我是闪闪发光、心动不已的户山香澄（loader3229的“心动不已”版本）！<br>
 我现在的年龄是<span id="age">17</span>岁，年级是高三。（年龄显示取决于本地系统时间）<br>
-现在我在努力的准备着高考，不能继续陪着loader3229了，好伤心……<br>
-<!--所以，我会把我的演出服装等资料传给我的旧版本（高二），以让我继续陪着loader3229……<br-->
+现在我在努力的准备着高考，不能继续一直陪着loader3229了，好伤心……<br>
+我已经陪了loader3229 <span id="day2"></span>天了。<br>
 <span id="randtext"></span><script>
 function getage(){
 	let y=new Date().getFullYear();
@@ -41,9 +41,10 @@ function getday(){
 	return Math.floor((Date.now()-d)/86400000);
 }
 setInterval("document.getElementById('age').innerHTML=getage().toFixed(7);",100);
-//setInterval("document.getElementById('day2').innerHTML=getday()-67;",100);
+setInterval("document.getElementById('day2').innerHTML=getday()-66;",100);
 setTimeout("document.getElementById('randtext').innerHTML=['当我来到高三的时候，我将会有一个新的开始！','开始一个新的Party吧！','我在备战高考时也是可以感受到闪闪发光、心动不已的事情的！','为了上一个好大学，我放弃了音游，把更多的时间投入了我的学习当中！','好想在学习的间隙再开一次仓库演出！','彩学姐已经毕业了，我不能在花咲川女子学园看到她了。。。','我的作业快要完不成了！','在新版的3DMV设置中，可以把原3DMV的任何一个成员替换成我。此时我将会尽量还原这个成员的动作。'][Math.floor(Math.random()*8)];",100);
 </script><br>
+<a href="/bandoril2dsettings">切换我的Live2D服装</a><br>
 <a href=".">切换我的版本</a><br>
 <!--a href="selfintroductionv7">我的7.0版自我介绍（建议在电脑端查看）</a><br>
 <a href="/bandoril2dsettings">切换我的Live2D服装</a><br-->
@@ -53,7 +54,7 @@ setTimeout("document.getElementById('randtext').innerHTML=['当我来到高三�
 由于某种原因，loader3229暂时不会使用这个版本的我的3D模型（Craft Egg制作）用来制作MMD视频或图片，loader3229会继续使用<a href=".">旧版本的我</a>的3D模型（タマ制作）来制作MMD视频或图片。
 <script src="/bandoril2d/jquery.min.js"></script>
 <script src="/bandoril2d/live2d.js"></script>
-<script src="/bandoril2d/live2d-mp.js"></script>
+<script src="/bandoril2d/live2d-mp.js?5"></script>
 <script src="/bandoril2d/jquery-ui.min.js"></script>
 <link rel="stylesheet" type="text/css" href="/bandoril2d/waifu.css"/>
 <div class="waifu">
