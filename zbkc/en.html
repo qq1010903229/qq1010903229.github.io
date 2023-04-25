@@ -399,7 +399,7 @@ function battle(x){
 			atk+=(level2-level1);
 			def+=(level2-level1);
 			points+=(level2-level1)*(4+(pu[7]||0));
-			var give_equipments=Math.floor(equipment_data[x][2]*(luk**0.5)*(1+(eqlevels[equipment_data[x][0]][equipment_data[x][1]]||0)*0.15)*Math.random()*prestige_eff()*energyc_eff()*challeff(4)*Math.pow(1.2,(pu[10]||0))*transcend_eff());
+			var give_equipments=Math.floor(equipment_data[x][2]*(luk**0.5+1)*(1+(eqlevels[equipment_data[x][0]][equipment_data[x][1]]||0)*0.15)*Math.random()*prestige_eff()*energyc_eff()*challeff(4)*Math.pow(1.2,(pu[10]||0))*transcend_eff());
 			if(chall==4||x=='tower')give_equipments=0;
 			if(give_equipments>0){
 				battle_status.log+="You have got "+format(give_equipments)+" "+equipment_names[equipment_data[x][0]][equipment_data[x][1]];
@@ -416,13 +416,13 @@ function battle(x){
 					var rate2=1-Math.pow(0.85,pu[4]**0.75);
 					if(highest_progress>=150)rate2=1-Math.pow(0.85,pu[4]**0.85);
 					for(var j=x-((pu[4]>=6&&x>=pu[4])?pu[4]:(pu[4]>=6)?x:(pu[4]>=2&&x>=5)?5:4);j<=x;j++){
-						give_equipments=Math.floor(equipment_data[j][2]*(luk**0.5)*(1+(eqlevels[equipment_data[j][0]][equipment_data[j][1]]||0)*0.15)*Math.random()*prestige_eff()*energyc_eff()*rate2*challeff(4)*Math.pow(1.2,(pu[10]||0))*transcend_eff());
+						give_equipments=Math.floor(equipment_data[j][2]*(luk**0.5+1)*(1+(eqlevels[equipment_data[j][0]][equipment_data[j][1]]||0)*0.15)*Math.random()*prestige_eff()*energyc_eff()*rate2*challeff(4)*Math.pow(1.2,(pu[10]||0))*transcend_eff());
 						if(chall==4)give_equipments=0;
 						if(give_equipments>0)battle_status.log+="<br>Due to the effect of 'Increased Boss Drops', you have got "+format(give_equipments)+" "+equipment_names[equipment_data[j][0]][equipment_data[j][1]];
 						if(give_equipments>0)equipments[equipment_data[j][0]][equipment_data[j][1]]=(equipments[equipment_data[j][0]][equipment_data[j][1]]||0)+give_equipments;
 					}
 					if(pu[4]>=2+x/10){
-						give_equipments=Math.floor(equipment_data_extra[x][2]*(luk**0.5)*(1+(eqlevels[equipment_data_extra[x][0]][equipment_data_extra[x][1]]||0)*0.15)*Math.random()*prestige_eff()*energyc_eff()*challeff(4)*Math.pow(1.2,(pu[10]||0))*transcend_eff());
+						give_equipments=Math.floor(equipment_data_extra[x][2]*(luk**0.5+1)*(1+(eqlevels[equipment_data_extra[x][0]][equipment_data_extra[x][1]]||0)*0.15)*Math.random()*prestige_eff()*energyc_eff()*challeff(4)*Math.pow(1.2,(pu[10]||0))*transcend_eff());
 						if(highest_progress>=150)give_equipments=Math.floor(give_equipments*1.5);
 						if(chall==4)give_equipments=0;
 						if(give_equipments>0){
@@ -431,7 +431,7 @@ function battle(x){
 						}
 					}
 					if(pu[4]>=x/10 && x>200){
-						give_equipments=Math.floor(equipment_data_extra2[x][2]*(luk**0.5)*(1+(eqlevels[equipment_data_extra2[x][0]][equipment_data_extra2[x][1]]||0)*0.15)*Math.random()*prestige_eff()*energyc_eff()*challeff(4)*Math.pow(1.2,(pu[10]||0))*transcend_eff());
+						give_equipments=Math.floor(equipment_data_extra2[x][2]*(luk**0.5+1)*(1+(eqlevels[equipment_data_extra2[x][0]][equipment_data_extra2[x][1]]||0)*0.15)*Math.random()*prestige_eff()*energyc_eff()*challeff(4)*Math.pow(1.2,(pu[10]||0))*transcend_eff());
 						if(chall==4)give_equipments=0;
 						if(give_equipments>0){
 							battle_status.log+="<br>Due to the effect of 'Increased Boss Drops', you have got "+format(give_equipments)+" "+equipment_names[equipment_data_extra2[x][0]][equipment_data_extra2[x][1]];

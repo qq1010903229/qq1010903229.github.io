@@ -250,6 +250,34 @@ function update(){
 		towerc=parseInt(document.getElementById("towercinput").value);
 		document.getElementById("towerc_eff").innerHTML="跳过"+towerc+"层";
 	}else towerc=0;
+	
+	if(autopoints.checked){
+		var autopoints1=parseInt(document.getElementById("autopoints1").value);
+		if(autopoints1<0||autopoints1>10)document.getElementById("autopoints1").value=autopoints1=0;
+		var autopoints2=parseInt(document.getElementById("autopoints2").value);
+		if(autopoints2<0||autopoints2>10)document.getElementById("autopoints2").value=autopoints2=0;
+		var autopoints3=parseInt(document.getElementById("autopoints3").value);
+		if(autopoints3<0||autopoints3>10)document.getElementById("autopoints3").value=autopoints3=0;
+		var autopoints4=parseInt(document.getElementById("autopoints4").value);
+		if(autopoints4<0||autopoints4>10)document.getElementById("autopoints4").value=autopoints4=0;
+		var autopointssum=autopoints1+autopoints2+autopoints3+autopoints4;
+		if(autopointssum>0){
+			add(1,autopoints1/autopointssum);
+			autopointssum-=autopoints1;
+		}
+		if(autopointssum>0){
+			add(2,autopoints2/autopointssum);
+			autopointssum-=autopoints2;
+		}
+		if(autopointssum>0){
+			add(3,autopoints3/autopointssum);
+			autopointssum-=autopoints3;
+		}
+		if(autopointssum>0){
+			add(4,autopoints4/autopointssum);
+			autopointssum-=autopoints4;
+		}
+	}
 }
 function battle(x){
 	if(battling){
@@ -399,7 +427,7 @@ function battle(x){
 			atk+=(level2-level1);
 			def+=(level2-level1);
 			points+=(level2-level1)*(4+(pu[7]||0));
-			var give_equipments=Math.floor(equipment_data[x][2]*(luk**0.5)*(1+(eqlevels[equipment_data[x][0]][equipment_data[x][1]]||0)*0.15)*Math.random()*prestige_eff()*energyc_eff()*challeff(4)*Math.pow(1.2,(pu[10]||0))*transcend_eff());
+			var give_equipments=Math.floor(equipment_data[x][2]*(luk**0.5+1)*(1+(eqlevels[equipment_data[x][0]][equipment_data[x][1]]||0)*0.15)*Math.random()*prestige_eff()*energyc_eff()*challeff(4)*Math.pow(1.2,(pu[10]||0))*transcend_eff());
 			if(chall==4||x=='tower')give_equipments=0;
 			if(give_equipments>0){
 				battle_status.log+=ename+"掉落了"+format(give_equipments)+"个"+equipment_names[equipment_data[x][0]][equipment_data[x][1]];
@@ -436,13 +464,13 @@ function battle(x){
 					var rate2=1-Math.pow(0.85,pu[4]**0.75);
 					if(highest_progress>=150)rate2=1-Math.pow(0.85,pu[4]**0.85);
 					for(var j=x-((pu[4]>=6&&x>=pu[4])?pu[4]:(pu[4]>=6)?x:(pu[4]>=2&&x>=5)?5:4);j<=x;j++){
-						give_equipments=Math.floor(equipment_data[j][2]*(luk**0.5)*(1+(eqlevels[equipment_data[j][0]][equipment_data[j][1]]||0)*0.15)*Math.random()*prestige_eff()*energyc_eff()*rate2*challeff(4)*Math.pow(1.2,(pu[10]||0))*transcend_eff());
+						give_equipments=Math.floor(equipment_data[j][2]*(luk**0.5+1)*(1+(eqlevels[equipment_data[j][0]][equipment_data[j][1]]||0)*0.15)*Math.random()*prestige_eff()*energyc_eff()*rate2*challeff(4)*Math.pow(1.2,(pu[10]||0))*transcend_eff());
 						if(chall==4)give_equipments=0;
 						if(give_equipments>0)battle_status.log+="<br>由于转生升级“BOSS额外掉落”的效果，"+ename+"额外掉落了"+format(give_equipments)+"个"+equipment_names[equipment_data[j][0]][equipment_data[j][1]];
 						if(give_equipments>0)equipments[equipment_data[j][0]][equipment_data[j][1]]=(equipments[equipment_data[j][0]][equipment_data[j][1]]||0)+give_equipments;
 					}
 					if(pu[4]>=2+x/10){
-						give_equipments=Math.floor(equipment_data_extra[x][2]*(luk**0.5)*(1+(eqlevels[equipment_data_extra[x][0]][equipment_data_extra[x][1]]||0)*0.15)*Math.random()*prestige_eff()*energyc_eff()*challeff(4)*Math.pow(1.2,(pu[10]||0))*transcend_eff());
+						give_equipments=Math.floor(equipment_data_extra[x][2]*(luk**0.5+1)*(1+(eqlevels[equipment_data_extra[x][0]][equipment_data_extra[x][1]]||0)*0.15)*Math.random()*prestige_eff()*energyc_eff()*challeff(4)*Math.pow(1.2,(pu[10]||0))*transcend_eff());
 						if(highest_progress>=150)give_equipments=Math.floor(give_equipments*1.5);
 						if(chall==4)give_equipments=0;
 						if(give_equipments>0){
@@ -451,7 +479,7 @@ function battle(x){
 						}
 					}
 					if(pu[4]>=x/10 && x>200){
-						give_equipments=Math.floor(equipment_data_extra2[x][2]*(luk**0.5)*(1+(eqlevels[equipment_data_extra2[x][0]][equipment_data_extra2[x][1]]||0)*0.15)*Math.random()*prestige_eff()*energyc_eff()*challeff(4)*Math.pow(1.2,(pu[10]||0))*transcend_eff());
+						give_equipments=Math.floor(equipment_data_extra2[x][2]*(luk**0.5+1)*(1+(eqlevels[equipment_data_extra2[x][0]][equipment_data_extra2[x][1]]||0)*0.15)*Math.random()*prestige_eff()*energyc_eff()*challeff(4)*Math.pow(1.2,(pu[10]||0))*transcend_eff());
 						if(chall==4)give_equipments=0;
 						if(give_equipments>0){
 							battle_status.log+="<br>由于转生升级“BOSS额外掉落”的效果，"+ename+"额外掉落了"+format(give_equipments)+"个"+equipment_names[equipment_data_extra2[x][0]][equipment_data_extra2[x][1]];
@@ -554,7 +582,7 @@ setInterval(update,20);
 攻击：<span id="atk"></span> <a href="javascript:add(2,0.2)">20%加点</a> <a href="javascript:add(2,0.5)">50%加点</a> <a href="javascript:add(2,1)">全加点</a><br>
 防御：<span id="def"></span> <a href="javascript:add(3,0.2)">20%加点</a> <a href="javascript:add(3,0.5)">50%加点</a> <a href="javascript:add(3,1)">全加点</a><br>
 幸运：<span id="luk"></span> <a href="javascript:add(4,0.2)">20%加点</a> <a href="javascript:add(4,0.5)">50%加点</a> <a href="javascript:add(4,1)">全加点</a><br>
-属性点：<span id="points"></span><br>
+属性点：<span id="points"></span><br> <input name="autopoints" id="autopoints" type="checkbox"><label for="autopoints">自动加点</label>（该设置退出时不保存）：生命值:攻击:防御:幸运=<input type="number" min="0" max="10" step="1" value="1" id="autopoints1">:<input type="number" min="0" max="10" step="1" value="1" id="autopoints2">:<input type="number" min="0" max="10" step="1" value="1" id="autopoints3">:<input type="number" min="0" max="10" step="1" value="1" id="autopoints4"><br>
 <span id="chall"></span>
 <br>
 <a href="javascript:settab(0);">战斗</a> <a href="javascript:settab(1);">装备</a> <a href="javascript:settab(3);">转生</a> 
