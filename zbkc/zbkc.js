@@ -728,7 +728,7 @@ function challeff(x){
 		var temp2=0;
 		if(temp>=8.4)temp2=Math.floor(temp**3/68);
 		else if(temp>=6.5)temp2=Math.floor((temp-2.5)**2/4);
-		else temp2=Math.max(Math.floor((temp-3)**1.1),0);
+		else temp2=Math.max(Math.floor(Math.max(temp-3,0)**1.1),0);
 		if(transcendlv>=2)temp2=Math.max(temp2,Math.floor(temp**3/50));
 		return temp2;
 	}
