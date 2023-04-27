@@ -8,6 +8,7 @@ var equipments=[[],[],[],[],[],[],[],[],[],[]];
 var eqlevels=[[],[],[],[],[],[],[],[],[],[]];
 var chall=0;
 var challlvs=[];
+var fbossdamage=0;
 
 var equipment_data=[
 [0,0,1],[1,0,1],[0,0,4],[1,0,4],[2,0,0.5],
@@ -258,6 +259,7 @@ function softreset(s){
 		alert(i18n.battling);
 		return;
 	}
+	if(transcendlv>=5)fbossdamage=Math.min(fbossdamage+getfbossdamage(),1000000000);
 	if(!s && !confirm(i18n.softreset))return;
 	pp+=getpp();
 	exp=967,hp=100,atk=10,def=10,luk=0,points=10*(4+(pu[7]||0)),energy=30+(pu[1]||0)+(challeff(2)),progress=0;
@@ -436,7 +438,7 @@ function geteqeff(x){
 		result*=geteqeffs(x,i);
 	}
 	if(x==2)result=result**0.5;
-	if(x==2&&result>=2)result=Math.log2(result)**0.6+1;
+	if(x==2&&result>=3)result=Math.log2(result-1)**0.7+2;
 	if(x==4)result=result**0.2;
 	if(x==4&&highest_progress>=70)result=result**1.5;
 	if(x==4&&highest_progress>=90)result=result**1.1;
@@ -465,7 +467,7 @@ function add(x,y){
 	if(x==4)luk+=y;
 }
 function exportsave(){
-	return btoa(exp+","+hp+","+atk+","+def+","+luk+","+points+","+btoa(JSON.stringify(equipments))+","+energy+","+progress+","+pp+","+highest_progress+","+btoa(JSON.stringify(pu))+","+btoa(JSON.stringify(eqlevels))+","+chall+","+btoa(JSON.stringify(challlvs))+","+tower+","+tp+","+transcendlv);
+	return btoa(exp+","+hp+","+atk+","+def+","+luk+","+points+","+btoa(JSON.stringify(equipments))+","+energy+","+progress+","+pp+","+highest_progress+","+btoa(JSON.stringify(pu))+","+btoa(JSON.stringify(eqlevels))+","+chall+","+btoa(JSON.stringify(challlvs))+","+tower+","+tp+","+transcendlv+","+fbossdamage);
 }
 function importsave(a){
 	if(!a)return;
@@ -496,6 +498,8 @@ function importsave(a){
 	tp=parseFloat(a[16]);
 	if(!a[17])return;
 	transcendlv=parseInt(a[17]);
+	if(!a[18])return;
+	fbossdamage=parseFloat(a[18]);
 }
 function load(){
 	if(battling){
@@ -520,6 +524,7 @@ function settab(x){
 	document.getElementById("tab4").style.display="none";
 	document.getElementById("tab5").style.display="none";
 	document.getElementById("tab6").style.display="none";
+	document.getElementById("tab7").style.display="none";
 	document.getElementById("battlelog").style.display="none";
 	document.getElementById("tab"+x).style.display="block";
 }
@@ -557,7 +562,7 @@ function getpp(){
 	return Math.floor(((pp**1.9)/75+(30+progress+(pu[1]||0)+challeff(2)-energy)/15) * geteqeffs(3,0) * Math.pow(1.01,progress)*geteqeff(4)*challeff(0)*transcend_eff2());
 }
 function gettp(){
-	var tp=Math.pow(Math.log10(pp+getpp()+1)/10,9)*Math.pow(1.1,transcendlv);
+	var tp=Math.pow(Math.log10(pp+getpp()+1)/10,9)*Math.pow(1.1,transcendlv)*(1+fbossdamage/1e8);
 	return Math.floor(tp);
 }
 function prestige(){
@@ -571,6 +576,7 @@ function transcend(){
 	pu=[];
 	softreset(true);
 	pp=0;
+	fbossdamage=0;
 }
 function prestige_eff(){
 	return 1+pp**0.5/5;
@@ -760,4 +766,8 @@ function tlv3eff(){
 	if(transcendlv>=5)return 3;
 	if(transcendlv>=4)return 2;
 	return 1;
+}
+
+function getfbossdamage(){
+	return Math.min((Math.log10(getatk()+Math.pow(1.0000007,fbossdamage))-Math.log10(Math.pow(1.0000007,fbossdamage)))*100000,getatk());
 }

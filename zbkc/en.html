@@ -504,7 +504,7 @@ function format2(x){
 	return (x/1e3).toFixed(2);
 }
 </script>
-<script src="zbkc.js?1.1.5"></script>
+<script src="zbkc.js?1.2.0"></script>
 <script>
 importsave(localStorage.zbkc);
 setInterval(update,20);
@@ -524,6 +524,7 @@ Stat Points: <span id="points"></span><br>
 <a href="javascript:settab(6);" style="display:none;" id="trans_tab">Transcend</a>
 <a href="javascript:settab(4);" style="display:none;" id="chall_tab">Challenges</a>
 <a href="javascript:settab(5);" style="display:none;" id="tower_tab">The Tower</a>
+<a href="javascript:settab(5);" style="display:none;" id="fboss_tab">Final Boss</a>
 <a href="javascript:settab(2);">Save</a>
 <a href="zbkc.html">中文版</a>
 <div id="tab0" style="display:none;">
@@ -964,11 +965,17 @@ God Of Transcend is multiplying your TP gain by <span id="transcendlv_eff"></spa
 Effects of God Of Transcend: <span id="transcendlv_eff2"></span>
 </div>
 </div>
+<div id="tab7" style="display:none;">
+You encountered the Final Boss. <br>
+Final Boss HP: <span id="final_boss_hp"></span><br>
+Damage dealt to Final Boss: <span id="final_boss_damage1"></span><br>
+Damage to Final Boss after Prestige (based on ATK): <span id="final_boss_damage2"></span><br>
+</div>
 <div id="battlelog">
 Welcome to "Lots of Equipments RPG" by loader3229! This is a game similar to Incremental RPG, and enemies in this game can drop lots of equipments at once!<br>
 Also, you don't lose energy when you lose a battle.<br>
-Version: 1.1.5<br>
-Endgame: Reach Floor 920 in the Tower<br>
+Version: 1.2.0<br>
+Endgame: Reach Floor 940 in the Tower<br>
 The translation to English is not finished, and my English is poor. Sorry.<br>
 </div>
 </body>

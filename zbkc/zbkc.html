@@ -228,7 +228,8 @@ function update(){
 			document.getElementById("transcendlv_eff2").innerHTML+="4级：转生或超越后你直接解锁普通难度的所有战斗区域。（挑战2中无效）<br>";
 		}else if(transcendlv>=3)document.getElementById("transcendlv_eff2").innerHTML+="3级：在你受到致命伤害之后，以1点生命值复活，1场战斗最多1次。<br>";
 		if(transcendlv>=5){
-			document.getElementById("transcendlv_eff2").innerHTML+="5级：现在你可以在任何挑战内更新挑战0、1和5的最高等级。<br>";
+			document.getElementById("fboss_tab").style.display="inline";
+			document.getElementById("transcendlv_eff2").innerHTML+="5级：现在你可以在任何挑战内更新挑战0、1和5的最高等级。解锁最终BOSS。<br>";
 			if(!challlvs[0] || challlvs[0]<getlv().lv){
 				challlvs[0]=getlv().lv;
 			}
@@ -238,6 +239,10 @@ function update(){
 			if(!challlvs[5] || challlvs[5]<getlv().lv){
 				challlvs[5]=getlv().lv;
 			}
+			document.getElementById("final_boss_hp").innerHTML=Math.ceil(1000000000-fbossdamage)+"/1000000000";
+			document.getElementById("final_boss_damage1").innerHTML=Math.floor(fbossdamage);
+			document.getElementById("final_boss_damage2").innerHTML=Math.floor(getfbossdamage());
+			document.getElementById("final_boss_damage3").innerHTML=(1+fbossdamage/1e8).toFixed(3);
 		}
 	}
 	if(highest_progress>=225){
@@ -569,7 +574,7 @@ function formats(x){
 	return Math.floor(x);
 }
 </script>
-<script src="zbkc.js?1.1.5"></script>
+<script src="zbkc.js?1.2.0"></script>
 <script>
 importsave(localStorage.zbkc);
 setInterval(update,20);
@@ -589,6 +594,7 @@ setInterval(update,20);
 <a href="javascript:settab(6);" style="display:none;" id="trans_tab">超越</a>
 <a href="javascript:settab(4);" style="display:none;" id="chall_tab">挑战</a>
 <a href="javascript:settab(5);" style="display:none;" id="tower_tab">通天塔</a>
+<a href="javascript:settab(7);" style="display:none;" id="fboss_tab">最终BOSS</a>
 <a href="javascript:settab(2);">存档</a>
 <div id="tab0" style="display:none;">
 <span id="energyc" style="display:none;">能量消耗设置：<input id="energycinput" type="range" min="0" max="2" step="1" value="1"><span id="energyc_eff"></span><br></span>
@@ -1028,11 +1034,18 @@ setInterval(update,20);
 超越之神的效果：<span id="transcendlv_eff2"></span>
 </div>
 </div>
+<div id="tab7" style="display:none;">
+你遇到了最终BOSS。最终BOSS太强大了，以至于你每次转生只能攻击它一次。最终BOSS生命值越低，它的防御就越高，有时候，你甚至不能对它造成任何伤害。<br>
+最终BOSS的生命值：<span id="final_boss_hp"></span>（转生时不重置，超越时重置）<br>
+你已对最终BOSS造成的伤害：<span id="final_boss_damage1"></span>，使超越点的获得变为原来的<span id="final_boss_damage3"></span>倍<br>
+你本次转生之后可以对最终BOSS造成的伤害（基于攻击）：<span id="final_boss_damage2"></span><br>
+</div>
+</div>
 <div id="battlelog">
 欢迎进入《装备狂潮》，作者为loader3229！这是一个类似于属性膨胀的游戏，特点是怪物可以直接掉落大量装备！感受爆装备的乐趣吧！<br>
 与大多数通胀类游戏不同，这个游戏内在你被打败时不消耗能量，并且可以多次挑战BOSS。<br>
-版本：1.1.5<br>
-当前版本通关要求：通天塔到达920层<br>
+版本：1.2.0<br>
+当前版本通关要求：通天塔到达940层<br>
 本游戏建议在电脑上游玩（作者懒得写css）
 </div>
 </body>
