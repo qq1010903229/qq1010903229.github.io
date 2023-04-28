@@ -769,5 +769,5 @@ function tlv3eff(){
 }
 
 function getfbossdamage(){
-	return Math.min((Math.log10(getatk()+Math.pow(1.0000007,fbossdamage))-Math.log10(Math.pow(1.0000007,fbossdamage)))*100000,getatk());
+	return Math.min((Math.log10(getatk()+Math.pow(1.0000007,fbossdamage))-Math.log10(Math.pow(1.0000007,fbossdamage)))*10000*Math.log10(getpp()+1),getatk());
 }

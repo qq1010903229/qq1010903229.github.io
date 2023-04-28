@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <title>装备狂潮</title>
+<style id="sty1"></style>
 <script>
 var equipment_names=[
 ["匕首","短剑","木剑","草原短刀","铁剑","钢剑","森林剑","铜剑","银剑","金剑","火剑","魔法剑","三叉戟","自然之剑"],
@@ -22,6 +23,17 @@ var i18n={
 	transcend:"是否超越？你将重新开始游戏且失去转生点和转生相关升级，但是会获得超越点。",
 };
 function update(){
+	for(var i=4;;i+=5){
+		var t=document.getElementById("b"+i);
+		if(!t)break;
+		if(!t.children[4])break;
+		t.children[0].className="non_boss";
+		t.children[1].className="non_boss";
+		t.children[2].className="non_boss";
+		t.children[3].className="non_boss";
+	}
+	if(document.getElementById("hide_non_boss").checked)document.getElementById("sty1").innerHTML=".non_boss{display:none;}";
+	else document.getElementById("sty1").innerHTML="";
 	document.getElementById("lv").innerHTML=format(getlv().lv)+" 经验值："+format(getlv().step-getlv().next)+"/"+format(getlv().step);
 	if(getlv().lv>=1e8)document.getElementById("lv").innerHTML=format(getlv().lv)+" &nbsp;&nbsp;"+format(getlv().step)+"经验值升1级";
 	document.getElementById("power").innerHTML=format(getpower());
@@ -593,7 +605,9 @@ setInterval(update,20);
 攻击：<span id="atk"></span> <a href="javascript:add(2,0.2)">20%加点</a> <a href="javascript:add(2,0.5)">50%加点</a> <a href="javascript:add(2,1)">全加点</a><br>
 防御：<span id="def"></span> <a href="javascript:add(3,0.2)">20%加点</a> <a href="javascript:add(3,0.5)">50%加点</a> <a href="javascript:add(3,1)">全加点</a><br>
 幸运：<span id="luk"></span> <a href="javascript:add(4,0.2)">20%加点</a> <a href="javascript:add(4,0.5)">50%加点</a> <a href="javascript:add(4,1)">全加点</a><br>
-属性点：<span id="points"></span><br> <input name="autopoints" id="autopoints" type="checkbox"><label for="autopoints">自动加点</label>（该设置退出时不保存）：生命值:攻击:防御:幸运=<input type="number" min="0" max="10" step="1" value="1" id="autopoints1">:<input type="number" min="0" max="10" step="1" value="1" id="autopoints2">:<input type="number" min="0" max="10" step="1" value="1" id="autopoints3">:<input type="number" min="0" max="10" step="1" value="1" id="autopoints4"><br>
+属性点：<span id="points"></span><br> <input name="autopoints" id="autopoints" type="checkbox"><label for="autopoints">自动加点（该设置退出时不保存）</label>：生命值:攻击:防御:幸运=<input type="number" min="0" max="10" step="1" value="1" id="autopoints1">:<input type="number" min="0" max="10" step="1" value="1" id="autopoints2">:<input type="number" min="0" max="10" step="1" value="1" id="autopoints3">:<input type="number" min="0" max="10" step="1" value="1" id="autopoints4"><br>
+
+<input name="hide_non_boss" id="hide_non_boss" type="checkbox"><label for="hide_non_boss">隐藏非BOSS地图（该设置退出时不保存）</label><br>
 <span id="chall"></span>
 <br>
 <a href="javascript:settab(0);">战斗</a> <a href="javascript:settab(1);">装备</a> <a href="javascript:settab(3);">转生</a> 
@@ -608,10 +622,10 @@ setInterval(update,20);
 <div id="diff0div">
 <span id="diff0_disp" style="display:none;">当前难度：简单<br></span>
 <span id="diff0_chall2" style="display:none;"></span>
-<a href="javascript:battle(0);">新手村1（推荐战力10）</a>
-<a href="javascript:battle(1);">新手村2（推荐战力25）</a>
-<a href="javascript:battle(2);">新手村3（推荐战力50）</a>
-<a href="javascript:battle(3);">新手村4（推荐战力75）</a>
+<a href="javascript:battle(0);" class="non_boss">新手村1（推荐战力10）</a>
+<a href="javascript:battle(1);" class="non_boss">新手村2（推荐战力25）</a>
+<a href="javascript:battle(2);" class="non_boss">新手村3（推荐战力50）</a>
+<a href="javascript:battle(3);" class="non_boss">新手村4（推荐战力75）</a>
 <a href="javascript:battle(4);">新手村BOSS（推荐战力100）</a><br>
 <span id="b4" style="display:none;">
 <a href="javascript:battle(5);">新手村外1（推荐战力125）</a>
@@ -1044,7 +1058,7 @@ setInterval(update,20);
 你遇到了最终BOSS。最终BOSS太强大了，以至于你每次转生只能攻击它一次。最终BOSS生命值越低，它的防御就越高，有时候，你甚至不能对它造成任何伤害。<br>
 最终BOSS的生命值：<span id="final_boss_hp"></span>（转生时不重置，超越时重置）<br>
 你已对最终BOSS造成的伤害：<span id="final_boss_damage1"></span>，使超越点的获得变为原来的<span id="final_boss_damage3"></span>倍<br>
-你本次转生之后可以对最终BOSS造成的伤害（基于攻击）：<span id="final_boss_damage2"></span><br>
+你本次转生之后可以对最终BOSS造成的伤害（基于攻击和可得转生点）：<span id="final_boss_damage2"></span><br>
 </div>
 </div>
 <div id="battlelog">
