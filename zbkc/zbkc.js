@@ -623,7 +623,7 @@ function prestige_cost(x){
 		if(pu[x])return Math.pow(3,pu[x])*100000000;else return 100000000;
 	}
 	if(x==9){
-		if(pu[x])return Math.pow(2,pu[x]**2)*1000000000;else return 1000000000;
+		if(pu[x])return Math.pow(10,pu[x]**1.5+8);else return 1e8;
 	}
 	if(x==10){
 		if(pu[x])return Math.pow(3,pu[x])*1e11;else return 1e11;

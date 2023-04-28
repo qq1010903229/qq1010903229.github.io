@@ -306,6 +306,12 @@ function battle(x){
 	document.getElementById("battlelog").style.display="block";
 	var curhp=gethp();
 	var enemyhp=getehp(x);
+	if(x==79&&highest_progress>=80){
+		enemyhp=Math.ceil(enemyhp/((highest_progress-x+1.5)**0.75));
+	}
+	if(x==179&&highest_progress>=180){
+		enemyhp=Math.ceil(enemyhp/((highest_progress-x+1.5)**0.75));
+	}
 	var enemyhp2=enemyhp;
 	var enemyatk=geteatk(x);
 	var enemydef=getedef(x);
@@ -527,7 +533,7 @@ function battle(x){
 		mult=mult*1.01;
 		if(mult>1.2)mult=mult*1.01;
 	}
-	if(curhp>0)battle_status.interval=setInterval(battle_turn,777/(geteqeff(2)+(pu[9]||0)));
+	if(curhp>0)battle_status.interval=setInterval(battle_turn,777/(geteqeff(2)+(pu[9]||0)*2));
 }
 function format(x){
 	if(x>=1e308)return "无限";
