@@ -359,7 +359,7 @@ function gettowerpower(){
 }
 function getehp(x){
 	if(x=='tower'){
-		if((tower+towerc)>=1000)return Infinity;
+		if((tower+towerc)>=1200)return Infinity;
 		if((tower+towerc)>=41)return 5e21*Math.pow(1.15,(tower+towerc)**0.75)*(((tower+towerc)-9)**4);
 		if((tower+towerc)>=33)return 5e21*Math.pow(1.15,(tower+towerc)**0.75)*(((tower+towerc)-25)**5);
 		if((tower+towerc)>=17)return 5e21*Math.pow(1.15,(tower+towerc)**0.75)*(((tower+towerc)-1)**3);
@@ -439,9 +439,13 @@ function geteqeff(x){
 	}
 	if(x==2)result=result**0.5;
 	if(x==2&&result>=3)result=Math.log2(result-1)**0.7+2;
-	if(x==4)result=result**0.2;
-	if(x==4&&highest_progress>=70)result=result**1.5;
-	if(x==4&&highest_progress>=90)result=result**1.1;
+	if(x==4&&highest_progress>=235){
+		result=result**(1/3);
+	}else{
+		if(x==4)result=result**0.2;
+		if(x==4&&highest_progress>=70)result=result**1.5;
+		if(x==4&&highest_progress>=90)result=result**1.1;
+	}
 	
 	if(x==4&&result>=2&&highest_progress<90)result=Math.log2(result)**0.6+1;
 	
@@ -449,9 +453,10 @@ function geteqeff(x){
 	else if(x==4&&result>=3&&highest_progress<150)result=Math.log2(result-1)**0.8+2;
 	else if(x==4&&result>=3&&highest_progress<180)result=Math.log2(result-1)+2;
 	
-	if(x==4&&result>=4)result=Math.log2(result-2)**0.6+3;
+	if(x==4&&result>=4&&highest_progress<235)result=Math.log2(result-2)**0.6+3;
+	else if(x==4&&result>=4)result=Math.log2(result-1)**0.8+3;
 	
-	if(x==4&&result>=9)result=9;
+	if(x==4&&result>=10)result=Math.log10(result)+9;
 	return result;
 }
 function add(x,y){
@@ -743,7 +748,7 @@ function challeff(x){
 		return temp**3/50+1;
 	}
 	if(x==4){
-		if(temp>=10)return temp**3/1000+1;
+		if(temp>=10)return temp**4/10000+1;
 		return temp**2/100+1;
 	}
 	if(x==5){

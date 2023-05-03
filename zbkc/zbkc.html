@@ -310,6 +310,7 @@ function battle(x){
 		return;
 	}
 	battling=1;
+	var simple_mode=document.getElementById("simple_mode").checked;
 	document.getElementById("tab0").style.display="none";
 	document.getElementById("tab1").style.display="none";
 	document.getElementById("tab2").style.display="none";
@@ -363,6 +364,9 @@ function battle(x){
 			battling=0;
 		}else battle_status.log+=ename+"对你造成了"+format(damage2)+"点伤害，你还剩"+format(curhp)+"点生命值<br>";
 	}
+	if(simple_mode){
+		battle_status.log="玩家生命值："+format(curhp)+"/"+format(gethp())+"<br>"+ename+"生命值："+Math.ceil(enemyhp/enemyhp2*100)+"%<br>战斗速度："+Math.floor((geteqeff(2)+(pu[9]||0)*2)*100)+"%";
+	}
 	document.getElementById("battlelog").innerHTML=battle_status.log;
 	var battle_turn=function(){
 		document.getElementById("tab0").style.display="none";
@@ -411,6 +415,7 @@ function battle(x){
 			else if(x==179&&chall!=1)battle_status.log+="由于BOSS的特性，实际造成了"+damage1.toFixed(2)+"点伤害，"+ename+"被击败了<br>";
 			else if(x==39||x==69||x==79||x==139||x==169||x==179)battle_status.log+="由于BOSS的特性，实际造成了"+format(damage1)+"点伤害，"+ename+"被击败了<br>";
 			else battle_status.log+="你对"+ename+"造成了"+format(damage1)+"点伤害，"+ename+"被击败了<br>";
+			enemyhp=0;
 			clearInterval(battle_status.interval);
 			var exp_base=Math.pow(enemyatk*enemydef,0.75);
 			if(exp_base>=9e10&&highest_progress>=230)exp_base=(exp_base**0.75)*(9e10**0.25);
@@ -441,6 +446,10 @@ function battle(x){
 			if(highest_progress>=185)exp_base*=geteqeff(4);
 			var exp_give=Math.floor(exp_base*rand_2()*geteqeffs(3,5)*prestige_eff()*energyc_eff()*challeff(3)*Math.pow(1.2,(pu[8]||0))*(1+tower*1.5/100)*transcend_eff());
 			if(x=='tower')exp_give=0;
+			if(simple_mode){
+				battle_status.log="玩家生命值："+format(curhp)+"/"+format(gethp())+"<br>"+ename+"生命值："+Math.ceil(enemyhp/enemyhp2*100)+"%<br>战斗速度："+Math.floor((geteqeff(2)+(pu[9]||0)*2)*100)+"%";
+				battle_status.log+="<br><br>";
+			}
 			battle_status.log+="战斗胜利，你得到了"+format(exp_give)+"经验<br>";
 			var level1=getlv().lv;
 			exp+=exp_give;
@@ -483,6 +492,7 @@ function battle(x){
 				if(x==219&&highest_progress<219)battle_status.log+="<br>由于你第一次打败困难草原BOSS2，你得到了9900000个永久性的经验宝石（不可用于强化）。";
 				if(x==224&&highest_progress<224)battle_status.log+="<br>由于你第一次打败困难森林BOSS1，你得到的经验值增加了。";
 				if(x==229&&highest_progress<229)battle_status.log+="<br>由于你第一次打败困难森林BOSS2，你得到的经验值增加了。";
+				if(x==234&&highest_progress<234)battle_status.log+="<br>由于你第一次打败困难沙漠BOSS1，徽章的效果增加了。";
 				if(pu[4]){
 					var rate2=1-Math.pow(0.85,pu[4]**0.75);
 					if(highest_progress>=150)rate2=1-Math.pow(0.85,pu[4]**0.85);
@@ -540,12 +550,22 @@ function battle(x){
 				else battle_status.log+=ename+"对你造成了"+format(damage2)+"点伤害，你倒下了";
 				battling=0;
 			}else battle_status.log+=ename+"对你造成了"+format(damage2)+"点伤害，你还剩"+format(curhp)+"点生命值<br>";
+			if(simple_mode){
+				if(curhp<=0){
+					curhp=0;
+				}
+				battle_status.log="玩家生命值："+format(curhp)+"/"+format(gethp())+"<br>"+ename+"生命值："+Math.ceil(enemyhp/enemyhp2*100)+"%<br>战斗速度："+Math.floor((geteqeff(2)+(pu[9]||0)*2)*100)+"%";
+				if(curhp<=0){
+					if(x!='tower')battle_status.log+="<br><br>战斗失败<br><a href=\"javascript:battle("+x+");\">再次战斗</a>";
+				}
+			}
 		}
 		document.getElementById("battlelog").innerHTML=battle_status.log;
 		mult=mult*1.01;
 		if(mult>1.2)mult=mult*1.01;
+		if(mult>100)mult=mult*1.01;
 	}
-	if(curhp>0)battle_status.interval=setInterval(battle_turn,777/(geteqeff(2)+(pu[9]||0)*2));
+	if(curhp>0)battle_status.interval=setInterval(battle_turn,(simple_mode?700:777)/(geteqeff(2)+(pu[9]||0)*2));
 }
 function format(x){
 	if(x>=1e308)return "无限";
@@ -607,7 +627,8 @@ setInterval(update,20);
 幸运：<span id="luk"></span> <a href="javascript:add(4,0.2)">20%加点</a> <a href="javascript:add(4,0.5)">50%加点</a> <a href="javascript:add(4,1)">全加点</a><br>
 属性点：<span id="points"></span><br> <input name="autopoints" id="autopoints" type="checkbox"><label for="autopoints">自动加点（该设置退出时不保存）</label>：生命值:攻击:防御:幸运=<input type="number" min="0" max="10" step="1" value="1" id="autopoints1">:<input type="number" min="0" max="10" step="1" value="1" id="autopoints2">:<input type="number" min="0" max="10" step="1" value="1" id="autopoints3">:<input type="number" min="0" max="10" step="1" value="1" id="autopoints4"><br>
 
-<input name="hide_non_boss" id="hide_non_boss" type="checkbox"><label for="hide_non_boss">隐藏非BOSS地图（该设置退出时不保存）</label><br>
+<input name="hide_non_boss" id="hide_non_boss" type="checkbox"><label for="hide_non_boss">隐藏非BOSS地图（该设置退出时不保存）</label>
+<input name="simple_mode" id="simple_mode" type="checkbox"><label for="simple_mode">简略战斗模式</label><br>
 <span id="chall"></span>
 <br>
 <a href="javascript:settab(0);">战斗</a> <a href="javascript:settab(1);">装备</a> <a href="javascript:settab(3);">转生</a> 
@@ -1064,8 +1085,8 @@ setInterval(update,20);
 <div id="battlelog">
 欢迎进入《装备狂潮》，作者为loader3229！这是一个类似于属性膨胀的游戏，特点是怪物可以直接掉落大量装备！感受爆装备的乐趣吧！<br>
 与大多数通胀类游戏不同，这个游戏内在你被打败时不消耗能量，并且可以多次挑战BOSS。<br>
-版本：1.2.0<br>
-当前版本通关要求：通天塔到达940层<br>
+版本：1.2.1<br>
+当前版本通关要求：通天塔到达1120层<br>
 本游戏建议在电脑上游玩（作者懒得写css）
 </div>
 </body>
