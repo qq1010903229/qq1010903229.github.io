@@ -314,6 +314,7 @@ function reset(){
 	eqlevels=[[],[],[],[],[],[],[],[],[],[]];
 	chall=0;
 	challlvs=[];
+	fbossdamage=0;
 	localStorage.zbkc=exportsave();
 	document.location.reload();
 }
