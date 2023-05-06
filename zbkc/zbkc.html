@@ -256,10 +256,15 @@ function update(){
 			document.getElementById("final_boss_damage2").innerHTML=Math.floor(getfbossdamage());
 			document.getElementById("final_boss_damage3").innerHTML=(1+fbossdamage/1e8).toFixed(3);
 		}
+		if(transcendlv>=6)document.getElementById("transcendlv_eff2").innerHTML+="6级：超越之神效果现在对生命值、攻击和防御生效。<br>";
 	}
 	if(highest_progress>=225){
 		document.getElementById("pu11").style.display="inline";
 		document.getElementById("pu11").innerHTML="防御提升（"+(pu[11]||0)+"级，升级需"+format(prestige_cost(11))+"转生点）";
+	}
+	if(highest_progress>=240){
+		document.getElementById("pu12").style.display="inline";
+		document.getElementById("pu12").innerHTML="攻击提升（"+(pu[12]||0)+"级，升级需"+format(prestige_cost(12))+"转生点）";
 	}
 	if(transcendlv>=1){
 		document.getElementById("tower_skip").style.display="inline";
@@ -522,6 +527,8 @@ function battle(x){
 				}
 			}
 			if(x!='tower')battle_status.log+="<br><a href=\"javascript:battle("+x+");\">再次战斗</a>";
+			if(x!='tower'&&x<hpdata.length-1)battle_status.log+="<br><a href=\"javascript:battle("+(x+1)+");\">挑战下一关</a>";
+			if(x!='tower'&&x%5==4&&x<hpdata.length-1)battle_status.log+="<br><a href=\"javascript:battle("+(x+5)+");\">挑战下一个BOSS</a>";
 			if(x!='tower')energy-=energyc;else tower+=(1+temp_towerc);
 			battling=0;
 		}else{
@@ -979,6 +986,11 @@ setInterval(update,20);
 <a href="javascript:battle(234);">沙漠BOSS1</a>
 </span><br>
 <span id="b234" style="display:none;">
+<a href="javascript:battle(235);">沙漠6（推荐战力100正）</a>
+<a href="javascript:battle(236);">沙漠7（推荐战力200正）</a>
+<a href="javascript:battle(237);">沙漠8（推荐战力400正）</a>
+<a href="javascript:battle(238);">沙漠9（推荐战力800正）</a>
+<a href="javascript:battle(239);">沙漠BOSS2（打败以解锁新的转生升级！）</a>
 </span><br>
 <span id="b239" style="display:none;">
 </span><br>
@@ -1016,6 +1028,7 @@ setInterval(update,20);
 <a id="pu9" href="javascript:prestige_up(9);" style="display:none;"></a><br>
 <a id="pu10" href="javascript:prestige_up(10);" style="display:none;"></a><br>
 <a id="pu11" href="javascript:prestige_up(11);" style="display:none;"></a><br>
+<a id="pu12" href="javascript:prestige_up(12);" style="display:none;"></a><br>
 </div>
 <div id="tab4" style="display:none;">
 <div id="challtower" style="display:none;">挑战5的效果不会对通天塔的怪物生效。</div>
@@ -1068,7 +1081,7 @@ setInterval(update,20);
 你有<span id="transcend3"></span>超越点，经验、装备的获得变为原来的<span id="transcend_eff"></span>倍，转生点的获得变为原来的<span id="transcend_eff2"></span>倍<br>
 <div id="tab6a" style="display:none;">
 <hr>
-超越之神的等级为<span id="transcendlv"></span>/5，升级需要你有<span id="transcendlv2"></span>超越点，花费<span id="transcendlv3"></span>超越点。<br>
+超越之神的等级为<span id="transcendlv"></span>/6，升级需要你有<span id="transcendlv2"></span>超越点，花费<span id="transcendlv3"></span>超越点。<br>
 超越之神使超越点的获得变为原来的<span id="transcendlv_eff"></span>倍。
 <a href="javascript:transcendlvup();">升级超越之神</a><br>
 <br>
@@ -1085,8 +1098,8 @@ setInterval(update,20);
 <div id="battlelog">
 欢迎进入《装备狂潮》，作者为loader3229！这是一个类似于属性膨胀的游戏，特点是怪物可以直接掉落大量装备！感受爆装备的乐趣吧！<br>
 与大多数通胀类游戏不同，这个游戏内在你被打败时不消耗能量，并且可以多次挑战BOSS。<br>
-版本：1.2.1<br>
-当前版本通关要求：通天塔到达1120层<br>
+版本：1.2.2<br>
+当前版本通关要求：通天塔到达1200层<br>
 本游戏建议在电脑上游玩（作者懒得写css）
 </div>
 </body>

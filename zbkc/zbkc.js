@@ -60,6 +60,7 @@ var equipment_data=[
 [0,13,1e-14],[1,5,1],[0,5,10],[1,5,3],[3,5,1e-3],
 [0,13,1e-13],[1,13,1e-13],[0,6,3],[1,4,20],[3,2,0.02],
 [0,7,5],[1,6,1],[0,7,10],[1,6,3],[3,7,1e-4],
+[1,4,50],[1,6,5],[0,7,20],[1,6,10],[3,10,1e-7],
 ];
 equipment_data.tower=[0,0,0];
 var equipment_data_extra={
@@ -154,6 +155,7 @@ var hpdata=[
 5.5e39,7.0e39,9.0e39,1.1e40,7.0e40/3,
 1.6e41,2.0e41,3.5e41,6.0e41,1.0e42,
 2.0e43,4.0e43,6.0e43,8.0e43,1.0e44,
+5.0e44,1.0e45,2.0e45,4.0e45,1.0e46,
 ];
 var atkdata=[
 12,25,40,60,75,
@@ -203,6 +205,7 @@ var atkdata=[
 6.0e35,7.2e35,8.0e35,8.8e35,8.8e35,
 5.0e37,6.0e37,7.0e37,7.5e37,8.0e37,
 1.0e39,2.0e39,4.0e39,7.0e39,1.0e40,
+1.0e41,2.0e41,4.0e41,8.0e41,2.0e42,
 ];
 var exp_data=[
 10,11,12,13,15,
@@ -251,6 +254,7 @@ var exp_data=[
 56,55,55,56,60,
 58,56,57,58,60,
 44,40,39,43,48,
+40,40,40,40,40,
 40,40,40,40,40,
 ];
 var pu=[];
@@ -328,17 +332,17 @@ function getlv(){
 }
 function gethp(){
 	if(chall==1)return 1;
-	let temp=Math.floor(hp*geteqeffs(3,1)*geteqeffs(3,3)*geteqeffs(3,4)*geteqeffs(3,6)*geteqeffs(3,8)*geteqeffs(3,9)*geteqeffs(3,10)*geteqeff(4)*Math.pow(1.25,(pu[3]||0))*Math.pow((pu[3]||0)+1,highest_progress>=190?3.5:highest_progress>=130?3:highest_progress>=100?2:highest_progress>=70?1:0.5)*challeff(1)*(1+tower*1.5/100));
+	let temp=Math.floor(hp*geteqeffs(3,1)*geteqeffs(3,3)*geteqeffs(3,4)*geteqeffs(3,6)*geteqeffs(3,8)*geteqeffs(3,9)*geteqeffs(3,10)*geteqeff(4)*Math.pow(1.25,(pu[3]||0))*Math.pow((pu[3]||0)+1,highest_progress>=190?3.5:highest_progress>=130?3:highest_progress>=100?2:highest_progress>=70?1:0.5)*challeff(1)*(1+tower*1.5/100)*Math.pow(1.1,transcendlv>=6?transcendlv:0));
 	if(chall==6)return Math.floor(temp**0.5);
 	return temp;
 }
 function getatk(){
-	let temp=atk*geteqeff(0)*geteqeff(4)*challeff(5);
+	let temp=atk*geteqeff(0)*geteqeff(4)*challeff(5)*Math.pow(1.25,(pu[12]||0))*Math.pow(1.1,transcendlv>=6?transcendlv:0);
 	if(chall==6)return Math.floor(temp**0.5);
 	return temp;
 }
 function getdef(){
-	let temp=def*geteqeff(1)*geteqeff(4)*challeff(6)*Math.pow(1.25,(pu[11]||0));
+	let temp=def*geteqeff(1)*geteqeff(4)*challeff(6)*Math.pow(1.25,(pu[11]||0))*Math.pow(1.1,transcendlv>=6?transcendlv:0);
 	if(chall==6)return Math.floor(temp**0.5);
 	return temp;
 }
@@ -596,7 +600,7 @@ function energyc_eff(){
 	return energyc**1.2;
 }
 function prestige_cost(x){
-	var pu_max=[15,50,20,40,22,15,10,10,15,10,10,4];
+	var pu_max=[15,50,20,40,22,16,10,10,15,10,10,4,2];
 	if(pu[x] && pu[x]>=pu_max[x])return Infinity;
 	if(x==0){
 		if(pu[x])return Math.floor(Math.pow(10,3+pu[x])/(pu[x]**2+1));else return 1000;
@@ -614,6 +618,7 @@ function prestige_cost(x){
 		if(pu[x])return Math.pow(3,pu[x])*10000;else return 10000;
 	}
 	if(x==5){
+		if(pu[x]>=15)return Math.floor(Math.pow(1+pu[x]*0.2,pu[x])*(pu[x]**(pu[x]/3)));
 		if(pu[x]>=10)return Math.floor(Math.pow(1+pu[x]*0.2,pu[x])*(pu[x]**5));
 		if(pu[x]>=5)return Math.floor(Math.pow(1+pu[x]*0.2,pu[x])*100000);
 		if(pu[x])return Math.pow(2,pu[x])*100000;else return 100000;
@@ -635,6 +640,9 @@ function prestige_cost(x){
 	}
 	if(x==11){
 		if(pu[x])return Math.pow(3,pu[x])*1e13;else return 1e13;
+	}
+	if(x==12){
+		if(pu[x])return Math.pow(3,pu[x])*1e14;else return 1e14;
 	}
 }
 function prestige_up(x){
@@ -687,6 +695,9 @@ function prestige_up(x){
 	}
 	if(x==11){
 		if(pu[11])pu[11]++;else pu[11]=1;
+	}
+	if(x==12){
+		if(pu[12])pu[12]++;else pu[12]=1;
 	}
 }
 function eqlevel_cost(x,i){
@@ -761,13 +772,14 @@ function challeff(x){
 	}
 }
 function transcendlvup(){
-	if(transcendlv>=5)return;
+	if(transcendlv>=6)return;
 	if(tp>=5*Math.pow(2,transcendlv)){
 		tp-=Math.pow(2,transcendlv);
 		transcendlv++;
 	}
 }
 function tlv3eff(){
+	if(transcendlv>=6)return 4;
 	if(transcendlv>=5)return 3;
 	if(transcendlv>=4)return 2;
 	return 1;
