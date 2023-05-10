@@ -6,8 +6,8 @@
 <script>
 var equipment_names=[
 ["Dagger","Shortsword","Wooden Sword","Grassland Sword","Iron Sword","Tin Sword","Forest Sword","Copper Sword","Silver Sword","Golden Sword","Firesword","Magical Sword","Trident","Nature Sword"],
-["布衣","皮甲","Light Armor","Iron Armor","Tin Armor","Forest Armor","Desert Armor","Copper Armor","Silver Armor","Golden Armor","Feather Armor","Fire Armor","Water Shield","Nature Shield"],
-["布鞋","皮鞋","Forest Shoe","Desert Shoe","Ocean Shoe","Sky Shoe","Fire Shoe","Magical Shoe"],
+["Shirt","Leather Armor","Light Armor","Iron Armor","Tin Armor","Forest Armor","Desert Armor","Copper Armor","Silver Armor","Golden Armor","Feather Armor","Fire Armor","Water Shield","Nature Shield"],
+["Simple Shoe","Leather Shoe","Forest Shoe","Desert Shoe","Ocean Shoe","Sky Shoe","Fire Shoe","Magical Shoe"],
 ["Prestige Gem","Life Gem","Critical Gem","Ocean Core","Fire Core","EXP Gem","Magical Core","Lifesteal Gem","Nature Core","Earth Core","Life Crystal","Recovery Gem"],
 ["Village Pin","Grassland Pin","Forest Pin","Desert Pin","Cave Pin","Water Pin","Nature Pin","Sky Pin","Fire Pin","Magical Pin"],
 ];
@@ -228,7 +228,7 @@ function update(){
 			document.getElementById("transcendlv_eff2").innerHTML+="Level 4: You permanently unlock all battle areas in the Normal difficulty unless you're in Challenge 2.<br>";
 		}else if(transcendlv>=3)document.getElementById("transcendlv_eff2").innerHTML+="Level 3: Keep 1 HP when you got fatal damage 1 time per battle.<br>";
 		if(transcendlv>=5){
-			document.getElementById("transcendlv_eff2").innerHTML+="Level 5: You can gain highest levels in challenges 0,1,5 at any time.";
+			document.getElementById("transcendlv_eff2").innerHTML+="Level 5: You can gain highest levels in challenges 0,1,5 at any time.<br>";
 			if(!challlvs[0] || challlvs[0]<getlv().lv){
 				challlvs[0]=getlv().lv;
 			}
@@ -239,10 +239,16 @@ function update(){
 				challlvs[5]=getlv().lv;
 			}
 		}
+		if(transcendlv>=6)document.getElementById("transcendlv_eff2").innerHTML+="Level 6: Increase HP, ATK and DEF based on the level of God Of Transcend.<br>";
+		if(transcendlv>=7)document.getElementById("transcendlv_eff2").innerHTML+="Level 7: Increase EXP based on the level of God Of Transcend.<br>";
 	}
 	if(highest_progress>=225){
 		document.getElementById("pu11").style.display="inline";
 		document.getElementById("pu11").innerHTML="More Defense (Level "+(pu[11]||0)+", Costs "+format(prestige_cost(11))+" PP to Level Up)";
+	}
+	if(highest_progress>=240){
+		document.getElementById("pu12").style.display="inline";
+		document.getElementById("pu12").innerHTML="More Attack (Level "+(pu[12]||0)+", Costs "+format(prestige_cost(12))+" PP to Level Up)";
 	}
 	if(transcendlv>=1){
 		document.getElementById("tower_skip").style.display="inline";
@@ -394,6 +400,7 @@ function battle(x){
 				exp_base*=exp_data[x];
 			}
 			if(highest_progress>=185)exp_base*=geteqeff(4);
+			if(transcendlv>=7)exp_base*=Math.pow(1.1,transcendlv);
 			var exp_give=Math.floor(exp_base*rand_2()*geteqeffs(3,5)*prestige_eff()*energyc_eff()*challeff(3)*Math.pow(1.2,(pu[8]||0))*(1+tower*1.5/100)*transcend_eff());
 			if(x=='tower')exp_give=0;
 			battle_status.log+="You have got "+format(exp_give)+" EXP<br>";
@@ -912,6 +919,7 @@ You have <span id="prestige3"></span> Prestige Points, gaining <span id="prestig
 <a id="pu9" href="javascript:prestige_up(9);" style="display:none;"></a><br>
 <a id="pu10" href="javascript:prestige_up(10);" style="display:none;"></a><br>
 <a id="pu11" href="javascript:prestige_up(11);" style="display:none;"></a><br>
+<a id="pu12" href="javascript:prestige_up(12);" style="display:none;"></a><br>
 </div>
 <div id="tab4" style="display:none;">
 <div id="challtower" style="display:none;">The effect of Challenge 5 won't apply in the Tower.</div>
@@ -964,7 +972,7 @@ Transcend won't reset equipment levels, challenges and The Tower.<br>
 You have <span id="transcend3"></span> Transcend Points, gaining <span id="transcend_eff"></span>x more EXP, equipments and gaining <span id="transcend_eff2"></span>x more prestige points<br>
 <div id="tab6a" style="display:none;">
 <hr>
-God Of Transcend's level is <span id="transcendlv"></span>/5, leveling up requires <span id="transcendlv2"></span> TP, costs <span id="transcendlv3"></span> TP.<br>
+God Of Transcend's level is <span id="transcendlv"></span>/7, leveling up requires <span id="transcendlv2"></span> TP, costs <span id="transcendlv3"></span> TP.<br>
 God Of Transcend is multiplying your TP gain by <span id="transcendlv_eff"></span>x
 <a href="javascript:transcendlvup();">Level Up God Of Transcend</a><br>
 <br>

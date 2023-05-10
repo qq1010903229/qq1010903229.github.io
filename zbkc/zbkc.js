@@ -364,7 +364,7 @@ function gettowerpower(){
 }
 function getehp(x){
 	if(x=='tower'){
-		if((tower+towerc)>=1200)return Infinity;
+		if((tower+towerc)>=1666)return Infinity;
 		if((tower+towerc)>=41)return 5e21*Math.pow(1.15,(tower+towerc)**0.75)*(((tower+towerc)-9)**4);
 		if((tower+towerc)>=33)return 5e21*Math.pow(1.15,(tower+towerc)**0.75)*(((tower+towerc)-25)**5);
 		if((tower+towerc)>=17)return 5e21*Math.pow(1.15,(tower+towerc)**0.75)*(((tower+towerc)-1)**3);
@@ -773,16 +773,14 @@ function challeff(x){
 	}
 }
 function transcendlvup(){
-	if(transcendlv>=6)return;
+	if(transcendlv>=7)return;
 	if(tp>=5*Math.pow(2,transcendlv)){
 		tp-=Math.pow(2,transcendlv);
 		transcendlv++;
 	}
 }
 function tlv3eff(){
-	if(transcendlv>=6)return 4;
-	if(transcendlv>=5)return 3;
-	if(transcendlv>=4)return 2;
+	if(transcendlv>=4)return transcendlv-2;
 	return 1;
 }
 

@@ -257,6 +257,7 @@ function update(){
 			document.getElementById("final_boss_damage3").innerHTML=(1+fbossdamage/1e8).toFixed(3);
 		}
 		if(transcendlv>=6)document.getElementById("transcendlv_eff2").innerHTML+="6级：超越之神效果现在对生命值、攻击和防御生效。<br>";
+		if(transcendlv>=7)document.getElementById("transcendlv_eff2").innerHTML+="7级：超越之神效果现在对经验生效。<br>";
 	}
 	if(highest_progress>=225){
 		document.getElementById("pu11").style.display="inline";
@@ -449,6 +450,7 @@ function battle(x){
 				exp_base*=exp_data[x];
 			}
 			if(highest_progress>=185)exp_base*=geteqeff(4);
+			if(transcendlv>=7)exp_base*=Math.pow(1.1,transcendlv);
 			var exp_give=Math.floor(exp_base*rand_2()*geteqeffs(3,5)*prestige_eff()*energyc_eff()*challeff(3)*Math.pow(1.2,(pu[8]||0))*(1+tower*1.5/100)*transcend_eff());
 			if(x=='tower')exp_give=0;
 			if(simple_mode){
@@ -1081,7 +1083,7 @@ setInterval(update,20);
 你有<span id="transcend3"></span>超越点，经验、装备的获得变为原来的<span id="transcend_eff"></span>倍，转生点的获得变为原来的<span id="transcend_eff2"></span>倍<br>
 <div id="tab6a" style="display:none;">
 <hr>
-超越之神的等级为<span id="transcendlv"></span>/6，升级需要你有<span id="transcendlv2"></span>超越点，花费<span id="transcendlv3"></span>超越点。<br>
+超越之神的等级为<span id="transcendlv"></span>/7，升级需要你有<span id="transcendlv2"></span>超越点，花费<span id="transcendlv3"></span>超越点。<br>
 超越之神使超越点的获得变为原来的<span id="transcendlv_eff"></span>倍。
 <a href="javascript:transcendlvup();">升级超越之神</a><br>
 <br>
