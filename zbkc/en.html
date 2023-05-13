@@ -241,6 +241,12 @@ function update(){
 		}
 		if(transcendlv>=6)document.getElementById("transcendlv_eff2").innerHTML+="Level 6: Increase HP, ATK and DEF based on the level of God Of Transcend.<br>";
 		if(transcendlv>=7)document.getElementById("transcendlv_eff2").innerHTML+="Level 7: Increase EXP based on the level of God Of Transcend.<br>";
+		if(transcendlv>=8){
+			document.getElementById("transcendlv_eff2").innerHTML+="Level 8: You can gain highest levels in challenge 2 at any time.<br>";
+			if(!challlvs[2] || challlvs[2]<getlv().lv){
+				challlvs[2]=getlv().lv;
+			}
+		}
 	}
 	if(highest_progress>=225){
 		document.getElementById("pu11").style.display="inline";
@@ -972,7 +978,7 @@ Transcend won't reset equipment levels, challenges and The Tower.<br>
 You have <span id="transcend3"></span> Transcend Points, gaining <span id="transcend_eff"></span>x more EXP, equipments and gaining <span id="transcend_eff2"></span>x more prestige points<br>
 <div id="tab6a" style="display:none;">
 <hr>
-God Of Transcend's level is <span id="transcendlv"></span>/7, leveling up requires <span id="transcendlv2"></span> TP, costs <span id="transcendlv3"></span> TP.<br>
+God Of Transcend's level is <span id="transcendlv"></span>/8, leveling up requires <span id="transcendlv2"></span> TP, costs <span id="transcendlv3"></span> TP.<br>
 God Of Transcend is multiplying your TP gain by <span id="transcendlv_eff"></span>x
 <a href="javascript:transcendlvup();">Level Up God Of Transcend</a><br>
 <br>

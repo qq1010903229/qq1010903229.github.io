@@ -61,6 +61,7 @@ var equipment_data=[
 [0,13,1e-13],[1,13,1e-13],[0,6,3],[1,4,20],[3,2,0.02],
 [0,7,5],[1,6,1],[0,7,10],[1,6,3],[3,7,1e-4],
 [1,4,50],[1,6,5],[0,7,20],[1,6,10],[3,10,1e-7],
+[0,7,30],[1,7,10],[0,8,10],[1,8,10],[3,7,5e-3],
 ];
 equipment_data.tower=[0,0,0];
 var equipment_data_extra={
@@ -156,6 +157,7 @@ var hpdata=[
 1.6e41,2.0e41,3.5e41,6.0e41,1.0e42,
 2.0e43,4.0e43,6.0e43,8.0e43,1.0e44,
 5.0e44,1.0e45,2.0e45,4.0e45,1.0e46,
+5.0e47,1.0e47,2.0e47,4.0e47,1.0e48,
 ];
 var atkdata=[
 12,25,40,60,75,
@@ -206,6 +208,7 @@ var atkdata=[
 5.0e37,6.0e37,7.0e37,7.5e37,8.0e37,
 1.0e39,2.0e39,4.0e39,7.0e39,1.0e40,
 1.0e41,2.0e41,4.0e41,8.0e41,2.0e42,
+1.0e43,2.0e43,4.0e43,8.0e43,2.0e44,
 ];
 var exp_data=[
 10,11,12,13,15,
@@ -254,6 +257,7 @@ var exp_data=[
 56,55,55,56,60,
 58,56,57,58,60,
 44,40,39,43,48,
+40,40,40,40,40,
 40,40,40,40,40,
 40,40,40,40,40,
 ];
@@ -459,7 +463,8 @@ function geteqeff(x){
 	else if(x==4&&result>=3&&highest_progress<180)result=Math.log2(result-1)+2;
 	
 	if(x==4&&result>=4&&highest_progress<235)result=Math.log2(result-2)**0.6+3;
-	else if(x==4&&result>=4)result=Math.log2(result-1)**0.8+3;
+	else if(x==4&&result>=4&&highest_progress<240)result=Math.log2(result-1)**0.8+3;
+	else if(x==4&&result>=4)result=Math.log2(result-1)+3;
 	
 	if(x==4&&result>=10)result=Math.log10(result)+9;
 	return result;
@@ -601,7 +606,7 @@ function energyc_eff(){
 	return energyc**1.2;
 }
 function prestige_cost(x){
-	var pu_max=[15,50,20,40,22,16,10,10,15,10,10,4,2];
+	var pu_max=[15,50,20,40,25,16,10,10,15,10,10,4,2];
 	if(pu[x] && pu[x]>=pu_max[x])return Infinity;
 	if(x==0){
 		if(pu[x])return Math.floor(Math.pow(10,3+pu[x])/(pu[x]**2+1));else return 1000;
@@ -773,7 +778,7 @@ function challeff(x){
 	}
 }
 function transcendlvup(){
-	if(transcendlv>=7)return;
+	if(transcendlv>=8)return;
 	if(tp>=5*Math.pow(2,transcendlv)){
 		tp-=Math.pow(2,transcendlv);
 		transcendlv++;
