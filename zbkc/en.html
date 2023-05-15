@@ -221,7 +221,7 @@ function update(){
 		document.getElementById("transcendlv3").innerHTML=format(Math.pow(2,transcendlv));
 		document.getElementById("transcendlv_eff").innerHTML=Math.floor(Math.pow(1.1,transcendlv)*100)/100;
 		document.getElementById("transcendlv_eff2").innerHTML="";
-		if(transcendlv>=1)document.getElementById("transcendlv_eff2").innerHTML+="Level 1: You can skip floor of The Tower. Remove post-"+(transcendlv>=5?70:200)+" The Tower enemy power scaling.<br>";
+		if(transcendlv>=1)document.getElementById("transcendlv_eff2").innerHTML+="Level 1: You can skip floor of The Tower. Remove post-"+(transcendlv>=8?50:transcendlv>=5?70:200)+" The Tower enemy power scaling.<br>";
 		if(transcendlv>=2)document.getElementById("transcendlv_eff2").innerHTML+="Level 2: Boost Challenge 2 Effect.<br>";
 		if(transcendlv>=4){
 			document.getElementById("transcendlv_eff2").innerHTML+="Level 3: Keep 1 HP when you got fatal damage "+tlv3eff()+" times per battle.<br>";
@@ -523,7 +523,7 @@ function format2(x){
 	return (x/1e3).toFixed(2);
 }
 </script>
-<script src="zbkc.js?1.2.0"></script>
+<script src="zbkc.js?1.2.4"></script>
 <script>
 importsave(localStorage.zbkc);
 setInterval(update,20);
@@ -994,8 +994,8 @@ Damage to Final Boss after Prestige (based on ATK): <span id="final_boss_damage2
 <div id="battlelog">
 Welcome to "Lots of Equipments RPG" by loader3229! This is a game similar to Incremental RPG, and enemies in this game can drop lots of equipments at once!<br>
 Also, you don't lose energy when you lose a battle.<br>
-Version: 1.2.0<br>
-Endgame: Reach Floor 940 in the Tower<br>
+Version: 1.2.4<br>
+Endgame: Reach Floor 1700 in the Tower<br>
 The translation to English is not finished, and my English is poor. Sorry.<br>
 </div>
 </body>

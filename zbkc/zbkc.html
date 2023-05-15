@@ -233,7 +233,7 @@ function update(){
 		document.getElementById("transcendlv3").innerHTML=format(Math.pow(2,transcendlv));
 		document.getElementById("transcendlv_eff").innerHTML=Math.floor(Math.pow(1.1,transcendlv)*100)/100;
 		document.getElementById("transcendlv_eff2").innerHTML="";
-		if(transcendlv>=1)document.getElementById("transcendlv_eff2").innerHTML+="1级：你可以跳层挑战通天塔。取消"+(transcendlv>=5?70:200)+"层以上的通天塔怪物强度放缩。<br>";
+		if(transcendlv>=1)document.getElementById("transcendlv_eff2").innerHTML+="1级：你可以跳层挑战通天塔。取消"+(transcendlv>=8?50:transcendlv>=5?70:200)+"层以上的通天塔怪物强度放缩。<br>";
 		if(transcendlv>=2)document.getElementById("transcendlv_eff2").innerHTML+="2级：挑战2的效果更好。<br>";
 		if(transcendlv>=4){
 			document.getElementById("transcendlv_eff2").innerHTML+="3级：在你受到致命伤害之后，以1点生命值复活，1场战斗最多"+tlv3eff()+"次。<br>";
@@ -507,6 +507,7 @@ function battle(x){
 				if(x==229&&highest_progress<229)battle_status.log+="<br>由于你第一次打败困难森林BOSS2，你得到的经验值增加了。";
 				if(x==234&&highest_progress<234)battle_status.log+="<br>由于你第一次打败困难沙漠BOSS1，徽章的效果增加了。";
 				if(x==239&&highest_progress<239)battle_status.log+="<br>由于你第一次打败困难沙漠BOSS2，徽章的效果增加了。";
+				if(x==244&&highest_progress<244)battle_status.log+="<br>由于你第一次打败困难洞穴BOSS1，徽章的效果增加了。";
 				if(pu[4]){
 					var rate2=1-Math.pow(0.85,pu[4]**0.75);
 					if(highest_progress>=150)rate2=1-Math.pow(0.85,pu[4]**0.85);
@@ -628,7 +629,7 @@ function formats(x){
 	return Math.floor(x);
 }
 </script>
-<script src="zbkc.js?1.2.2"></script>
+<script src="zbkc.js?1.2.4"></script>
 <script>
 importsave(localStorage.zbkc);
 setInterval(update,20);
@@ -1112,8 +1113,8 @@ setInterval(update,20);
 <div id="battlelog">
 欢迎进入《装备狂潮》，作者为loader3229！这是一个类似于属性膨胀的游戏，特点是怪物可以直接掉落大量装备！感受爆装备的乐趣吧！<br>
 与大多数通胀类游戏不同，这个游戏内在你被打败时不消耗能量，并且可以多次挑战BOSS。<br>
-版本：1.2.3<br>
-当前版本通关要求：通天塔到达1400层<br>
+版本：1.2.4<br>
+当前版本通关要求：通天塔到达1700层<br>
 本游戏建议在电脑上游玩（作者懒得写css）
 </div>
 </body>

@@ -361,6 +361,7 @@ function getpower(){
 	return Math.floor((gethp()*getatk()*getdef())**(1/3)/2*temp2);
 }
 function gettowerpower(){
+	if(transcendlv>=8)return (getehp('tower')*geteatk('tower')*getedef('tower'))**(1/3)/2;
 	if((tower+towerc)>=200||transcendlv>=1)return (getehp('tower')*geteatk('tower')*getedef('tower'))**(1/3);
 	if((tower+towerc)>=90)return (getehp('tower')*geteatk('tower')*getedef('tower'))**(1/3)/1.25;
 	if((tower+towerc)>=70)return (getehp('tower')*geteatk('tower')*getedef('tower'))**(1/3)/1.5;
@@ -368,7 +369,7 @@ function gettowerpower(){
 }
 function getehp(x){
 	if(x=='tower'){
-		if((tower+towerc)>=1666)return Infinity;
+		if((tower+towerc)>=2000)return Infinity;
 		if((tower+towerc)>=41)return 5e21*Math.pow(1.15,(tower+towerc)**0.75)*(((tower+towerc)-9)**4);
 		if((tower+towerc)>=33)return 5e21*Math.pow(1.15,(tower+towerc)**0.75)*(((tower+towerc)-25)**5);
 		if((tower+towerc)>=17)return 5e21*Math.pow(1.15,(tower+towerc)**0.75)*(((tower+towerc)-1)**3);
@@ -383,7 +384,7 @@ function geteatk(x){
 		if((tower+towerc)>=200&&transcendlv<1)return 2e11*((tower+towerc)**7)*Math.pow(1.15,(tower+towerc)**0.75);
 		if((tower+towerc)>=100&&highest_progress<195)return 3e13*((tower+towerc)**6)*Math.pow(1.15,(tower+towerc)**0.75);
 		if((tower+towerc)>=70&&transcendlv<5)return 1e13*((tower+towerc)**6)*Math.pow(1.15,(tower+towerc)**0.75);
-		if((tower+towerc)>=50)return 4e14*((tower+towerc)**5)*Math.pow(1.15,(tower+towerc)**0.75);
+		if((tower+towerc)>=50&&transcendlv<8)return 4e14*((tower+towerc)**5)*Math.pow(1.15,(tower+towerc)**0.75);
 		if((tower+towerc)>=25)return 2e16*((tower+towerc)**4)*Math.pow(1.15,(tower+towerc)**0.75);
 		if((tower+towerc)>=20)return 5e17*((tower+towerc)**3)*Math.pow(1.15,(tower+towerc)**0.75);
 		if((tower+towerc)>=10)return 1e19*((tower+towerc)**2)*Math.pow(1.15,(tower+towerc)**0.75);
@@ -397,7 +398,7 @@ function getedef(x){
 		if((tower+towerc)>=200&&transcendlv<1)return 3e11*((tower+towerc)**7)*Math.pow(1.15,(tower+towerc)**0.75);
 		if((tower+towerc)>=100&&highest_progress<195)return 5e13*((tower+towerc)**6)*Math.pow(1.15,(tower+towerc)**0.75);
 		if((tower+towerc)>=70&&transcendlv<5)return 2e13*((tower+towerc)**6)*Math.pow(1.15,(tower+towerc)**0.75);
-		if((tower+towerc)>=50)return 8e14*((tower+towerc)**5)*Math.pow(1.15,(tower+towerc)**0.75);
+		if((tower+towerc)>=50&&transcendlv<8)return 8e14*((tower+towerc)**5)*Math.pow(1.15,(tower+towerc)**0.75);
 		if((tower+towerc)>=25)return 4e16*((tower+towerc)**4)*Math.pow(1.15,(tower+towerc)**0.75);
 		if((tower+towerc)>=20)return 1e18*((tower+towerc)**3)*Math.pow(1.15,(tower+towerc)**0.75);
 		if((tower+towerc)>=10)return 2e19*((tower+towerc)**2)*Math.pow(1.15,(tower+towerc)**0.75);
@@ -464,7 +465,7 @@ function geteqeff(x){
 	
 	if(x==4&&result>=4&&highest_progress<235)result=Math.log2(result-2)**0.6+3;
 	else if(x==4&&result>=4&&highest_progress<240)result=Math.log2(result-1)**0.8+3;
-	else if(x==4&&result>=4)result=Math.log2(result-1)+3;
+	else if(x==4&&result>=4&&highest_progress<245)result=Math.log2(result-1)+3;
 	
 	if(x==4&&result>=10)result=Math.log10(result)+9;
 	return result;
@@ -606,7 +607,7 @@ function energyc_eff(){
 	return energyc**1.2;
 }
 function prestige_cost(x){
-	var pu_max=[15,50,20,40,25,16,10,10,15,10,10,4,2];
+	var pu_max=[15,50,25,40,25,16,10,10,15,10,10,5,5];
 	if(pu[x] && pu[x]>=pu_max[x])return Infinity;
 	if(x==0){
 		if(pu[x])return Math.floor(Math.pow(10,3+pu[x])/(pu[x]**2+1));else return 1000;
@@ -761,6 +762,7 @@ function challeff(x){
 		return temp2;
 	}
 	if(x==3){
+		if(temp>=3.2)return temp**8/13824+1;
 		if(temp>=3)return temp**6/1350+1;
 		return temp**3/50+1;
 	}
