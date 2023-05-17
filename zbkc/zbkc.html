@@ -42,6 +42,7 @@ function update(){
 	document.getElementById("atk").innerHTML=format(atk)+" ("+format(getatk())+")";
 	document.getElementById("def").innerHTML=format(def)+" ("+format(getdef())+")";
 	document.getElementById("prestige").innerHTML=format(pp)+" (+"+format(getpp())+")";
+	if(transcendlv>=9)document.getElementById("prestige").innerHTML=format(pp)+" (每次战斗+"+format(Math.floor(getpp()*energyc_eff()))+")";
 	if(highest_progress>=200)document.getElementById("prestige").innerHTML+=" 超越点："+format(tp)+" (+"+format(gettp())+")";
 	document.getElementById("prestige2").innerHTML=format(getpp());
 	document.getElementById("prestige3").innerHTML=format(pp);
@@ -264,6 +265,7 @@ function update(){
 				challlvs[2]=getlv().lv;
 			}
 		}
+		if(transcendlv>=9)document.getElementById("transcendlv_eff2").innerHTML+="9级：每次战斗时获得转生点。超越之神效果现在对转生点生效。转生或超越后你直接解锁已经解锁的所有战斗区域（挑战2中无效）。<br>";
 	}
 	if(highest_progress>=225){
 		document.getElementById("pu11").style.display="inline";
@@ -430,7 +432,8 @@ function battle(x){
 			enemyhp=0;
 			clearInterval(battle_status.interval);
 			var exp_base=Math.pow(enemyatk*enemydef,0.75);
-			if(exp_base>=9e10&&highest_progress>=230)exp_base=(exp_base**0.75)*(9e10**0.25);
+			if(exp_base>=9e10&&highest_progress>=250)exp_base=(exp_base**0.777)*(9e10**0.223);
+			else if(exp_base>=9e10&&highest_progress>=230)exp_base=(exp_base**0.75)*(9e10**0.25);
 			else if(exp_base>=9e10&&highest_progress>=225)exp_base=(exp_base**0.7)*(9e10**0.3);
 			else if(exp_base>=9e10&&highest_progress>=210)exp_base=(exp_base**0.666)*(9e10**0.334);
 			else if(exp_base>=9e10&&highest_progress>=170)exp_base=(exp_base**0.6)*(9e10**0.4);
@@ -463,7 +466,9 @@ function battle(x){
 				battle_status.log="玩家生命值："+format(curhp)+"/"+format(gethp())+"<br>"+ename+"生命值："+Math.ceil(enemyhp/enemyhp2*100)+"%<br>战斗速度："+Math.floor((geteqeff(2)+(pu[9]||0)*2)*100)+"%";
 				battle_status.log+="<br><br>";
 			}
-			battle_status.log+="战斗胜利，你得到了"+format(exp_give)+"经验<br>";
+			battle_status.log+="战斗胜利，你得到了"+format(exp_give)+"经验";
+			if(x!='tower')if(transcendlv>=9)battle_status.log+="和"+format(Math.floor(getpp()*energyc_eff()))+"转生点",pp+=Math.floor(getpp()*energyc_eff());
+			battle_status.log+="<br>";
 			var level1=getlv().lv;
 			exp+=exp_give;
 			var level2=getlv().lv;
@@ -508,6 +513,7 @@ function battle(x){
 				if(x==234&&highest_progress<234)battle_status.log+="<br>由于你第一次打败困难沙漠BOSS1，徽章的效果增加了。";
 				if(x==239&&highest_progress<239)battle_status.log+="<br>由于你第一次打败困难沙漠BOSS2，徽章的效果增加了。";
 				if(x==244&&highest_progress<244)battle_status.log+="<br>由于你第一次打败困难洞穴BOSS1，徽章的效果增加了。";
+				if(x==249&&highest_progress<249)battle_status.log+="<br>由于你第一次打败困难洞穴BOSS2，你得到的经验值增加了。";
 				if(pu[4]){
 					var rate2=1-Math.pow(0.85,pu[4]**0.75);
 					if(highest_progress>=150)rate2=1-Math.pow(0.85,pu[4]**0.85);
@@ -1010,8 +1016,22 @@ setInterval(update,20);
 <a href="javascript:battle(244);">洞穴BOSS1</a>
 </span><br>
 <span id="b244" style="display:none;">
+<a href="javascript:battle(245);">洞穴6</a>
+<a href="javascript:battle(246);">洞穴7</a>
+<a href="javascript:battle(247);">洞穴8</a>
+<a href="javascript:battle(248);">洞穴9</a>
+<a href="javascript:battle(249);">洞穴BOSS2</a>
 </span><br>
 <span id="b249" style="display:none;">
+<a href="javascript:battle(250);">海洋1</a>
+<a href="javascript:battle(251);">海洋2</a>
+<a href="javascript:battle(252);">海洋3</a>
+<a href="javascript:battle(253);">海洋4</a>
+<a href="javascript:battle(254);">海洋BOSS1</a>
+</span><br>
+<span id="b254" style="display:none;">
+</span><br>
+<span id="b259" style="display:none;">
 </span><br>
 </div>
 </div>
@@ -1096,7 +1116,7 @@ setInterval(update,20);
 你有<span id="transcend3"></span>超越点，经验、装备的获得变为原来的<span id="transcend_eff"></span>倍，转生点的获得变为原来的<span id="transcend_eff2"></span>倍<br>
 <div id="tab6a" style="display:none;">
 <hr>
-超越之神的等级为<span id="transcendlv"></span>/8，升级需要你有<span id="transcendlv2"></span>超越点，花费<span id="transcendlv3"></span>超越点。<br>
+超越之神的等级为<span id="transcendlv"></span>/9，升级需要你有<span id="transcendlv2"></span>超越点，花费<span id="transcendlv3"></span>超越点。<br>
 超越之神使超越点的获得变为原来的<span id="transcendlv_eff"></span>倍。
 <a href="javascript:transcendlvup();">升级超越之神</a><br>
 <br>
@@ -1113,8 +1133,8 @@ setInterval(update,20);
 <div id="battlelog">
 欢迎进入《装备狂潮》，作者为loader3229！这是一个类似于属性膨胀的游戏，特点是怪物可以直接掉落大量装备！感受爆装备的乐趣吧！<br>
 与大多数通胀类游戏不同，这个游戏内在你被打败时不消耗能量，并且可以多次挑战BOSS。<br>
-版本：1.2.4<br>
-当前版本通关要求：通天塔到达1700层<br>
+版本：1.2.5<br>
+当前版本通关要求：通天塔到达2000层<br>
 本游戏建议在电脑上游玩（作者懒得写css）
 </div>
 </body>

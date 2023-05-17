@@ -62,6 +62,8 @@ var equipment_data=[
 [0,7,5],[1,6,1],[0,7,10],[1,6,3],[3,7,1e-4],
 [1,4,50],[1,6,5],[0,7,20],[1,6,10],[3,10,1e-7],
 [0,7,30],[1,7,10],[0,8,10],[1,8,10],[3,7,5e-3],
+[0,8,30],[1,8,30],[0,9,0.3],[1,9,0.3],[3,7,1e-3],
+[0,2,30],[1,3,10],[0,9,1],[1,9,1],[3,3,0.1],
 ];
 equipment_data.tower=[0,0,0];
 var equipment_data_extra={
@@ -157,7 +159,9 @@ var hpdata=[
 1.6e41,2.0e41,3.5e41,6.0e41,1.0e42,
 2.0e43,4.0e43,6.0e43,8.0e43,1.0e44,
 5.0e44,1.0e45,2.0e45,4.0e45,1.0e46,
-5.0e47,1.0e47,2.0e47,4.0e47,1.0e48,
+5.0e46,1.0e47,2.0e47,4.0e47,1.0e48,
+5.0e48,1.0e49,2.0e49,4.0e49,1.0e50,
+5.0e50,1.0e51,2.0e51,4.0e51,1.0e52,
 ];
 var atkdata=[
 12,25,40,60,75,
@@ -209,6 +213,8 @@ var atkdata=[
 1.0e39,2.0e39,4.0e39,7.0e39,1.0e40,
 1.0e41,2.0e41,4.0e41,8.0e41,2.0e42,
 1.0e43,2.0e43,4.0e43,8.0e43,2.0e44,
+1.0e45,2.0e45,4.0e45,8.0e45,2.0e46,
+1.0e47,2.0e47,4.0e47,8.0e47,2.0e48,
 ];
 var exp_data=[
 10,11,12,13,15,
@@ -260,6 +266,8 @@ var exp_data=[
 40,40,40,40,40,
 40,40,40,40,40,
 40,40,40,40,40,
+40,40,40,40,40,
+40,40,40,40,40,
 ];
 var pu=[];
 function softreset(s){
@@ -293,6 +301,10 @@ function softreset(s){
 	if(transcendlv>=4 && chall!=2){
 		progress=200;
 		energy+=60;
+	}
+	if(transcendlv>=9 && chall!=2){
+		progress=highest_progress;
+		energy+=(highest_progress-200)*0.6;
 	}
 	if(chall==2){
 		document.getElementById("diff1_chall2").style.display="inline";
@@ -369,7 +381,7 @@ function gettowerpower(){
 }
 function getehp(x){
 	if(x=='tower'){
-		if((tower+towerc)>=2000)return Infinity;
+		if((tower+towerc)>=2500)return Infinity;
 		if((tower+towerc)>=41)return 5e21*Math.pow(1.15,(tower+towerc)**0.75)*(((tower+towerc)-9)**4);
 		if((tower+towerc)>=33)return 5e21*Math.pow(1.15,(tower+towerc)**0.75)*(((tower+towerc)-25)**5);
 		if((tower+towerc)>=17)return 5e21*Math.pow(1.15,(tower+towerc)**0.75)*(((tower+towerc)-1)**3);
@@ -569,6 +581,10 @@ function getpp(){
 		if((equipments[j][i]||0)>0)pp=pp+(Math.log(1+(equipments[j][i]||0))*(1+(eqlevels[j][i]||0)/Math.max(20-(pu[5]||0),11)));
 	}
 	pp=pp*Math.log10(getlv().lv);
+	if(transcendlv>=9){
+		return Math.floor(((pp**1.9)/75+(highest_progress+(pu[1]||0)*2+challeff(2))/15) * geteqeffs(3,0) * Math.pow(1.01,highest_progress)*geteqeff(4)*challeff(0)*(1+tower*1.5/100)*transcend_eff2()/500*Math.pow(1.1,transcendlv));
+	}
+	
 	if(chall==2&&highest_progress>=150)return Math.floor(((pp**1.9)/75) * geteqeffs(3,0) * Math.pow(1.01,progress)*geteqeff(4)*challeff(0)*(1+tower*1.5/100)*transcend_eff2());
 	if(chall==2)return Math.floor(((pp**1.9)/75) * geteqeffs(3,0) * Math.pow(1.01,progress)*geteqeff(4)*challeff(0)*transcend_eff2());
 	if(transcendlv>=4)return Math.floor(((pp**1.9)/75+(progress+(pu[1]||0)*2+challeff(2)-energy-50)/15) * geteqeffs(3,0) * Math.pow(1.01,progress)*geteqeff(4)*challeff(0)*(1+tower*1.5/100)*transcend_eff2());
@@ -607,7 +623,7 @@ function energyc_eff(){
 	return energyc**1.2;
 }
 function prestige_cost(x){
-	var pu_max=[15,50,25,40,25,16,10,10,15,10,10,5,5];
+	var pu_max=[16,50,25,40,25,17,15,15,20,10,10,10,10];
 	if(pu[x] && pu[x]>=pu_max[x])return Infinity;
 	if(x==0){
 		if(pu[x])return Math.floor(Math.pow(10,3+pu[x])/(pu[x]**2+1));else return 1000;
@@ -732,6 +748,10 @@ function startchall(x){
 			progress=200;
 			energy+=60;
 		}
+		if(transcendlv>=9 && chall!=2){
+			progress=highest_progress;
+			energy+=(highest_progress-200)*0.6;
+		}
 		if(pu[0]&&highest_progress>=185){
 			var level1=getlv().lv;
 			exp+=1000*((Math.pow(4,pu[0])-1)*(3+(pu[0]**pu[0])*2));
@@ -750,6 +770,7 @@ function challeff(x){
 	temp=Math.log10(temp);
 	if(x==0)return temp**2/500+1;
 	if(x==1){
+		if(temp>=16)return temp**7/2000000+1;
 		if(temp**2>=50)return temp**6/125000+1;
 		return temp**2/50+1;
 	}
@@ -771,6 +792,7 @@ function challeff(x){
 		return temp**2/100+1;
 	}
 	if(x==5){
+		if(temp>=16)return temp**4/80000+1;
 		if(temp**1.5>=50)return temp**3/5000+1;
 		return temp**1.5/100+1;
 	}
@@ -780,7 +802,7 @@ function challeff(x){
 	}
 }
 function transcendlvup(){
-	if(transcendlv>=8)return;
+	if(transcendlv>=9)return;
 	if(tp>=5*Math.pow(2,transcendlv)){
 		tp-=Math.pow(2,transcendlv);
 		transcendlv++;

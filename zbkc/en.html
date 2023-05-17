@@ -247,6 +247,7 @@ function update(){
 				challlvs[2]=getlv().lv;
 			}
 		}
+		if(transcendlv>=9)document.getElementById("transcendlv_eff2").innerHTML+="Level 9: Gain PP when you won a battle. You permanently unlock all battle areas unless you're in Challenge 2.<br>";
 	}
 	if(highest_progress>=225){
 		document.getElementById("pu11").style.display="inline";
@@ -380,7 +381,8 @@ function battle(x){
 			else battle_status.log+="You hit "+ename+" with "+format(damage1)+" damage, you win<br>";
 			clearInterval(battle_status.interval);
 			var exp_base=Math.pow(enemyatk*enemydef,0.75);
-			if(exp_base>=9e10&&highest_progress>=230)exp_base=(exp_base**0.75)*(9e10**0.25);
+			if(exp_base>=9e10&&highest_progress>=250)exp_base=(exp_base**0.777)*(9e10**0.223);
+			else if(exp_base>=9e10&&highest_progress>=230)exp_base=(exp_base**0.75)*(9e10**0.25);
 			else if(exp_base>=9e10&&highest_progress>=225)exp_base=(exp_base**0.7)*(9e10**0.3);
 			else if(exp_base>=9e10&&highest_progress>=210)exp_base=(exp_base**0.666)*(9e10**0.334);
 			else if(exp_base>=9e10&&highest_progress>=170)exp_base=(exp_base**0.6)*(9e10**0.4);
@@ -409,7 +411,8 @@ function battle(x){
 			if(transcendlv>=7)exp_base*=Math.pow(1.1,transcendlv);
 			var exp_give=Math.floor(exp_base*rand_2()*geteqeffs(3,5)*prestige_eff()*energyc_eff()*challeff(3)*Math.pow(1.2,(pu[8]||0))*(1+tower*1.5/100)*transcend_eff());
 			if(x=='tower')exp_give=0;
-			battle_status.log+="You have got "+format(exp_give)+" EXP<br>";
+			battle_status.log+="You gained "+format(exp_give)+" EXP<br>";
+			if(x!='tower')if(transcendlv>=9)battle_status.log+="You gained "+format(Math.floor(getpp()*energyc_eff()))+" PP<br>",pp+=Math.floor(getpp()*energyc_eff());
 			var level1=getlv().lv;
 			exp+=exp_give;
 			var level2=getlv().lv;
@@ -421,7 +424,7 @@ function battle(x){
 			var give_equipments=Math.floor(equipment_data[x][2]*(luk**0.5+1)*(1+(eqlevels[equipment_data[x][0]][equipment_data[x][1]]||0)*0.15)*Math.random()*prestige_eff()*energyc_eff()*challeff(4)*Math.pow(1.2,(pu[10]||0))*transcend_eff());
 			if(chall==4||x=='tower')give_equipments=0;
 			if(give_equipments>0){
-				battle_status.log+="You have got "+format(give_equipments)+" "+equipment_names[equipment_data[x][0]][equipment_data[x][1]];
+				battle_status.log+="You gained "+format(give_equipments)+" "+equipment_names[equipment_data[x][0]][equipment_data[x][1]];
 				equipments[equipment_data[x][0]][equipment_data[x][1]]=(equipments[equipment_data[x][0]][equipment_data[x][1]]||0)+give_equipments;
 			}
 			if(x%5==4){
@@ -437,7 +440,7 @@ function battle(x){
 					for(var j=x-((pu[4]>=6&&x>=pu[4])?pu[4]:(pu[4]>=6)?x:(pu[4]>=2&&x>=5)?5:4);j<=x;j++){
 						give_equipments=Math.floor(equipment_data[j][2]*(luk**0.5+1)*(1+(eqlevels[equipment_data[j][0]][equipment_data[j][1]]||0)*0.15)*Math.random()*prestige_eff()*energyc_eff()*rate2*challeff(4)*Math.pow(1.2,(pu[10]||0))*transcend_eff());
 						if(chall==4)give_equipments=0;
-						if(give_equipments>0)battle_status.log+="<br>Due to the effect of 'Increased Boss Drops', you have got "+format(give_equipments)+" "+equipment_names[equipment_data[j][0]][equipment_data[j][1]];
+						if(give_equipments>0)battle_status.log+="<br>Due to the effect of 'Increased Boss Drops', you gained "+format(give_equipments)+" "+equipment_names[equipment_data[j][0]][equipment_data[j][1]];
 						if(give_equipments>0)equipments[equipment_data[j][0]][equipment_data[j][1]]=(equipments[equipment_data[j][0]][equipment_data[j][1]]||0)+give_equipments;
 					}
 					if(pu[4]>=2+x/10){
@@ -445,7 +448,7 @@ function battle(x){
 						if(highest_progress>=150)give_equipments=Math.floor(give_equipments*1.5);
 						if(chall==4)give_equipments=0;
 						if(give_equipments>0){
-							battle_status.log+="<br>Due to the effect of 'Increased Boss Drops', you have got "+format(give_equipments)+" "+equipment_names[equipment_data_extra[x][0]][equipment_data_extra[x][1]];
+							battle_status.log+="<br>Due to the effect of 'Increased Boss Drops', you gained "+format(give_equipments)+" "+equipment_names[equipment_data_extra[x][0]][equipment_data_extra[x][1]];
 							equipments[equipment_data_extra[x][0]][equipment_data_extra[x][1]]=(equipments[equipment_data_extra[x][0]][equipment_data_extra[x][1]]||0)+give_equipments;
 						}
 					}
@@ -453,7 +456,7 @@ function battle(x){
 						give_equipments=Math.floor(equipment_data_extra2[x][2]*(luk**0.5+1)*(1+(eqlevels[equipment_data_extra2[x][0]][equipment_data_extra2[x][1]]||0)*0.15)*Math.random()*prestige_eff()*energyc_eff()*challeff(4)*Math.pow(1.2,(pu[10]||0))*transcend_eff());
 						if(chall==4)give_equipments=0;
 						if(give_equipments>0){
-							battle_status.log+="<br>Due to the effect of 'Increased Boss Drops', you have got "+format(give_equipments)+" "+equipment_names[equipment_data_extra2[x][0]][equipment_data_extra2[x][1]];
+							battle_status.log+="<br>Due to the effect of 'Increased Boss Drops', you gained "+format(give_equipments)+" "+equipment_names[equipment_data_extra2[x][0]][equipment_data_extra2[x][1]];
 							equipments[equipment_data_extra2[x][0]][equipment_data_extra2[x][1]]=(equipments[equipment_data_extra2[x][0]][equipment_data_extra2[x][1]]||0)+give_equipments;
 						}
 					}
@@ -895,6 +898,10 @@ Current Difficulty: Hard<br>
 </span><br>
 <span id="b249" style="display:none;">
 </span><br>
+<span id="b254" style="display:none;">
+</span><br>
+<span id="b259" style="display:none;">
+</span><br>
 </div>
 </div>
 <div id="tab1" style="display:none;">
@@ -978,7 +985,7 @@ Transcend won't reset equipment levels, challenges and The Tower.<br>
 You have <span id="transcend3"></span> Transcend Points, gaining <span id="transcend_eff"></span>x more EXP, equipments and gaining <span id="transcend_eff2"></span>x more prestige points<br>
 <div id="tab6a" style="display:none;">
 <hr>
-God Of Transcend's level is <span id="transcendlv"></span>/8, leveling up requires <span id="transcendlv2"></span> TP, costs <span id="transcendlv3"></span> TP.<br>
+God Of Transcend's level is <span id="transcendlv"></span>/9, leveling up requires <span id="transcendlv2"></span> TP, costs <span id="transcendlv3"></span> TP.<br>
 God Of Transcend is multiplying your TP gain by <span id="transcendlv_eff"></span>x
 <a href="javascript:transcendlvup();">Level Up God Of Transcend</a><br>
 <br>
