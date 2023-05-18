@@ -581,8 +581,11 @@ function getpp(){
 		if((equipments[j][i]||0)>0)pp=pp+(Math.log(1+(equipments[j][i]||0))*(1+(eqlevels[j][i]||0)/Math.max(20-(pu[5]||0),11)));
 	}
 	pp=pp*Math.log10(getlv().lv);
+	if(transcendlv>=9&&fbossdamage>=1e8){
+		return Math.floor(((pp**1.9)/75+(highest_progress+(pu[1]||0)*2+challeff(2))/15) * geteqeffs(3,0) * Math.pow(1.01,highest_progress)*geteqeff(4)*challeff(0)*(1+tower*1.5/100)*transcend_eff2()/400*Math.pow(1.1,transcendlv)*(1+fbossdamage/1e8));
+	}
 	if(transcendlv>=9){
-		return Math.floor(((pp**1.9)/75+(highest_progress+(pu[1]||0)*2+challeff(2))/15) * geteqeffs(3,0) * Math.pow(1.01,highest_progress)*geteqeff(4)*challeff(0)*(1+tower*1.5/100)*transcend_eff2()/500*Math.pow(1.1,transcendlv));
+		return Math.floor(((pp**1.9)/75+(highest_progress+(pu[1]||0)*2+challeff(2))/15) * geteqeffs(3,0) * Math.pow(1.01,highest_progress)*geteqeff(4)*challeff(0)*(1+tower*1.5/100)*transcend_eff2()/400*Math.pow(1.1,transcendlv));
 	}
 	
 	if(chall==2&&highest_progress>=150)return Math.floor(((pp**1.9)/75) * geteqeffs(3,0) * Math.pow(1.01,progress)*geteqeff(4)*challeff(0)*(1+tower*1.5/100)*transcend_eff2());
@@ -620,6 +623,7 @@ function transcend_eff2(){
 	return Math.sqrt(1+tp**0.5);
 }
 function energyc_eff(){
+	if(transcendlv>=10)return energyc**1.3*1.5;
 	return energyc**1.2;
 }
 function prestige_cost(x){
@@ -802,7 +806,7 @@ function challeff(x){
 	}
 }
 function transcendlvup(){
-	if(transcendlv>=9)return;
+	if(transcendlv>=10)return;
 	if(tp>=5*Math.pow(2,transcendlv)){
 		tp-=Math.pow(2,transcendlv);
 		transcendlv++;
@@ -814,5 +818,7 @@ function tlv3eff(){
 }
 
 function getfbossdamage(){
-	return Math.min((Math.log10(getatk()+Math.pow(1.0000007,fbossdamage))-Math.log10(Math.pow(1.0000007,fbossdamage)))*10000*Math.log10(getpp()+1),getatk());
+	var lmt=Math.min(Math.log10(getatk()/Math.pow(1.0000007,fbossdamage)+1)/Math.log10(1.0000007),getatk());
+	if(transcendlv>=9)return Math.min((Math.log10(getatk()+Math.pow(1.0000007,fbossdamage))-Math.log10(Math.pow(1.0000007,fbossdamage)))*10000*(Math.log10(getpp()+1)+3),lmt);
+	return Math.min((Math.log10(getatk()+Math.pow(1.0000007,fbossdamage))-Math.log10(Math.pow(1.0000007,fbossdamage)))*10000*Math.log10(getpp()+1),lmt);
 }

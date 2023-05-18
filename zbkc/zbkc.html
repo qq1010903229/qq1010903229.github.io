@@ -256,6 +256,10 @@ function update(){
 			document.getElementById("final_boss_damage1").innerHTML=Math.floor(fbossdamage);
 			document.getElementById("final_boss_damage2").innerHTML=Math.floor(getfbossdamage());
 			document.getElementById("final_boss_damage3").innerHTML=(1+fbossdamage/1e8).toFixed(3);
+			document.getElementById("final_boss_effect").innerHTML="累计对最终BOSS造成1亿伤害，可以获得一个神秘效果！";
+			if(fbossdamage>=100000000){
+				document.getElementById("final_boss_effect").innerHTML="你已经累计对最终BOSS造成1亿伤害，得到效果：当超越之神等级>=9时，你对最终BOSS造成的伤害的效果作用于转生点。";
+			}
 		}
 		if(transcendlv>=6)document.getElementById("transcendlv_eff2").innerHTML+="6级：超越之神效果现在对生命值、攻击和防御生效。<br>";
 		if(transcendlv>=7)document.getElementById("transcendlv_eff2").innerHTML+="7级：超越之神效果现在对经验生效。<br>";
@@ -266,6 +270,7 @@ function update(){
 			}
 		}
 		if(transcendlv>=9)document.getElementById("transcendlv_eff2").innerHTML+="9级：每次战斗时获得转生点。超越之神效果现在对转生点生效。转生或超越后你直接解锁已经解锁的所有战斗区域（挑战2中无效）。<br>";
+		if(transcendlv>=10)document.getElementById("transcendlv_eff2").innerHTML+="10级：提升每次使用能量战斗时的奖励倍率（至少1.5倍）。每次战斗胜利后对最终BOSS造成少量伤害。<br>";
 	}
 	if(highest_progress>=225){
 		document.getElementById("pu11").style.display="inline";
@@ -468,6 +473,9 @@ function battle(x){
 			}
 			battle_status.log+="战斗胜利，你得到了"+format(exp_give)+"经验";
 			if(x!='tower')if(transcendlv>=9)battle_status.log+="和"+format(Math.floor(getpp()*energyc_eff()))+"转生点",pp+=Math.floor(getpp()*energyc_eff());
+			if(x!='tower')if(transcendlv>=10){
+				fbossdamage+=getfbossdamage()/1000*Math.min(1000,energyc_eff());
+			}
 			battle_status.log+="<br>";
 			var level1=getlv().lv;
 			exp+=exp_give;
@@ -1116,7 +1124,7 @@ setInterval(update,20);
 你有<span id="transcend3"></span>超越点，经验、装备的获得变为原来的<span id="transcend_eff"></span>倍，转生点的获得变为原来的<span id="transcend_eff2"></span>倍<br>
 <div id="tab6a" style="display:none;">
 <hr>
-超越之神的等级为<span id="transcendlv"></span>/9，升级需要你有<span id="transcendlv2"></span>超越点，花费<span id="transcendlv3"></span>超越点。<br>
+超越之神的等级为<span id="transcendlv"></span>/10，升级需要你有<span id="transcendlv2"></span>超越点，花费<span id="transcendlv3"></span>超越点。<br>
 超越之神使超越点的获得变为原来的<span id="transcendlv_eff"></span>倍。
 <a href="javascript:transcendlvup();">升级超越之神</a><br>
 <br>
@@ -1128,6 +1136,7 @@ setInterval(update,20);
 最终BOSS的生命值：<span id="final_boss_hp"></span>（转生时不重置，超越时重置）<br>
 你已对最终BOSS造成的伤害：<span id="final_boss_damage1"></span>，使超越点的获得变为原来的<span id="final_boss_damage3"></span>倍<br>
 你本次转生之后可以对最终BOSS造成的伤害（基于攻击和可得转生点）：<span id="final_boss_damage2"></span><br>
+<span id="final_boss_effect"></span>
 </div>
 </div>
 <div id="battlelog">

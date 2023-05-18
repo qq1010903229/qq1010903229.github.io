@@ -248,6 +248,7 @@ function update(){
 			}
 		}
 		if(transcendlv>=9)document.getElementById("transcendlv_eff2").innerHTML+="Level 9: Gain PP when you won a battle. You permanently unlock all battle areas unless you're in Challenge 2.<br>";
+		if(transcendlv>=10)document.getElementById("transcendlv_eff2").innerHTML+="Level 10: Increase battle reward multiplier.<br>";
 	}
 	if(highest_progress>=225){
 		document.getElementById("pu11").style.display="inline";
@@ -413,6 +414,9 @@ function battle(x){
 			if(x=='tower')exp_give=0;
 			battle_status.log+="You gained "+format(exp_give)+" EXP<br>";
 			if(x!='tower')if(transcendlv>=9)battle_status.log+="You gained "+format(Math.floor(getpp()*energyc_eff()))+" PP<br>",pp+=Math.floor(getpp()*energyc_eff());
+			if(x!='tower')if(transcendlv>=10){
+				fbossdamage+=getfbossdamage()/1000*Math.min(1000,energyc_eff());
+			}
 			var level1=getlv().lv;
 			exp+=exp_give;
 			var level2=getlv().lv;
