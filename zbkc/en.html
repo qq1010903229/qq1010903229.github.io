@@ -138,6 +138,7 @@ function update(){
 		if(energyc<0)energyc=0;
 		if(energyc>=9)energyc=Math.floor((energyc-5)**1.5+1);
 		if(energyc>Math.floor(pu[6]**(highest_progress>=170?1.5:1))+1)energyc=Math.floor(pu[6]**(highest_progress>=170?1.5:1))+1;
+		if(transcendlv>=10)energyc=energyc*2;
 		document.getElementById("energyc_eff").innerHTML="Spend "+energyc+" energy, get "+energyc_eff().toFixed(2)+"x EXP and equipments";
 	}else energyc=1;
 	if(highest_progress>=75){
@@ -217,7 +218,7 @@ function update(){
 	if(highest_progress>=205){
 		document.getElementById("tab6a").style.display="block";
 		document.getElementById("transcendlv").innerHTML=format(transcendlv);
-		document.getElementById("transcendlv2").innerHTML=format(Math.pow(2,transcendlv)*5);
+		document.getElementById("transcendlv2").innerHTML=format(transcendlvupreq());
 		document.getElementById("transcendlv3").innerHTML=format(Math.pow(2,transcendlv));
 		document.getElementById("transcendlv_eff").innerHTML=Math.floor(Math.pow(1.1,transcendlv)*100)/100;
 		document.getElementById("transcendlv_eff2").innerHTML="";
@@ -248,7 +249,7 @@ function update(){
 			}
 		}
 		if(transcendlv>=9)document.getElementById("transcendlv_eff2").innerHTML+="Level 9: Gain PP when you won a battle. You permanently unlock all battle areas unless you're in Challenge 2.<br>";
-		if(transcendlv>=10)document.getElementById("transcendlv_eff2").innerHTML+="Level 10: Increase battle reward multiplier.<br>";
+		if(transcendlv>=10)document.getElementById("transcendlv_eff2").innerHTML+="Level 10: Increase battle reward multiplier but energy cost x2.<br>";
 	}
 	if(highest_progress>=225){
 		document.getElementById("pu11").style.display="inline";
@@ -304,7 +305,7 @@ function battle(x){
 	var battle_status={"log":"You encountered an enemy<br>","interval":-1};
 	if(x%5==4)battle_status.log="You encountered a BOSS, BOSS has "+format(enemyhp)+" HP<br>";
 	if(x==39||x==69||x==139||x==169)battle_status.log+="BOSS Attribute: Square-root your damage<br>";
-	if(x==49||x==99||x==149||x==199)battle_status.log+="BOSS Attribute: 23.33% Critical Chance<br>";
+	if(x==49||x==99||x==149||x==199||x==249)battle_status.log+="BOSS Attribute: 23.33% Critical Chance<br>";
 	if(x==59||x==99||x==159||x==199)battle_status.log+="BOSS Attribute: 23.33% Evasion Chance<br>";
 	if(x==74&&chall==5)battle_status.log+="BOSS Attribute: Boss's second attack can instakill you<br>";
 	else if(x==74)battle_status.log+="BOSS Attribute: Boss's attack can instakill you<br>";
@@ -480,7 +481,7 @@ function battle(x){
 			if(lifesteal>gethp()-curhp)lifesteal=gethp()-curhp;
 			curhp+=lifesteal;
 			if(lifesteal>0)battle_status.log+="You recovered "+format(lifesteal)+" HP, you have "+format(curhp)+" HP remaining<br>";
-			if((x==49||x==99||x==149||x==199) && Math.random()<7/30){
+			if((x==49||x==99||x==149||x==199||x==249) && Math.random()<7/30){
 				damage2*=2;battle_status.log+="BOSS Critical Attack! ";
 			}
 			if(x==74||x==174)damage2=Infinity;
@@ -530,7 +531,7 @@ function format2(x){
 	return (x/1e3).toFixed(2);
 }
 </script>
-<script src="zbkc.js?1.2.4"></script>
+<script src="zbkc.js?1.2.7"></script>
 <script>
 importsave(localStorage.zbkc);
 setInterval(update,20);
@@ -989,7 +990,7 @@ Transcend won't reset equipment levels, challenges and The Tower.<br>
 You have <span id="transcend3"></span> Transcend Points, gaining <span id="transcend_eff"></span>x more EXP, equipments and gaining <span id="transcend_eff2"></span>x more prestige points<br>
 <div id="tab6a" style="display:none;">
 <hr>
-God Of Transcend's level is <span id="transcendlv"></span>/9, leveling up requires <span id="transcendlv2"></span> TP, costs <span id="transcendlv3"></span> TP.<br>
+God Of Transcend's level is <span id="transcendlv"></span>/10, leveling up requires <span id="transcendlv2"></span> TP, costs <span id="transcendlv3"></span> TP.<br>
 God Of Transcend is multiplying your TP gain by <span id="transcendlv_eff"></span>x
 <a href="javascript:transcendlvup();">Level Up God Of Transcend</a><br>
 <br>
@@ -1006,7 +1007,7 @@ Damage to Final Boss after Prestige (based on ATK): <span id="final_boss_damage2
 Welcome to "Lots of Equipments RPG" by loader3229! This is a game similar to Incremental RPG, and enemies in this game can drop lots of equipments at once!<br>
 Also, you don't lose energy when you lose a battle.<br>
 Version: 1.2.4<br>
-Endgame: Reach Floor 1700 in the Tower<br>
+Endgame: Reach Floor 2200 in the Tower<br>
 The translation to English is not finished, and my English is poor. Sorry.<br>
 </div>
 </body>

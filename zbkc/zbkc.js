@@ -381,7 +381,7 @@ function gettowerpower(){
 }
 function getehp(x){
 	if(x=='tower'){
-		if((tower+towerc)>=2500)return Infinity;
+		if((tower+towerc)>=2888)return Infinity;
 		if((tower+towerc)>=41)return 5e21*Math.pow(1.15,(tower+towerc)**0.75)*(((tower+towerc)-9)**4);
 		if((tower+towerc)>=33)return 5e21*Math.pow(1.15,(tower+towerc)**0.75)*(((tower+towerc)-25)**5);
 		if((tower+towerc)>=17)return 5e21*Math.pow(1.15,(tower+towerc)**0.75)*(((tower+towerc)-1)**3);
@@ -479,7 +479,8 @@ function geteqeff(x){
 	else if(x==4&&result>=4&&highest_progress<240)result=Math.log2(result-1)**0.8+3;
 	else if(x==4&&result>=4&&highest_progress<245)result=Math.log2(result-1)+3;
 	
-	if(x==4&&result>=10)result=Math.log10(result)+9;
+	if(x==4&&result>=10&&highest_progress<255)result=Math.log10(result)+9;
+	else if(x==4&&result>=10)result=Math.log10(result)*2+8;
 	return result;
 }
 function add(x,y){
@@ -623,11 +624,11 @@ function transcend_eff2(){
 	return Math.sqrt(1+tp**0.5);
 }
 function energyc_eff(){
-	if(transcendlv>=10)return energyc**1.3*1.5;
+	if(transcendlv>=10)return ((energyc/2)**1.25)*3;
 	return energyc**1.2;
 }
 function prestige_cost(x){
-	var pu_max=[16,50,25,40,25,17,15,15,20,10,10,10,10];
+	var pu_max=[16,50,25,40,26,17,15,15,20,10,15,10,10];
 	if(pu[x] && pu[x]>=pu_max[x])return Infinity;
 	if(x==0){
 		if(pu[x])return Math.floor(Math.pow(10,3+pu[x])/(pu[x]**2+1));else return 1000;
@@ -807,10 +808,14 @@ function challeff(x){
 }
 function transcendlvup(){
 	if(transcendlv>=10)return;
-	if(tp>=5*Math.pow(2,transcendlv)){
+	if(tp>=transcendlvupreq()){
 		tp-=Math.pow(2,transcendlv);
 		transcendlv++;
 	}
+}
+function transcendlvupreq(){
+	if(transcendlv>=8)return (17-transcendlv)*Math.pow(2,transcendlv-1);
+	return 5*Math.pow(2,transcendlv);
 }
 function tlv3eff(){
 	if(transcendlv>=4)return transcendlv-2;

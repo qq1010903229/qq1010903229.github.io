@@ -151,6 +151,7 @@ function update(){
 		if(energyc<0)energyc=0;
 		if(energyc>=9)energyc=Math.floor((energyc-5)**1.5+1);
 		if(energyc>Math.floor(pu[6]**(highest_progress>=170?1.5:1))+1)energyc=Math.floor(pu[6]**(highest_progress>=170?1.5:1))+1;
+		if(transcendlv>=10)energyc=energyc*2;
 		document.getElementById("energyc_eff").innerHTML="消耗"+energyc+"能量，得到"+energyc_eff().toFixed(2)+"倍经验和装备";
 	}else energyc=1;
 	if(highest_progress>=75){
@@ -230,7 +231,7 @@ function update(){
 	if(highest_progress>=205){
 		document.getElementById("tab6a").style.display="block";
 		document.getElementById("transcendlv").innerHTML=format(transcendlv);
-		document.getElementById("transcendlv2").innerHTML=format(Math.pow(2,transcendlv)*5);
+		document.getElementById("transcendlv2").innerHTML=format(transcendlvupreq());
 		document.getElementById("transcendlv3").innerHTML=format(Math.pow(2,transcendlv));
 		document.getElementById("transcendlv_eff").innerHTML=Math.floor(Math.pow(1.1,transcendlv)*100)/100;
 		document.getElementById("transcendlv_eff2").innerHTML="";
@@ -270,7 +271,7 @@ function update(){
 			}
 		}
 		if(transcendlv>=9)document.getElementById("transcendlv_eff2").innerHTML+="9级：每次战斗时获得转生点。超越之神效果现在对转生点生效。转生或超越后你直接解锁已经解锁的所有战斗区域（挑战2中无效）。<br>";
-		if(transcendlv>=10)document.getElementById("transcendlv_eff2").innerHTML+="10级：提升每次使用能量战斗时的奖励倍率（至少1.5倍）。每次战斗胜利后对最终BOSS造成少量伤害。<br>";
+		if(transcendlv>=10)document.getElementById("transcendlv_eff2").innerHTML+="10级：提升每次使用能量战斗时的奖励倍率但每次战斗时消耗能量翻倍。每次战斗胜利后对最终BOSS造成少量伤害。<br>";
 	}
 	if(highest_progress>=225){
 		document.getElementById("pu11").style.display="inline";
@@ -355,7 +356,7 @@ function battle(x){
 	var battle_status={"log":"你遇到了怪物<br>","interval":-1};
 	if(x%5==4)battle_status.log="你遇到了BOSS，BOSS有"+format(enemyhp)+"点生命值<br>";
 	if(x==39||x==69||x==139||x==169)battle_status.log+="BOSS特性：受到的伤害开方<br>";
-	if(x==49||x==99||x==149||x==199)battle_status.log+="BOSS特性：23.33%暴击率<br>";
+	if(x==49||x==99||x==149||x==199||x==249)battle_status.log+="BOSS特性：23.33%暴击率<br>";
 	if(x==59||x==99||x==159||x==199)battle_status.log+="BOSS特性：23.33%闪避率<br>";
 	if(x==74&&chall==5)battle_status.log+="BOSS特性：BOSS的第二次攻击为必杀<br>";
 	else if(x==74)battle_status.log+="BOSS特性：一击必杀<br>";
@@ -522,6 +523,7 @@ function battle(x){
 				if(x==239&&highest_progress<239)battle_status.log+="<br>由于你第一次打败困难沙漠BOSS2，徽章的效果增加了。";
 				if(x==244&&highest_progress<244)battle_status.log+="<br>由于你第一次打败困难洞穴BOSS1，徽章的效果增加了。";
 				if(x==249&&highest_progress<249)battle_status.log+="<br>由于你第一次打败困难洞穴BOSS2，你得到的经验值增加了。";
+				if(x==254&&highest_progress<254)battle_status.log+="<br>由于你第一次打败困难海洋BOSS1，徽章的效果增加了。";
 				if(pu[4]){
 					var rate2=1-Math.pow(0.85,pu[4]**0.75);
 					if(highest_progress>=150)rate2=1-Math.pow(0.85,pu[4]**0.85);
@@ -566,7 +568,7 @@ function battle(x){
 			if(lifesteal>gethp()-curhp)lifesteal=gethp()-curhp;
 			curhp+=lifesteal;
 			if(lifesteal>0)battle_status.log+="你吸取了"+format(lifesteal)+"点生命值，你还剩"+format(curhp)+"点生命值<br>";
-			if((x==49||x==99||x==149||x==199) && Math.random()<7/30){
+			if((x==49||x==99||x==149||x==199||x==249) && Math.random()<7/30){
 				damage2*=2;battle_status.log+="BOSS暴击！";
 			}
 			if(x==74||x==174)damage2=Infinity;
@@ -643,7 +645,7 @@ function formats(x){
 	return Math.floor(x);
 }
 </script>
-<script src="zbkc.js?1.2.4"></script>
+<script src="zbkc.js?1.2.7"></script>
 <script>
 importsave(localStorage.zbkc);
 setInterval(update,20);
@@ -1142,8 +1144,8 @@ setInterval(update,20);
 <div id="battlelog">
 欢迎进入《装备狂潮》，作者为loader3229！这是一个类似于属性膨胀的游戏，特点是怪物可以直接掉落大量装备！感受爆装备的乐趣吧！<br>
 与大多数通胀类游戏不同，这个游戏内在你被打败时不消耗能量，并且可以多次挑战BOSS。<br>
-版本：1.2.5<br>
-当前版本通关要求：通天塔到达2000层<br>
+版本：1.2.7<br>
+当前版本通关要求：通天塔到达2200层<br>
 本游戏建议在电脑上游玩（作者懒得写css）
 </div>
 </body>
