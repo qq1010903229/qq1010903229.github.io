@@ -107,6 +107,7 @@ function update(){
 		document.getElementById("pu1").style.display="inline";
 		var temp="";
 		if(highest_progress>=120)temp="+1";
+		if(highest_progress>=260)temp="+2";
 		document.getElementById("pu1").innerHTML="初始能量提升"+temp+"（"+(pu[1]||0)+"级，升级需"+format(prestige_cost(1))+"转生点）";
 	}
 	if(highest_progress>=30){
@@ -235,7 +236,7 @@ function update(){
 		document.getElementById("transcendlv3").innerHTML=format(Math.pow(2,transcendlv));
 		document.getElementById("transcendlv_eff").innerHTML=Math.floor(Math.pow(1.1,transcendlv)*100)/100;
 		document.getElementById("transcendlv_eff2").innerHTML="";
-		if(transcendlv>=1)document.getElementById("transcendlv_eff2").innerHTML+="1级：你可以跳层挑战通天塔。取消"+(transcendlv>=8?50:transcendlv>=5?70:200)+"层以上的通天塔怪物强度放缩。<br>";
+		if(transcendlv>=1)document.getElementById("transcendlv_eff2").innerHTML+="1级：你可以跳层挑战通天塔。取消"+(transcendlv>=11?25:transcendlv>=8?50:transcendlv>=5?70:200)+"层以上的通天塔怪物强度放缩。<br>";
 		if(transcendlv>=2)document.getElementById("transcendlv_eff2").innerHTML+="2级：挑战2的效果更好。<br>";
 		if(transcendlv>=4){
 			document.getElementById("transcendlv_eff2").innerHTML+="3级：在你受到致命伤害之后，以1点生命值复活，1场战斗最多"+tlv3eff()+"次。<br>";
@@ -272,6 +273,7 @@ function update(){
 		}
 		if(transcendlv>=9)document.getElementById("transcendlv_eff2").innerHTML+="9级：每次战斗时获得转生点。超越之神效果现在对转生点生效。转生或超越后你直接解锁已经解锁的所有战斗区域（挑战2中无效）。<br>";
 		if(transcendlv>=10)document.getElementById("transcendlv_eff2").innerHTML+="10级：提升每次使用能量战斗时的奖励倍率但每次战斗时消耗能量翻倍。每次战斗胜利后对最终BOSS造成少量伤害。<br>";
+		if(transcendlv>=11)document.getElementById("transcendlv_eff2").innerHTML+="11级：基于超越之神等级减少通天塔怪物的生命值。<br>";
 	}
 	if(highest_progress>=225){
 		document.getElementById("pu11").style.display="inline";
@@ -357,7 +359,7 @@ function battle(x){
 	if(x%5==4)battle_status.log="你遇到了BOSS，BOSS有"+format(enemyhp)+"点生命值<br>";
 	if(x==39||x==69||x==139||x==169)battle_status.log+="BOSS特性：受到的伤害开方<br>";
 	if(x==49||x==99||x==149||x==199||x==249)battle_status.log+="BOSS特性：23.33%暴击率<br>";
-	if(x==59||x==99||x==159||x==199)battle_status.log+="BOSS特性：23.33%闪避率<br>";
+	if(x==59||x==99||x==159||x==199||x==259)battle_status.log+="BOSS特性：23.33%闪避率<br>";
 	if(x==74&&chall==5)battle_status.log+="BOSS特性：BOSS的第二次攻击为必杀<br>";
 	else if(x==74)battle_status.log+="BOSS特性：一击必杀<br>";
 	if(x==174&&chall==5)battle_status.log+="BOSS特性：BOSS的第二次攻击为必杀<br>";
@@ -427,7 +429,7 @@ function battle(x){
 		else if(x==79)damage1=Math.log(damage1);
 		if(x==179&&chall==1)damage1=Math.floor(damage1**0.25);
 		else if(x==179)damage1=Math.log(damage1);
-		if((x==59||x==99||x==159||x==199) && Math.random()<7/30)damage1=0;
+		if((x==59||x==99||x==159||x==199||x==259) && Math.random()<7/30)damage1=0;
 		enemyhp-=damage1;
 		if(x==39||x==69||x==79||x==139||x==169||x==179)battle_status.log+="你对"+ename+"造成了"+format(damage1_disp)+"点伤害<br>";
 		if(enemyhp<=0){
@@ -474,8 +476,9 @@ function battle(x){
 			}
 			battle_status.log+="战斗胜利，你得到了"+format(exp_give)+"经验";
 			if(x!='tower')if(transcendlv>=9)battle_status.log+="和"+format(Math.floor(getpp()*energyc_eff()))+"转生点",pp+=Math.floor(getpp()*energyc_eff());
+			var fbossdamage_w=getfbossdamage()/1000*Math.min(1000,energyc_eff());
 			if(x!='tower')if(transcendlv>=10){
-				fbossdamage+=getfbossdamage()/1000*Math.min(1000,energyc_eff());
+				fbossdamage+=fbossdamage_w;
 			}
 			battle_status.log+="<br>";
 			var level1=getlv().lv;
@@ -488,6 +491,9 @@ function battle(x){
 			points+=(level2-level1)*(4+(pu[7]||0));
 			var give_equipments=Math.floor(equipment_data[x][2]*(luk**0.5+1)*(1+(eqlevels[equipment_data[x][0]][equipment_data[x][1]]||0)*0.15)*Math.random()*prestige_eff()*energyc_eff()*challeff(4)*Math.pow(1.2,(pu[10]||0))*transcend_eff());
 			if(chall==4||x=='tower')give_equipments=0;
+			if(x!='tower')if(transcendlv>=10){
+				battle_status.log+="由于超越之神10级效果，你对最终BOSS造成了"+Math.floor(fbossdamage_w)+"点伤害<br>";
+			}
 			if(give_equipments>0){
 				battle_status.log+=ename+"掉落了"+format(give_equipments)+"个"+equipment_names[equipment_data[x][0]][equipment_data[x][1]];
 				equipments[equipment_data[x][0]][equipment_data[x][1]]=(equipments[equipment_data[x][0]][equipment_data[x][1]]||0)+give_equipments;
@@ -524,6 +530,7 @@ function battle(x){
 				if(x==244&&highest_progress<244)battle_status.log+="<br>由于你第一次打败困难洞穴BOSS1，徽章的效果增加了。";
 				if(x==249&&highest_progress<249)battle_status.log+="<br>由于你第一次打败困难洞穴BOSS2，你得到的经验值增加了。";
 				if(x==254&&highest_progress<254)battle_status.log+="<br>由于你第一次打败困难海洋BOSS1，徽章的效果增加了。";
+				if(x==254&&highest_progress<259)battle_status.log+="<br>由于你第一次打败困难海洋BOSS2，转生升级“初始能量提升”的效果增加了。";
 				if(pu[4]){
 					var rate2=1-Math.pow(0.85,pu[4]**0.75);
 					if(highest_progress>=150)rate2=1-Math.pow(0.85,pu[4]**0.85);
@@ -558,7 +565,7 @@ function battle(x){
 			if(x!='tower')energy-=energyc;else tower+=(1+temp_towerc);
 			battling=0;
 		}else{
-			if((x==59||x==99||x==159||x==199) && damage1==0)battle_status.log+=ename+"闪避，"+ename+"还剩"+format(enemyhp)+"点生命值<br>";
+			if((x==59||x==99||x==159||x==199||x==259) && damage1==0)battle_status.log+=ename+"闪避，"+ename+"还剩"+format(enemyhp)+"点生命值<br>";
 			else if(x==79&&chall!=1)battle_status.log+="由于BOSS的特性，实际造成了"+damage1.toFixed(2)+"点伤害，"+ename+"还剩"+format(enemyhp)+"点生命值<br>";
 			else if(x==179&&chall!=1)battle_status.log+="由于BOSS的特性，实际造成了"+damage1.toFixed(2)+"点伤害，"+ename+"还剩"+format(enemyhp)+"点生命值<br>";
 			else if(x==39||x==69||x==79||x==139||x==169||x==179)battle_status.log+="由于BOSS的特性，实际造成了"+format(damage1)+"点伤害，"+ename+"还剩"+format(enemyhp)+"点生命值<br>";
@@ -1040,8 +1047,22 @@ setInterval(update,20);
 <a href="javascript:battle(254);">海洋BOSS1</a>
 </span><br>
 <span id="b254" style="display:none;">
+<a href="javascript:battle(255);">海洋6</a>
+<a href="javascript:battle(256);">海洋7</a>
+<a href="javascript:battle(257);">海洋8</a>
+<a href="javascript:battle(258);">海洋9</a>
+<a href="javascript:battle(259);">海洋BOSS2</a>
 </span><br>
 <span id="b259" style="display:none;">
+<a href="javascript:battle(260);">山脉1</a>
+<a href="javascript:battle(261);">山脉2</a>
+<a href="javascript:battle(262);">山脉3</a>
+<a href="javascript:battle(263);">山脉4</a>
+<a href="javascript:battle(264);">山脉BOSS1</a>
+</span><br>
+<span id="b264" style="display:none;">
+</span><br>
+<span id="b269" style="display:none;">
 </span><br>
 </div>
 </div>
@@ -1126,7 +1147,7 @@ setInterval(update,20);
 你有<span id="transcend3"></span>超越点，经验、装备的获得变为原来的<span id="transcend_eff"></span>倍，转生点的获得变为原来的<span id="transcend_eff2"></span>倍<br>
 <div id="tab6a" style="display:none;">
 <hr>
-超越之神的等级为<span id="transcendlv"></span>/10，升级需要你有<span id="transcendlv2"></span>超越点，花费<span id="transcendlv3"></span>超越点。<br>
+超越之神的等级为<span id="transcendlv"></span>/11，升级需要你有<span id="transcendlv2"></span>超越点，花费<span id="transcendlv3"></span>超越点。<br>
 超越之神使超越点的获得变为原来的<span id="transcendlv_eff"></span>倍。
 <a href="javascript:transcendlvup();">升级超越之神</a><br>
 <br>
@@ -1144,8 +1165,8 @@ setInterval(update,20);
 <div id="battlelog">
 欢迎进入《装备狂潮》，作者为loader3229！这是一个类似于属性膨胀的游戏，特点是怪物可以直接掉落大量装备！感受爆装备的乐趣吧！<br>
 与大多数通胀类游戏不同，这个游戏内在你被打败时不消耗能量，并且可以多次挑战BOSS。<br>
-版本：1.2.7<br>
-当前版本通关要求：通天塔到达2200层<br>
+版本：1.2.8<br>
+当前版本通关要求：通天塔到达3000层<br>
 本游戏建议在电脑上游玩（作者懒得写css）
 </div>
 </body>

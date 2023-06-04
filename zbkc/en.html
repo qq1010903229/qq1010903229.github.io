@@ -306,7 +306,7 @@ function battle(x){
 	if(x%5==4)battle_status.log="You encountered a BOSS, BOSS has "+format(enemyhp)+" HP<br>";
 	if(x==39||x==69||x==139||x==169)battle_status.log+="BOSS Attribute: Square-root your damage<br>";
 	if(x==49||x==99||x==149||x==199||x==249)battle_status.log+="BOSS Attribute: 23.33% Critical Chance<br>";
-	if(x==59||x==99||x==159||x==199)battle_status.log+="BOSS Attribute: 23.33% Evasion Chance<br>";
+	if(x==59||x==99||x==159||x==199||x==259)battle_status.log+="BOSS Attribute: 23.33% Evasion Chance<br>";
 	if(x==74&&chall==5)battle_status.log+="BOSS Attribute: Boss's second attack can instakill you<br>";
 	else if(x==74)battle_status.log+="BOSS Attribute: Boss's attack can instakill you<br>";
 	if(x==174&&chall==5)battle_status.log+="BOSS Attribute: Boss's second attack can instakill you<br>";
@@ -373,7 +373,7 @@ function battle(x){
 		else if(x==79)damage1=Math.log(damage1);
 		if(x==179&&chall==1)damage1=Math.floor(damage1**0.25);
 		else if(x==179)damage1=Math.log(damage1);
-		if((x==59||x==99||x==159||x==199) && Math.random()<7/30)damage1=0;
+		if((x==59||x==99||x==159||x==199||x==259) && Math.random()<7/30)damage1=0;
 		enemyhp-=damage1;
 		if(x==39||x==69||x==79||x==139||x==169||x==179)battle_status.log+="You hit "+ename+" with "+format(damage1)+" projected damage<br>";
 		if(enemyhp<=0){
@@ -471,7 +471,7 @@ function battle(x){
 			if(x!='tower')energy-=energyc;else tower+=(1+temp_towerc);
 			battling=0;
 		}else{
-			if((x==59||x==99||x==159||x==199) && damage1==0)battle_status.log+=ename+" evaded, "+ename+" has "+format(enemyhp)+" HP remaining<br>";
+			if((x==59||x==99||x==159||x==199||x==259) && damage1==0)battle_status.log+=ename+" evaded, "+ename+" has "+format(enemyhp)+" HP remaining<br>";
 			else if(x==79&&chall!=1)battle_status.log+="Due to BOSS attribute, BOSS got "+damage1.toFixed(2)+" damage, "+ename+" has "+format(enemyhp)+" HP remaining<br>";
 			else if(x==179&&chall!=1)battle_status.log+="Due to BOSS attribute, BOSS got "+damage1.toFixed(2)+" damage, "+ename+" has "+format(enemyhp)+" HP remaining<br>";
 			else if(x==39||x==69||x==79||x==139||x==169||x==179)battle_status.log+="Due to BOSS attribute, BOSS got "+damage1.toFixed(2)+" damage, "+ename+" has "+format(enemyhp)+" HP remaining<br>";
@@ -906,6 +906,10 @@ Current Difficulty: Hard<br>
 <span id="b254" style="display:none;">
 </span><br>
 <span id="b259" style="display:none;">
+</span><br>
+<span id="b264" style="display:none;">
+</span><br>
+<span id="b269" style="display:none;">
 </span><br>
 </div>
 </div>
