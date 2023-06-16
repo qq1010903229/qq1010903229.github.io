@@ -3,9 +3,10 @@ if(localStorage.l2dv!='5'){
 	localStorage.l2dmv='0';
 	localStorage.l2dmn='/newkasumilivedefault.json';
 }
-if(document.location.href.startsWith(document.location.origin+"/ksm/index-v7.html?")||document.location.href==document.location.origin+"/ksm/index-v7.html")localStorage.l2dmv='1';
-if(document.location.href.startsWith(document.location.origin+"/ksm/?")||document.location.href==document.location.origin+"/ksm/")localStorage.l2dmv='0';
-if(document.location.href.startsWith(document.location.origin+"/ksm/index.html?")||document.location.href==document.location.origin+"/ksm/index.html")localStorage.l2dmv='0';
+var l2d_force_change='';
+if(document.location.href.startsWith(document.location.origin+"/ksm/index-v7.html?")||document.location.href==document.location.origin+"/ksm/index-v7.html")l2d_force_change=localStorage.l2dmv='1';
+if(document.location.href.startsWith(document.location.origin+"/ksm/?")||document.location.href==document.location.origin+"/ksm/")l2d_force_change=localStorage.l2dmv='0';
+if(document.location.href.startsWith(document.location.origin+"/ksm/index.html?")||document.location.href==document.location.origin+"/ksm/index.html")l2d_force_change=localStorage.l2dmv='0';
 localStorage.l2dm=localStorage.l2dm || '/kasumievent130.json';
 localStorage.l2dmn=localStorage.l2dmn || '/newkasumilivedefault.json';
 function initl2d(){
@@ -27,7 +28,7 @@ $('.waifu-tool .fui-chat').hover(function (){
 var chat_times=0;
 $('.waifu-tool .fui-chat').click(function (){
 	chat_times++;
-	if(localStorage.l2dmv=='1')showMessage([
+	if(l2d_force_change=='1'||(l2d_force_change==''&&localStorage.l2dmv=='1'))showMessage([
 	'你知道吗？我的新版本将不会再打歌了，因此，loader3229会继续用我的旧版本进行测试自制谱。',
 	'你知道吗？我除了可以弹吉他之外，还可以打鼓，弹键盘，甚至还可以当DJ？',
 	'你知道吗？Kirakira就是Kirakira，而Dokidoki就是Dokidoki！',
@@ -77,20 +78,21 @@ $('.waifu-tool .fui-image').hover(function (){
 	showMessage('想看一下loader3229给我拍的照片吗？',3000);
 });
 $('.waifu-tool .fui-image').click(function (){
-	if(localStorage.l2dmv!='0')return alert('该版本暂不支持此操作');
+	if(l2d_force_change!='0'&&l2d_force_change!='')return alert('该版本暂不支持此操作');
+	if(l2d_force_change!='0'&&localStorage.l2dmv!='0')return alert('该版本暂不支持此操作');
 	window.open('/ksm/MMDPicM/MMDPicM'+Math.floor(Math.random()*2)+'.png');
 });
 $('.waifu-tool .fui-folder').hover(function (){
 	showMessage('想看一下我的档案吗？',3000);
 });
 $('.waifu-tool .fui-folder').click(function (){
-	document.location.href='/ksm/'+(localStorage.l2dmv=='0'?'':'index-v7.html');
+	document.location.href='/ksm/'+(l2d_force_change=='0'?'':l2d_force_change=='1'?'index-v7.html':localStorage.l2dmv=='0'?'':'index-v7.html');
 });
 $('.waifu-tool .fui-gear').hover(function (){
 	showMessage('想切换我的Live2D服装吗？',3000);
 });
 $('.waifu-tool .fui-gear').click(function (){
-	if(localStorage.l2dmv=='0')loadlive2d('live2d', localStorage.l2dm=[
+	if(localStorage.l2dmv=='0'||l2d_force_change=='0')loadlive2d('live2d', localStorage.l2dm=[
 	'/kasumi.json',
 	'/kasumik.json',
 	'/kasumievent130.json',
@@ -120,29 +122,30 @@ $('.waifu-tool .fui-cmd').hover(function (){
 	showMessage('想修复我的Live2D模型显示问题吗？',3000);
 });
 $('.waifu-tool .fui-cmd').click(function (){
-	loadlive2d('live2d', localStorage.l2dmv=='0'?localStorage.l2dm:localStorage.l2dmn, null);
+	loadlive2d('live2d', window.l2d_current_model, null);
 	window.l2da.currentTime=0;
 	window.l2da.pause();
 });
-loadlive2d('live2d', localStorage.l2dmv=='0'?localStorage.l2dm:localStorage.l2dmn, null);
+window.l2d_current_model=(l2d_force_change=='1')?localStorage.l2dmn:(localStorage.l2dmv=='0'||l2d_force_change=='0')?localStorage.l2dm:localStorage.l2dmn;
+loadlive2d('live2d', window.l2d_current_model, null);
 if(document.location.href.startsWith(document.location.origin+"/ksm/?")||document.location.href==document.location.origin+"/ksm/")showMessage('你进入了我的档案页，是想更多的了解我吗？（点击我右边最下面的<span class="fui-cmd"></span>按钮或上面“Live2D模型显示不正常修复”修复我的Live2D模型显示问题）',3000,true);
 else if(document.location.href.startsWith(document.location.origin+"/ksm/index.html?")||document.location.href==document.location.origin+"/ksm/index.html")showMessage('你进入了我的档案页，是想更多的了解我吗？（点击我右边最下面的<span class="fui-cmd"></span>按钮或上面“Live2D模型显示不正常修复”修复我的Live2D模型显示问题）',3000,true);
 else if(document.location.href.startsWith(document.location.origin+"/ksm/index-v7.html?")||document.location.href==document.location.origin+"/ksm/index-v7.html")showMessage('你进入了我的档案页，是想更多的了解我吗？（点击我右边最下面的<span class="fui-cmd"></span>按钮或上面“Live2D模型显示不正常修复”修复我的Live2D模型显示问题）',3000,true);
 else if(!document.location.href.startsWith(document.location.origin+"/BanGConverter"))showMessage('我是闪闪发光、心动不已的户山香澄！而且，因为loader3229，我和其他的户山香澄不一样！（点击我右边最下面的<span class="fui-cmd"></span>按钮或上面“Live2D模型显示不正常修复”修复我的Live2D模型显示问题）',3000,true);
 }
 function setl2dm(a){
-	if(localStorage.l2dmv!='0'){
+	if(localStorage.l2dmv!='0'&&l2d_force_change!='0'){
 		localStorage.l2dm=a;return;
 	}
-	loadlive2d('live2d', localStorage.l2dm=a, null);
+	loadlive2d('live2d', window.l2d_current_model=localStorage.l2dm=a, null);
 	window.l2da.currentTime=0;
 	window.l2da.pause();
 }
 function setl2dmn(a){
-	if(localStorage.l2dmv=='0'){
+	if(localStorage.l2dmv!='1'&&l2d_force_change!='1'){
 		localStorage.l2dmn=a;return;
 	}
-	loadlive2d('live2d', localStorage.l2dmn=a, null);
+	loadlive2d('live2d', window.l2d_current_model=localStorage.l2dmn=a, null);
 	window.l2da.currentTime=0;
 	window.l2da.pause();
 }
@@ -150,7 +153,7 @@ function setl2dv(a){
 	$('.waifu-tips').stop().css('opacity',0);
 	sessionStorage.removeItem('waifu-text')
 	localStorage.l2dmv=a;
-	loadlive2d('live2d', localStorage.l2dmv=='0'?localStorage.l2dm:localStorage.l2dmn, null);
+	loadlive2d('live2d', window.l2d_current_model=((l2d_force_change=='1')?localStorage.l2dmn:(localStorage.l2dmv=='0'||l2d_force_change=='0')?localStorage.l2dm:localStorage.l2dmn), null);
 	window.l2da.currentTime=0;
 	window.l2da.pause();
 }
@@ -184,7 +187,13 @@ window.l2da.src="/bandoril2d/systemProfile_001_1.mp3";
 window.timeout0=0;
 currentevent="systemProfile_001_1";
 function syncupdate(){
-	window.l2de.setLipSync(null);
+	if(window.l2de&&window.l2de.setLipSync&&window.l2d_current_model!=((l2d_force_change=='1')?localStorage.l2dmn:(localStorage.l2dmv=='0'||l2d_force_change=='0')?localStorage.l2dm:localStorage.l2dmn)){
+		window.l2d_current_model=((l2d_force_change=='1')?localStorage.l2dmn:(localStorage.l2dmv=='0'||l2d_force_change=='0')?localStorage.l2dm:localStorage.l2dmn);
+		loadlive2d('live2d', window.l2d_current_model, null);
+		window.l2da.currentTime=0;
+		window.l2da.pause();
+	}
+	if(window.l2de&&window.l2de.setLipSync)window.l2de.setLipSync(null);
 	var arr=lipSyncValues[currentevent];
 	if(arr){
 		var index=Math.floor(window.l2da.currentTime*20+2.5);
