@@ -13,6 +13,7 @@
 .card .frame.frame2star{background:url(2-star.png);}
 .card .frame.frame3star{background:url(3-star.png);}
 .card .frame.frame4star{background:url(4-star.png);}
+.card .frame.frame5star{background:url(5-star.png);}
 .card .attr{width:30px;height:30px;position:absolute;background-size:cover !important;top:2%;right:1%;pointer-events:none;}
 .card .attr.cool{background:url(cool.png);}
 .card .attr.happy{background:url(happy.png);}
@@ -49,12 +50,12 @@ if(document.location.href.indexOf("mirror=")!=-1){
 }
 function t(a){
 	if(z.checked)return true;
-	if(a.className.indexOf("s")!=-1)return true;
+	if(a.className.indexOf(" s")!=-1)return true;
 	return a.className+=" s",false;
 }
 function t1(a){
 	if(z.checked)return true;
-	if(a.className.indexOf("s")!=-1)return true;
+	if(a.className.indexOf(" s")!=-1)return true;
 	return a.className+=" s",false;
 }
 function d(id){
@@ -66,10 +67,10 @@ function d(id){
 function card(id,sd,attr,band,l,p,sl,s,f){ //R:Life Recovery S:Shield J:Judge Boost D:Life cannot drain to 0 P:Perfect Score UP L:Score UP+ When Life>=900 G:Score UP+ When No Great 
 	href=`${mirror}/info/cards/${id}`;
 	return `
-<a class="card ${(l>=50||s)?"t":""} ${(s)?"s":""}" href="${href}" onclick="return t1(this);" ontouchend="return t(this);" target="_blank">
+<a class="card card${(f==1)?5:4}star ${(l>=50||s)?"t":""} ${(s)?"s":""}" href="${href}" onclick="return t1(this);" ontouchend="return t(this);" target="_blank">
 <img class="img1" src="${mirror}/assets/jp/thumb/chara/card${d(id)}_rip/res${sd}_normal.png"></div>
 <img class="img2" src="${mirror}/assets/jp/thumb/chara/card${d(id)}_rip/res${sd}_after_training.png"></div>
-<div class="frame frame4star"></div>
+<div class="frame frame${(f==1)?5:4}star"></div>
 <div class="attr ${attr}"></div>
 <!--div class="band ${band}"></div-->
 <div class="star star-1"></div>
@@ -92,34 +93,38 @@ ${(f==4)?'<div class="df">DreamFES</div>':""}
 这里列出了我的BanG Dream! 国服所有四星和五星卡。<br>
 电脑端：鼠标移到卡牌上以查看特训后卡面（无论我的卡实际上是否已经特训），点击卡牌<span id="y">锁定特训后卡面，再次点击卡牌</span>查看详细信息<br>
 手机端：点击卡牌<span id="y2">以查看并锁定特训后卡面（无论我的卡实际上是否已经特训），再次点击卡牌</span>查看详细信息<br>
-<input type="checkbox" id="z" onclick="y.style.display=y2.style.display=this.checked?'none':'inline';"><label for="z">点击卡牌直接查看详细信息</label><br>
-所有卡牌均为修改过的Bandori Database样式<br>
-当前卡牌图像源：<script>document.write(mirror);</script> <a href="?mirror=https://bestdori.com">切换到bestdori.com</a> <a href="?mirror=https://bestdori.reikohaku.fun">切换到bestdori.reikohaku.fun</a><hr>
+<input type="checkbox" id="z" onclick="y.style.display=y2.style.display=this.checked?'none':'inline';"><label for="z">点击卡牌直接查看详细信息</label> 
+<input type="checkbox" id="z2" onclick="z3.innerHTML=this.checked?'.card.card4star{display:none;}':''"><label for="z2">只显示五星卡</label><br>
+<style id="z3"></style>
+<!--所有卡牌均为修改过的Bandori Database样式<br-->
+<span style="display:none;">当前卡牌图像源：<script>document.write(mirror);</script> <a href="?mirror=https://bestdori.com">切换到bestdori.com</a> <a href="?mirror=https://bestdori.reikohaku.fun">切换到bestdori.reikohaku.fun</a></span><hr>
 <script>document.write("<img src="+mirror+"/assets/jp/band/logo/001_rip/logoL.png height=50>");</script>
 <hr>
 1.户山香澄<br>
-<script>document.write(card(122,"001007","pure","popipa",29,15192,"40R,SL1"));</script>
+<script>document.write(card(122,"001007","pure","popipa",34,16310,"40R,SL1"));</script>
 <script>document.write(card(425,"001023","happy","popipa",60,34086,"110L,SL4"));</script>
 <script>document.write(card(457,"001025","cool","popipa",60,32587,"60J,SL1"));</script>
 <script>document.write(card(577,"001029","power","popipa",60,34090,"110G,SL2"));</script>
 <script>document.write(card(1348,"001058","pure","popipa",60,32590,"60J,SL1"));</script>
-<script>document.write(card(1475,"001062","cool","popipa",56,29469,"125P,SL3",1,1));</script>
+<script>document.write(card(1475,"001062","cool","popipa",60,34144,"125P,SL3",1,1));</script>
 <hr>
 2.花园多惠<br>
 <script>document.write(card(430,"002017","pure","popipa",60,32350,"120P,SL2",0,4));</script>
 <script>document.write(card(944,"002036","happy","popipa",60,34150,"125/110P,SL4",0,4));</script>
+<script>document.write(card(1592,"002054","power","popipa",60,34151,"125P,SL2",1,1));</script>
 <hr>
 3.牛込里美<br>
-<script>document.write(card(12,"003004","power","popipa",14,11654,"100,SL1"));</script>
+<script>document.write(card(12,"003004","power","popipa",60,30391,"100,SL2"));</script>
 <script>document.write(card(426,"003017","happy","popipa",60,34091,"100,SL4"));</script>
+<script>document.write(card(713,"003028","pure","popipa",60,32294,"110L,SL2"));</script>
 <script>document.write(card(1057,"003038","happy","popipa",1,11031,"60J,SL1"));</script>
 <hr>
 4.山吹沙绫<br>
-<script>document.write(card(171,"004008","happy","popipa",60,32643,"100,SL3"));</script>
-<script>document.write(card(286,"004010","cool","popipa",59,30833,"110L,SL1"));</script>
+<script>document.write(card(171,"004008","happy","popipa",60,32643,"100,SL4"));</script>
+<script>document.write(card(286,"004010","cool","popipa",60,32291,"110L,SL1"));</script>
 <script>document.write(card(491,"004019","power","popipa",53,24409,"60R,SL2"));</script>
 <script>document.write(card(771,"004031","power","popipa",60,32590,"80/R,SL1"));</script>
-<script>document.write(card(1141,"004039","pure","popipa",59,30829,"115/95G,SL1"));</script>
+<script>document.write(card(1141,"004039","pure","popipa",60,32286,"115/95G,SL2"));</script>
 <hr>
 5.市谷有咲<br>
 <script>document.write(card(20,"005004","cool","popipa",60,31152,"40R,SL2"));</script>
@@ -127,27 +132,29 @@ ${(f==4)?'<div class="df">DreamFES</div>':""}
 <script>document.write(card(472,"005024","happy","popipa",60,34087,"100,SL4"));</script>
 <script>document.write(card(666,"005032","happy","popipa",1,10930,"110G,SL1"));</script>
 <script>document.write(card(1092,"005045","cool","popipa",60,32589,"60J,SL1"));</script>
-<script>document.write(card(1462,"005057","pure","popipa",59,30831,"115/95G,SL2"));</script>
+<script>document.write(card(1462,"005057","pure","popipa",60,32289,"115/95G,SL2"));</script>
 <hr>
 <script>document.write("<img src="+mirror+"/assets/jp/band/logo/002_rip/logoL.png height=50>");</script>
 <hr>
 6.美竹兰<br>
+<script>document.write(card(661,"006033","power","afterglow",1,10281,"60R,SL1"));</script>
 <script>document.write(card(1051,"006048","cool","afterglow",60,32285,"115/95G,SL2"));</script>
 <hr>
 7.青叶摩卡<br>
 <script>document.write(card(126,"007005","cool","afterglow",50,22009,"40J,SL3"));</script>
+<script>document.write(card(432,"007019","pure","afterglow",1,10931,"100,SL1"));</script>
 <script>document.write(card(677,"007028","cool","afterglow",60,34091,"110G,SL3"));</script>
-<script>document.write(card(785,"007030","power","afterglow",51,22973,"60R,SL2"));</script>
+<script>document.write(card(785,"007030","power","afterglow",52,23637,"60R,SL2"));</script>
 <script>document.write(card(867,"007033","cool","afterglow",1,10282,"60R,SL1"));</script>
 <script>document.write(card(1148,"007040","power","afterglow",52,23468,"125/110P,SL1",0,4));</script>
 <hr>
 8.上原绯玛丽<br>
 <script>document.write(card(405,"008016","happy","afterglow",60,32592,"60R,SL1"));</script>
-<script>document.write(card(728,"008030","cool","afterglow",60,32284,"110G,SL2"));</script>
+<script>document.write(card(728,"008030","cool","afterglow",60,34084,"110G,SL2"));</script>
 <script>document.write(card(1052,"008042","cool","afterglow",1,10181,"100,SL1"));</script>
 <hr>
 9.宇田川巴<br>
-<script>document.write(card(443,"009022","cool","afterglow",17,13236,"60R,SL1"));</script>
+<script>document.write(card(443,"009022","cool","afterglow",17,13236,"60R,SL2"));</script>
 <script>document.write(card(692,"009032","cool","afterglow",60,34150,"120P,SL2",0,4));</script>
 <script>document.write(card(1525,"009055","power","afterglow",30,18034,"125P,SL1",1,1));</script>
 <hr>
@@ -155,6 +162,33 @@ ${(f==4)?'<div class="df">DreamFES</div>':""}
 <script>document.write(card(558,"010028","cool","afterglow",60,34090,"110L,SL2"));</script>
 <script>document.write(card(760,"010037","cool","afterglow",20,13642,"100,SL1"));</script>
 <script>document.write(card(993,"010042","happy","afterglow",55,25999,"115/95G,SL1"));</script>
+<hr>
+<script>document.write("<img src="+mirror+"/assets/jp/band/logo/003_rip/logoL.png height=50>");</script>
+<hr>
+11.弦卷心<br>
+<script>document.write(card(111,"011006","happy","hhw",1,10100,"100,SL1"));</script>
+<script>document.write(card(302,"011018","pure","hhw",60,32591,"60R,SL1"));</script>
+<script>document.write(card(442,"011025","cool","hhw",56,27059,"110L,SL1"));</script>
+<script>document.write(card(624,"011034","happy","hhw",60,32350,"120P,SL2",0,4));</script>
+<script>document.write(card(837,"011043","power","hhw",40,18310,"60R,SL1"));</script>
+<script>document.write(card(1114,"011051","pure","hhw",50,22208,"115/95G,SL1"));</script>
+<hr>
+12.濑田薰<br>
+<script>document.write(card(393,"012015","happy","hhw",54,25039,"110L,SL1"));</script>
+<script>document.write(card(516,"012022","pure","hhw",52,23468,"120P,SL2",0,4));</script>
+<script>document.write(card(1015,"012041","cool","hhw",1,10282,"60R,SL1"));</script>
+<script>document.write(card(1620,"012059","power","hhw",25,16321,"125P,SL1",1,1));</script>
+<hr>
+13.北泽育美<br>
+<script>document.write(card(379,"013015","pure","hhw",53,24185,"110L,SL2"));</script>
+<hr>
+14.松原花音<br>
+<script>document.write(card(1115,"014044","pure","hhw",53,24185,"110L,SL2"));</script>
+<hr>
+15.奥泽美咲<br>
+<script>document.write(card(394,"015018","happy","hhw",1,10282,"60J,SL1"));</script>
+<script>document.write(card(808,"015039","pure","hhw",60,32290,"100,SL2"));</script>
+<script>document.write(card(1464,"015059","pure","hhw",50,22211,"100+0.5*P,SL1"));</script>
 <hr>
 <script>document.write("<img src="+mirror+"/assets/jp/band/logo/004_rip/logoL.png height=50>");</script>
 <hr>
@@ -172,21 +206,23 @@ ${(f==4)?'<div class="df">DreamFES</div>':""}
 <script>document.write(card(1156,"017047","happy","paspale",1,10282,"60R,SL1"));</script>
 <hr>
 18.白鹭千圣<br>
-<script>document.write(card(161,"018007","pure","paspale",60,32732,"100,SL3"));</script>
+<script>document.write(card(161,"018007","pure","paspale",60,32732,"100,SL4"));</script>
 <script>document.write(card(453,"018017","happy","paspale",60,32291,"100,SL1"));</script>
 <script>document.write(card(500,"018018","power","paspale",55,26002,"110L,SL1"));</script>
 <script>document.write(card(796,"018030","cool","paspale",54,25090,"120P,SL1",0,4));</script>
+<script>document.write(card(1594,"018057","pure","paspale",33,16370,"100+0.5*P,SL2"));</script>
 <hr>
 19.大和麻弥<br>
 <script>document.write(card(236,"019010","happy","paspale",50,21586,"60J,SL1"));</script>
 <script>document.write(card(378,"019014","pure","paspale",60,34092,"100,SL4"));</script>
 <script>document.write(card(582,"019025","pure","paspale",1,10282,"60J,SL1"));</script>
 <script>document.write(card(1083,"019042","power","paspale",60,32292,"115/95G,SL1"));</script>
-<script>document.write(card(1411,"019053","pure","paspale",6,11499,"100+0.5*P,SL1"));</script>
+<script>document.write(card(1411,"019053","pure","paspale",33,16376,"100+0.5*P,SL2"));</script>
 <hr>
 20.若宫伊芙<br>
 <script>document.write(card(415,"020023","cool","paspale",54,25270,"60R,SL1"));</script>
 <script>document.write(card(583,"020028","pure","paspale",60,34089,"110G,SL4"));</script>
+<script>document.write(card(1324,"020054","happy","paspale",10,12026,"115/95G,SL1"));</script>
 <hr>
 <script>if(document.location.href.startsWith("file")){
 //document.write(card(0,"000000","power","popipa",1,12345,"100,SL1",0,0));
