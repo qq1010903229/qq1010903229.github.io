@@ -1,0 +1,121 @@
+<html>
+<head>
+<title>The Perfect Tower 2 Exotic Experiment Calculator</title>
+<script>
+function g(a){return document.getElementById(a);}
+window.calculate=0;
+function update(){
+	var tfc=parseFloat(g("tfc").value);
+	var prc=parseFloat(g("prc").value);
+	var genc=parseFloat(g("genc").value);
+	var boostc=parseFloat(g("boostc").value);
+	if(tfc!=tfc||prc!=prc||genc!=genc||boostc!=boostc){
+		g("inputerror").style.display="";g("calculate").style.display="none";window.calculate=0;return;
+	}else{
+		g("inputerror").style.display="none";g("calculate").style.display="";
+	}
+	var tfl=Math.floor((tfc-1)/3);
+	var prl=Math.floor((prc-1)/1);
+	var genl=Math.floor((genc-2)/1);
+	var boostl=Math.floor((boostc-6)/5);
+	g("tfl").innerHTML=tfl;
+	g("prl").innerHTML=prl;
+	g("genl").innerHTML=genl;
+	g("boostl").innerHTML=boostl;
+	if(tfl<0||prl<0||genl<0||boostl<0){
+		g("inputerror").style.display="";g("calculate").style.display="none";window.calculate=0;return;
+	}else{
+		g("inputerror").style.display="none";g("calculate").style.display="";
+	}
+	var tft=60*3600*Math.pow(0.8,tfl);
+	var prt=25*3600*Math.pow(0.8,prl);
+	var gent=100*3600*Math.pow(0.8,genl);
+	var boostt=50*3600*Math.pow(0.8,boostl);
+	g("tft").innerHTML=tft;
+	g("prt").innerHTML=prt;
+	g("gent").innerHTML=gent;
+	g("boostt").innerHTML=boostt;
+	if(window.calculate!=1&&window.calculate!=2){
+		g("tfc").disabled=false;
+		g("prc").disabled=false;
+		g("genc").disabled=false;
+		g("boostc").disabled=false;
+		return;
+	}
+	g("tfc").disabled=true;
+	g("prc").disabled=true;
+	g("genc").disabled=true;
+	g("boostc").disabled=true;
+	if(window.calculate==1){
+		window.calculate=2;
+		window.tfb=0;
+		window.prb=0;
+		window.genb=0;
+		window.boostb=0;
+		window.uni=0;
+		window.time=0;
+		window.realtime=0;
+		window.starttime=Date.now();
+	}
+	var tf=1+0.01*window.tfb*(1+0.1*window.boostb);
+	var pr=1+0.01*window.prb*(1.05**window.boostb);
+	var calctime=Date.now();
+	while(window.uni<1/0 && Date.now()-calctime<200){
+		var tfr=tft*(window.tfb+1);
+		var prr=prt*(window.prb+1);
+		var genr=gent*(window.genb+1);
+		var boostr=boostt*(window.boostb+1);
+		//console.log("time="+time+",realtime="+realtime+",tfb="+window.tfb+",prb="+window.prb+",genb="+window.genb+",boostb="+window.boostb+",uni="+window.uni);
+		if(tfr<=prr&&tfr<=genr&&tfr<=boostr){
+			realtime+=(tfr-time)/tf;
+			time=tfr;
+			window.tfb++;
+			tf=1+0.01*window.tfb*(1+0.1*window.boostb);
+			pr=1+0.01*window.prb*(1.05**window.boostb);
+		}else if(prr<=tfr&&prr<=genr&&prr<=boostr){
+			realtime+=(prr-time)/tf;
+			time=prr;
+			window.prb++;
+			tf=1+0.01*window.tfb*(1+0.1*window.boostb);
+			pr=1+0.01*window.prb*(1.05**window.boostb);
+		}else if(genr<=tfr&&genr<=prr&&genr<=boostr){
+			realtime+=(genr-time)/tf;
+			time=genr;
+			window.genb++;
+			window.uni+=pr;
+		}else if(boostr<=tfr&&boostr<=prr&&boostr<=genr){
+			realtime+=(boostr-time)/tf;
+			time=boostr;
+			window.boostb++;
+			tf=1+0.01*window.tfb*(1+0.1*window.boostb);
+			pr=1+0.01*window.prb*(1.05**window.boostb);
+		}else{
+			g("result").innerHTML="Calculate Error!";
+			window.calculate=0;
+			return;
+		}
+	}
+	if(window.uni>=1/0){
+		g("result").innerHTML="You will gain Fabric of Reality after "+realtime+" seconds.";
+		if(realtime<1){
+			g("result").innerHTML="You will gain Fabric of Reality "+(1/realtime)+" times per second.";
+		}
+		g("result").innerHTML+="<br>Total Calculation Time: "+(Date.now()-window.starttime)+"ms";
+		window.calculate=0;
+	}else{
+		g("result").innerHTML="Calculating... ("+(Math.log(window.uni+1)/Math.log(2)/10.24).toFixed(2)+"%)";
+		g("result").innerHTML+="<br>Calculation Time: "+(Date.now()-window.starttime)+"ms<br>Calculated GameTime: "+realtime+"s"+"<br>Calculated BaseTime: "+time+"s";
+	}
+}
+setInterval(update,10);
+</script>
+</head>
+<body>
+TimeFactor (Left) x1 Cost: <input id="tfc" type="number" min="1" step="3" value="1"> Level: <span id="tfl"></span> BaseTime: <span id="tft"></span>s<br>
+Production (Right) x1 Cost: <input id="prc" type="number" min="1" step="1" value="1"> Level: <span id="prl"></span> BaseTime: <span id="prt"></span>s<br>
+UniverseGenerator (TopMiddle) x1 Cost: <input id="genc" type="number" min="2" step="1" value="2"> Level: <span id="genl"></span> BaseTime: <span id="gent"></span>s<br>
+Boost (BottomMiddle) x1 Cost: <input id="boostc" type="number" min="6" step="5" value="6"> Level: <span id="boostl"></span> BaseTime: <span id="boostt"></span>s<br>
+<span id="inputerror">Please input correct numbers!</span><a id="calculate" href="javascript:void(window.calculate=(window.calculate?0:1));">Calculate/Stop</a><br>
+<div id="result"></div>
+</body>
+</html>
