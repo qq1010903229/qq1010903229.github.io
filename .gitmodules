@@ -2,3 +2,7 @@
 	path = lit
 	url = https://github.com/qq1010903229/Prestige-Tree.git
 	branch = lit
+[submodule "firstrewritten"]
+	path = firstrewritten
+	url = https://github.com/qq1010903229/Prestige-Tree.git
+	branch = test
