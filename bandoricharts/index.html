@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="zh-cn">
+<head>
+<meta charset="utf-8">
+<title>loader3229的BanG Dream! 自制谱列表</title>
+<style>
+.difficulty1,.difficulty1 a{color:#57C0C9;}
+.difficulty2,.difficulty2 a{color:#8AC957;}
+.difficulty3,.difficulty3 a{color:#EFA119;}
+.difficulty4,.difficulty4 a{color:#C76060;}
+.difficulty5,.difficulty5 a{color:#C360C7;}
+.difficulty6,.difficulty6 a{color:#555555;}
+</style>
+<script src="charts.js"></script>
+</head>
+<body>
+<a href="/">返回首页</a>
+<a href="/bandoricharts">loader3229的BanG Dream! 自制谱列表</a>
+<a href="/bandorivals">loader3229的BanG Dream! 定数表</a>
+<a href="/BanGConverter">BanG Converter - BanG Dream! 谱面转换器</a>
+<a href="https://github.com/qq1010903229/BanG-simulator/releases/download/v2.5.0/release.zip">BanG! Simulator 2.5.0</a>
+<a href="/bandoril2dsettings">Live2D看板娘设置</a>
+<a href="javascript:void(setl2dm(localStorage.l2dm),setl2dmn(localStorage.l2dmn));">Live2D模型显示不正常修复</a>
+<a href="https://afdian.net/a/loader3229/plan">用爱发电（捐赠）</a>
+<hr>
+<h1>loader3229的BanG Dream! 自制谱列表</h1><br>
+对于难度定级有不合理的地方请在<a href="https://github.com/qq1010903229/bandori-chart-feedback/issues">这里</a>提issue<br>
+普通：没有3个或更多同时点击的音符，且可以用正常打法全连并无需交叉手（反手）的谱面。<br>
+多押：有3个或更多同时点击的音符的谱面。<br>
+反手：用正常打法全连这个谱面需要交叉手（反手）。<br>
+--- 以下的谱面类型最好不要打（特殊谱面，难度>=60） ---<br>
+7K：这是7K谱面，谱面中只有蓝键和直条。<br>
+观赏：这张谱面是观赏谱。<br><hr>
+<table style="width:1100px;" id="chart_table">
+<tr><td>加载中，请稍候……如果加载不出来，说明网络问题，或者未打开javascript</td></tr>
+</table>
+更旧的谱面请在<a href="/bandoricharts.html">旧版谱面表</a>查看
+<script src="/bandoril2d/jquery.min.js"></script>
+<script src="/bandoril2d/live2d.js"></script>
+<script src="/bandoril2d/live2d-mp.js?5"></script>
+<script src="/bandoril2d/jquery-ui.min.js"></script>
+<link rel="stylesheet" type="text/css" href="/bandoril2d/waifu.css"/>
+<div class="waifu">
+        <div class="waifu-tips"></div>
+<canvas id="live2d" class="live2d"></canvas>
+        <div class="waifu-tool">
+            <span class="fui-chat"></span>
+            <span class="fui-star"></span>
+            <span class="fui-folder"></span>
+            <!--span class="fui-video"></span-->
+            <span class="fui-gear"></span>
+            <span class="fui-info-circle"></span>
+            <span class="fui-cmd"></span>
+        </div>
+<script>
+function loadtable(){
+var html='<tr><td style="width:5%;"></td><td style="width:6%;"><a href="javascript:sorttable(1);">ID</a></td><td style="width:18%;"><a href="javascript:sorttable(2);">名称</a></td><td style="width:10%;">难度名</td><td style="width:5%;"><a href="javascript:sorttable(6);">难度</a></td><td style="width:16%;">类型</td><td style="width:6%;"><a href="javascript:sorttable(9);">物量</a></td><td style="width:10%;"><a href="javascript:sorttable(11);">BPM</a></td><td style="width:23%;">备注</td></tr>';
+var getstyle=function(difficultylevel){
+if(difficultylevel>=50){
+return "font-weight:bold;color:rgb(255,0,255)";
+}else if(difficultylevel>=36){
+return "font-weight:bold;color:rgb(255,0,"+Math.floor(18*(difficultylevel-36))+")";
+}else if(difficultylevel>=30){
+return "color:rgb(255,"+Math.floor(12*(36-difficultylevel)**1.4)+",0)";
+}else if(difficultylevel>=25){
+return "color:rgb("+Math.floor(255*(1-(29-difficultylevel)**2/16))+","+Math.floor(195+5*(29-difficultylevel))+",0)";
+}else if(difficultylevel>=15){
+return "color:rgb(0,215,"+Math.floor(25.5*(25-difficultylevel))+")";
+}else if(difficultylevel>=5){
+return "color:rgb(0,"+Math.floor(21.5*(difficultylevel-5))+",255)";
+}else{
+return "color:rgb(0,0,255)";
+}
+}
+for(var i=0;i<charts.length;i++){
+	html+='<tr><td>#'+charts[i][0]+
+	'</td><td><a href=https://bestdori.com/community/charts/'+charts[i][1]+' target=_blank>'+charts[i][1]+
+	'</td><td><a href=https://bestdori.com/community/charts/'+charts[i][1]+' target=_blank>'+charts[i][2]+
+	'</td><td class="difficulty'+charts[i][5]+'">'+charts[i][4]+
+	'</td><td style="'+getstyle(charts[i][6])+'">'+charts[i][6]+
+	'</td><td>'+['1.0谱面/','5.0新SP/'][charts[i][7]]+['普通','多押','反手','7K','观赏'][charts[i][8]]+
+	'</td><td>'+charts[i][9]+
+	'</td><td>'+charts[i][10]+(charts[i][10]==charts[i][11]?'':'-'+charts[i][11])+
+	'</td><td>'+charts[i][12]+'</td>';
+}
+document.getElementById("chart_table").innerHTML=html;
+}
+window.addEventListener("load",loadtable);
+
+function sorttable(x){
+	charts.sort(function(a,b){if(a[x]>b[x])return x==2?1:-1;if(a[x]<b[x])return x==2?-1:1;return 0;})
+	loadtable();
+}
+</script>
+</body>
+</html>

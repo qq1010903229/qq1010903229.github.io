@@ -92,7 +92,12 @@ $('.waifu-tool .fui-gear').hover(function (){
 	showMessage('想切换我的Live2D服装吗？',3000);
 });
 $('.waifu-tool .fui-gear').click(function (){
-	if(localStorage.l2dmv=='0'||l2d_force_change=='0')loadlive2d('live2d', localStorage.l2dm=[
+	if(l2d_force_change=='1')loadlive2d('live2d', window.l2d_current_model=localStorage.l2dmn=[
+	'/newkasumicasual.json',
+	'/newkasumischoolwinter.json',
+	'/newkasumilivedefault.json'
+	][Math.floor(Math.random()*3)], null);
+	else if(localStorage.l2dmv=='0'||l2d_force_change=='0')loadlive2d('live2d', window.l2d_current_model=localStorage.l2dm=[
 	'/kasumi.json',
 	'/kasumik.json',
 	'/kasumievent130.json',
@@ -103,7 +108,7 @@ $('.waifu-tool .fui-gear').click(function (){
 	'/kasumicasual.json',
 	'/kasumischoolwinter.json'
 	][Math.floor(Math.random()*9)], null);
-	else loadlive2d('live2d', localStorage.l2dmn=[
+	else loadlive2d('live2d', window.l2d_current_model=localStorage.l2dmn=[
 	'/newkasumicasual.json',
 	'/newkasumischoolwinter.json',
 	'/newkasumilivedefault.json'
